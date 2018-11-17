@@ -18,14 +18,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
     
     var tvRecord: CKRecord!
     
-    let database = CKContainer(identifier: "iCloud.com.Rogue.Viewer").publicCloudDatabase
+    let database = CKContainer(identifier: "iCloud.com.TeamRogue.Viewer").publicCloudDatabase
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         application.isIdleTimerDisabled = true
         
         UNUserNotificationCenter.current().delegate = self
         
-        let authOptions: UNAuthorizationOptions = [.sound,.badge,.alert]
+        let authOptions: UNAuthorizationOptions = [.badge]
         
         UNUserNotificationCenter.current().requestAuthorization(options: authOptions) { (autorized, error) in
             guard error == nil else {
@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
             if autorized {
                 DispatchQueue.main.async {
                      application.registerForRemoteNotifications()
-                    
+    
                     CloudKitManager.shared.saveSubscription(for: GlobalMessage.recordType,ID:CloudKitManager.messageSubscriptionID)
                     
                     CloudKitManager.shared.saveSubscription(for: TV.recordType,ID:CloudKitManager.tvSubscriptionID)
@@ -79,6 +79,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
     
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+//        Save device token as TV property
+        
         print("registered")
     }
     
@@ -109,11 +111,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {
-        playVideo()
+//        playVideo()
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
-        playVideo()
+//        playVideo()
     }
     
     func applicationWillTerminate(_ application: UIApplication) {

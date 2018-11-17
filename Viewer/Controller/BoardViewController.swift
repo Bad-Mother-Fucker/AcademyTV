@@ -56,10 +56,10 @@ class BoardViewController: UIViewController {
         super.viewDidLoad()
 //        playVideo()
         
-        NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: player.currentItem, queue: .main) { [weak self] _ in
-            self?.player.seek(to: CMTime.zero)
-            self?.player.play()
-        }
+//        NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: player.currentItem, queue: .main) { [weak self] _ in
+//            self?.player.seek(to: CMTime.zero)
+//            self?.player.play()
+//        }
         
         NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: CKNotificationName.globalMessages.rawValue), object: nil, queue: OperationQueue.main) { (notification) in
             if let ckqn = notification.userInfo?[CKNotificationName.notification.rawValue] as? CKQueryNotification {
@@ -169,12 +169,12 @@ class BoardViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        player.play()
+//        player.play()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        player.play()
+//        player.play()
     }
     
     // MARK: Private Implementation
@@ -193,7 +193,7 @@ class BoardViewController: UIViewController {
         
         self.view.layer.addSublayer(layer)
         
-        player.play()
+//        player.play()
         
     }
     

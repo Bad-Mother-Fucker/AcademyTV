@@ -18,7 +18,7 @@ class CloudKitManager {
 
     
     // MARK: - Private Variables
-    static let database = CKContainer(identifier: "iCloud.com.Rogue.Viewer").publicCloudDatabase
+    static let database = CKContainer(identifier: "iCloud.com.TeamRogue.Viewer").publicCloudDatabase
     
     
     static let messageSubscriptionID = "CKMessageSubscription"
