@@ -38,7 +38,7 @@ class GlassOfficeViewController: UIViewController {
                 
                 //printing the json in console
                 print("Json: ")
-                print(jsonObj)
+                print(jsonObj ?? "nil")
                 
 //                //getting the avengers tag array from json and converting it to NSArray
 //                if let heroeArray = jsonObj!.value(forKey: "avengers") as? NSArray {

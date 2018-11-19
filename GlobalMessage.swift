@@ -15,7 +15,7 @@ class GlobalMessageModel {
         var messages = [GlobalMessage]()
         let query = CKQuery(recordType: GlobalMessage.recordType, predicate: NSPredicate(value: true))
         query.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-        CloudKitManager.database.perform(query, inZoneWith: nil) { (records, error) in
+        CKKeys.database.perform(query, inZoneWith: nil) { (records, error) in
             guard error == nil else {
                 print(error.debugDescription)
                 print("Error on Getting message")
@@ -30,13 +30,13 @@ class GlobalMessageModel {
     
     static func postMessage(title: String,subtitle:String,location:String?,description:String?,URL:URL?,timeToLive: TimeInterval?, completionHandler: @escaping (CKRecord?,Error?)->Void) {
         let msg = GlobalMessage(title: title, subtitle: subtitle, location: location, description: description, URL: URL,timeToLive: timeToLive)
-        CloudKitManager.database.save(msg.record) { (record, error) in
+        CKKeys.database.save(msg.record) { (record, error) in
             completionHandler(record,error)
         }
     }
     
     static func delete(record:CKRecord) {
-        CloudKitManager.database.delete(withRecordID: record.recordID) { (id, error) in
+        CKKeys.database.delete(withRecordID: record.recordID) { (id, error) in
             if let _ = error {
                 print (error!.localizedDescription)
             }
@@ -60,9 +60,11 @@ class GlobalMessage: CloudStored {
     }
     
     init (title:String,subtitle:String,location:String?,description:String?,URL:URL?,timeToLive: TimeInterval?) {
+        
         self.record = CKRecord(recordType: GlobalMessage.recordType)
         record.setValue(title, forKey: GlobalMessage.keys.title)
         record.setValue(subtitle, forKey: GlobalMessage.keys.subtitle)
+        
         if let _ = location {
             record.setValue(location, forKey: GlobalMessage.keys.location)
         }
@@ -76,6 +78,7 @@ class GlobalMessage: CloudStored {
         if let _ = timeToLive {
             record.setValue(timeToLive, forKey: GlobalMessage.keys.timeToLive)
         }
+        
     }
     
 
@@ -89,7 +92,7 @@ class GlobalMessage: CloudStored {
             record.setValue(newValue, forKey: GlobalMessage.keys.timeToLive)
             let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
             op.savePolicy = .changedKeys
-            CloudKitManager.database.add(op)
+            CKKeys.database.add(op)
         }
         
     }
@@ -103,7 +106,7 @@ class GlobalMessage: CloudStored {
             record.setValue(newValue, forKey: GlobalMessage.keys.title)
             let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
             op.savePolicy = .changedKeys
-            CloudKitManager.database.add(op)
+            CKKeys.database.add(op)
         }
     }
     
@@ -115,7 +118,7 @@ class GlobalMessage: CloudStored {
             record.setValue(newValue, forKey: GlobalMessage.keys.subtitle)
             let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
             op.savePolicy = .changedKeys
-            CloudKitManager.database.add(op)
+            CKKeys.database.add(op)
         }
     }
     
@@ -128,7 +131,7 @@ class GlobalMessage: CloudStored {
             record.setValue(newValue, forKey: GlobalMessage.keys.location)
             let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
             op.savePolicy = .changedKeys
-            CloudKitManager.database.add(op)
+            CKKeys.database.add(op)
         }
     }
     
@@ -141,7 +144,7 @@ class GlobalMessage: CloudStored {
             record.setValue(newValue, forKey: GlobalMessage.keys.description)
             let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
             op.savePolicy = .changedKeys
-            CloudKitManager.database.add(op)
+            CKKeys.database.add(op)
         }
     }
     
@@ -161,7 +164,7 @@ class GlobalMessage: CloudStored {
             record.setValue(newValue!.absoluteString, forKey: GlobalMessage.keys.url)
             let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
             op.savePolicy = .changedKeys
-            CloudKitManager.database.add(op)
+            CKKeys.database.add(op)
         }
     }
 }

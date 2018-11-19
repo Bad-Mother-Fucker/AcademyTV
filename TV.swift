@@ -10,27 +10,11 @@ import Foundation
 import UIKit
 import CloudKit
 
-enum TVGroup: String{
-    case lab1 = "Lab-01"
-    case lab2 = "Lab-02"
-    case lab3 = "Lab-03"
-    case lab4 = "Lab-04"
-    case collab1 = "Collab-01"
-    case collab2 = "Collab-02"
-    case collab3 = "Collab-03"
-    case collab4 = "Collab-04"
-    case br1 = "BR-01"
-    case br2 = "BR-02"
-    case br3 = "BR-03"
-    case kitchen = "kitchen"
-    case seminar = "seminar"
-    case all = "all"
-}
 
 class TVModel {
     static func addTV(withName name: String, completionHandler: @escaping (CKRecord?,Error?)-> Void){
         let tv = TV(name:name)
-        CloudKitManager.database.save(tv.record) {
+        CKKeys.database.save(tv.record) {
             (record, error) in
             if let /*error*/_ = error {
                 // Insert error handling
@@ -47,7 +31,7 @@ class TVModel {
         let predicate = NSPredicate(format: "recordName == %@", UIDevice.current.identifierForVendor!.uuidString)
         let query = CKQuery(recordType: TV.recordType, predicate: predicate)
         
-        CloudKitManager.database.perform(query, inZoneWith: nil) { (records, error) in
+        CKKeys.database.perform(query, inZoneWith: nil) { (records, error) in
             guard error == nil,let _ = records else {
                 completionHandler(false,error!)
                 return
@@ -66,7 +50,7 @@ class TVModel {
         print("fetching with name \(name)")
         let query = CKQuery(recordType: TV.recordType, predicate: predicate)
         
-        CloudKitManager.database.perform(query, inZoneWith: nil) { (records, error) in
+        CKKeys.database.perform(query, inZoneWith: nil) { (records, error) in
             guard let _ = records, error == nil else {
 //                error handling
                 completionHandler(nil,error)
@@ -89,7 +73,7 @@ class TVModel {
         let predicate = group == .all ? NSPredicate(value: true) : NSPredicate(format: "\(TV.keys.tvGroup) == %@", group.rawValue)
         let query = CKQuery(recordType: TV.recordType, predicate: predicate)
         
-        CloudKitManager.database.perform(query, inZoneWith: nil) { (records, error) in
+        CKKeys.database.perform(query, inZoneWith: nil) { (records, error) in
             guard let _ = records, error == nil else {
                 //  error handling
                 completionHandler(nil,error)
@@ -121,7 +105,7 @@ class TV: CloudStored {
         self.record = record
     }
     
-    var keynoteDelegate: ATVKeynoteDelegate?
+    var keynoteDelegate: ATVKeynoteViewDelegate?
     var hasKeynote: Bool = false {
         didSet {
             
@@ -167,7 +151,7 @@ class TV: CloudStored {
             newValue ? record.setValue(1, forKey: TV.keys.isOn) : record.setValue(0, forKey: TV.keys.isOn)
             let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
             op.savePolicy = .changedKeys
-            CloudKitManager.database.add(op)
+            CKKeys.database.add(op)
         }
     }
     
@@ -179,7 +163,7 @@ class TV: CloudStored {
             record.setValue(newValue, forKey: TV.keys.name)
             let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
             op.savePolicy = .changedKeys
-            CloudKitManager.database.add(op)
+            CKKeys.database.add(op)
         }
     }
     
@@ -191,7 +175,7 @@ class TV: CloudStored {
             record.setValue(newValue, forKey: TV.keys.uuid)
             let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
             op.savePolicy = .changedKeys
-            CloudKitManager.database.add(op)
+            CKKeys.database.add(op)
         }
     }
     
@@ -203,7 +187,7 @@ class TV: CloudStored {
             record.setValue(newValue.rawValue, forKey: TV.keys.tvGroup)
             let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
             op.savePolicy = .changedKeys
-            CloudKitManager.database.add(op)
+            CKKeys.database.add(op)
         }
     }
    
@@ -224,7 +208,7 @@ class TV: CloudStored {
         self.record.setValue(assets,forKey:TV.keys.keynote)
         let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
         op.savePolicy = .changedKeys
-        CloudKitManager.database.add(op)
+        CKKeys.database.add(op)
     }
     
     func setKeynoteData(_ keynote:[Data],ofType imageType: ImageFileType) {
@@ -242,14 +226,14 @@ class TV: CloudStored {
         self.record.setValue(assets,forKey:TV.keys.keynote)
         let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
         op.savePolicy = .changedKeys
-        CloudKitManager.database.add(op)
+        CKKeys.database.add(op)
     }
     
     func removeKeynote() {
         self.record.setValue(nil, forKey: TV.keys.keynote)
         let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
         op.savePolicy = .changedKeys
-        CloudKitManager.database.add(op)
+        CKKeys.database.add(op)
     }
     
 }
