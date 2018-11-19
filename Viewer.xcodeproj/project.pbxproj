@@ -33,6 +33,7 @@
 		99F6B24821A2FF5D00B3FA65 /* TvListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F6B24721A2FF5D00B3FA65 /* TvListViewController.swift */; };
 		99F6B24A21A3015800B3FA65 /* SettingGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F6B24921A3015800B3FA65 /* SettingGroupViewController.swift */; };
 		99F6B24C21A3021C00B3FA65 /* TimingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F6B24B21A3021C00B3FA65 /* TimingTableViewController.swift */; };
+		99F6B24E21A3040300B3FA65 /* GlassOfficeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F6B24D21A3040300B3FA65 /* GlassOfficeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +68,7 @@
 		99F6B24721A2FF5D00B3FA65 /* TvListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TvListViewController.swift; sourceTree = "<group>"; };
 		99F6B24921A3015800B3FA65 /* SettingGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingGroupViewController.swift; sourceTree = "<group>"; };
 		99F6B24B21A3021C00B3FA65 /* TimingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimingTableViewController.swift; sourceTree = "<group>"; };
+		99F6B24D21A3040300B3FA65 /* GlassOfficeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlassOfficeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 		992D8F762178B1C60044F78F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				99F6B24D21A3040300B3FA65 /* GlassOfficeViewController.swift */,
 				9904CA5E217BDCED00210884 /* BoardViewController.swift */,
 			);
 			path = Controller;
@@ -349,6 +352,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99F6B24E21A3040300B3FA65 /* GlassOfficeViewController.swift in Sources */,
 				9904CA67217DC5F100210884 /* GlobalMessageTableViewCell.swift in Sources */,
 				996353E82195E2E500AE8AAE /* GlobalMessageView.swift in Sources */,
 				1991FB0821971BF400E245BF /* UIImage+CKAsset.swift in Sources */,
