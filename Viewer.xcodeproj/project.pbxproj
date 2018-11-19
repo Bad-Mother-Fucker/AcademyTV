@@ -13,6 +13,7 @@
 		9904CA62217BDFF800210884 /* TV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9904CA61217BDFF800210884 /* TV.swift */; };
 		9904CA67217DC5F100210884 /* GlobalMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9904CA66217DC5F100210884 /* GlobalMessageTableViewCell.swift */; };
 		9904CA6B217DDBAD00210884 /* GlobalMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9904CA6A217DDBAD00210884 /* GlobalMessage.swift */; };
+		991AB6B721A30D8300D0565E /* BorderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991AB6B621A30D8300D0565E /* BorderCollectionViewCell.swift */; };
 		994CDB8621A06FBF005909BF /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 994CDB8521A06FBF005909BF /* CloudKit.framework */; };
 		996353E82195E2E500AE8AAE /* GlobalMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996353E72195E2E500AE8AAE /* GlobalMessageView.swift */; };
 		9964188A2180C6DA005267E4 /* MessagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996418892180C6DA005267E4 /* MessagesTableViewCell.swift */; };
@@ -25,6 +26,7 @@
 		99AC09732174E9C200CFCAD0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99AC09712174E9C200CFCAD0 /* LaunchScreen.storyboard */; };
 		99AC097B2174F4B000CFCAD0 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99AC097A2174F4B000CFCAD0 /* CloudKit.framework */; };
 		99B54738218CDA8600DE3CD5 /* CloudKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B54737218CDA8600DE3CD5 /* CloudKitManager.swift */; };
+		99F596C321A30F9000E999D7 /* GroupsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F596C221A30F9000E999D7 /* GroupsCollectionViewCell.swift */; };
 		99F6B24221A2F82000B3FA65 /* EditMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F6B24021A2F82000B3FA65 /* EditMessageViewController.swift */; };
 		99F6B24321A2F82000B3FA65 /* MessagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F6B24121A2F82000B3FA65 /* MessagesTableViewController.swift */; };
 		99F6B24621A2F9DB00B3FA65 /* PosterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F6B24521A2F9DB00B3FA65 /* PosterViewController.swift */; };
@@ -32,6 +34,9 @@
 		99F6B24A21A3015800B3FA65 /* SettingGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F6B24921A3015800B3FA65 /* SettingGroupViewController.swift */; };
 		99F6B24C21A3021C00B3FA65 /* TimingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F6B24B21A3021C00B3FA65 /* TimingTableViewController.swift */; };
 		99F6B24E21A3040300B3FA65 /* GlassOfficeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F6B24D21A3040300B3FA65 /* GlassOfficeViewController.swift */; };
+		99F6B24F21A306EA00B3FA65 /* CloudKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B54737218CDA8600DE3CD5 /* CloudKitManager.swift */; };
+		99F6B25021A306EA00B3FA65 /* GlobalMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9904CA6A217DDBAD00210884 /* GlobalMessage.swift */; };
+		99F6B25121A306EA00B3FA65 /* TV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9904CA61217BDFF800210884 /* TV.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +45,7 @@
 		9904CA61217BDFF800210884 /* TV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TV.swift; sourceTree = "<group>"; };
 		9904CA66217DC5F100210884 /* GlobalMessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalMessageTableViewCell.swift; sourceTree = "<group>"; };
 		9904CA6A217DDBAD00210884 /* GlobalMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalMessage.swift; sourceTree = "<group>"; };
+		991AB6B621A30D8300D0565E /* BorderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderCollectionViewCell.swift; sourceTree = "<group>"; };
 		994AD4D3217602C400A57DAC /* Viewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Viewer.entitlements; sourceTree = "<group>"; };
 		994CDB8521A06FBF005909BF /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		996353E72195E2E500AE8AAE /* GlobalMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalMessageView.swift; sourceTree = "<group>"; };
@@ -58,6 +64,7 @@
 		99AC09782174F4AE00CFCAD0 /* Viewer iOs.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Viewer iOs.entitlements"; sourceTree = "<group>"; };
 		99AC097A2174F4B000CFCAD0 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
 		99B54737218CDA8600DE3CD5 /* CloudKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitManager.swift; sourceTree = "<group>"; };
+		99F596C221A30F9000E999D7 /* GroupsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsCollectionViewCell.swift; sourceTree = "<group>"; };
 		99F6B24021A2F82000B3FA65 /* EditMessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditMessageViewController.swift; sourceTree = "<group>"; };
 		99F6B24121A2F82000B3FA65 /* MessagesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesTableViewController.swift; sourceTree = "<group>"; };
 		99F6B24521A2F9DB00B3FA65 /* PosterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterViewController.swift; sourceTree = "<group>"; };
@@ -109,6 +116,8 @@
 			isa = PBXGroup;
 			children = (
 				996418892180C6DA005267E4 /* MessagesTableViewCell.swift */,
+				991AB6B621A30D8300D0565E /* BorderCollectionViewCell.swift */,
+				99F596C221A30F9000E999D7 /* GroupsCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -345,14 +354,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99F596C321A30F9000E999D7 /* GroupsCollectionViewCell.swift in Sources */,
 				99F6B24221A2F82000B3FA65 /* EditMessageViewController.swift in Sources */,
 				99F6B24821A2FF5D00B3FA65 /* TvListViewController.swift in Sources */,
 				9964188A2180C6DA005267E4 /* MessagesTableViewCell.swift in Sources */,
 				99F6B24A21A3015800B3FA65 /* SettingGroupViewController.swift in Sources */,
+				99F6B24F21A306EA00B3FA65 /* CloudKitManager.swift in Sources */,
+				99F6B25121A306EA00B3FA65 /* TV.swift in Sources */,
 				99F6B24621A2F9DB00B3FA65 /* PosterViewController.swift in Sources */,
 				99F6B24321A2F82000B3FA65 /* MessagesTableViewController.swift in Sources */,
 				99AC09692174E9C100CFCAD0 /* AppDelegate.swift in Sources */,
+				991AB6B721A30D8300D0565E /* BorderCollectionViewCell.swift in Sources */,
 				1991FB092197493800E245BF /* UIImage+CKAsset.swift in Sources */,
+				99F6B25021A306EA00B3FA65 /* GlobalMessage.swift in Sources */,
 				99F6B24C21A3021C00B3FA65 /* TimingTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

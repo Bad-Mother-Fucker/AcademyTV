@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -395,10 +394,10 @@
                                             <constraint firstItem="ryY-11-AML" firstAttribute="centerX" secondItem="ZPH-Pw-37C" secondAttribute="centerX" id="tRq-kY-17c"/>
                                         </constraints>
                                         <connections>
-                                            <outlet property="checkMarkImageView" destination="lI8-fI-gcs" id="day-Sx-SHf"/>
-                                            <outlet property="gradientView" destination="ezc-hk-Z49" id="XA0-Dk-wA2"/>
-                                            <outlet property="groupNameLabel" destination="ryY-11-AML" id="7MK-xV-k7a"/>
-                                            <outlet property="optionButton" destination="n97-LQ-zhn" id="sjW-M0-TnS"/>
+                                            <outlet property="checkMarkImageView" destination="lI8-fI-gcs" id="yHE-OI-VNa"/>
+                                            <outlet property="gradientView" destination="ezc-hk-Z49" id="pvA-7k-vwg"/>
+                                            <outlet property="groupNameLabel" destination="ryY-11-AML" id="cVn-QY-OvZ"/>
+                                            <outlet property="optionButton" destination="n97-LQ-zhn" id="lI0-Uj-6aL"/>
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AddAllTVGroup" id="sms-kP-Jhi" customClass="BorderCollectionViewCell" customModule="Viewer_iOs" customModuleProvider="target">
