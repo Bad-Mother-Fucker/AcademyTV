@@ -16,8 +16,6 @@
 		994CDB8621A06FBF005909BF /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 994CDB8521A06FBF005909BF /* CloudKit.framework */; };
 		996353E82195E2E500AE8AAE /* GlobalMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996353E72195E2E500AE8AAE /* GlobalMessageView.swift */; };
 		9964188A2180C6DA005267E4 /* MessagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996418892180C6DA005267E4 /* MessagesTableViewCell.swift */; };
-		9964B06821A1C65C00404C33 /* EditMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9964B06621A1C65C00404C33 /* EditMessageViewController.swift */; };
-		9964B06921A1C65C00404C33 /* MessagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9964B06721A1C65C00404C33 /* MessagesTableViewController.swift */; };
 		99AC09542174E6B100CFCAD0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99AC09532174E6B100CFCAD0 /* AppDelegate.swift */; };
 		99AC09592174E6B100CFCAD0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99AC09572174E6B100CFCAD0 /* Main.storyboard */; };
 		99AC095B2174E6B300CFCAD0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99AC095A2174E6B300CFCAD0 /* Assets.xcassets */; };
@@ -46,8 +44,6 @@
 		994CDB8521A06FBF005909BF /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		996353E72195E2E500AE8AAE /* GlobalMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalMessageView.swift; sourceTree = "<group>"; };
 		996418892180C6DA005267E4 /* MessagesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViewCell.swift; sourceTree = "<group>"; };
-		9964B06621A1C65C00404C33 /* EditMessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditMessageViewController.swift; sourceTree = "<group>"; };
-		9964B06721A1C65C00404C33 /* MessagesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesTableViewController.swift; sourceTree = "<group>"; };
 		99AC09502174E6B100CFCAD0 /* Viewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Viewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99AC09532174E6B100CFCAD0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		99AC09582174E6B100CFCAD0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -100,15 +96,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		992D8F742178B1B60044F78F /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				9904CA6A217DDBAD00210884 /* GlobalMessage.swift */,
-				9904CA61217BDFF800210884 /* TV.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		992D8F762178B1C60044F78F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -126,16 +113,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		9964B06521A1C65C00404C33 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				9964B06621A1C65C00404C33 /* EditMessageViewController.swift */,
-				9964B06721A1C65C00404C33 /* MessagesTableViewController.swift */,
-			);
-			name = Controllers;
-			path = "Viewer iOs/Controllers";
-			sourceTree = "<group>";
-		};
 		999F4A5921809E6400ADDFBE /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -148,7 +125,10 @@
 		99AC09472174E6B100CFCAD0 = {
 			isa = PBXGroup;
 			children = (
-				9964B06521A1C65C00404C33 /* Controllers */,
+				99B54737218CDA8600DE3CD5 /* CloudKitManager.swift */,
+				1991FB0721971BF400E245BF /* UIImage+CKAsset.swift */,
+				9904CA6A217DDBAD00210884 /* GlobalMessage.swift */,
+				9904CA61217BDFF800210884 /* TV.swift */,
 				99AC09522174E6B100CFCAD0 /* Viewer */,
 				99AC09672174E9C100CFCAD0 /* Viewer iOs */,
 				99AC09512174E6B100CFCAD0 /* Products */,
@@ -169,14 +149,11 @@
 			isa = PBXGroup;
 			children = (
 				99AC09532174E6B100CFCAD0 /* AppDelegate.swift */,
-				99B54737218CDA8600DE3CD5 /* CloudKitManager.swift */,
-				1991FB0721971BF400E245BF /* UIImage+CKAsset.swift */,
 				994AD4D3217602C400A57DAC /* Viewer.entitlements */,
 				99AC095A2174E6B300CFCAD0 /* Assets.xcassets */,
 				99AC095C2174E6B300CFCAD0 /* Info.plist */,
 				992D8F762178B1C60044F78F /* Controller */,
 				9904CA65217DC5CB00210884 /* View */,
-				992D8F742178B1B60044F78F /* Model */,
 				99AC09572174E6B100CFCAD0 /* Main.storyboard */,
 			);
 			path = Viewer;
@@ -371,10 +348,8 @@
 				99F6B24221A2F82000B3FA65 /* EditMessageViewController.swift in Sources */,
 				99F6B24821A2FF5D00B3FA65 /* TvListViewController.swift in Sources */,
 				9964188A2180C6DA005267E4 /* MessagesTableViewCell.swift in Sources */,
-				9964B06921A1C65C00404C33 /* MessagesTableViewController.swift in Sources */,
 				99F6B24A21A3015800B3FA65 /* SettingGroupViewController.swift in Sources */,
 				99F6B24621A2F9DB00B3FA65 /* PosterViewController.swift in Sources */,
-				9964B06821A1C65C00404C33 /* EditMessageViewController.swift in Sources */,
 				99F6B24321A2F82000B3FA65 /* MessagesTableViewController.swift in Sources */,
 				99AC09692174E9C100CFCAD0 /* AppDelegate.swift in Sources */,
 				1991FB092197493800E245BF /* UIImage+CKAsset.swift in Sources */,
