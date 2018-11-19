@@ -14,14 +14,10 @@
 		9904CA67217DC5F100210884 /* GlobalMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9904CA66217DC5F100210884 /* GlobalMessageTableViewCell.swift */; };
 		9904CA6B217DDBAD00210884 /* GlobalMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9904CA6A217DDBAD00210884 /* GlobalMessage.swift */; };
 		994CDB8621A06FBF005909BF /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 994CDB8521A06FBF005909BF /* CloudKit.framework */; };
-		994CDB8F21A0796B005909BF /* PosterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994CDB8821A0796B005909BF /* PosterViewController.swift */; };
-		994CDB9021A0796B005909BF /* TvListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994CDB8921A0796B005909BF /* TvListViewController.swift */; };
-		994CDB9121A0796B005909BF /* SettingGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994CDB8A21A0796B005909BF /* SettingGroupViewController.swift */; };
-		994CDB9221A0796B005909BF /* TimingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994CDB8B21A0796B005909BF /* TimingTableViewController.swift */; };
-		994CDB9321A0796B005909BF /* EditMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994CDB8D21A0796B005909BF /* EditMessageViewController.swift */; };
-		994CDB9421A0796B005909BF /* MessagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994CDB8E21A0796B005909BF /* MessagesTableViewController.swift */; };
 		996353E82195E2E500AE8AAE /* GlobalMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996353E72195E2E500AE8AAE /* GlobalMessageView.swift */; };
 		9964188A2180C6DA005267E4 /* MessagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996418892180C6DA005267E4 /* MessagesTableViewCell.swift */; };
+		9964B06821A1C65C00404C33 /* EditMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9964B06621A1C65C00404C33 /* EditMessageViewController.swift */; };
+		9964B06921A1C65C00404C33 /* MessagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9964B06721A1C65C00404C33 /* MessagesTableViewController.swift */; };
 		99AC09542174E6B100CFCAD0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99AC09532174E6B100CFCAD0 /* AppDelegate.swift */; };
 		99AC09592174E6B100CFCAD0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99AC09572174E6B100CFCAD0 /* Main.storyboard */; };
 		99AC095B2174E6B300CFCAD0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99AC095A2174E6B300CFCAD0 /* Assets.xcassets */; };
@@ -31,6 +27,12 @@
 		99AC09732174E9C200CFCAD0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99AC09712174E9C200CFCAD0 /* LaunchScreen.storyboard */; };
 		99AC097B2174F4B000CFCAD0 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99AC097A2174F4B000CFCAD0 /* CloudKit.framework */; };
 		99B54738218CDA8600DE3CD5 /* CloudKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B54737218CDA8600DE3CD5 /* CloudKitManager.swift */; };
+		99F6B24221A2F82000B3FA65 /* EditMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F6B24021A2F82000B3FA65 /* EditMessageViewController.swift */; };
+		99F6B24321A2F82000B3FA65 /* MessagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F6B24121A2F82000B3FA65 /* MessagesTableViewController.swift */; };
+		99F6B24621A2F9DB00B3FA65 /* PosterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F6B24521A2F9DB00B3FA65 /* PosterViewController.swift */; };
+		99F6B24821A2FF5D00B3FA65 /* TvListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F6B24721A2FF5D00B3FA65 /* TvListViewController.swift */; };
+		99F6B24A21A3015800B3FA65 /* SettingGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F6B24921A3015800B3FA65 /* SettingGroupViewController.swift */; };
+		99F6B24C21A3021C00B3FA65 /* TimingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F6B24B21A3021C00B3FA65 /* TimingTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,14 +43,10 @@
 		9904CA6A217DDBAD00210884 /* GlobalMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalMessage.swift; sourceTree = "<group>"; };
 		994AD4D3217602C400A57DAC /* Viewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Viewer.entitlements; sourceTree = "<group>"; };
 		994CDB8521A06FBF005909BF /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
-		994CDB8821A0796B005909BF /* PosterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PosterViewController.swift; sourceTree = "<group>"; };
-		994CDB8921A0796B005909BF /* TvListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TvListViewController.swift; sourceTree = "<group>"; };
-		994CDB8A21A0796B005909BF /* SettingGroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingGroupViewController.swift; sourceTree = "<group>"; };
-		994CDB8B21A0796B005909BF /* TimingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimingTableViewController.swift; sourceTree = "<group>"; };
-		994CDB8D21A0796B005909BF /* EditMessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditMessageViewController.swift; sourceTree = "<group>"; };
-		994CDB8E21A0796B005909BF /* MessagesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesTableViewController.swift; sourceTree = "<group>"; };
 		996353E72195E2E500AE8AAE /* GlobalMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalMessageView.swift; sourceTree = "<group>"; };
 		996418892180C6DA005267E4 /* MessagesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViewCell.swift; sourceTree = "<group>"; };
+		9964B06621A1C65C00404C33 /* EditMessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditMessageViewController.swift; sourceTree = "<group>"; };
+		9964B06721A1C65C00404C33 /* MessagesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesTableViewController.swift; sourceTree = "<group>"; };
 		99AC09502174E6B100CFCAD0 /* Viewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Viewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99AC09532174E6B100CFCAD0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		99AC09582174E6B100CFCAD0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -63,6 +61,12 @@
 		99AC09782174F4AE00CFCAD0 /* Viewer iOs.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Viewer iOs.entitlements"; sourceTree = "<group>"; };
 		99AC097A2174F4B000CFCAD0 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
 		99B54737218CDA8600DE3CD5 /* CloudKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitManager.swift; sourceTree = "<group>"; };
+		99F6B24021A2F82000B3FA65 /* EditMessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditMessageViewController.swift; sourceTree = "<group>"; };
+		99F6B24121A2F82000B3FA65 /* MessagesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesTableViewController.swift; sourceTree = "<group>"; };
+		99F6B24521A2F9DB00B3FA65 /* PosterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterViewController.swift; sourceTree = "<group>"; };
+		99F6B24721A2FF5D00B3FA65 /* TvListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TvListViewController.swift; sourceTree = "<group>"; };
+		99F6B24921A3015800B3FA65 /* SettingGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingGroupViewController.swift; sourceTree = "<group>"; };
+		99F6B24B21A3021C00B3FA65 /* TimingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimingTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,26 +115,6 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		994CDB8721A0796B005909BF /* Poster */ = {
-			isa = PBXGroup;
-			children = (
-				994CDB8821A0796B005909BF /* PosterViewController.swift */,
-				994CDB8921A0796B005909BF /* TvListViewController.swift */,
-				994CDB8A21A0796B005909BF /* SettingGroupViewController.swift */,
-				994CDB8B21A0796B005909BF /* TimingTableViewController.swift */,
-			);
-			path = Poster;
-			sourceTree = "<group>";
-		};
-		994CDB8C21A0796B005909BF /* Message */ = {
-			isa = PBXGroup;
-			children = (
-				994CDB8D21A0796B005909BF /* EditMessageViewController.swift */,
-				994CDB8E21A0796B005909BF /* MessagesTableViewController.swift */,
-			);
-			path = Message;
-			sourceTree = "<group>";
-		};
 		996418882180C6BF005267E4 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -139,11 +123,21 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		9964B06521A1C65C00404C33 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				9964B06621A1C65C00404C33 /* EditMessageViewController.swift */,
+				9964B06721A1C65C00404C33 /* MessagesTableViewController.swift */,
+			);
+			name = Controllers;
+			path = "Viewer iOs/Controllers";
+			sourceTree = "<group>";
+		};
 		999F4A5921809E6400ADDFBE /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				994CDB8C21A0796B005909BF /* Message */,
-				994CDB8721A0796B005909BF /* Poster */,
+				99F6B24421A2F98500B3FA65 /* Poster */,
+				99F6B23F21A2F82000B3FA65 /* Message */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -151,6 +145,7 @@
 		99AC09472174E6B100CFCAD0 = {
 			isa = PBXGroup;
 			children = (
+				9964B06521A1C65C00404C33 /* Controllers */,
 				99AC09522174E6B100CFCAD0 /* Viewer */,
 				99AC09672174E9C100CFCAD0 /* Viewer iOs */,
 				99AC09512174E6B100CFCAD0 /* Products */,
@@ -206,6 +201,26 @@
 				99AC097A2174F4B000CFCAD0 /* CloudKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		99F6B23F21A2F82000B3FA65 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				99F6B24021A2F82000B3FA65 /* EditMessageViewController.swift */,
+				99F6B24121A2F82000B3FA65 /* MessagesTableViewController.swift */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
+		99F6B24421A2F98500B3FA65 /* Poster */ = {
+			isa = PBXGroup;
+			children = (
+				99F6B24521A2F9DB00B3FA65 /* PosterViewController.swift */,
+				99F6B24721A2FF5D00B3FA65 /* TvListViewController.swift */,
+				99F6B24921A3015800B3FA65 /* SettingGroupViewController.swift */,
+				99F6B24B21A3021C00B3FA65 /* TimingTableViewController.swift */,
+			);
+			path = Poster;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -349,15 +364,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				994CDB9221A0796B005909BF /* TimingTableViewController.swift in Sources */,
+				99F6B24221A2F82000B3FA65 /* EditMessageViewController.swift in Sources */,
+				99F6B24821A2FF5D00B3FA65 /* TvListViewController.swift in Sources */,
 				9964188A2180C6DA005267E4 /* MessagesTableViewCell.swift in Sources */,
-				994CDB9421A0796B005909BF /* MessagesTableViewController.swift in Sources */,
-				994CDB9121A0796B005909BF /* SettingGroupViewController.swift in Sources */,
-				994CDB9321A0796B005909BF /* EditMessageViewController.swift in Sources */,
+				9964B06921A1C65C00404C33 /* MessagesTableViewController.swift in Sources */,
+				99F6B24A21A3015800B3FA65 /* SettingGroupViewController.swift in Sources */,
+				99F6B24621A2F9DB00B3FA65 /* PosterViewController.swift in Sources */,
+				9964B06821A1C65C00404C33 /* EditMessageViewController.swift in Sources */,
+				99F6B24321A2F82000B3FA65 /* MessagesTableViewController.swift in Sources */,
 				99AC09692174E9C100CFCAD0 /* AppDelegate.swift in Sources */,
 				1991FB092197493800E245BF /* UIImage+CKAsset.swift in Sources */,
-				994CDB8F21A0796B005909BF /* PosterViewController.swift in Sources */,
-				994CDB9021A0796B005909BF /* TvListViewController.swift in Sources */,
+				99F6B24C21A3021C00B3FA65 /* TimingTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
