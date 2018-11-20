@@ -118,6 +118,62 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="60" y="62"/>
+        </scene>
+        <!--Glass Office View Controller-->
+        <scene sceneID="43l-BE-iMS">
+            <objects>
+                <viewController storyboardIdentifier="GlassOfficeViewController" id="Gg8-Y2-Qam" customClass="GlassOfficeViewController" customModule="Viewer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="USh-yR-cuF"/>
+                        <viewControllerLayoutGuide type="bottom" id="ep1-LL-fkR"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="f82-DJ-qG5">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g6i-s3-tUg">
+                                <rect key="frame" x="30" y="965" width="109" height="85"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="zG2-5t-Jbe">
+                                    <rect key="frame" x="0.0" y="0.0" width="109" height="85"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HNs-8u-qLX">
+                                            <rect key="frame" x="8" y="8" width="93" height="69"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="HNs-8u-qLX" secondAttribute="bottom" constant="8" id="M97-7O-sO5"/>
+                                        <constraint firstItem="HNs-8u-qLX" firstAttribute="top" secondItem="zG2-5t-Jbe" secondAttribute="top" constant="8" id="Qfc-Sn-S0Z"/>
+                                        <constraint firstAttribute="trailing" secondItem="HNs-8u-qLX" secondAttribute="trailing" constant="8" id="j0K-W2-BQY"/>
+                                        <constraint firstItem="HNs-8u-qLX" firstAttribute="leading" secondItem="zG2-5t-Jbe" secondAttribute="leading" constant="8" id="wU9-WY-eKw"/>
+                                    </constraints>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="85" id="Dzd-hb-ZTe"/>
+                                </constraints>
+                                <blurEffect style="dark"/>
+                            </visualEffectView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="g6i-s3-tUg" secondAttribute="bottom" constant="30" id="Bqz-q7-cec"/>
+                            <constraint firstItem="g6i-s3-tUg" firstAttribute="leading" secondItem="f82-DJ-qG5" secondAttribute="leading" constant="30" id="N1P-ub-3sE"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="KVV-dA-8HV"/>
+                    </view>
+                    <connections>
+                        <outlet property="dateLabel" destination="HNs-8u-qLX" id="eDr-Xh-5K6"/>
+                        <outletCollection property="blurViews" destination="g6i-s3-tUg" collectionClass="NSMutableArray" id="vft-rm-Ul5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hky-c3-in1" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="60" y="1475"/>
         </scene>
     </scenes>
 </document>

@@ -10,6 +10,15 @@ import UIKit
 
 class GlassOfficeViewController: UIViewController {
 
+    @IBOutlet weak var dateLabel: UILabel!{
+        didSet{
+            setDate()
+            Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { [weak self] (timer) in
+                self?.setDate()
+            }
+        }
+    }
+    
     // MARK: - API Apple Developer Academy
     var APIkey = "d88efc5ef767c002befbec5a9083e562"
     var key: String{
@@ -28,8 +37,16 @@ class GlassOfficeViewController: UIViewController {
         
     }
     
+    private func setDate(){
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM dd, HH:mm"
+        
+        self.dateLabel.text = dateFormatter.string(from: date)
+    }
+    
     //this function is fetching the json from URL
-    func getJson(from url: URL){
+    private func getJson(from url: URL){
         
         //fetching the data from the url
         URLSession.shared.dataTask(with: url, completionHandler: {(data, response, error) -> Void in
