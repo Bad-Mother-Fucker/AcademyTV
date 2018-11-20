@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1916510421A46661003FD164 /* ServiceMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1916510321A46661003FD164 /* ServiceMessage.swift */; };
 		1991FB0821971BF400E245BF /* UIImage+CKAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1991FB0721971BF400E245BF /* UIImage+CKAsset.swift */; };
 		1991FB092197493800E245BF /* UIImage+CKAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1991FB0721971BF400E245BF /* UIImage+CKAsset.swift */; };
 		19C227CD21A3372400BB4BC3 /* TVViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C227CC21A3372400BB4BC3 /* TVViewController.swift */; };
@@ -41,6 +42,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1916510321A46661003FD164 /* ServiceMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceMessage.swift; sourceTree = "<group>"; };
 		1991FB0721971BF400E245BF /* UIImage+CKAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+CKAsset.swift"; sourceTree = "<group>"; };
 		19C227CC21A3372400BB4BC3 /* TVViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVViewController.swift; sourceTree = "<group>"; };
 		9904CA5E217BDCED00210884 /* BoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = BoardViewController.swift; sourceTree = "<group>"; usesTabs = 0; };
@@ -137,6 +139,7 @@
 		99AC09472174E6B100CFCAD0 = {
 			isa = PBXGroup;
 			children = (
+				1916510321A46661003FD164 /* ServiceMessage.swift */,
 				99B54737218CDA8600DE3CD5 /* CKController.swift */,
 				1991FB0721971BF400E245BF /* UIImage+CKAsset.swift */,
 				9904CA6A217DDBAD00210884 /* GlobalMessage.swift */,
@@ -347,6 +350,7 @@
 				996353E82195E2E500AE8AAE /* GlobalMessageView.swift in Sources */,
 				1991FB0821971BF400E245BF /* UIImage+CKAsset.swift in Sources */,
 				9904CA6B217DDBAD00210884 /* GlobalMessage.swift in Sources */,
+				1916510421A46661003FD164 /* ServiceMessage.swift in Sources */,
 				99B54738218CDA8600DE3CD5 /* CKController.swift in Sources */,
 				99AC09542174E6B100CFCAD0 /* AppDelegate.swift in Sources */,
 				9904CA62217BDFF800210884 /* TV.swift in Sources */,

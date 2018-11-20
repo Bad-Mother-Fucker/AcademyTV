@@ -36,6 +36,9 @@ class CKController {
         case CKKeys.tvSubscriptionKey:
             options = [.firesOnRecordUpdate]
             predicate = NSPredicate(format: "name == %@ ",UIDevice.current.name )
+        case CKKeys.serviceSubscriptionKey:
+            options = [.firesOnRecordUpdate]
+            
         default:
             break
         }
@@ -77,9 +80,48 @@ class CKController {
                 return
             }
         }
+        
+        CKKeys.database.delete(withSubscriptionID: CKKeys.serviceSubscriptionKey) { (subscriptionID, error) in
+            guard error == nil else {
+                debugPrint(error!.localizedDescription)
+                return
+            }
+        }
+        
+        
     }
 
     
+//    Fetch service message
+    
+    static func getServiceMessage() throws -> ServiceMessage{
+        let sem = DispatchSemaphore(value: 0)
+        ServiceMessageModel.getServiceMessage { (record, error) in
+            guard error == nil else {
+                return
+            }
+            ServiceMessage.shared.record = record!
+            sem.signal()
+        }
+        if sem.wait(timeout: .distantFuture) == .timedOut {
+            throw CKQueryException.connectionTimedOut("could not fetch service message, request timed out")
+        }
+        return ServiceMessage.shared
+    }
+    
+    
+    static func postServiceMessage(_ text:String,forSeconds timer: Double) {
+        ServiceMessageModel.post(message: text, forSeconds: timer) { (record, error) in
+            guard error == nil else  {
+                debugPrint(error!.localizedDescription)
+                return
+            }
+        }
+    }
+    
+    static func removeServiceMessage() {
+        ServiceMessageModel.removeMessage()
+    }
     
 //    Fetches all global messages from the CK database
     
@@ -214,6 +256,7 @@ enum CKQueryException:Error {
 enum CKNotificationName: String {
     case globalMessages = "global messages notification"
     case tv = "tv notification"
+    case serviceMessage = "service message notification"
     case null = ""
     case notification = "notification"
     case tvSet = "currentTvSet"
@@ -224,6 +267,7 @@ enum CKKeys {
     static let database = CKContainer(identifier: "iCloud.com.Rogue.Viewer").publicCloudDatabase
     static let messageSubscriptionKey = "CKMessageSubscription"
     static let tvSubscriptionKey = "CKTVSubscription"
+    static let serviceSubscriptionKey = "CKServiceMessageSubscription"
     
 }
 

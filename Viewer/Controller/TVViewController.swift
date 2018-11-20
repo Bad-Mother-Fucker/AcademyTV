@@ -10,7 +10,7 @@ import UIKit
 import CloudKit
 
 class TVViewController: UIViewController {
-    
+    var serviceMessage:ServiceMessage?
     var globalMessages = [GlobalMessage](){
         didSet{
             print(globalMessages)
@@ -28,14 +28,21 @@ class TVViewController: UIViewController {
             if let ckqn = notification.userInfo?[CKNotificationName.notification.rawValue] as? CKQueryNotification {
                 self.handleCKNotification(ckqn)
             }
-            print(self.globalMessages)
+            debugPrint(self.globalMessages)
         }
         
         NotificationCenter.default.addObserver(forName: Notification.Name(CKNotificationName.tv.rawValue), object: nil, queue: .main) { (notification) in
             if let ckqn = notification.userInfo?[CKNotificationName.notification.rawValue] as? CKQueryNotification {
                 self.handleCKNotification(ckqn)
             }
-            print("Tv record edited")
+            debugPrint("Tv record edited")
+        }
+        
+        NotificationCenter.default.addObserver(forName: Notification.Name(CKNotificationName.serviceMessage.rawValue), object: nil, queue: .main) { (notification) in
+            if let ckqn = notification.userInfo?[CKNotificationName.notification.rawValue] as? CKQueryNotification {
+                self.handleCKNotification(ckqn)
+            }
+            debugPrint("service message uploaded")
         }
         
     }
@@ -46,10 +53,16 @@ class TVViewController: UIViewController {
             handleMsgNotification(ckqn)
         case CKKeys.tvSubscriptionKey:
             handleTVNotification(ckqn)
+        case CKKeys.serviceSubscriptionKey:
+            handleServiceMessageNotification(ckqn)
         default:
             break
             
         }
+    }
+    
+    private func handleServiceMessageNotification(_ ckqn: CKQueryNotification) {
+        serviceMessage = try? CKController.getServiceMessage()
     }
     
     private func handleMsgNotification(_ ckqn: CKQueryNotification) {
