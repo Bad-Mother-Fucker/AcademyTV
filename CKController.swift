@@ -94,19 +94,18 @@ class CKController {
     
 //    Fetch service message
     
-    static func getServiceMessage() throws -> ServiceMessage{
+    static func getServiceMessage() throws {
         let sem = DispatchSemaphore(value: 0)
         ServiceMessageModel.getServiceMessage { (record, error) in
             guard error == nil else {
                 return
             }
-            ServiceMessage.shared.record = record!
+            ServiceMessage.record = record!
             sem.signal()
         }
         if sem.wait(timeout: .distantFuture) == .timedOut {
             throw CKQueryException.connectionTimedOut("could not fetch service message, request timed out")
         }
-        return ServiceMessage.shared
     }
     
     
@@ -260,6 +259,7 @@ enum CKNotificationName: String {
     case null = ""
     case notification = "notification"
     case tvSet = "currentTvSet"
+    case serviceMessageSet = "serviceMessageSet "
 }
 
 enum CKKeys {
