@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
                      application.registerForRemoteNotifications()
     
                     CKController.saveSubscription(for: GlobalMessage.recordType,ID:CKKeys.messageSubscriptionKey)
-                    
+                    CKController.saveSubscription(for: ServiceMessage.recordType, ID: CKKeys.serviceSubscriptionKey)
                     CKController.saveSubscription(for: TV.recordType,ID:CKKeys.tvSubscriptionKey)
                 
                 }
@@ -50,6 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
             print("tv \(exists)")
             
             if !exists{
+                
                 TVModel.addTV(withName: UIDevice.current.name, completionHandler: { (record, error) in
                     guard let _ = record,error == nil else {
                         print(error!.localizedDescription)
@@ -59,7 +60,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
                     self.currentTV = TV(record: record!)
                     NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: CKNotificationName.tvSet.rawValue)))
                 })
+                
             } else {
+                
                 TVModel.getTV(withName: UIDevice.current.name, completionHandler: { (TV, Error) in
                     guard let _ = TV, error == nil else {
                         print(error!.localizedDescription)
@@ -68,6 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
                     self.currentTV = TV!
                     NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: CKNotificationName.tvSet.rawValue)))
                 })
+                
             }
         }
    
@@ -102,6 +106,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
             notificationName = .tv
         case CKKeys.messageSubscriptionKey:
             notificationName = .globalMessages
+        case CKKeys.serviceSubscriptionKey:
+            notificationName = .serviceMessage
         default:
             notificationName = .null
         }
