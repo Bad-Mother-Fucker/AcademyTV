@@ -8,8 +8,21 @@
 
 import UIKit
 
-class GlassOfficeViewController: UIViewController {
+extension UITableViewCell{
+    override open var canBecomeFocused: Bool{
+        return false
+    }
+}
 
+class GlassOfficeViewController: UIViewController, UITableViewDelegate {
+
+    @IBOutlet weak var booquableTableView: UITableView!{
+        didSet{
+            booquableTableView.delegate = self
+            booquableTableView.dataSource = self
+        }
+    }
+    
     @IBOutlet weak var dateLabel: UILabel!{
         didSet{
             setDate()
@@ -19,21 +32,22 @@ class GlassOfficeViewController: UIViewController {
         }
     }
     
-    // MARK: - API Apple Developer Academy
-    var APIkey = "d88efc5ef767c002befbec5a9083e562"
-    var key: String{
-        return "?api_key=\(APIkey)"
+    @IBOutlet weak var blurEffect: UIVisualEffectView!{
+        didSet{
+            blurEffect.layer.cornerRadius = 20
+            blurEffect.contentView.layer.cornerRadius = 20
+            blurEffect.clipsToBounds = true
+            blurEffect.contentView.clipsToBounds = true
+            blurEffect.alpha = 0.8
+        }
     }
-    var endpoint = "https://developer-academy.booqable.com/api/1/"
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        let url = URL(string: endpoint+"orders"+key)
-        var request = URLRequest(url:url!)
-        request.httpMethod = "GET"
+        BooquableManager.shared.getOrders(with: .reserved)
         
-        getJson(from: url!)
+        print(BooquableManager.shared.ids)
         
     }
     
@@ -84,4 +98,19 @@ class GlassOfficeViewController: UIViewController {
             }
         }).resume()
     }
+}
+
+extension GlassOfficeViewController: UITableViewDataSource{
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "booquableTableViewCell", for: indexPath)
+        
+        return cell
+    }
+    
+    
 }
