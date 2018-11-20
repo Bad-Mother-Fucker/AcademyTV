@@ -71,6 +71,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
             }
         }
    
+        if UIDevice.current.name == "Lab-04-01"{
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let glassView = storyboard.instantiateViewController(withIdentifier: "GlassOfficeViewController")
+            self.window?.rootViewController = glassView
+        }
         
         return true
     }
