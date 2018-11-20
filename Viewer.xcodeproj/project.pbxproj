@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1991FB0821971BF400E245BF /* UIImage+CKAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1991FB0721971BF400E245BF /* UIImage+CKAsset.swift */; };
 		1991FB092197493800E245BF /* UIImage+CKAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1991FB0721971BF400E245BF /* UIImage+CKAsset.swift */; };
+		19C227CD21A3372400BB4BC3 /* TVViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C227CC21A3372400BB4BC3 /* TVViewController.swift */; };
 		9904CA5F217BDCED00210884 /* BoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9904CA5E217BDCED00210884 /* BoardViewController.swift */; };
 		9904CA62217BDFF800210884 /* TV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9904CA61217BDFF800210884 /* TV.swift */; };
 		9904CA67217DC5F100210884 /* GlobalMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9904CA66217DC5F100210884 /* GlobalMessageTableViewCell.swift */; };
@@ -41,6 +42,7 @@
 
 /* Begin PBXFileReference section */
 		1991FB0721971BF400E245BF /* UIImage+CKAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+CKAsset.swift"; sourceTree = "<group>"; };
+		19C227CC21A3372400BB4BC3 /* TVViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVViewController.swift; sourceTree = "<group>"; };
 		9904CA5E217BDCED00210884 /* BoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = BoardViewController.swift; sourceTree = "<group>"; usesTabs = 0; };
 		9904CA61217BDFF800210884 /* TV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TV.swift; sourceTree = "<group>"; };
 		9904CA66217DC5F100210884 /* GlobalMessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalMessageTableViewCell.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 			children = (
 				99F6B24D21A3040300B3FA65 /* GlassOfficeViewController.swift */,
 				9904CA5E217BDCED00210884 /* BoardViewController.swift */,
+				19C227CC21A3372400BB4BC3 /* TVViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -340,6 +343,7 @@
 			files = (
 				99F6B24E21A3040300B3FA65 /* GlassOfficeViewController.swift in Sources */,
 				9904CA67217DC5F100210884 /* GlobalMessageTableViewCell.swift in Sources */,
+				19C227CD21A3372400BB4BC3 /* TVViewController.swift in Sources */,
 				996353E82195E2E500AE8AAE /* GlobalMessageView.swift in Sources */,
 				1991FB0821971BF400E245BF /* UIImage+CKAsset.swift in Sources */,
 				9904CA6B217DDBAD00210884 /* GlobalMessage.swift in Sources */,
@@ -522,13 +526,13 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Launch Image";
 				CODE_SIGN_ENTITLEMENTS = Viewer/Viewer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5QJLL8HM6C;
+				DEVELOPMENT_TEAM = D4L4S7MAUX;
 				INFOPLIST_FILE = Viewer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.TeamRogue.Viewer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Rogue.Viewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -542,13 +546,13 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Launch Image";
 				CODE_SIGN_ENTITLEMENTS = Viewer/Viewer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5QJLL8HM6C;
+				DEVELOPMENT_TEAM = D4L4S7MAUX;
 				INFOPLIST_FILE = Viewer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.TeamRogue.Viewer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Rogue.Viewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 3;

@@ -18,14 +18,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
     
     var tvRecord: CKRecord!
     
-    let database = CKContainer(identifier: "iCloud.com.TeamRogue.Viewer").publicCloudDatabase
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         application.isIdleTimerDisabled = true
         
         UNUserNotificationCenter.current().delegate = self
         
-        let authOptions: UNAuthorizationOptions = [.badge]
+        let authOptions: UNAuthorizationOptions = [.provisional]
+        
         
         UNUserNotificationCenter.current().requestAuthorization(options: authOptions) { (autorized, error) in
             guard error == nil else {
@@ -36,9 +35,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
                 DispatchQueue.main.async {
                      application.registerForRemoteNotifications()
     
-                    CloudKitManager.shared.saveSubscription(for: GlobalMessage.recordType,ID:CloudKitManager.messageSubscriptionID)
+                    CKController.saveSubscription(for: GlobalMessage.recordType,ID:CKKeys.messageSubscriptionKey)
                     
-                    CloudKitManager.shared.saveSubscription(for: TV.recordType,ID:CloudKitManager.tvSubscriptionID)
+                    CKController.saveSubscription(for: TV.recordType,ID:CKKeys.tvSubscriptionKey)
                 
                 }
             }
@@ -49,12 +48,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         
         TVModel.doesExist { (exists, error) in
             print("tv \(exists)")
+            
             if !exists{
                 TVModel.addTV(withName: UIDevice.current.name, completionHandler: { (record, error) in
                     guard let _ = record,error == nil else {
                         print(error!.localizedDescription)
                         return
                     }
+                    
                     self.currentTV = TV(record: record!)
                     NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: CKNotificationName.tvSet.rawValue)))
                 })
@@ -69,8 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
                 })
             }
         }
-        
-        
+   
         
         return true
     }
@@ -93,9 +93,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         let notificationName: CKNotificationName
         let ckqn = CKQueryNotification(fromRemoteNotificationDictionary: userInfo as! [String:Any])
         switch ckqn.subscriptionID {
-        case CloudKitManager.tvSubscriptionID:
+        case CKKeys.tvSubscriptionKey:
             notificationName = .tv
-        case CloudKitManager.messageSubscriptionID:
+        case CKKeys.messageSubscriptionKey:
             notificationName = .globalMessages
         default:
             notificationName = .null
@@ -119,7 +119,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
-       CloudKitManager.shared.removeSubscriptions()
+       CKController.removeSubscriptions()
        currentTV.isOn = false
     }
 
