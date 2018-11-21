@@ -44,6 +44,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         }
         
         
+        // MARK: Check the existence of a ServiceMessage
+        
+        ServiceMessageModel.isThereAMessage { (isThere,message,error)  in
+            if isThere {
+                ServiceMessage.record = message!
+            } else {
+                ServiceMessage.record = CKRecord(recordType: ServiceMessage.recordType)
+                ServiceMessage.record.setValue("", forKey: ServiceMessage.keys.text)
+                ServiceMessage.record.setValue(0, forKey: ServiceMessage.keys.timer)
+                
+                CKKeys.database.save(ServiceMessage.record, completionHandler: { (record, error) in
+                    guard error == nil else {
+                        debugPrint(error!.localizedDescription)
+                        return
+                    }
+                })
+
+            }
+        }
+        
+        
         // MARK: Check if the current TV is already on CK otherwise it Saves the new record
         
         TVModel.doesExist { (exists, error) in

@@ -10,7 +10,6 @@ import UIKit
 import CloudKit
 
 class TVViewController: UIViewController {
-    var serviceMessage:ServiceMessage?
     var globalMessages = [GlobalMessage](){
         didSet{
             print(globalMessages)
@@ -45,6 +44,8 @@ class TVViewController: UIViewController {
             debugPrint("service message uploaded")
         }
         
+       
+        
     }
     
     private func handleCKNotification(_ ckqn: CKQueryNotification) {
@@ -62,7 +63,7 @@ class TVViewController: UIViewController {
     }
     
     private func handleServiceMessageNotification(_ ckqn: CKQueryNotification) {
-        serviceMessage = try? CKController.getServiceMessage()
+        try? CKController.getServiceMessage()
     }
     
     private func handleMsgNotification(_ ckqn: CKQueryNotification) {
