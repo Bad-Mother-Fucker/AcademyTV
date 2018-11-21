@@ -23,7 +23,11 @@ class BooquableManager {
     // MARK: - Public Api
     var orderStatus: OrderStatus = .started
     var orderId: String = ""
-    var ids = [String]()
+    var ids = [String](){
+        didSet{
+            print(ids)
+        }
+    }
     
     // MARK: - Private API Apple Developer Academy
     private var ordersWithStatusEndPoint: String {
@@ -39,9 +43,11 @@ class BooquableManager {
         self.orderStatus = status
         
         getJson(from: URL(string: ordersWithStatusEndPoint)!, callBack: { json in
-            if let orders = json.value(forKey: "orders") as? [NSDictionary]{
-                orders.forEach { (order) in
-                    self.ids.append(order.value(forKey: "id") as! String)
+            DispatchQueue.main.sync {
+                if let orders = json.value(forKey: "orders") as? [NSDictionary]{
+                    orders.forEach { (order) in
+                        self.ids.append(order.value(forKey: "id") as! String)
+                    }
                 }
             }
         })
@@ -54,18 +60,20 @@ class BooquableManager {
         self.orderId = id
         
         getJson(from: URL(string: orderEndPoint)!, callBack: { json in
-            if let order = json.value(forKey: "order") as? NSDictionary{
-                guard let id = order.value(forKey: "id") as? String,
-                    let startAt = order.value(forKey: "starts_at") as? String,
-                    let stopAt = order.value(forKey: "stops_at") as? String,
-                    let customer = order.value(forKey: "starts_at") as? NSDictionary,
-                    let lines = order.value(forKey: "starts_at") as? NSDictionary else { return }
-                
-                booquableOrder = BooquableOrder(id: id,
-                                      startAt: startAt,
-                                      stopsAt: stopAt,
-                                      customer: customer,
-                                      lines: lines)
+            DispatchQueue.main.sync {
+                if let order = json.value(forKey: "order") as? NSDictionary{
+                    guard let id = order.value(forKey: "id") as? String,
+                        let startAt = order.value(forKey: "starts_at") as? String,
+                        let stopAt = order.value(forKey: "stops_at") as? String,
+                        let customer = order.value(forKey: "starts_at") as? NSDictionary,
+                        let lines = order.value(forKey: "starts_at") as? NSDictionary else { return }
+                    
+                    booquableOrder = BooquableOrder(id: id,
+                                                    startAt: startAt,
+                                                    stopsAt: stopAt,
+                                                    customer: customer,
+                                                    lines: lines)
+                }
             }
         })
         return booquableOrder
@@ -74,7 +82,7 @@ class BooquableManager {
     private func getJson(from url: URL, callBack: @escaping (NSDictionary) -> ()){
         
         //fetching the data from the url
-        URLSession.shared.dataTask(with: url, completionHandler: {(data, response, error) -> Void in
+        let task = URLSession.shared.dataTask(with: url, completionHandler: {(data, response, error) -> Void in
             guard error == nil, let data = data else {
                 print(error!.localizedDescription)
                 return
@@ -85,7 +93,8 @@ class BooquableManager {
             if let json = jsonObj as? NSDictionary {
                 callBack(json)
             }
-        }).resume()
+        })
+        task.resume()
     }
 }
 

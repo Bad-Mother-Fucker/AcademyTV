@@ -47,8 +47,6 @@ class GlassOfficeViewController: UIViewController, UITableViewDelegate {
         
         BooquableManager.shared.getOrders(with: .reserved)
         
-        print(BooquableManager.shared.ids)
-        
     }
     
     private func setDate(){
@@ -57,46 +55,6 @@ class GlassOfficeViewController: UIViewController, UITableViewDelegate {
         dateFormatter.dateFormat = "MMM dd, HH:mm"
         
         self.dateLabel.text = dateFormatter.string(from: date)
-    }
-    
-    //this function is fetching the json from URL
-    private func getJson(from url: URL){
-        
-        //fetching the data from the url
-        URLSession.shared.dataTask(with: url, completionHandler: {(data, response, error) -> Void in
-            
-            if let jsonObj = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? NSDictionary {
-                
-                //printing the json in console
-                print("Json: ")
-                print(jsonObj ?? "nil")
-                
-//                //getting the avengers tag array from json and converting it to NSArray
-//                if let heroeArray = jsonObj!.value(forKey: "avengers") as? NSArray {
-//                    //looping through all the elements
-//                    for heroe in heroeArray{
-//
-//                        //converting the element to a dictionary
-//                        if let heroeDict = heroe as? NSDictionary {
-//
-//                            //getting the name from the dictionary
-//                            if let name = heroeDict.value(forKey: "name") {
-//
-//                                //adding the name to the array
-//                                self.nameArray.append((name as? String)!)
-//                            }
-//
-//                        }
-//                    }
-//                }
-//
-//                OperationQueue.main.addOperation({
-//                    //calling another function after fetching the json
-//                    //it will show the names to label
-//                    self.showNames()
-//                })
-            }
-        }).resume()
     }
 }
 
