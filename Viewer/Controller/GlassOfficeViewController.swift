@@ -26,7 +26,18 @@ enum GliphName: String{
 }
 
 class GlassOfficeViewController: UIViewController, UITableViewDelegate {
-
+    
+    var orders = [BooquableOrder](){
+        didSet{
+            if booquableTableView != nil{
+                booquableTableView.reloadData()
+                orders.forEach { (order) in
+                    print(order.customerName())
+                }
+            }
+        }
+    }
+    
     @IBOutlet weak var booquableTableView: UITableView!{
         didSet{
             booquableTableView.delegate = self
@@ -56,8 +67,25 @@ class GlassOfficeViewController: UIViewController, UITableViewDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-//        BooquableManager.shared.getOrders(with: .started)
+        BooquableManager.shared.getOrders(with: .started)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(addOrder(notification:)), name: NSNotification.Name("NewOrder"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(getAllOrders), name: NSNotification.Name("GetAllOrders"), object: nil)
+
+    }
+    
+    @objc private func addOrder(notification: NSNotification){
+        if let order = notification.userInfo?["order"] as? BooquableOrder {
+            orders.append(order)
+        }
+    }
+    
+    @objc private func getAllOrders(){
+        orders = []
+        BooquableManager.shared.ids.forEach { (id) in
+            BooquableManager.shared.getOrder(from: id)
+        }
     }
     
     private func setDate(){
@@ -72,12 +100,12 @@ class GlassOfficeViewController: UIViewController, UITableViewDelegate {
 extension GlassOfficeViewController: UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return orders.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "booquableTableViewCell", for: indexPath)
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "booquableTableViewCell", for: indexPath) as! GlassOfficeTableViewCell
+        cell.userNameLabel.text = orders[indexPath.row].customerName()
         return cell
     }
 }

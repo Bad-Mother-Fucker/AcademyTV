@@ -18,18 +18,12 @@ class BooquableManager {
     
     static let shared = BooquableManager()
     
-    private init(){
-//        getOrders(with: .started)
-    }
+    private init(){}
     
     // MARK: - Public Api
     var orderStatus: OrderStatus = .started
     var orderId: String = ""
-    var ids = [String](){
-        didSet{
-            print(ids)
-        }
-    }
+    var ids = [String]()
     
     // MARK: - Private API Apple Developer Academy
     private var ordersWithStatusEndPoint: String {
@@ -50,35 +44,38 @@ class BooquableManager {
                     orders.forEach { (order) in
                         self.ids.append(order.value(forKey: "id") as! String)
                     }
+                    NotificationCenter.default.post(name: NSNotification.Name("GetAllOrders"), object: nil)
+//                    debugPrint(self.ids)
                 }
             }
         })
     }
     
-    func getOrder(from id: String) -> BooquableOrder{
-        
-        var booquableOrder: BooquableOrder!
+    func getOrder(from id: String){
         
         self.orderId = id
-        
         getJson(from: URL(string: orderEndPoint)!, callBack: { json in
             DispatchQueue.main.sync {
                 if let order = json.value(forKey: "order") as? NSDictionary{
                     guard let id = order.value(forKey: "id") as? String,
-                        let startAt = order.value(forKey: "starts_at") as? String,
-                        let stopAt = order.value(forKey: "stops_at") as? String,
-                        let customer = order.value(forKey: "starts_at") as? NSDictionary,
-                        let lines = order.value(forKey: "starts_at") as? NSDictionary else { return }
+                        let startAt = order.value(forKey: "starts_at") as? NSString,
+                        let stopAt = order.value(forKey: "stops_at") as? NSString,
+                        let customer = order.value(forKey: "customer") as? NSDictionary,
+                        let lines = order.value(forKey: "lines") as? NSArray else {
+                            print("Can't cast")
+                            return
+                    }
                     
-                    booquableOrder = BooquableOrder(id: id,
-                                                    startAt: startAt,
-                                                    stopsAt: stopAt,
+                    let booquableOrder = BooquableOrder(id: id,
+                                                        startAt: startAt as String,
+                                                        stopsAt: stopAt as String,
                                                     customer: customer,
-                                                    lines: lines)
+                                                    lines: lines[0] as! NSDictionary)
+                    
+                    NotificationCenter.default.post(name: NSNotification.Name("NewOrder"), object: nil, userInfo: ["order": booquableOrder])
                 }
             }
         })
-        return booquableOrder
     }
     
     private func getJson(from url: URL, callBack: @escaping (NSDictionary) -> ()){

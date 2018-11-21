@@ -2,18 +2,22 @@
   "images" : [
     {
       "idiom" : "tv",
+      "filename" : "Apple TV.png",
       "scale" : "1x"
     },
     {
       "idiom" : "tv",
+      "filename" : "Apple TV@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "tv-marketing",
+      "filename" : "Apple TV-1.png",
       "scale" : "1x"
     },
     {
       "idiom" : "tv-marketing",
+      "filename" : "Apple TV@2x-1.png",
       "scale" : "2x"
     }
   ],

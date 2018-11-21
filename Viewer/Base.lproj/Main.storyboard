@@ -216,7 +216,7 @@
                                                             <constraint firstAttribute="bottom" secondItem="sM5-EX-ajS" secondAttribute="bottom" id="zwc-Wk-JeU"/>
                                                         </constraints>
                                                     </view>
-                                                    <blurEffect style="regular"/>
+                                                    <blurEffect style="dark"/>
                                                 </visualEffectView>
                                             </subviews>
                                             <constraints>
