@@ -37,15 +37,23 @@ class ServiceMessageModel {
     }
     
     static func isThereAMessage(completionHandler: @escaping (Bool,CKRecord?,Error?) -> Void ) {
-        getServiceMessage { (record, error) in
-            
-            guard let _ = record else {
-                completionHandler(false,nil,error)
+        
+        let query = CKQuery(recordType: ServiceMessage.recordType, predicate: NSPredicate(value: true))
+       
+        CKKeys.database.perform(query, inZoneWith: nil) { (records, error) in
+            guard error == nil,records != nil else {
+                print(error.debugDescription)
+                print("Error on Getting message")
                 return
             }
+            if records!.count > 0 {
+                completionHandler(true,records!.first,error)
+            }else {
+                completionHandler(false,nil,CKQueryException.recordNotFound("No service message found"))
+            }
             
-            completionHandler(true,record!,nil)
         }
+
     }
     
     
