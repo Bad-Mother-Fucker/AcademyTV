@@ -14,6 +14,17 @@ extension UITableViewCell{
     }
 }
 
+enum GliphName: String{
+    case appleWatch = "Apple Watch"
+    case applePencil = "Apple Pencil"
+    case appleTV = "Apple TV"
+    case ipadMini = "iPad Mini"
+    case ipadPro = "iPad Pro"
+    case iphone8 = "iPhone 8"
+    case iphoneX = "iPhone X"
+    case macMini = "Mac Mini"
+}
+
 class GlassOfficeViewController: UIViewController, UITableViewDelegate {
 
     @IBOutlet weak var booquableTableView: UITableView!{
@@ -45,7 +56,7 @@ class GlassOfficeViewController: UIViewController, UITableViewDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        BooquableManager.shared.getOrders(with: .reserved)
+//        BooquableManager.shared.getOrders(with: .started)
         
     }
     
@@ -69,6 +80,4 @@ extension GlassOfficeViewController: UITableViewDataSource{
         
         return cell
     }
-    
-    
 }

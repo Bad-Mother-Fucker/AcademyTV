@@ -18,7 +18,9 @@ class BooquableManager {
     
     static let shared = BooquableManager()
     
-    private init(){}
+    private init(){
+//        getOrders(with: .started)
+    }
     
     // MARK: - Public Api
     var orderStatus: OrderStatus = .started
