@@ -110,6 +110,4 @@ extension BoardViewController: ATVKeynoteViewDelegate {
     func hideKeynote() {
 //        Perform UI Keynote hiding
     }
-    
-    
 }
