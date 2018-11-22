@@ -8,6 +8,17 @@
 
 import Foundation
 
+enum GliphName: String{
+    case appleWatch = "Apple Watch"
+    case applePencil = "Apple Pencil"
+    case appleTV = "Apple TV"
+    case ipadMini = "iPad Mini"
+    case ipadPro = "iPad Pro"
+    case iphone8 = "iPhone 8"
+    case iphoneX = "iPhone X"
+    case macMini = "Mac Mini"
+}
+
 class BooquableOrder{
     
     var id: String!
@@ -29,9 +40,30 @@ class BooquableOrder{
         return name
     }
     
-    func getDeviceName() -> String{
+    func getDevice() -> (name: String, glyph: GliphName){
         let deviceName = lines.value(forKey: "title") as! String
-        return deviceName
+        let glyph = getGlypg(from: deviceName)
+        return (name: deviceName, glyph: glyph)
+    }
+    
+    private func getGlypg(from name: String) -> GliphName{
+        if name.range(of: GliphName.appleWatch.rawValue) != nil{
+            return .appleWatch
+        }else if name.range(of: GliphName.applePencil.rawValue) != nil {
+            return .applePencil
+        }else if name.range(of: GliphName.appleTV.rawValue) != nil {
+            return .appleTV
+        }else if name.range(of: GliphName.ipadMini.rawValue) != nil {
+            return .ipadMini
+        }else if name.range(of: GliphName.ipadPro.rawValue) != nil {
+            return .ipadPro
+        }else if name.range(of: GliphName.macMini.rawValue) != nil {
+            return .macMini
+        }else if name.range(of: GliphName.iphoneX.rawValue) != nil {
+            return .iphoneX
+        }else{
+            return .iphone8
+        }
     }
     
 }

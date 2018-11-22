@@ -14,30 +14,16 @@ extension UITableViewCell{
     }
 }
 
-enum GliphName: String{
-    case appleWatch = "Apple Watch"
-    case applePencil = "Apple Pencil"
-    case appleTV = "Apple TV"
-    case ipadMini = "iPad Mini"
-    case ipadPro = "iPad Pro"
-    case iphone8 = "iPhone 8"
-    case iphoneX = "iPhone X"
-    case macMini = "Mac Mini"
-}
-
 class GlassOfficeViewController: UIViewController, UITableViewDelegate {
+    
+    fileprivate let formatter = "yyyy-MM-dd"
     
     var orders = [BooquableOrder](){
         didSet{
             if booquableTableView != nil{
-                orders.filter { (order) -> Bool in
+                orders = orders.filter { (order) -> Bool in
                     let date = String(order.stopsAt.prefix(10))
-                    print(date)
-                    let dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "yyyy-MM-dd"
-                    guard let returnDate = dateFormatter.date(from: date) else {
-                        fatalError("ERROR: Date conversion failed due to mismatched format.")
-                    }
+                    let returnDate = get(date, with: formatter) ?? Date()
                     let today = Date()
                     return (today > returnDate)
                 }
@@ -103,6 +89,27 @@ class GlassOfficeViewController: UIViewController, UITableViewDelegate {
         
         self.dateLabel.text = dateFormatter.string(from: date)
     }
+    
+    fileprivate func get(_ date: String, with formatter: String) -> Date?{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = formatter
+        guard let returnDate = dateFormatter.date(from: date) else {
+            print("ERROR: Date conversion failed due to mismatched format.")
+            return nil
+        }
+        return returnDate
+    }
+    
+    fileprivate func getDifference(from start: Date, and end: Date) -> Int?{
+        let calendar = Calendar.current
+        
+        // Replace the hour (time) of both dates with 00:00
+        let date1 = calendar.startOfDay(for: start)
+        let date2 = calendar.startOfDay(for: end)
+        
+        let components = calendar.dateComponents([.day], from: date1, to: date2)
+        return components.day
+    }
 }
 
 extension GlassOfficeViewController: UITableViewDataSource{
@@ -114,7 +121,18 @@ extension GlassOfficeViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "booquableTableViewCell", for: indexPath) as! GlassOfficeTableViewCell
         cell.userNameLabel.text = orders[indexPath.row].customerName()
-        cell.deviceNameLabel.text = orders[indexPath.row].getDeviceName()
+        let deviceInfo = orders[indexPath.row].getDevice()
+        cell.deviceNameLabel.text = deviceInfo.name
+        cell.deviceImage.image = UIImage(named: deviceInfo.glyph.rawValue)
+        
+        let time = get(String(orders[indexPath.row].stopsAt.prefix(10)), with: formatter)
+        let days = getDifference(from: time!, and: Date())
+        cell.timingInformationLabel.text = String(days!)
+        
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 90
     }
 }
