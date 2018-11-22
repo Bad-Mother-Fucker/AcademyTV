@@ -30,10 +30,18 @@ class GlassOfficeViewController: UIViewController, UITableViewDelegate {
     var orders = [BooquableOrder](){
         didSet{
             if booquableTableView != nil{
-                booquableTableView.reloadData()
-                orders.forEach { (order) in
-                    print(order.customerName())
+                orders.filter { (order) -> Bool in
+                    let date = String(order.stopsAt.prefix(10))
+                    print(date)
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd"
+                    guard let returnDate = dateFormatter.date(from: date) else {
+                        fatalError("ERROR: Date conversion failed due to mismatched format.")
+                    }
+                    let today = Date()
+                    return (today > returnDate)
                 }
+                booquableTableView.reloadData()
             }
         }
     }
@@ -106,6 +114,7 @@ extension GlassOfficeViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "booquableTableViewCell", for: indexPath) as! GlassOfficeTableViewCell
         cell.userNameLabel.text = orders[indexPath.row].customerName()
+        cell.deviceNameLabel.text = orders[indexPath.row].getDeviceName()
         return cell
     }
 }

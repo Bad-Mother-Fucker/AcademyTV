@@ -22,4 +22,5 @@ class GlassOfficeTableViewCell: UITableViewCell {
     @IBOutlet weak var deviceImage: UIImageView!
     @IBOutlet weak var timingInformationLabel: UILabel!
     @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var deviceNameLabel: UILabel!
 }

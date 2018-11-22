@@ -62,7 +62,7 @@ class BooquableManager {
                         let stopAt = order.value(forKey: "stops_at") as? NSString,
                         let customer = order.value(forKey: "customer") as? NSDictionary,
                         let lines = order.value(forKey: "lines") as? NSArray else {
-                            print("Can't cast")
+                            debugPrint("Can't cast")
                             return
                     }
                     
