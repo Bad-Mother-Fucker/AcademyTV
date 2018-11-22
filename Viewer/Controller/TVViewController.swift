@@ -120,8 +120,7 @@ class TVViewController: UIViewController {
             CKKeys.database.fetch(withRecordID: recordID) { (record, error) in
                 guard let _ = record, error == nil else {return}
                 DispatchQueue.main.async {
-                    
-                    self.appDelegate.currentTV = TV(record:record!)
+                    self.appDelegate.currentTV.record = record!
                     if let keynote = self.appDelegate.currentTV.keynote {
                         self.appDelegate.currentTV.keynoteDelegate?.show(keynote: keynote)
                     } else {

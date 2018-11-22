@@ -26,6 +26,13 @@ class BoardViewController: TVViewController {
         }
     }
     
+    @IBOutlet weak var keynoteView: UIImageView! {
+        didSet{
+            keynoteView.isHidden = true
+        }
+    }
+    
+    
     // MARK: Contextual Label
     @IBOutlet weak var tvNameLabel: UILabel!{
         didSet{
@@ -105,9 +112,36 @@ class BoardViewController: TVViewController {
 extension BoardViewController: ATVKeynoteViewDelegate {
     func show(keynote: [UIImage]) {
 //        Perform UI Keynote  Showing
+        keynoteView.fadeIn()
+        var page = 0
+        keynoteView.image = keynote[page]
+        Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { (timer) in
+            page = (page + 1) % keynote.count
+            self.keynoteView.image = keynote[page]
+        }
+        
+        
     }
     
     func hideKeynote() {
 //        Perform UI Keynote hiding
+        keynoteView.fadeOut()
+    }
+    
+    
+    
+}
+
+extension UIView {
+    func fadeIn() {
+        UIView.animate(withDuration: 1) {
+            self.alpha = 1
+        }
+    }
+    
+    func fadeOut() {
+        UIView.animate(withDuration: 1) {
+            self.alpha = 0
+        }
     }
 }
