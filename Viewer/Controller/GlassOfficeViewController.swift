@@ -14,7 +14,7 @@ extension UITableViewCell{
     }
 }
 
-class GlassOfficeViewController: UIViewController, UITableViewDelegate {
+class GlassOfficeViewController: TVViewController, UITableViewDelegate {
     
     fileprivate let formatter = "yyyy-MM-dd"
     
@@ -66,6 +66,11 @@ class GlassOfficeViewController: UIViewController, UITableViewDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(addOrder(notification:)), name: NSNotification.Name("NewOrder"), object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(getAllOrders), name: NSNotification.Name("GetAllOrders"), object: nil)
+        
+        NotificationCenter.default.addObserver(forName: Notification.Name(CKNotificationName.tvSet.rawValue), object: nil, queue: .main) { (notification) in
+            self.currentTV = (UIApplication.shared.delegate as! AppDelegate).currentTV
+            self.currentTV.keynoteDelegate = self
+        }
 
     }
     
@@ -135,4 +140,16 @@ extension GlassOfficeViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 90
     }
+}
+
+extension GlassOfficeViewController: ATVKeynoteViewDelegate {
+    func show(keynote: [UIImage]) {
+//        Perform show keynote in UI
+    }
+    
+    func hideKeynote() {
+//        Perform hiding keynote in UI
+    }
+    
+    
 }

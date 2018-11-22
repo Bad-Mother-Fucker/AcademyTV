@@ -52,9 +52,9 @@ class BoardViewController: TVViewController {
 //            self?.player.play()
 //        }
         
-        NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: CKNotificationName.tvSet.rawValue), object: nil, queue: .main) { [weak self] _ in
-            self?.currentTV = (UIApplication.shared.delegate as! AppDelegate).currentTV
-            self?.currentTV.keynoteDelegate = self
+        NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: CKNotificationName.tvSet.rawValue), object: nil, queue: .main) { _ in
+            self.currentTV = (UIApplication.shared.delegate as! AppDelegate).currentTV
+            self.currentTV.keynoteDelegate = self
         }
         
         
