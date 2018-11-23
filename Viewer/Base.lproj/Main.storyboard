@@ -275,6 +275,7 @@
                         <outlet property="blurEffect" destination="g6i-s3-tUg" id="cgU-Sb-xSr"/>
                         <outlet property="booquableTableView" destination="Bx2-ed-jmt" id="4Ex-tR-WC9"/>
                         <outlet property="dateLabel" destination="HNs-8u-qLX" id="eDr-Xh-5K6"/>
+                        <outlet property="keynoteImageView" destination="kH9-AS-4Kn" id="UsS-kk-I6q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hky-c3-in1" sceneMemberID="firstResponder"/>
