@@ -20,6 +20,20 @@ class PosterViewController: UITableViewController, UINavigationControllerDelegat
         imagePicker.allowsEditing = false
         
         tableView.tableFooterView = UIView()
+        
+        let userDefault = UserDefaults.standard
+        userDefault.addSuite(named: "com.Rogue.Viewer.ShareExt")
+        
+        if let dict = userDefault.value(forKey: "keynote") as? [String:Any]{
+            
+            let data = dict["imgData"] as! [Data]
+            let str = dict["name"] as! String
+            print(data,str)
+            userDefault.removeObject(forKey: "img")
+            userDefault.synchronize()
+            
+        }
+        
     }
     
     @IBOutlet weak var imageViewController: UIImageView!{

@@ -74,7 +74,7 @@ class MessagesTableViewController: UIViewController, UITableViewDataSource, UITa
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let remove = UITableViewRowAction(style: .destructive, title: "Cancel") {[weak self] (action, indexPath) in
-            self?.delegate.database.delete(withRecordID: (self?.globalMessages[indexPath.row].recordID)!, completionHandler: { (record, error) in
+            self?.delegate.database.delete(withRecordID: (self?.globalMessages[indexPath.row].record.recordID)!, completionHandler: { (record, error) in
                 guard error == nil else{
                     print(error.debugDescription)
                     return
@@ -92,28 +92,12 @@ class MessagesTableViewController: UIViewController, UITableViewDataSource, UITa
     // MARK: Private Implementation
     private func getAllMessages(with query: CKQuery){
         
-        delegate.database.perform(query, inZoneWith: nil) { (record, error) in
-            guard error == nil else {
-                print(error.debugDescription)
-                print("Error on Getting message")
-                return
-            }
-            
-            self.globalMessages = []
-            
-            record?.forEach({ [weak self] (record) in
-                
-                let message = GlobalMessage(recordID: record.recordID,
-                                            title: record["title"] ?? "NO Title",
-                                            subtitle: record["subtitle"] ?? "No Subtitle",
-                                            location: record["location"] ?? "No Location",
-                                            description: record["description"] ?? "No Description",
-                                            creationDate: Date())
-                
-                self?.globalMessages.append(message)
-                
-            })
+        do {
+           self.globalMessages = try CKController.getAllGlobalMessages()
+        }catch {
+            print(error.localizedDescription) //Handle connection timed out error
         }
+        
         tableView.alpha = 1
     }
 }

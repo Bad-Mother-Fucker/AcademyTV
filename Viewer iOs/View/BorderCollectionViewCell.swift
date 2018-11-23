@@ -12,6 +12,7 @@ class BorderCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     
     override func awakeFromNib() {
+        
         super.awakeFromNib()
         self.layer.borderWidth = 2
         self.layer.borderColor = UIColor.blue.cgColor

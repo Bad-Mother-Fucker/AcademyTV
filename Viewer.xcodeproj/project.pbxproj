@@ -7,12 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1916510421A46661003FD164 /* ServiceMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1916510321A46661003FD164 /* ServiceMessage.swift */; };
-		1991FB0821971BF400E245BF /* UIImage+CKAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1991FB0721971BF400E245BF /* UIImage+CKAsset.swift */; };
-		1991FB092197493800E245BF /* UIImage+CKAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1991FB0721971BF400E245BF /* UIImage+CKAsset.swift */; };
 		19C227CD21A3372400BB4BC3 /* TVViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C227CC21A3372400BB4BC3 /* TVViewController.swift */; };
+		19FA365D21A8202400E3B1C0 /* UIImage+CKAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FA365A21A8202300E3B1C0 /* UIImage+CKAsset.swift */; };
+		19FA365E21A8202400E3B1C0 /* UIImage+CKAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FA365A21A8202300E3B1C0 /* UIImage+CKAsset.swift */; };
+		19FA365F21A8202400E3B1C0 /* UIImage+CKAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FA365A21A8202300E3B1C0 /* UIImage+CKAsset.swift */; };
+		19FA366021A8202400E3B1C0 /* ServiceMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FA365B21A8202300E3B1C0 /* ServiceMessage.swift */; };
+		19FA366121A8202400E3B1C0 /* ServiceMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FA365B21A8202300E3B1C0 /* ServiceMessage.swift */; };
+		19FA366221A8202400E3B1C0 /* ServiceMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FA365B21A8202300E3B1C0 /* ServiceMessage.swift */; };
+		19FA366321A8202400E3B1C0 /* TV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FA365C21A8202300E3B1C0 /* TV.swift */; };
+		19FA366421A8202400E3B1C0 /* TV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FA365C21A8202300E3B1C0 /* TV.swift */; };
+		19FA366521A8202400E3B1C0 /* TV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FA365C21A8202300E3B1C0 /* TV.swift */; };
+		19FA366721A8203D00E3B1C0 /* CKController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FA366621A8203D00E3B1C0 /* CKController.swift */; };
+		19FA366821A8203D00E3B1C0 /* CKController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FA366621A8203D00E3B1C0 /* CKController.swift */; };
+		19FA366921A8203D00E3B1C0 /* CKController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FA366621A8203D00E3B1C0 /* CKController.swift */; };
+		19FA366A21A821A200E3B1C0 /* GlobalMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9904CA6A217DDBAD00210884 /* GlobalMessage.swift */; };
+		19FA366B21A8226500E3B1C0 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99AC097A2174F4B000CFCAD0 /* CloudKit.framework */; };
 		9904CA5F217BDCED00210884 /* BoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9904CA5E217BDCED00210884 /* BoardViewController.swift */; };
-		9904CA62217BDFF800210884 /* TV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9904CA61217BDFF800210884 /* TV.swift */; };
 		9904CA67217DC5F100210884 /* GlobalMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9904CA66217DC5F100210884 /* GlobalMessageTableViewCell.swift */; };
 		9904CA6B217DDBAD00210884 /* GlobalMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9904CA6A217DDBAD00210884 /* GlobalMessage.swift */; };
 		991AB6B721A30D8300D0565E /* BorderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991AB6B621A30D8300D0565E /* BorderCollectionViewCell.swift */; };
@@ -30,8 +40,6 @@
 		99AC09702174E9C200CFCAD0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99AC096F2174E9C200CFCAD0 /* Assets.xcassets */; };
 		99AC09732174E9C200CFCAD0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99AC09712174E9C200CFCAD0 /* LaunchScreen.storyboard */; };
 		99AC097B2174F4B000CFCAD0 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99AC097A2174F4B000CFCAD0 /* CloudKit.framework */; };
-		99B54738218CDA8600DE3CD5 /* CKController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B54737218CDA8600DE3CD5 /* CKController.swift */; };
-		99D07F3621A5B2F2005B1BC5 /* ServiceMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1916510321A46661003FD164 /* ServiceMessage.swift */; };
 		99F596C321A30F9000E999D7 /* GroupsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F596C221A30F9000E999D7 /* GroupsCollectionViewCell.swift */; };
 		99F6B24221A2F82000B3FA65 /* EditMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F6B24021A2F82000B3FA65 /* EditMessageViewController.swift */; };
 		99F6B24321A2F82000B3FA65 /* MessagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F6B24121A2F82000B3FA65 /* MessagesTableViewController.swift */; };
@@ -40,9 +48,7 @@
 		99F6B24A21A3015800B3FA65 /* SettingGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F6B24921A3015800B3FA65 /* SettingGroupViewController.swift */; };
 		99F6B24C21A3021C00B3FA65 /* TimingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F6B24B21A3021C00B3FA65 /* TimingTableViewController.swift */; };
 		99F6B24E21A3040300B3FA65 /* GlassOfficeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F6B24D21A3040300B3FA65 /* GlassOfficeViewController.swift */; };
-		99F6B24F21A306EA00B3FA65 /* CKController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B54737218CDA8600DE3CD5 /* CKController.swift */; };
 		99F6B25021A306EA00B3FA65 /* GlobalMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9904CA6A217DDBAD00210884 /* GlobalMessage.swift */; };
-		99F6B25121A306EA00B3FA65 /* TV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9904CA61217BDFF800210884 /* TV.swift */; };
 		99FA31AD21A41EDB00A31F02 /* CKController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FA31AC21A41EDB00A31F02 /* CKController.swift */; };
 		99FA31AF21A449ED00A31F02 /* GlassOfficeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FA31AE21A449ED00A31F02 /* GlassOfficeTableViewCell.swift */; };
 		99FA31B221A45A1B00A31F02 /* BooquableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FA31B121A45A1B00A31F02 /* BooquableManager.swift */; };
@@ -74,11 +80,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1916510321A46661003FD164 /* ServiceMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceMessage.swift; sourceTree = "<group>"; };
-		1991FB0721971BF400E245BF /* UIImage+CKAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+CKAsset.swift"; sourceTree = "<group>"; };
 		19C227CC21A3372400BB4BC3 /* TVViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVViewController.swift; sourceTree = "<group>"; };
+		19D1A6DB21A81259000DC2FB /* ShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareExtension.entitlements; sourceTree = "<group>"; };
+		19FA365A21A8202300E3B1C0 /* UIImage+CKAsset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+CKAsset.swift"; sourceTree = "<group>"; };
+		19FA365B21A8202300E3B1C0 /* ServiceMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceMessage.swift; sourceTree = "<group>"; };
+		19FA365C21A8202300E3B1C0 /* TV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TV.swift; sourceTree = "<group>"; };
+		19FA366621A8203D00E3B1C0 /* CKController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CKController.swift; sourceTree = "<group>"; };
 		9904CA5E217BDCED00210884 /* BoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = BoardViewController.swift; sourceTree = "<group>"; usesTabs = 0; };
-		9904CA61217BDFF800210884 /* TV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TV.swift; sourceTree = "<group>"; };
 		9904CA66217DC5F100210884 /* GlobalMessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalMessageTableViewCell.swift; sourceTree = "<group>"; };
 		9904CA6A217DDBAD00210884 /* GlobalMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalMessage.swift; sourceTree = "<group>"; };
 		991AB6B621A30D8300D0565E /* BorderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -103,7 +111,6 @@
 		99AC09742174E9C200CFCAD0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		99AC09782174F4AE00CFCAD0 /* Viewer iOs.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Viewer iOs.entitlements"; sourceTree = "<group>"; };
 		99AC097A2174F4B000CFCAD0 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
-		99B54737218CDA8600DE3CD5 /* CKController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CKController.swift; sourceTree = "<group>"; };
 		99F596C221A30F9000E999D7 /* GroupsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsCollectionViewCell.swift; sourceTree = "<group>"; };
 		99F6B24021A2F82000B3FA65 /* EditMessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditMessageViewController.swift; sourceTree = "<group>"; };
 		99F6B24121A2F82000B3FA65 /* MessagesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesTableViewController.swift; sourceTree = "<group>"; };
@@ -123,6 +130,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19FA366B21A8226500E3B1C0 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,6 +176,7 @@
 		99308B7521A6FAE500EA0F9C /* ShareExtension */ = {
 			isa = PBXGroup;
 			children = (
+				19D1A6DB21A81259000DC2FB /* ShareExtension.entitlements */,
 				99308B7621A6FAE500EA0F9C /* ShareViewController.swift */,
 				99308B7821A6FAE500EA0F9C /* MainInterface.storyboard */,
 				99308B7B21A6FAE500EA0F9C /* Info.plist */,
@@ -197,11 +206,11 @@
 		99AC09472174E6B100CFCAD0 = {
 			isa = PBXGroup;
 			children = (
-				1916510321A46661003FD164 /* ServiceMessage.swift */,
-				99B54737218CDA8600DE3CD5 /* CKController.swift */,
-				1991FB0721971BF400E245BF /* UIImage+CKAsset.swift */,
+				19FA366621A8203D00E3B1C0 /* CKController.swift */,
+				19FA365B21A8202300E3B1C0 /* ServiceMessage.swift */,
+				19FA365C21A8202300E3B1C0 /* TV.swift */,
+				19FA365A21A8202300E3B1C0 /* UIImage+CKAsset.swift */,
 				9904CA6A217DDBAD00210884 /* GlobalMessage.swift */,
-				9904CA61217BDFF800210884 /* TV.swift */,
 				99AC09522174E6B100CFCAD0 /* Viewer */,
 				99AC09672174E9C100CFCAD0 /* Viewer iOs */,
 				99308B7521A6FAE500EA0F9C /* ShareExtension */,
@@ -365,6 +374,17 @@
 				TargetAttributes = {
 					99308B7321A6FAE500EA0F9C = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 					99AC094F2174E6B100CFCAD0 = {
 						CreatedOnToolsVersion = 10.0;
@@ -386,6 +406,9 @@
 					99AC09652174E9C100CFCAD0 = {
 						CreatedOnToolsVersion = 10.0;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
@@ -454,6 +477,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19FA366921A8203D00E3B1C0 /* CKController.swift in Sources */,
+				19FA366221A8202400E3B1C0 /* ServiceMessage.swift in Sources */,
+				19FA366A21A821A200E3B1C0 /* GlobalMessage.swift in Sources */,
+				19FA366521A8202400E3B1C0 /* TV.swift in Sources */,
+				19FA365F21A8202400E3B1C0 /* UIImage+CKAsset.swift in Sources */,
 				99308B7721A6FAE500EA0F9C /* ShareViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -465,17 +493,17 @@
 				99FA31AF21A449ED00A31F02 /* GlassOfficeTableViewCell.swift in Sources */,
 				99F6B24E21A3040300B3FA65 /* GlassOfficeViewController.swift in Sources */,
 				99FA31AD21A41EDB00A31F02 /* CKController.swift in Sources */,
+				19FA366321A8202400E3B1C0 /* TV.swift in Sources */,
+				19FA366021A8202400E3B1C0 /* ServiceMessage.swift in Sources */,
+				19FA366721A8203D00E3B1C0 /* CKController.swift in Sources */,
 				9904CA67217DC5F100210884 /* GlobalMessageTableViewCell.swift in Sources */,
 				19C227CD21A3372400BB4BC3 /* TVViewController.swift in Sources */,
 				996353E82195E2E500AE8AAE /* GlobalMessageView.swift in Sources */,
 				99FA31B421A4637900A31F02 /* BooquableOrder.swift in Sources */,
-				1991FB0821971BF400E245BF /* UIImage+CKAsset.swift in Sources */,
 				9904CA6B217DDBAD00210884 /* GlobalMessage.swift in Sources */,
-				1916510421A46661003FD164 /* ServiceMessage.swift in Sources */,
-				99B54738218CDA8600DE3CD5 /* CKController.swift in Sources */,
 				99AC09542174E6B100CFCAD0 /* AppDelegate.swift in Sources */,
-				9904CA62217BDFF800210884 /* TV.swift in Sources */,
 				99FA31B221A45A1B00A31F02 /* BooquableManager.swift in Sources */,
+				19FA365D21A8202400E3B1C0 /* UIImage+CKAsset.swift in Sources */,
 				9904CA5F217BDCED00210884 /* BoardViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -484,20 +512,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				99D07F3621A5B2F2005B1BC5 /* ServiceMessage.swift in Sources */,
 				99F596C321A30F9000E999D7 /* GroupsCollectionViewCell.swift in Sources */,
 				99F6B24221A2F82000B3FA65 /* EditMessageViewController.swift in Sources */,
 				99F6B24821A2FF5D00B3FA65 /* TvListViewController.swift in Sources */,
+				19FA366421A8202400E3B1C0 /* TV.swift in Sources */,
+				19FA366121A8202400E3B1C0 /* ServiceMessage.swift in Sources */,
+				19FA366821A8203D00E3B1C0 /* CKController.swift in Sources */,
 				9964188A2180C6DA005267E4 /* MessagesTableViewCell.swift in Sources */,
 				99F6B24A21A3015800B3FA65 /* SettingGroupViewController.swift in Sources */,
-				99F6B24F21A306EA00B3FA65 /* CKController.swift in Sources */,
-				99F6B25121A306EA00B3FA65 /* TV.swift in Sources */,
 				99F6B24621A2F9DB00B3FA65 /* PosterViewController.swift in Sources */,
 				99F6B24321A2F82000B3FA65 /* MessagesTableViewController.swift in Sources */,
 				99AC09692174E9C100CFCAD0 /* AppDelegate.swift in Sources */,
 				991AB6B721A30D8300D0565E /* BorderCollectionViewCell.swift in Sources */,
-				1991FB092197493800E245BF /* UIImage+CKAsset.swift in Sources */,
 				99F6B25021A306EA00B3FA65 /* GlobalMessage.swift in Sources */,
+				19FA365E21A8202400E3B1C0 /* UIImage+CKAsset.swift in Sources */,
 				99F6B24C21A3021C00B3FA65 /* TimingTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -551,17 +579,18 @@
 		99308B7F21A6FAE500EA0F9C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5QJLL8HM6C;
+				DEVELOPMENT_TEAM = D4L4S7MAUX;
 				INFOPLIST_FILE = ShareExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.KnightClub.Viewer-iOs.ShareExtension";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Rogue.Viewer-iOs.ShareExtension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -573,17 +602,18 @@
 		99308B8021A6FAE500EA0F9C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5QJLL8HM6C;
+				DEVELOPMENT_TEAM = D4L4S7MAUX;
 				INFOPLIST_FILE = ShareExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.KnightClub.Viewer-iOs.ShareExtension";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Rogue.Viewer-iOs.ShareExtension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -761,7 +791,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.KnightClub.Viewer-iOs";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Rogue.Viewer-iOs";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 4.2;
@@ -784,7 +814,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.KnightClub.Viewer-iOs";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Rogue.Viewer-iOs";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 4.2;
