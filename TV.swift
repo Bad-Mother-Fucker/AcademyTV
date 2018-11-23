@@ -106,12 +106,7 @@ class TV: CloudStored {
     }
     
     var keynoteDelegate: ATVKeynoteViewDelegate?
-    var hasKeynote: Bool = false {
-        didSet {
-            
-        }
-    }
-    
+    var hasKeynote: Bool = false
     
     init (name: String) {
         self.record = CKRecord(recordType: TV.recordType)

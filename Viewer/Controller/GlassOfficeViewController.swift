@@ -14,7 +14,7 @@ extension UITableViewCell{
     }
 }
 
-class GlassOfficeViewController: UIViewController, UITableViewDelegate {
+class GlassOfficeViewController: TVViewController, UITableViewDelegate {
     
     fileprivate let formatter = "yyyy-MM-dd"
     
@@ -32,6 +32,7 @@ class GlassOfficeViewController: UIViewController, UITableViewDelegate {
         }
     }
     
+    @IBOutlet weak var keynoteImageView: UIImageView!
     @IBOutlet weak var booquableTableView: UITableView!{
         didSet{
             booquableTableView.delegate = self
@@ -61,13 +62,21 @@ class GlassOfficeViewController: UIViewController, UITableViewDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+       // self.currentTV = (UIApplication.shared.delegate as! AppDelegate).currentTV
+        //self.currentTV.keynoteDelegate = self
+        
         BooquableManager.shared.getOrders(with: .started)
+        
+        Timer.scheduledTimer(withTimeInterval: 60*60, repeats: true) { (timer) in
+            BooquableManager.shared.getOrders(with: .started)
+        }
         
         NotificationCenter.default.addObserver(self, selector: #selector(addOrder(notification:)), name: NSNotification.Name("NewOrder"), object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(getAllOrders), name: NSNotification.Name("GetAllOrders"), object: nil)
 
     }
+    
     
     @objc private func addOrder(notification: NSNotification){
         if let order = notification.userInfo?["order"] as? BooquableOrder {
@@ -136,3 +145,17 @@ extension GlassOfficeViewController: UITableViewDataSource{
         return 90
     }
 }
+
+extension GlassOfficeViewController: ATVKeynoteViewDelegate {
+    func show(keynote: [UIImage]) {
+        //        Perform UI Keynote  Showing
+        self.keynoteImageView.image = keynote[0]
+        
+    }
+    
+    func hideKeynote() {
+        //        Perform UI Keynote hiding
+        self.keynoteImageView.image = nil
+    }
+}
+
