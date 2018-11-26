@@ -35,7 +35,7 @@ class CKController {
 //        This subscribes just to updates on the current TV record
         case CKKeys.tvSubscriptionKey:
             options = [.firesOnRecordUpdate]
-            predicate = NSPredicate(format: "name == %@ ",UIDevice.current.name )
+            predicate = NSPredicate(format: "name == %@ ",UIDevice.current.name)
         case CKKeys.serviceSubscriptionKey:
             options = [.firesOnRecordUpdate]
             

@@ -108,6 +108,7 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
              let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TVGroup", for: indexPath) as! GroupsCollectionViewCell
             
             let group = groups[indexPath.item]
+            
             cell.setGradientBackground(form: UIColor(red: CGFloat(group.startingColor.red/255),
                                                      green: CGFloat(group.startingColor.green/255),
                                                      blue: CGFloat(group.startingColor.blue/255),
@@ -118,7 +119,7 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
                                                    alpha: 1))
             
             cell.groupNameLabel.text = group.name.rawValue
-            
+
             return cell
         }else{
             let borderCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddAllTVGroup", for: indexPath) as! BorderCollectionViewCell

@@ -71,6 +71,8 @@ extension UIImage {
         return url
     }
 }
+
+
 extension Data {
     func saveToTempLocationWithFileType(_ fileType: ImageFileType) throws -> URL {
         let filename = ProcessInfo.processInfo.globallyUniqueString + fileType.fileExtension

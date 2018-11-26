@@ -62,6 +62,9 @@ class BoardViewController: TVViewController {
         NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: CKNotificationName.tvSet.rawValue), object: nil, queue: .main) { _ in
             self.currentTV = (UIApplication.shared.delegate as! AppDelegate).currentTV
             self.currentTV.keynoteDelegate = self
+            if let keynote = self.currentTV.keynote {
+                self.show(keynote: keynote)
+            }
         }
         
         
@@ -134,6 +137,8 @@ extension BoardViewController: ATVKeynoteViewDelegate {
 
 extension UIView {
     func fadeIn() {
+        self.isHidden = false
+        self.alpha = 0
         UIView.animate(withDuration: 1) {
             self.alpha = 1
         }
