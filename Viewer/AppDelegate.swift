@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
             if autorized {
                 DispatchQueue.main.async {
                      application.registerForRemoteNotifications()
-    
+                    UNUserNotificationCenter.current().delegate = self
                     CKController.saveSubscription(for: GlobalMessage.recordType,ID:CKKeys.messageSubscriptionKey)
                     CKController.saveSubscription(for: ServiceMessage.recordType, ID: CKKeys.serviceSubscriptionKey)
                     CKController.saveSubscription(for: TV.recordType,ID:CKKeys.tvSubscriptionKey)
@@ -42,6 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
                 }
             }
         }
+        
         
         
         // MARK: Check the existence of a ServiceMessage
@@ -163,6 +164,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         }
     }
     
-
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        print("app in background")
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        print("notification recieved")
+        print(notification.request.content)
+        completionHandler(.badge)
+    }
 }
 
