@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="14460.31" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="14313.18" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="appleTV" orientation="landscape">
         <adaptation id="light"/>
     </device>
     <dependencies>
         <deployment identifier="tvOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -74,28 +74,6 @@
                                 </constraints>
                                 <blurEffect style="dark"/>
                             </visualEffectView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ar0-s9-NZb">
-                                <rect key="frame" x="120" y="90" width="900" height="550"/>
-                                <subviews>
-                                    <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vrq-12-IkD">
-                                        <rect key="frame" x="0.0" y="0.0" width="900" height="550"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="jvG-qA-7go" customClass="GlobalMessageView" customModule="Viewer" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="900" height="550"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        </view>
-                                        <blurEffect style="dark"/>
-                                    </visualEffectView>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="vrq-12-IkD" firstAttribute="top" secondItem="Ar0-s9-NZb" secondAttribute="top" id="54m-bv-b1z"/>
-                                    <constraint firstAttribute="height" constant="550" id="7Id-jQ-xda"/>
-                                    <constraint firstItem="vrq-12-IkD" firstAttribute="leading" secondItem="Ar0-s9-NZb" secondAttribute="leading" id="Dle-eq-CS0"/>
-                                    <constraint firstAttribute="width" constant="900" id="j69-sI-NPs"/>
-                                    <constraint firstAttribute="bottom" secondItem="vrq-12-IkD" secondAttribute="bottom" id="oNa-BI-hYA"/>
-                                    <constraint firstAttribute="trailing" secondItem="vrq-12-IkD" secondAttribute="trailing" id="udj-7M-mLY"/>
-                                </constraints>
-                            </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Gf1-AQ-UDc">
                                 <rect key="frame" x="1072" y="90" width="818" height="550"/>
                                 <constraints>
@@ -103,29 +81,35 @@
                                     <constraint firstAttribute="height" constant="550" id="O2U-ZH-DUP"/>
                                 </constraints>
                             </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v8C-TD-9es" customClass="GlobalMessageView" customModule="Viewer" customModuleProvider="target">
+                                <rect key="frame" x="110" y="90" width="897" height="550"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.34345569349315069" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="550" id="3Cy-Xx-5NY"/>
+                                    <constraint firstAttribute="width" constant="897" id="651-4p-vd2"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="v8C-TD-9es" firstAttribute="leading" secondItem="wu6-TO-1qx" secondAttribute="leading" constant="20" id="0yk-iY-BP4"/>
                             <constraint firstAttribute="bottom" secondItem="kVA-Se-YNi" secondAttribute="bottom" constant="30" id="3Se-rK-9P7"/>
-                            <constraint firstItem="Ar0-s9-NZb" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="30" id="IwO-Sd-J9t"/>
+                            <constraint firstItem="v8C-TD-9es" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="30" id="49G-r3-52f"/>
                             <constraint firstAttribute="trailing" secondItem="C7z-wd-41c" secondAttribute="trailing" constant="30" id="Mst-qw-EyN"/>
                             <constraint firstItem="Gf1-AQ-UDc" firstAttribute="top" secondItem="wu6-TO-1qx" secondAttribute="top" constant="30" id="Vcx-kG-PL5"/>
                             <constraint firstItem="Gf1-AQ-UDc" firstAttribute="trailing" secondItem="wu6-TO-1qx" secondAttribute="trailing" constant="60" id="jAU-wR-BEV"/>
                             <constraint firstAttribute="bottom" secondItem="C7z-wd-41c" secondAttribute="bottom" constant="30" id="oeg-cT-RnL"/>
                             <constraint firstItem="kVA-Se-YNi" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="30" id="vwH-i4-2bU"/>
-                            <constraint firstItem="Ar0-s9-NZb" firstAttribute="leading" secondItem="wu6-TO-1qx" secondAttribute="leading" constant="30" id="w9n-TM-KDz"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="wu6-TO-1qx"/>
                     </view>
                     <connections>
                         <outlet property="dateLabel" destination="l1V-In-Lw9" id="yng-ER-fx4"/>
-                        <outlet property="globalMessageView" destination="jvG-qA-7go" id="zrw-FI-YGS"/>
+                        <outlet property="globalMessageView" destination="v8C-TD-9es" id="Bhy-Ae-a03"/>
                         <outlet property="keynoteView" destination="Gf1-AQ-UDc" id="y2W-ck-jjy"/>
                         <outlet property="tvNameLabel" destination="1ND-ps-g75" id="ebX-fM-3Eo"/>
                         <outletCollection property="blurViews" destination="kVA-Se-YNi" collectionClass="NSMutableArray" id="npy-dR-3Sm"/>
                         <outletCollection property="blurViews" destination="C7z-wd-41c" collectionClass="NSMutableArray" id="afP-Pp-PDT"/>
-                        <outletCollection property="blurViews" destination="vrq-12-IkD" collectionClass="NSMutableArray" id="reC-Kp-hAA"/>
-                        <outletCollection property="blurViews" destination="vrq-12-IkD" collectionClass="NSMutableArray" id="FIe-Ae-c5y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -46,7 +46,14 @@ import UIKit
     var timeLabel = UILabel()
     var locationLabel = UILabel()
     var qrCodeImage = UIImageView()
-
+    
+    var globalMessages: [GlobalMessage] = [] {
+        didSet {
+            set(message: self.globalMessages.first!)
+        }
+    }
+    
+    
     @IBInspectable var havePDF: Bool = false{
         didSet{
             setNeedsDisplay()
@@ -95,11 +102,11 @@ import UIKit
         }
     }
     
-    func generateQRCode(from string: String) {
+    func generateQRCode(from string: String) -> UIImage? {
         let data = string.data(using: String.Encoding.ascii)
         
         if let filter = CIFilter(name: "CIQRCodeGenerator") {
-            guard let colorFilter = CIFilter(name: "CIFalseColor") else { return }
+            guard let colorFilter = CIFilter(name: "CIFalseColor") else { return nil }
             
             filter.setValue(data, forKey: "inputMessage")
             
@@ -111,9 +118,20 @@ import UIKit
                 let scaleX = qrCodeImage.frame.size.width / qr.extent.size.width
                 let scaleY = qrCodeImage.frame.size.height / qr.extent.size.height
                 let transform = CGAffineTransform(scaleX: scaleX, y: scaleY)
-                qrCodeImage.image = UIImage(ciImage: qr.transformed(by: transform))
+                return UIImage(ciImage: qr.transformed(by: transform))
             }
         }
+        return nil
     }
+    
+    func set(message: GlobalMessage) {
+        self.titleLabel.text = message.title
+        self.descriptionLabel.text = message.description
+        self.locationLabel.text = message.location
+        self.qrCodeImage.image = generateQRCode(from: message.url?.absoluteString ?? "")
+        self.timeLabel.text = ""
+        
+    }
+    
 
 }
