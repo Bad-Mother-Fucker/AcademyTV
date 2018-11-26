@@ -136,6 +136,7 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         if cell?.reuseIdentifier == "TVGroup"{
             cell!.isSelected = true
+            selectedGroups.append(groups[indexPath.item].name)
         }else{
             for tvCell in collectionView.visibleCells{
                 tvCell.isSelected = true
@@ -153,6 +154,13 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
         }else{
             for tvCell in collectionView.visibleCells{
                 tvCell.isSelected = false
+                selectedGroups = selectedGroups.filter { (tvGroup) -> Bool in
+                    if tvGroup == groups[indexPath.item].name{
+                        return false
+                    }else{
+                        return true
+                    }
+                }
             }
         }
         
@@ -160,7 +168,7 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
-        case "setTheTimerSegue":
+        case "setTheTvSegue":
             
             if selectedGroups.count == 0{
                 let alert = UIAlertController(title: "Select at least one group.", message: nil, preferredStyle: .alert)
@@ -169,7 +177,7 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
                 return
             }
 
-            if let destination = segue.destination as? TimingTableViewController{
+            if let destination = segue.destination as? TVsCollectionViewController{
                 destination.image = image
                 destination.tvGroups = selectedGroups
             }

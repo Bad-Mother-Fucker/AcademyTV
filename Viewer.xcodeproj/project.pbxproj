@@ -32,6 +32,7 @@
 		994CDB8621A06FBF005909BF /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 994CDB8521A06FBF005909BF /* CloudKit.framework */; };
 		996353E82195E2E500AE8AAE /* GlobalMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996353E72195E2E500AE8AAE /* GlobalMessageView.swift */; };
 		9964188A2180C6DA005267E4 /* MessagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996418892180C6DA005267E4 /* MessagesTableViewCell.swift */; };
+		997395F621AC594100F650A6 /* TVsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997395F521AC594100F650A6 /* TVsCollectionViewController.swift */; };
 		99AC09542174E6B100CFCAD0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99AC09532174E6B100CFCAD0 /* AppDelegate.swift */; };
 		99AC09592174E6B100CFCAD0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99AC09572174E6B100CFCAD0 /* Main.storyboard */; };
 		99AC095B2174E6B300CFCAD0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99AC095A2174E6B300CFCAD0 /* Assets.xcassets */; };
@@ -98,6 +99,7 @@
 		996418892180C6DA005267E4 /* MessagesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViewCell.swift; sourceTree = "<group>"; };
 		997395EC21AC335200F650A6 /* ShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareExtension.entitlements; sourceTree = "<group>"; };
 		997395ED21AC336B00F650A6 /* Viewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Viewer.entitlements; sourceTree = "<group>"; };
+		997395F521AC594100F650A6 /* TVsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVsCollectionViewController.swift; sourceTree = "<group>"; };
 		99AC09502174E6B100CFCAD0 /* Viewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Viewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99AC09532174E6B100CFCAD0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		99AC09582174E6B100CFCAD0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -293,6 +295,7 @@
 				99F6B24721A2FF5D00B3FA65 /* TvListViewController.swift */,
 				99F6B24921A3015800B3FA65 /* SettingGroupViewController.swift */,
 				99F6B24B21A3021C00B3FA65 /* TimingTableViewController.swift */,
+				997395F521AC594100F650A6 /* TVsCollectionViewController.swift */,
 			);
 			path = Poster;
 			sourceTree = "<group>";
@@ -524,6 +527,7 @@
 				99F6B24321A2F82000B3FA65 /* MessagesTableViewController.swift in Sources */,
 				99AC09692174E9C100CFCAD0 /* AppDelegate.swift in Sources */,
 				991AB6B721A30D8300D0565E /* BorderCollectionViewCell.swift in Sources */,
+				997395F621AC594100F650A6 /* TVsCollectionViewController.swift in Sources */,
 				99F6B25021A306EA00B3FA65 /* GlobalMessage.swift in Sources */,
 				19FA365E21A8202400E3B1C0 /* UIImage+CKAsset.swift in Sources */,
 				99F6B24C21A3021C00B3FA65 /* TimingTableViewController.swift in Sources */,
