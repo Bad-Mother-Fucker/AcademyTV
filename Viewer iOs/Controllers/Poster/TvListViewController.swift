@@ -122,9 +122,39 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
             return cell
         }else{
             let borderCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddAllTVGroup", for: indexPath) as! BorderCollectionViewCell
+            borderCell.frame.size = CGSize(width: 343, height: 43)
+            borderCell.titleLabel.text = "Select All"
             return borderCell
         }
 
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let cell = collectionView.cellForItem(at: indexPath)
+        
+        if cell?.reuseIdentifier == "TVGroup"{
+            cell!.isSelected = true
+        }else{
+            for tvCell in collectionView.visibleCells{
+                tvCell.isSelected = true
+            }
+        }
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        
+        let cell = collectionView.cellForItem(at: indexPath)
+        
+        if cell?.reuseIdentifier == "TVGroup"{
+            cell!.isSelected = false
+        }else{
+            for tvCell in collectionView.visibleCells{
+                tvCell.isSelected = false
+            }
+        }
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

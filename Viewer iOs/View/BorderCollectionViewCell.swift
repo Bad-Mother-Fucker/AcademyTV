@@ -11,11 +11,22 @@ import UIKit
 class BorderCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     
+    override var isSelected: Bool{
+        didSet{
+            if isSelected{
+                self.titleLabel.text = "Deselect All"
+            }else{
+                self.titleLabel.text = "Select All"
+            }
+        }
+    }
+    
     override func awakeFromNib() {
         
         super.awakeFromNib()
         self.layer.borderWidth = 2
         self.layer.borderColor = UIColor.blue.cgColor
-        self.layer.cornerRadius = 5
+        self.layer.cornerRadius = 10
+        
     }
 }

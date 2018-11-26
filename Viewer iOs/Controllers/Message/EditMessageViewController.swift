@@ -13,7 +13,7 @@ class EditMessageViewController: UITableViewController, UITextFieldDelegate {
     
     // MARK: - CloudKit Variable
     var record: CKRecord!
-    let database = CKContainer(identifier: "iCloud.com.KnightClub.Viewer").publicCloudDatabase
+    let database = CKContainer(identifier: "iCloud.com.TeamRogue.Viewer").publicCloudDatabase
     
     var datePickerIsVisible = false
     let editButton = UIBarButtonItem(title: "Edit", style: .done, target: self, action: #selector(sendMessage))
