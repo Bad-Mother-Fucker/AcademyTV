@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="14313.18" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="14460.31" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="appleTV" orientation="landscape">
         <adaptation id="light"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <deployment identifier="tvOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -73,12 +74,12 @@
                                 </constraints>
                                 <blurEffect style="dark"/>
                             </visualEffectView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ar0-s9-NZb" customClass="GlobalMessageView" customModule="Viewer" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ar0-s9-NZb">
                                 <rect key="frame" x="120" y="90" width="900" height="550"/>
                                 <subviews>
                                     <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vrq-12-IkD">
                                         <rect key="frame" x="0.0" y="0.0" width="900" height="550"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="jvG-qA-7go">
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="jvG-qA-7go" customClass="GlobalMessageView" customModule="Viewer" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="900" height="550"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </view>
@@ -118,6 +119,7 @@
                     </view>
                     <connections>
                         <outlet property="dateLabel" destination="l1V-In-Lw9" id="yng-ER-fx4"/>
+                        <outlet property="globalMessageView" destination="jvG-qA-7go" id="zrw-FI-YGS"/>
                         <outlet property="keynoteView" destination="Gf1-AQ-UDc" id="y2W-ck-jjy"/>
                         <outlet property="tvNameLabel" destination="1ND-ps-g75" id="ebX-fM-3Eo"/>
                         <outletCollection property="blurViews" destination="kVA-Se-YNi" collectionClass="NSMutableArray" id="npy-dR-3Sm"/>

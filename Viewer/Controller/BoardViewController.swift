@@ -40,6 +40,8 @@ class BoardViewController: TVViewController {
         }
     }
     
+    @IBOutlet weak var globalMessageView: GlobalMessageView!
+    
     @IBOutlet weak var dateLabel: UILabel!{
         didSet{
             setDate()
@@ -53,7 +55,6 @@ class BoardViewController: TVViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 //        playVideo()
-        
 //        NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: player.currentItem, queue: .main) { [weak self] _ in
 //            self?.player.seek(to: CMTime.zero)
 //            self?.player.play()
