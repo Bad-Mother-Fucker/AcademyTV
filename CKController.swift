@@ -124,7 +124,7 @@ class CKController {
     
 //    Fetches all global messages from the CK database
     
-   static func getAllGlobalMessages() throws -> [GlobalMessage]  {
+    static func getAllGlobalMessages(completionHandler: @escaping ()->Void) throws -> [GlobalMessage]  {
         var mess: [GlobalMessage] = []
         let sem = DispatchSemaphore(value: 0)
         GlobalMessageModel.getAllMessages { (messages, error) in
@@ -138,6 +138,7 @@ class CKController {
         if sem.wait(timeout: .distantFuture) == .timedOut {
             throw CKQueryException.connectionTimedOut("Request Timed Out, check your internet connection")
         }
+        completionHandler()
         return mess
     }
     

@@ -67,6 +67,10 @@ class BoardViewController: TVViewController {
             }
         }
         
+        self.globalMessages = try! CKController.getAllGlobalMessages(completionHandler: {
+            
+        })
+        
         
     }
   
