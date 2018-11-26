@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PureLayout
 
 @IBDesignable class GlobalMessageView: UIView {
     
@@ -62,42 +63,94 @@ import UIKit
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.addSubview(titleLabel)
         self.addSubview(timeLabel)
         self.addSubview(subTitleLabel)
         self.addSubview(descriptionLabel)
         self.addSubview(locationLabel)
         self.addSubview(qrCodeImage)
+        subviews.forEach { (view) in
+            view.configureForAutoLayout()
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        self.addSubview(titleLabel)
         self.addSubview(timeLabel)
         self.addSubview(subTitleLabel)
         self.addSubview(descriptionLabel)
         self.addSubview(locationLabel)
         self.addSubview(qrCodeImage)
-      
+        subviews.forEach { (view) in
+            view.configureForAutoLayout()
+        }
     }
+    
+    
+    func originalLayout() {
+//       View layout
+        autoPinEdge(toSuperviewEdge: .top, withInset: 30)
+        autoPinEdge(toSuperviewEdge: .left, withInset: 30)
+        autoSetDimensions(to: CGSize(width: 800, height: 495))
+        
+//        Subitle Layout
+        subTitleLabel.autoPinEdge(toSuperviewEdge: .top, withInset: 11)
+        subTitleLabel.autoPinEdge(toSuperviewEdge: .left, withInset: 11)
+        subTitleLabel.autoPinEdge(toSuperviewEdge: .right, withInset: 11)
+        subTitleLabel.autoSetDimension(.height, toSize: 36)
+        
+//        Title Layout
+        titleLabel.autoPinEdge(.left, to: .left, of: subTitleLabel)
+        titleLabel.autoPinEdge(.right, to: .right, of: subTitleLabel)
+        titleLabel.autoPinEdge(.top, to: .bottom, of: subTitleLabel)
+        titleLabel.autoSetDimension(.height, toSize: 48)
+        
+//        Description Layout
+        descriptionLabel.autoPinEdge(.left, to: .left, of: subTitleLabel)
+        descriptionLabel.autoPinEdge(.right, to: .right, of: subTitleLabel)
+        descriptionLabel.autoPinEdge(.top, to: .bottom, of: subTitleLabel,withOffset: 25)
+        descriptionLabel.autoSetDimension(.height, toSize: 151)
+        
+        qrCodeImage.autoSetDimensions(to: CGSize(width: 164, height: 164))
+        qrCodeImage.autoAlignAxis(toSuperviewAxis: .vertical)
+        qrCodeImage.autoPinEdge(.top, to: .bottom, of: descriptionLabel,withOffset:15)
+        
+        locationLabel.autoAlignAxis(.horizontal, toSameAxisOf: qrCodeImage)
+        locationLabel.autoPinEdge(.left, to: .right, of: qrCodeImage,withOffset:40)
+        locationLabel.autoSetDimensions(to: CGSize(width: 113, height: 36))
+        
+        
+        
+        timeLabel.autoAlignAxis(.horizontal, toSameAxisOf: qrCodeImage)
+        timeLabel.autoPinEdge(.right, to: .left, of: qrCodeImage,withOffset:40)
+        timeLabel.autoSetDimensions(to: CGSize(width: 113, height: 36))
+        
+        
+        
+    }
+    
     
     override func setNeedsDisplay() {
         super.setNeedsDisplay()
         UIView.animate(withDuration: 2) { [weak self] in
-            if (self?.havePDF)!{
-                self?.frame = (self?.originalFrame)!
-                self?.titleLabel.frame = (self?.titleLabelOriginalFrame)!
-                self?.subTitleLabel.frame = (self?.subTitleOriginalFrame)!
-                self?.descriptionLabel.frame = (self?.descriptionOriginalFrame)!
-                self?.timeLabel.frame = (self?.titleLabelOriginalFrame)!
-                self?.locationLabel.frame = (self?.locationOriginalFrame)!
-                self?.qrCodeImage.frame = (self?.qrImageViewOriginalFrame)!
+            if !(self?.havePDF)! {
+               
+//                self?.frame = (self?.originalFrame)!
+//                self?.titleLabel.frame = (self?.titleLabelOriginalFrame)!
+//                self?.subTitleLabel.frame = (self?.subTitleOriginalFrame)!
+//                self?.descriptionLabel.frame = (self?.descriptionOriginalFrame)!
+//                self?.timeLabel.frame = (self?.titleLabelOriginalFrame)!
+//                self?.locationLabel.frame = (self?.locationOriginalFrame)!
+//                self?.qrCodeImage.frame = (self?.qrImageViewOriginalFrame)!
             }else{
-                self?.frame = (self?.secondFrame)!
-                self?.titleLabel.frame = (self?.titleLabelSecondFrame)!
-                self?.subTitleLabel.frame = (self?.subTitleSecondFrame)!
-                self?.descriptionLabel.frame = (self?.descriptionSecondFrame)!
-                self?.timeLabel.frame = (self?.timeSecondFrame)!
-                self?.locationLabel.frame = (self?.locationSecondFrame)!
-                self?.qrCodeImage.frame = (self?.qrImageViewSecondFrame)!
+//                self?.frame = (self?.secondFrame)!
+//                self?.titleLabel.frame = (self?.titleLabelSecondFrame)!
+//                self?.subTitleLabel.frame = (self?.subTitleSecondFrame)!
+//                self?.descriptionLabel.frame = (self?.descriptionSecondFrame)!
+//                self?.timeLabel.frame = (self?.timeSecondFrame)!
+//                self?.locationLabel.frame = (self?.locationSecondFrame)!
+//                self?.qrCodeImage.frame = (self?.qrImageViewSecondFrame)!
             }
         }
     }
@@ -126,10 +179,11 @@ import UIKit
     
     func set(message: GlobalMessage) {
         self.titleLabel.text = message.title
+        self.subTitleLabel.text = message.subtitle
         self.descriptionLabel.text = message.description
         self.locationLabel.text = message.location
-        self.qrCodeImage.image = generateQRCode(from: message.url?.absoluteString ?? "")
-        self.timeLabel.text = ""
+        self.qrCodeImage.image = generateQRCode(from: message.url?.absoluteString ?? "www.google.com")
+        self.timeLabel.text = "12:20"
         
     }
     
