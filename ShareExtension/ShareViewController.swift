@@ -59,7 +59,6 @@ class ShareViewController: SLComposeServiceViewController {
                     itemProvider.loadItem(forTypeIdentifier: "public.png", options: nil, completionHandler: { (item, error) in
                         
                         if let _ = error {
-                            
                             print("there was an error",error!.localizedDescription)
                         }
 
