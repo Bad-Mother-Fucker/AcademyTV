@@ -26,6 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         let authOptions: UNAuthorizationOptions = [.badge]
         
         
+        
         UNUserNotificationCenter.current().requestAuthorization(options: authOptions) { (autorized, error) in
             guard error == nil else {
                 print(error!.localizedDescription)

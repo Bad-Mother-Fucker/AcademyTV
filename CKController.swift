@@ -31,7 +31,6 @@ class CKController {
 //        This subscribes to all messages records for CRUD
         case CKKeys.messageSubscriptionKey:
             options = [.firesOnRecordCreation, .firesOnRecordDeletion, .firesOnRecordUpdate]
-            
 //        This subscribes just to updates on the current TV record
         case CKKeys.tvSubscriptionKey:
             options = [.firesOnRecordUpdate]
@@ -50,7 +49,8 @@ class CKController {
                                                options: options)
         
         subscription.notificationInfo = CKSubscription.NotificationInfo()
-        
+        subscription.notificationInfo?.shouldSendContentAvailable = true
+    
 
         CKKeys.database.save(subscription) { (subscription, error) in
             guard let _ = subscription, error == nil else {
@@ -104,7 +104,7 @@ class CKController {
             sem.signal()
         }
         if sem.wait(timeout: .distantFuture) == .timedOut {
-            throw CKQueryException.connectionTimedOut("could not fetch service message, request timed out")
+            throw CKQueryException.connectionTimedOut("could not get service message, request timed out")
         }
     }
     
