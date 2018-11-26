@@ -81,7 +81,6 @@
 
 /* Begin PBXFileReference section */
 		19C227CC21A3372400BB4BC3 /* TVViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVViewController.swift; sourceTree = "<group>"; };
-		19D1A6DB21A81259000DC2FB /* ShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareExtension.entitlements; sourceTree = "<group>"; };
 		19FA365A21A8202300E3B1C0 /* UIImage+CKAsset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+CKAsset.swift"; sourceTree = "<group>"; };
 		19FA365B21A8202300E3B1C0 /* ServiceMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceMessage.swift; sourceTree = "<group>"; };
 		19FA365C21A8202300E3B1C0 /* TV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TV.swift; sourceTree = "<group>"; };
@@ -94,10 +93,11 @@
 		99308B7621A6FAE500EA0F9C /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		99308B7921A6FAE500EA0F9C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		99308B7B21A6FAE500EA0F9C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		994AD4D3217602C400A57DAC /* Viewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Viewer.entitlements; sourceTree = "<group>"; };
 		994CDB8521A06FBF005909BF /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		996353E72195E2E500AE8AAE /* GlobalMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalMessageView.swift; sourceTree = "<group>"; };
 		996418892180C6DA005267E4 /* MessagesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViewCell.swift; sourceTree = "<group>"; };
+		997395EC21AC335200F650A6 /* ShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareExtension.entitlements; sourceTree = "<group>"; };
+		997395ED21AC336B00F650A6 /* Viewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Viewer.entitlements; sourceTree = "<group>"; };
 		99AC09502174E6B100CFCAD0 /* Viewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Viewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99AC09532174E6B100CFCAD0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		99AC09582174E6B100CFCAD0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -176,7 +176,7 @@
 		99308B7521A6FAE500EA0F9C /* ShareExtension */ = {
 			isa = PBXGroup;
 			children = (
-				19D1A6DB21A81259000DC2FB /* ShareExtension.entitlements */,
+				997395EC21AC335200F650A6 /* ShareExtension.entitlements */,
 				99308B7621A6FAE500EA0F9C /* ShareViewController.swift */,
 				99308B7821A6FAE500EA0F9C /* MainInterface.storyboard */,
 				99308B7B21A6FAE500EA0F9C /* Info.plist */,
@@ -233,8 +233,8 @@
 		99AC09522174E6B100CFCAD0 /* Viewer */ = {
 			isa = PBXGroup;
 			children = (
+				997395ED21AC336B00F650A6 /* Viewer.entitlements */,
 				99AC09532174E6B100CFCAD0 /* AppDelegate.swift */,
-				994AD4D3217602C400A57DAC /* Viewer.entitlements */,
 				99AC095A2174E6B300CFCAD0 /* Assets.xcassets */,
 				99AC095C2174E6B300CFCAD0 /* Info.plist */,
 				99FA31B021A45A0B00A31F02 /* Model */,
@@ -582,15 +582,15 @@
 				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = D4L4S7MAUX;
+				DEVELOPMENT_TEAM = 5QJLL8HM6C;
 				INFOPLIST_FILE = ShareExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.Rogue.Viewer-iOs.ShareExtension";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.TRogue.Viewer-iOS.ShareExtension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -606,15 +606,15 @@
 				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = D4L4S7MAUX;
+				DEVELOPMENT_TEAM = 5QJLL8HM6C;
 				INFOPLIST_FILE = ShareExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.Rogue.Viewer-iOs.ShareExtension";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.TRogue.Viewer-iOS.ShareExtension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -674,6 +674,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -728,6 +729,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = appletvos;
@@ -745,16 +747,17 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Launch Image";
 				CODE_SIGN_ENTITLEMENTS = Viewer/Viewer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = D4L4S7MAUX;
+				DEVELOPMENT_TEAM = 5QJLL8HM6C;
 				INFOPLIST_FILE = Viewer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.Rogue.Viewer-iOs";
+				PRODUCT_BUNDLE_IDENTIFIER = com.TeamRogue.Viewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 11.0;
 			};
 			name = Debug;
 		};
@@ -765,16 +768,17 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Launch Image";
 				CODE_SIGN_ENTITLEMENTS = Viewer/Viewer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = D4L4S7MAUX;
+				DEVELOPMENT_TEAM = 5QJLL8HM6C;
 				INFOPLIST_FILE = Viewer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.Rogue.Viewer-iOs";
+				PRODUCT_BUNDLE_IDENTIFIER = com.TeamRogue.Viewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 11.0;
 			};
 			name = Release;
 		};
@@ -786,14 +790,14 @@
 				CODE_SIGN_ENTITLEMENTS = "Viewer iOs/Viewer iOs.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = D4L4S7MAUX;
+				DEVELOPMENT_TEAM = 5QJLL8HM6C;
 				INFOPLIST_FILE = "Viewer iOs/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.Rogue.Viewer-iOs";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.TRogue.Viewer-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_ENABLE_BATCH_MODE = NO;
@@ -810,14 +814,14 @@
 				CODE_SIGN_ENTITLEMENTS = "Viewer iOs/Viewer iOs.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = D4L4S7MAUX;
+				DEVELOPMENT_TEAM = 5QJLL8HM6C;
 				INFOPLIST_FILE = "Viewer iOs/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.Rogue.Viewer-iOs";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.TRogue.Viewer-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_ENABLE_BATCH_MODE = NO;

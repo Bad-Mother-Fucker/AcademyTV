@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -353,7 +354,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="168" height="85"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
-                                                <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n97-LQ-zhn">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n97-LQ-zhn">
                                                     <rect key="frame" x="133" y="5" width="30" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="30" id="jmp-PH-pdj"/>
@@ -624,7 +625,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="DotsWhite" width="32" height="8"/>
+        <image name="DotsWhite" width="48" height="12"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="fq4-5c-jqy"/>

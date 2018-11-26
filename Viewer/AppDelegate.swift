@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         
         UNUserNotificationCenter.current().delegate = self
         
-        let authOptions: UNAuthorizationOptions = [.provisional]
+        let authOptions: UNAuthorizationOptions = [.badge]
         
         
         UNUserNotificationCenter.current().requestAuthorization(options: authOptions) { (autorized, error) in
@@ -86,6 +86,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
             } else {
                 
                 TVModel.getTV(withName: UIDevice.current.name, completionHandler: { (TV, Error) in
+                    
                     guard let _ = TV, error == nil else {
                         print(error!.localizedDescription)
                         return
@@ -97,7 +98,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
             }
         }
    
-        if UIDevice.current.name == "Lab-04-01"{
+        if UIDevice.current.name == "Glass Office"{
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let glassView = storyboard.instantiateViewController(withIdentifier: "GlassOfficeViewController")
             self.window?.rootViewController = glassView
@@ -174,4 +175,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         completionHandler(.badge)
     }
 }
-

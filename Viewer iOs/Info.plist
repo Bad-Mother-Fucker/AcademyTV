@@ -26,7 +26,6 @@
 	<string>Allows you to select photos from your phones gallery</string>
 	<key>UIBackgroundModes</key>
 	<array>
-		<string>fetch</string>
 		<string>remote-notification</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
