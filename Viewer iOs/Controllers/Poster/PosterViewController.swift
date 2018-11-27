@@ -7,96 +7,74 @@
 //
 
 import UIKit
-import Photos
 
-class PosterViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class PosterViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
-    var imagePicker = UIImagePickerController()
+    var tvGroups: [TVGroup]!
+    var keynotes = [UIImage]()
     
-    @IBOutlet weak var imageView: UIImageView!{
+    @IBOutlet weak var barButtonItem: UIBarButtonItem!
+    @IBOutlet weak var collectionView: UICollectionView!{
         didSet{
-            imageView.contentMode = .scaleAspectFit
-            imageView.layer.borderWidth = 2
-            imageView.layer.borderColor = UIColor.blue.cgColor
-            imageView.layer.cornerRadius = 10
-            imageView.clipsToBounds = true
+            collectionView.delegate = self
+            collectionView.dataSource = self
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        imagePicker.delegate = self
-        imagePicker.sourceType = .photoLibrary;
-        imagePicker.allowsEditing = false
+        if keynotes.count != 0{
+            barButtonItem.title = "Save"
+            barButtonItem.action = #selector(saveKeynote)
+        }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(getPhotosFromGallery(_:)), name: NSNotification.Name("GetAllSelectedPhotos"), object: nil)
+    }
+    
+    @IBAction func saveKeynote(_ sender: UIBarButtonItem) {
+        guard keynotes.count != 0 else{
+            let alert = UIAlertController(title: "Error", message: "Add at least one image", preferredStyle: .alert)
+            let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(action)
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
+        
+        for group in tvGroups{
+            CKController.postKeynote(keynotes, ofType: ImageFileType.PNG, onTVsOfGroup: group)
+        }
+        
+        let alert = UIAlertController(title: "Saved", message: "In a moment it will be displayed on selected tv", preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    @objc func getPhotosFromGallery(_ notification: NSNotification){
+        if let image = notification.userInfo?["images"] as? [UIImage] {
+            keynotes = image
+            self.collectionView.reloadData()
+        }
+    }
+    
+    @IBAction func openImagePicker(_ sender: UIBarButtonItem) {
+        
+        let imagePicker = self.storyboard?.instantiateViewController(withIdentifier: "ImagePickerViewController")
+        self.present(imagePicker!, animated: true, completion: nil)
         
     }
     
-    @IBAction func getImageFromGallery(_ sender: UIButton) {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return keynotes.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "galleryImageCell", for: indexPath) as! ImagePickerCollectionViewCell
         
-        let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
-        switch photoAuthorizationStatus {
-        case .authorized:
-            
-            if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
-                debugPrint("Button capture")
-                
-                self.present(imagePicker, animated: true, completion: nil)
-            }
-            
-        case .notDetermined:
-            PHPhotoLibrary.requestAuthorization({
-                (newStatus) in
-                debugPrint("status is \(newStatus)")
-                if newStatus ==  PHAuthorizationStatus.authorized {
-                    
-                    if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
-                        debugPrint("Button capture")
-                        self.present(self.imagePicker, animated: true, completion: nil)
-                    }
-                    debugPrint("success")
-                }
-            })
-            debugPrint("It is not determined until now")
-        default:
-            break
-        }
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let pickedImage = info[.originalImage] as? UIImage{
-            imageView.image = pickedImage
-        }
-        self.imagePicker.dismiss(animated: true, completion: nil)
-    }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        self.imagePicker.dismiss(animated: true, completion: nil)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.identifier {
-        case "postGlobalMessageSegue":
-            break
-        case "postImageSegue":
-            
-            guard imageView.image != nil else {
-                
-                let alert = UIAlertController(title: "Select Image", message: "You have to select an image to share.", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-                present(alert, animated: true, completion: nil)
-                
-                return
-            }
-            
-            if segue.identifier == "ChooseLocationSegue"{
-                if let destination = segue.destination as? TvListViewController{
-                    destination.image = imageView.image!
-                }
-            }
-            
-        default:
-            break
-        }
+        cell.imageView.image = keynotes[indexPath.item]
+        cell.checkerView.isHidden = true
+        
+        return cell
     }
 }

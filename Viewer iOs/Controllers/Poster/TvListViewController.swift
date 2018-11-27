@@ -177,8 +177,7 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
                 return
             }
 
-            if let destination = segue.destination as? TVsCollectionViewController{
-                destination.image = image
+            if let destination = segue.destination as? PosterViewController{
                 destination.tvGroups = selectedGroups
             }
 

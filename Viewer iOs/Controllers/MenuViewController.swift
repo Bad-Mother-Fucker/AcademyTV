@@ -10,11 +10,11 @@ import UIKit
 
 class MenuViewController: UITableViewController {
     
-    private let props: [(title: String, description: String, image: UIImage)] = [
-        (title: "Booqable Availability", description: "Displays a list of names that are overdue, on hold and ready for pickup", image: UIImage(named: "Booquable")!),
-        (title: "Global Message", description: "Displays a message with title, description, date & time, location and URL", image: UIImage(named: "GlobalMessage")!),
-        (title: "Ticker Message", description: "Dislays a short message always visible at the bottom of the screen", image: UIImage(named: "Ticker")!),
-        (title: "Keynote", description: "Dislays a short message always visible at the bottom of the screen", image: UIImage(named: "Keynote")!)
+    let props: [(title: String, description: String, image: UIImage?)] = [
+        (title: "Booqable Availability", description: "Displays a list of names that are overdue, on hold and ready for pickup", image: UIImage(named: "Booquable")),
+        (title: "Global Message", description: "Displays a message with title, description, date & time, location and URL", image: UIImage(named: "GlobalMessage")),
+        (title: "Ticker Message", description: "Dislays a short message always visible at the bottom of the screen", image: UIImage(named: "Ticker")),
+        (title: "Keynote", description: "Dislays a short message always visible at the bottom of the screen", image: UIImage(named: "Keynote"))
     ]
     
     private let identifier = "PropsTableViewCell"
