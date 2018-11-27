@@ -76,6 +76,7 @@ import PureLayout
         self.addSubview(dateLabel)
         self.addSubview(whenLabel)
         self.addSubview(whereLabel)
+        
         whenLabel.text = "When"
         whereLabel.text = "Where"
         subviews.forEach { (view) in
@@ -87,17 +88,17 @@ import PureLayout
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        titleLabel.font = UIFont.systemFont(ofSize: 60,weight:.medium)
+        titleLabel.font = UIFont.systemFont(ofSize: 57, weight: .medium)
         titleLabel.textColor = .white
-        subTitleLabel.font = UIFont.systemFont(ofSize: 30)
+        subTitleLabel.font = UIFont.systemFont(ofSize: 29)
         subTitleLabel.textColor = .white
-        descriptionLabel.font = UIFont.systemFont(ofSize: 30)
+        descriptionLabel.font = UIFont.systemFont(ofSize: 29)
         descriptionLabel.textColor = .white
-        timeLabel.font = UIFont.systemFont(ofSize: 30)
+        timeLabel.font = UIFont.systemFont(ofSize: 23)
         timeLabel.textColor = .white
-        dateLabel.font = UIFont.systemFont(ofSize: 30)
+        dateLabel.font = UIFont.systemFont(ofSize: 23)
         dateLabel.textColor = .white
-        locationLabel.font = UIFont.systemFont(ofSize: 30)
+        locationLabel.font = UIFont.systemFont(ofSize: 23)
         locationLabel.textColor = .white
         whenLabel.font = UIFont.systemFont(ofSize: 40,weight: .medium)
         whenLabel.textColor = .white
@@ -188,9 +189,9 @@ import PureLayout
     
     private func keynoteLayout() {
         
-//        View Layout
-       autoPinEdgesToSuperviewEdges()
-        
+        //        View Layout
+        autoPinEdgesToSuperviewEdges()
+                
         //        Subitle Layout
         subTitleLabel.autoPinEdge(toSuperviewEdge: .top, withInset: 15)
         subTitleLabel.autoPinEdge(toSuperviewEdge: .left, withInset: 10)
@@ -209,13 +210,13 @@ import PureLayout
         descriptionLabel.autoPinEdge(.top, to: .bottom, of: titleLabel,withOffset: 25)
         descriptionLabel.autoSetDimension(.height, toSize: 102)
         
-       
+        
         
         qrCodeImage.autoSetDimensions(to: CGSize(width: 194, height: 194))
         qrCodeImage.autoAlignAxis(.vertical, toSameAxisOf: descriptionLabel)
         qrCodeImage.autoPinEdge(.top, to: .bottom, of: descriptionLabel,withOffset: 8)
         
-     
+        
         
         whenLabel.autoPinEdge(toSuperviewEdge: .left, withInset: 60)
         whenLabel.autoSetDimensions(to: CGSize(width: 113, height: 46))

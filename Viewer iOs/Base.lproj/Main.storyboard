@@ -435,10 +435,10 @@
             </objects>
             <point key="canvasLocation" x="1805.5999999999999" y="2428.3358320839584"/>
         </scene>
-        <!--View Controller-->
+        <!--Ticker Messages-->
         <scene sceneID="7GC-Ch-3oe">
             <objects>
-                <viewController id="zbY-70-dLK" sceneMemberID="viewController">
+                <viewController title="Ticker Messages" id="zbY-70-dLK" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jjA-Gy-eym">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

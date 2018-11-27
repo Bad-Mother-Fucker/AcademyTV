@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="14313.18" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="14460.31" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="appleTV" orientation="landscape">
         <adaptation id="light"/>
     </device>
     <dependencies>
         <deployment identifier="tvOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -74,13 +74,6 @@
                                 </constraints>
                                 <blurEffect style="dark"/>
                             </visualEffectView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Gf1-AQ-UDc">
-                                <rect key="frame" x="498" y="60" width="1392" height="764"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="764" id="G2m-z9-h58"/>
-                                    <constraint firstAttribute="width" constant="1392" id="Zc6-e5-rbY"/>
-                                </constraints>
-                            </imageView>
                             <visualEffectView opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S46-g9-J6v">
                                 <rect key="frame" x="30" y="60" width="897" height="550"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -98,15 +91,22 @@
                                 </view>
                                 <blurEffect style="dark"/>
                             </visualEffectView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Gf1-AQ-UDc">
+                                <rect key="frame" x="498" y="60" width="1392" height="783"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Gf1-AQ-UDc" secondAttribute="height" multiplier="16:9" id="Dgy-mm-OPT"/>
+                                    <constraint firstAttribute="width" constant="1392" id="Zc6-e5-rbY"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="kVA-Se-YNi" secondAttribute="bottom" constant="30" id="3Se-rK-9P7"/>
-                            <constraint firstItem="Gf1-AQ-UDc" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="8jP-wG-tUE"/>
                             <constraint firstAttribute="trailing" secondItem="C7z-wd-41c" secondAttribute="trailing" constant="30" id="Mst-qw-EyN"/>
                             <constraint firstAttribute="bottom" secondItem="C7z-wd-41c" secondAttribute="bottom" constant="30" id="oeg-cT-RnL"/>
                             <constraint firstItem="kVA-Se-YNi" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="30" id="vwH-i4-2bU"/>
                             <constraint firstAttribute="trailing" secondItem="Gf1-AQ-UDc" secondAttribute="trailing" constant="30" id="xaW-1X-LLl"/>
+                            <constraint firstItem="Gf1-AQ-UDc" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="zlI-uS-GJl"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="wu6-TO-1qx"/>
                     </view>

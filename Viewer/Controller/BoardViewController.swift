@@ -14,7 +14,14 @@ class BoardViewController: TVViewController {
     
     var player: AVPlayer!
     
-    var keynoteBlurView: UIVisualEffectView!
+    var keynoteBlurView: UIVisualEffectView!{
+        didSet{
+            keynoteBlurView.layer.cornerRadius = 20
+            keynoteBlurView.clipsToBounds = true
+            keynoteBlurView.contentView.layer.cornerRadius = 20
+            keynoteBlurView.contentView.clipsToBounds = true
+        }
+    }
 
     @IBOutlet var blurViews: [UIVisualEffectView]!{
         didSet{
@@ -31,6 +38,8 @@ class BoardViewController: TVViewController {
     @IBOutlet weak var keynoteView: UIImageView! {
         didSet{
             keynoteView.isHidden = true
+            keynoteView.layer.cornerRadius = 20
+            keynoteView.clipsToBounds = true
         }
     }
     
