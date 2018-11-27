@@ -74,34 +74,27 @@
                                 </constraints>
                                 <blurEffect style="dark"/>
                             </visualEffectView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Gf1-AQ-UDc">
-                                <rect key="frame" x="1072" y="90" width="818" height="550"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Gf1-AQ-UDc">
+                                <rect key="frame" x="498" y="60" width="1392" height="764"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="818" id="BB4-WL-SEL"/>
-                                    <constraint firstAttribute="height" constant="550" id="O2U-ZH-DUP"/>
+                                    <constraint firstAttribute="height" constant="764" id="G2m-z9-h58"/>
+                                    <constraint firstAttribute="width" constant="1392" id="Zc6-e5-rbY"/>
                                 </constraints>
                             </imageView>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S46-g9-J6v">
-                                <rect key="frame" x="134" y="90" width="897" height="550"/>
+                            <visualEffectView opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S46-g9-J6v">
+                                <rect key="frame" x="30" y="60" width="897" height="550"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" id="N5S-WY-9vf">
                                     <rect key="frame" x="0.0" y="0.0" width="897" height="550"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v8C-TD-9es" customClass="GlobalMessageView" customModule="Viewer" customModuleProvider="target">
+                                        <view tag="2" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v8C-TD-9es" customClass="GlobalMessageView" customModule="Viewer" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="897" height="550"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <color key="tintColor" red="1" green="1" blue="1" alpha="0.34345569349999999" colorSpace="custom" customColorSpace="displayP3"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="550" id="3Cy-Xx-5NY"/>
-                                                <constraint firstAttribute="width" constant="897" id="651-4p-vd2"/>
-                                            </constraints>
                                         </view>
                                     </subviews>
-                                    <constraints>
-                                        <constraint firstItem="v8C-TD-9es" firstAttribute="leading" secondItem="N5S-WY-9vf" secondAttribute="leading" id="Qym-ZY-cec"/>
-                                        <constraint firstItem="v8C-TD-9es" firstAttribute="top" secondItem="N5S-WY-9vf" secondAttribute="top" id="pfE-IY-nca"/>
-                                    </constraints>
                                 </view>
                                 <blurEffect style="dark"/>
                             </visualEffectView>
@@ -109,11 +102,11 @@
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="kVA-Se-YNi" secondAttribute="bottom" constant="30" id="3Se-rK-9P7"/>
+                            <constraint firstItem="Gf1-AQ-UDc" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="8jP-wG-tUE"/>
                             <constraint firstAttribute="trailing" secondItem="C7z-wd-41c" secondAttribute="trailing" constant="30" id="Mst-qw-EyN"/>
-                            <constraint firstItem="Gf1-AQ-UDc" firstAttribute="top" secondItem="wu6-TO-1qx" secondAttribute="top" constant="30" id="Vcx-kG-PL5"/>
-                            <constraint firstItem="Gf1-AQ-UDc" firstAttribute="trailing" secondItem="wu6-TO-1qx" secondAttribute="trailing" constant="60" id="jAU-wR-BEV"/>
                             <constraint firstAttribute="bottom" secondItem="C7z-wd-41c" secondAttribute="bottom" constant="30" id="oeg-cT-RnL"/>
                             <constraint firstItem="kVA-Se-YNi" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="30" id="vwH-i4-2bU"/>
+                            <constraint firstAttribute="trailing" secondItem="Gf1-AQ-UDc" secondAttribute="trailing" constant="30" id="xaW-1X-LLl"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="wu6-TO-1qx"/>
                     </view>

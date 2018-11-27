@@ -63,11 +63,7 @@ import PureLayout
     }
     
     
-    @IBInspectable var havePDF: Bool = false{
-        didSet{
-            setNeedsDisplay()
-        }
-    }
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -91,7 +87,7 @@ import PureLayout
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        titleLabel.font = UIFont.systemFont(ofSize: 60)
+        titleLabel.font = UIFont.systemFont(ofSize: 60,weight:.medium)
         titleLabel.textColor = .white
         subTitleLabel.font = UIFont.systemFont(ofSize: 30)
         subTitleLabel.textColor = .white
@@ -113,6 +109,7 @@ import PureLayout
         locationLabel.textAlignment = .center
         locationLabel.numberOfLines = 0
         locationLabel.lineBreakMode = .byTruncatingTail
+        titleLabel.numberOfLines = 0
         
         descriptionLabel.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         
@@ -137,9 +134,7 @@ import PureLayout
     
     
     private func originalLayout() {
-//        autoPinEdge(toSuperviewEdge: .top, withInset: 30)
-//        autoPinEdge(toSuperviewEdge: .left, withInset: 30)
-//        autoSetDimensions(to: CGSize(width: 800, height: 495))
+        autoPinEdgesToSuperviewEdges()
         
         //        Subitle Layout
         subTitleLabel.autoPinEdge(toSuperviewEdge: .top, withInset: 20)
@@ -175,11 +170,11 @@ import PureLayout
         timeLabel.autoPinEdge(.right, to: .right, of: whenLabel)
         timeLabel.autoSetDimension(.height, toSize: 60)
         
-        qrCodeImage.autoSetDimensions(to: CGSize(width: 164, height: 164))
-        qrCodeImage.autoPinEdge(toSuperviewEdge: .bottom, withInset: 100)
-        qrCodeImage.autoPinEdge(.left, to: .right, of: timeLabel,withOffset: 55)
+        qrCodeImage.autoSetDimensions(to: CGSize(width: 194, height: 194))
+        qrCodeImage.autoPinEdge(toSuperviewEdge: .bottom, withInset: 70)
+        qrCodeImage.autoPinEdge(.left, to: .right, of: timeLabel,withOffset: 25)
         
-        whereLabel.autoPinEdge(.left, to: .right, of: qrCodeImage, withOffset: 55)
+        whereLabel.autoPinEdge(.left, to: .right, of: qrCodeImage, withOffset: 25)
         whereLabel.autoSetDimensions(to: CGSize(width: 123, height: 36))
         whereLabel.autoPinEdge(toSuperviewEdge: .bottom, withInset: 195)
         
@@ -192,54 +187,78 @@ import PureLayout
     
     
     private func keynoteLayout() {
+        
 //        View Layout
-        autoPinEdge(toSuperviewEdge: .top, withInset: 30)
-        autoPinEdge(toSuperviewEdge: .left, withInset: 30)
-        autoSetDimensions(to: CGSize(width: 800, height: 495))
+       autoPinEdgesToSuperviewEdges()
         
         //        Subitle Layout
-        subTitleLabel.autoPinEdge(toSuperviewEdge: .top, withInset: 11)
-        subTitleLabel.autoPinEdge(toSuperviewEdge: .left, withInset: 11)
-        subTitleLabel.autoPinEdge(toSuperviewEdge: .right, withInset: 11)
+        subTitleLabel.autoPinEdge(toSuperviewEdge: .top, withInset: 15)
+        subTitleLabel.autoPinEdge(toSuperviewEdge: .left, withInset: 10)
+        subTitleLabel.autoPinEdge(toSuperviewEdge: .right, withInset: 10)
         subTitleLabel.autoSetDimension(.height, toSize: 36)
         
         //        Title Layout
         titleLabel.autoPinEdge(.left, to: .left, of: subTitleLabel)
         titleLabel.autoPinEdge(.right, to: .right, of: subTitleLabel)
         titleLabel.autoPinEdge(.top, to: .bottom, of: subTitleLabel)
-        titleLabel.autoSetDimension(.height, toSize: 48)
+        
         
         //        Description Layout
         descriptionLabel.autoPinEdge(.left, to: .left, of: subTitleLabel)
         descriptionLabel.autoPinEdge(.right, to: .right, of: subTitleLabel)
-        descriptionLabel.autoPinEdge(.top, to: .bottom, of: subTitleLabel,withOffset: 25)
-        descriptionLabel.autoSetDimension(.height, toSize: 151)
+        descriptionLabel.autoPinEdge(.top, to: .bottom, of: titleLabel,withOffset: 25)
+        descriptionLabel.autoSetDimension(.height, toSize: 102)
         
-        timeLabel.autoPinEdge(toSuperviewEdge: .left, withInset: 220)
-        timeLabel.autoSetDimensions(to: CGSize(width: 113, height: 36))
-        timeLabel.autoPinEdge(toSuperviewEdge: .bottom, withInset: 145)
+       
+        
+        qrCodeImage.autoSetDimensions(to: CGSize(width: 194, height: 194))
+        qrCodeImage.autoAlignAxis(.vertical, toSameAxisOf: descriptionLabel)
+        qrCodeImage.autoPinEdge(.top, to: .bottom, of: descriptionLabel,withOffset: 8)
+        
+     
+        
+        whenLabel.autoPinEdge(toSuperviewEdge: .left, withInset: 60)
+        whenLabel.autoSetDimensions(to: CGSize(width: 113, height: 46))
+        whenLabel.autoPinEdge(.top, to: .bottom, of: qrCodeImage,withOffset:45)
         
         
-        qrCodeImage.autoSetDimensions(to: CGSize(width: 164, height: 164))
-        qrCodeImage.autoPinEdge(toSuperviewEdge: .bottom, withInset: 50)
-        qrCodeImage.autoPinEdge(.left, to: .right, of: timeLabel,withOffset: 55)
+        whereLabel.autoPinEdge(toSuperviewEdge: .right, withInset: 60)
+        whereLabel.autoSetDimensions(to: CGSize(width: 123, height: 46))
+        whereLabel.autoPinEdge(.top, to: .bottom, of: qrCodeImage,withOffset:45)
         
-        locationLabel.autoPinEdge(.left, to: .right, of: qrCodeImage, withOffset: 55)
-        locationLabel.autoSetDimensions(to: CGSize(width: 113, height: 36))
-        locationLabel.autoPinEdge(toSuperviewEdge: .bottom, withInset: 145)
+        
+        dateLabel.autoPinEdge(.top, to: .bottom, of: whenLabel,withOffset: 8)
+        dateLabel.autoPinEdge(.left, to: .left, of: whenLabel)
+        dateLabel.autoPinEdge(.right, to: .right, of: whenLabel)
+        dateLabel.autoSetDimension(.height, toSize: 60)
+        
+        timeLabel.autoPinEdge(.top, to: .bottom, of: dateLabel,withOffset: 8)
+        timeLabel.autoPinEdge(.left, to: .left, of: whenLabel)
+        timeLabel.autoPinEdge(.right, to: .right, of: whenLabel)
+        timeLabel.autoSetDimension(.height, toSize: 60)
+        
+        locationLabel.autoPinEdge(.left, to: .left, of: whereLabel)
+        locationLabel.autoPinEdge(.right, to: .right, of: whereLabel)
+        locationLabel.autoPinEdge(.top, to: .bottom, of: whereLabel,withOffset: 8)
+        
     }
     
     
-    func setLayout() {
-        UIView.animate(withDuration: 2) { [weak self] in
-            if !(self?.havePDF)! {
-             self?.originalLayout()
-            }else{
-             self?.keynoteLayout()
+    func setLayout(type: TVLayoutType) {
+        UIView.animate(withDuration: 3) { [weak self] in
+            switch type {
+            case .normal:
+                self?.originalLayout()
+            case .keynote:
+                self?.keynoteLayout()
             }
         }
     }
     
+    enum TVLayoutType {
+        case normal
+        case keynote
+    }
     
     
     func generateQRCode(from string: String) -> UIImage? {
@@ -310,7 +329,7 @@ import PureLayout
             }
         }
         
-        Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { (timer) in
+        Timer.scheduledTimer(withTimeInterval: 15, repeats: true) { (timer) in
             let index = nextIndex()
             print("will show messages[\(index)]")
             self.set(message: messages[index])
