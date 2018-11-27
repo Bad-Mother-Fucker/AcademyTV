@@ -11,9 +11,20 @@ import CloudKit
 
 class EditMessageViewController: UITableViewController, UITextFieldDelegate {
     
-    // MARK: - CloudKit Variable
     var record: CKRecord!
-    let database = CKContainer(identifier: "iCloud.com.TeamRogue.Viewer").publicCloudDatabase
+    var message: GlobalMessage?{
+        didSet{
+            if let someMessage = message{
+                if self.tableView != nil{
+                    textFields[0].text = someMessage.title
+                    textFields[1].text = someMessage.subtitle
+                    textFields[3].text = someMessage.location
+                    textFields[2].text = someMessage.url?.absoluteString
+                    descriptionTextView.text = someMessage.description
+                }
+            }
+        }
+    }
     
     var datePickerIsVisible = false
     let editButton = UIBarButtonItem(title: "Edit", style: .done, target: self, action: #selector(sendMessage))
@@ -40,17 +51,10 @@ class EditMessageViewController: UITableViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let color = UIColor(red: 0.97, green: 0.97, blue: 0.97, alpha: 1)
-        
         self.title = "New Message"
         self.navigationItem.rightBarButtonItem = editButton
-        self.tableView.backgroundColor = color
-        self.tableView.backgroundView?.backgroundColor = color
-        self.view.backgroundColor = color
-//        self.tableView
-//        let separator = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 1))
-//        separator.backgroundColor = .lightGray
-//        self.tableView.tableFooterView = separator
+
+        self.tableView.tableHeaderView = UIView()
     }
     
     @objc func dateDidChange(sender: UIDatePicker){
@@ -69,21 +73,22 @@ class EditMessageViewController: UITableViewController, UITextFieldDelegate {
         record["subtitle"] = textFields[1].text! as CKRecordValue
         record["location"] = textFields[3].text! as CKRecordValue
         record["url"] = textFields[2].text! as CKRecordValue
-        record["date"] = descriptionTextView.text! as CKRecordValue
+        record["date"] = dateLabel.text! as CKRecordValue
         record["description"] = descriptionTextView.text! as CKRecordValue
         
-        database.save(record) { (record, error) in
-            let alert: UIAlertController
-            guard let _ = record, error == nil else {
-                alert = UIAlertController(title: "Error", message: "Error on save", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-                return
-            }
-            alert = UIAlertController(title: "Success",
-                                      message: "Message saved correctly",
-                                      preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Confirm", style: .cancel, handler: nil))
-        }
+        CKController.postMessage(title: textFields[0].text!,
+                                 subtitle: textFields[1].text!,
+                                 location: textFields[3].text!,
+                                 description: descriptionTextView.text!,
+                                 URL: URL(string: textFields[2].text!),
+                                 timeToLive: 5)
+        
+        
+        let alert: UIAlertController = UIAlertController(title: "Success",
+                                                         message: "Message saved correctly",
+                                                         preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Confirm", style: .cancel, handler: nil))
+        
     }
     
     private func toggleShowDateDatepicker () {

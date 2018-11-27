@@ -9,15 +9,7 @@
 import UIKit
 import CloudKit
 
-class MessagesTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
-
-    // MARK: Outlet
-    @IBOutlet weak var tableView: UITableView!{
-        didSet{
-            tableView.dataSource = self
-            tableView.delegate = self
-        }
-    }
+class MessagesTableViewController: UITableViewController{
     
     // MARK: Variables
     let delegate = (UIApplication.shared.delegate as! AppDelegate)
@@ -34,11 +26,15 @@ class MessagesTableViewController: UIViewController, UITableViewDataSource, UITa
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        tableView.alpha = 0
+        getAllMessages(with: delegate.query)
         
-        Timer.scheduledTimer(withTimeInterval: 5, repeats: true) {[weak self] (timer) in
-            self?.getAllMessages(with: (self?.delegate.query)!)
-        }
+        refreshControl = UIRefreshControl()
+        
+        self.refreshControl?.addTarget(self, action:
+            #selector(handleRefresh(_:)),
+                                 for: .valueChanged)
+        self.refreshControl?.tintColor = .lightGray
+
 //        if globalMessages.count == 0{
 //            let label = UILabel(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
 //            label.text = "Plase add new message with the + button."
@@ -50,13 +46,21 @@ class MessagesTableViewController: UIViewController, UITableViewDataSource, UITa
 //        }
     }
     
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        
+        self.getAllMessages(with: delegate.query)
+        
+        self.tableView.reloadData()
+        refreshControl.endRefreshing()
+    }
+    
     // MARK: TableView DataSource
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return globalMessages.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "MessageTableViewCell", for: indexPath) as? MessagesTableViewCell{
             cell.titleLabel.text = globalMessages[indexPath.row].title
             cell.descriptionLabel.text = globalMessages[indexPath.row].description
@@ -68,11 +72,11 @@ class MessagesTableViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     // MARK: Table View Delegate
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 140
     }
     
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let remove = UITableViewRowAction(style: .destructive, title: "Cancel") {[weak self] (action, indexPath) in
             self?.delegate.database.delete(withRecordID: (self?.globalMessages[indexPath.row].record.recordID)!, completionHandler: { (record, error) in
                 guard error == nil else{
@@ -89,6 +93,10 @@ class MessagesTableViewController: UIViewController, UITableViewDataSource, UITa
         return [remove]
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "EditMessageSegue", sender: globalMessages[indexPath.row])
+    }
+    
     // MARK: Private Implementation
     private func getAllMessages(with query: CKQuery){
         
@@ -101,5 +109,18 @@ class MessagesTableViewController: UIViewController, UITableViewDataSource, UITa
         }
         
         tableView.alpha = 1
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "EditMessageSegue":
+            if let destination = segue.destination as? EditMessageViewController{
+                destination.message = sender as! GlobalMessage
+            }
+            
+            break
+        default:
+            break
+        }
     }
 }
