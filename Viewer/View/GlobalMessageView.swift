@@ -43,14 +43,22 @@ import PureLayout
     
     var titleLabel = UILabel()
     var subTitleLabel = UILabel()
-    var descriptionLabel = UILabel()
+    var descriptionLabel = UITextView()
     var timeLabel = UILabel()
     var locationLabel = UILabel()
+    var dateLabel = UILabel()
+    var whenLabel = UILabel()
+    var whereLabel = UILabel()
+    
+    
+    
     var qrCodeImage = UIImageView()
     
     var globalMessages: [GlobalMessage] = [] {
         didSet {
-            set(message: self.globalMessages.first!)
+            if globalMessages.count > 0 {
+                switchMessages()
+            }
         }
     }
     
@@ -69,94 +77,174 @@ import PureLayout
         self.addSubview(descriptionLabel)
         self.addSubview(locationLabel)
         self.addSubview(qrCodeImage)
+        self.addSubview(dateLabel)
+        self.addSubview(whenLabel)
+        self.addSubview(whereLabel)
+        whenLabel.text = "When"
+        whereLabel.text = "Where"
         subviews.forEach { (view) in
             view.configureForAutoLayout()
         }
+       
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        
+        titleLabel.font = UIFont.systemFont(ofSize: 60)
+        titleLabel.textColor = .white
+        subTitleLabel.font = UIFont.systemFont(ofSize: 30)
+        subTitleLabel.textColor = .white
+        descriptionLabel.font = UIFont.systemFont(ofSize: 30)
+        descriptionLabel.textColor = .white
+        timeLabel.font = UIFont.systemFont(ofSize: 30)
+        timeLabel.textColor = .white
+        dateLabel.font = UIFont.systemFont(ofSize: 30)
+        dateLabel.textColor = .white
+        locationLabel.font = UIFont.systemFont(ofSize: 30)
+        locationLabel.textColor = .white
+        whenLabel.font = UIFont.systemFont(ofSize: 40,weight: .medium)
+        whenLabel.textColor = .white
+        whereLabel.font = UIFont.systemFont(ofSize: 40,weight: .medium)
+        whereLabel.textColor = .white
+        
+        timeLabel.textAlignment = .center
+        dateLabel.textAlignment = .center
+        locationLabel.textAlignment = .center
+        locationLabel.numberOfLines = 0
+        locationLabel.lineBreakMode = .byTruncatingTail
+        
+        descriptionLabel.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        
+        
+        
         self.addSubview(titleLabel)
         self.addSubview(timeLabel)
         self.addSubview(subTitleLabel)
         self.addSubview(descriptionLabel)
         self.addSubview(locationLabel)
         self.addSubview(qrCodeImage)
+        self.addSubview(dateLabel)
+        self.addSubview(whenLabel)
+        self.addSubview(whereLabel)
+       
         subviews.forEach { (view) in
             view.configureForAutoLayout()
         }
+        
+       
     }
     
     
-    func originalLayout() {
-//       View layout
+    private func originalLayout() {
+//        autoPinEdge(toSuperviewEdge: .top, withInset: 30)
+//        autoPinEdge(toSuperviewEdge: .left, withInset: 30)
+//        autoSetDimensions(to: CGSize(width: 800, height: 495))
+        
+        //        Subitle Layout
+        subTitleLabel.autoPinEdge(toSuperviewEdge: .top, withInset: 20)
+        subTitleLabel.autoPinEdge(toSuperviewEdge: .left, withInset: 20)
+        subTitleLabel.autoPinEdge(toSuperviewEdge: .right, withInset: 20)
+        subTitleLabel.autoSetDimension(.height, toSize: 46)
+        
+        //        Title Layout
+        titleLabel.autoPinEdge(.left, to: .left, of: subTitleLabel)
+        titleLabel.autoPinEdge(.right, to: .right, of: subTitleLabel)
+        titleLabel.autoPinEdge(.top, to: .bottom, of: subTitleLabel)
+        titleLabel.autoSetDimension(.height, toSize: 68)
+        
+        //        Description Layout
+        descriptionLabel.autoPinEdge(.left, to: .left, of: subTitleLabel)
+        descriptionLabel.autoPinEdge(.right, to: .right, of: subTitleLabel)
+        descriptionLabel.autoPinEdge(.top, to: .bottom, of: titleLabel,withOffset: 8)
+        descriptionLabel.autoSetDimension(.height, toSize: 151)
+        
+//        Bottom Labels layout
+        
+        whenLabel.autoPinEdge(toSuperviewEdge: .left, withInset: 200)
+        whenLabel.autoSetDimensions(to: CGSize(width: 113, height: 46))
+        whenLabel.autoPinEdge(toSuperviewEdge: .bottom, withInset: 195)
+        
+        dateLabel.autoPinEdge(.top, to: .bottom, of: whenLabel,withOffset: 8)
+        dateLabel.autoPinEdge(.left, to: .left, of: whenLabel)
+        dateLabel.autoPinEdge(.right, to: .right, of: whenLabel)
+        dateLabel.autoSetDimension(.height, toSize: 60)
+        
+        timeLabel.autoPinEdge(.top, to: .bottom, of: dateLabel,withOffset: 8)
+        timeLabel.autoPinEdge(.left, to: .left, of: whenLabel)
+        timeLabel.autoPinEdge(.right, to: .right, of: whenLabel)
+        timeLabel.autoSetDimension(.height, toSize: 60)
+        
+        qrCodeImage.autoSetDimensions(to: CGSize(width: 164, height: 164))
+        qrCodeImage.autoPinEdge(toSuperviewEdge: .bottom, withInset: 100)
+        qrCodeImage.autoPinEdge(.left, to: .right, of: timeLabel,withOffset: 55)
+        
+        whereLabel.autoPinEdge(.left, to: .right, of: qrCodeImage, withOffset: 55)
+        whereLabel.autoSetDimensions(to: CGSize(width: 123, height: 36))
+        whereLabel.autoPinEdge(toSuperviewEdge: .bottom, withInset: 195)
+        
+        locationLabel.autoPinEdge(.left, to: .left, of: whereLabel)
+        locationLabel.autoSetDimension(.width, toSize: 123)
+        locationLabel.autoPinEdge(.top, to: .bottom, of: whereLabel,withOffset: 8)
+        
+    }
+    
+    
+    
+    private func keynoteLayout() {
+//        View Layout
         autoPinEdge(toSuperviewEdge: .top, withInset: 30)
         autoPinEdge(toSuperviewEdge: .left, withInset: 30)
         autoSetDimensions(to: CGSize(width: 800, height: 495))
         
-//        Subitle Layout
+        //        Subitle Layout
         subTitleLabel.autoPinEdge(toSuperviewEdge: .top, withInset: 11)
         subTitleLabel.autoPinEdge(toSuperviewEdge: .left, withInset: 11)
         subTitleLabel.autoPinEdge(toSuperviewEdge: .right, withInset: 11)
         subTitleLabel.autoSetDimension(.height, toSize: 36)
         
-//        Title Layout
+        //        Title Layout
         titleLabel.autoPinEdge(.left, to: .left, of: subTitleLabel)
         titleLabel.autoPinEdge(.right, to: .right, of: subTitleLabel)
         titleLabel.autoPinEdge(.top, to: .bottom, of: subTitleLabel)
         titleLabel.autoSetDimension(.height, toSize: 48)
         
-//        Description Layout
+        //        Description Layout
         descriptionLabel.autoPinEdge(.left, to: .left, of: subTitleLabel)
         descriptionLabel.autoPinEdge(.right, to: .right, of: subTitleLabel)
         descriptionLabel.autoPinEdge(.top, to: .bottom, of: subTitleLabel,withOffset: 25)
         descriptionLabel.autoSetDimension(.height, toSize: 151)
         
-        qrCodeImage.autoSetDimensions(to: CGSize(width: 164, height: 164))
-        qrCodeImage.autoAlignAxis(toSuperviewAxis: .vertical)
-        qrCodeImage.autoPinEdge(.top, to: .bottom, of: descriptionLabel,withOffset:15)
-        
-        locationLabel.autoAlignAxis(.horizontal, toSameAxisOf: qrCodeImage)
-        locationLabel.autoPinEdge(.left, to: .right, of: qrCodeImage,withOffset:40)
-        locationLabel.autoSetDimensions(to: CGSize(width: 113, height: 36))
-        
-        
-        
-        timeLabel.autoAlignAxis(.horizontal, toSameAxisOf: qrCodeImage)
-        timeLabel.autoPinEdge(.right, to: .left, of: qrCodeImage,withOffset:40)
+        timeLabel.autoPinEdge(toSuperviewEdge: .left, withInset: 220)
         timeLabel.autoSetDimensions(to: CGSize(width: 113, height: 36))
+        timeLabel.autoPinEdge(toSuperviewEdge: .bottom, withInset: 145)
         
         
+        qrCodeImage.autoSetDimensions(to: CGSize(width: 164, height: 164))
+        qrCodeImage.autoPinEdge(toSuperviewEdge: .bottom, withInset: 50)
+        qrCodeImage.autoPinEdge(.left, to: .right, of: timeLabel,withOffset: 55)
         
+        locationLabel.autoPinEdge(.left, to: .right, of: qrCodeImage, withOffset: 55)
+        locationLabel.autoSetDimensions(to: CGSize(width: 113, height: 36))
+        locationLabel.autoPinEdge(toSuperviewEdge: .bottom, withInset: 145)
     }
     
     
-    override func setNeedsDisplay() {
-        super.setNeedsDisplay()
+    func setLayout() {
         UIView.animate(withDuration: 2) { [weak self] in
             if !(self?.havePDF)! {
-               
-//                self?.frame = (self?.originalFrame)!
-//                self?.titleLabel.frame = (self?.titleLabelOriginalFrame)!
-//                self?.subTitleLabel.frame = (self?.subTitleOriginalFrame)!
-//                self?.descriptionLabel.frame = (self?.descriptionOriginalFrame)!
-//                self?.timeLabel.frame = (self?.titleLabelOriginalFrame)!
-//                self?.locationLabel.frame = (self?.locationOriginalFrame)!
-//                self?.qrCodeImage.frame = (self?.qrImageViewOriginalFrame)!
+             self?.originalLayout()
             }else{
-//                self?.frame = (self?.secondFrame)!
-//                self?.titleLabel.frame = (self?.titleLabelSecondFrame)!
-//                self?.subTitleLabel.frame = (self?.subTitleSecondFrame)!
-//                self?.descriptionLabel.frame = (self?.descriptionSecondFrame)!
-//                self?.timeLabel.frame = (self?.timeSecondFrame)!
-//                self?.locationLabel.frame = (self?.locationSecondFrame)!
-//                self?.qrCodeImage.frame = (self?.qrImageViewSecondFrame)!
+             self?.keynoteLayout()
             }
         }
     }
     
+    
+    
     func generateQRCode(from string: String) -> UIImage? {
         let data = string.data(using: String.Encoding.ascii)
+        if string == "" {return nil}
         
         if let filter = CIFilter(name: "CIQRCodeGenerator") {
             guard let colorFilter = CIFilter(name: "CIFalseColor") else { return nil }
@@ -178,14 +266,56 @@ import PureLayout
     }
     
     func set(message: GlobalMessage) {
-        self.titleLabel.text = message.title
-        self.subTitleLabel.text = message.subtitle
-        self.descriptionLabel.text = message.description
-        self.locationLabel.text = message.location
-        self.qrCodeImage.image = generateQRCode(from: message.url?.absoluteString ?? "www.google.com")
-        self.timeLabel.text = "12:20"
-        
+        UIView.animate(withDuration: 1, animations: {
+            
+            self.titleLabel.text = message.title
+            self.subTitleLabel.text = message.subtitle
+            self.descriptionLabel.text = message.description
+            self.locationLabel.text = message.location
+            self.qrCodeImage.image = self.generateQRCode(from: message.url?.absoluteString ?? "")
+            self.dateLabel.text = message.date.day
+            self.timeLabel.text = message.date.time
+            
+            
+            if self.dateLabel.text == nil && self.timeLabel.text == nil {
+                self.whenLabel.text = ""
+            }else {
+                self.whenLabel.text = "When"
+            }
+    
+            if self.locationLabel.text == nil {
+                self.whereLabel.text = ""
+            }else {
+                self.whereLabel.text = "Where"
+            }
+            
+        })
     }
     
+    
+    func switchMessages() {
+        let messages = self.globalMessages
+        
+        var next = 0
+        
+        func nextIndex() -> Int {
+            let index: Int
+            if next >= 0 && next < messages.count {
+                index = next
+                next = next + 1
+                return index
+            }else {
+                next = 0
+                return nextIndex()
+            }
+        }
+        
+        Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { (timer) in
+            let index = nextIndex()
+            print("will show messages[\(index)]")
+            self.set(message: messages[index])
+        }
+        
+    }
 
 }

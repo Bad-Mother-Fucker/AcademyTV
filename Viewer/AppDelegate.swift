@@ -59,6 +59,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
                 CKKeys.database.save(ServiceMessage.record, completionHandler: { (record, error) in
                     guard error == nil else {
                         debugPrint(error!.localizedDescription)
+                        let err = error as! CKError
+                        if err.code ==  CKError.Code.serverRejectedRequest {
+                            print("subscription already extists")
+                        }
                         return
                     }
                 })
@@ -154,7 +158,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
-       CKController.removeSubscriptions()
+//       CKController.removeSubscriptions()
        currentTV.isOn = false
     }
 

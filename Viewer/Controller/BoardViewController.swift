@@ -54,7 +54,7 @@ class BoardViewController: TVViewController {
     // MARK: View Controller Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        globalMessageView.originalLayout()
+        globalMessageView.setLayout()
 //        playVideo()
 //        NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: player.currentItem, queue: .main) { [weak self] _ in
 //            self?.player.seek(to: CMTime.zero)

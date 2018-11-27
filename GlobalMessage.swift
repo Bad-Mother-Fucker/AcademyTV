@@ -58,6 +58,9 @@ class GlobalMessage: CloudStored {
     required init(record: CKRecord) {
         self.record = record
     }
+    let formatter = DateFormatter()
+    let timeFormatter = DateFormatter()
+   
     
     init (title:String,subtitle:String,location:String?,description:String?,URL:URL?,timeToLive: TimeInterval?) {
         
@@ -167,4 +170,27 @@ class GlobalMessage: CloudStored {
             CKKeys.database.add(op)
         }
     }
+    
+    var date: (day:String?,time:String?) {
+        get{
+            guard let date = record.object(forKey: GlobalMessage.keys.date) as? Date else {return (nil,nil)}
+            formatter.dateFormat = "dd/MM"
+            timeFormatter.dateFormat = "hh:mm"
+            return (formatter.string(from: date),timeFormatter.string(from: date))
+        }
+        set{
+            guard let _ = newValue.day else {return}
+            formatter.dateStyle = .short
+            formatter.dateFormat = "dd/MM hh:mm"
+            let date = "\(newValue.day!) \(newValue.time ?? "")"
+            record.setValue(formatter.date(from: date), forKey: GlobalMessage.keys.date)
+            let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
+            op.savePolicy = .changedKeys
+            CKKeys.database.add(op)
+        }
+    }
+    
+    
+    
+    
 }
