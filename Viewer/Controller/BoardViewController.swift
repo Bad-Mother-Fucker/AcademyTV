@@ -13,6 +13,8 @@ import AVFoundation
 class BoardViewController: TVViewController {
     
     var player: AVPlayer!
+    
+    var keynoteBlurView: UIVisualEffectView!
 
     @IBOutlet var blurViews: [UIVisualEffectView]!{
         didSet{
@@ -54,32 +56,40 @@ class BoardViewController: TVViewController {
     // MARK: View Controller Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        globalMessageView.setLayout()
+        
 //        playVideo()
 //        NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: player.currentItem, queue: .main) { [weak self] _ in
 //            self?.player.seek(to: CMTime.zero)
 //            self?.player.play()
 //        }
         
+        
+        
         NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: CKNotificationName.tvSet.rawValue), object: nil, queue: .main) { _ in
             self.currentTV = (UIApplication.shared.delegate as! AppDelegate).currentTV
             self.currentTV.keynoteDelegate = self
             if let keynote = self.currentTV.keynote {
+                self.keynoteBlurView = self.view.viewWithTag(1) as? UIVisualEffectView
                 self.show(keynote: keynote)
+            }else {
+                self.keynoteBlurView = self.view.viewWithTag(1) as? UIVisualEffectView
+                self.hideKeynote()
             }
+            do {
+                self.globalMessageView.globalMessages = try CKController.getAllGlobalMessages(completionHandler: {})
+            } catch {
+                print(error.localizedDescription)
+            }
+            
         }
         
-        do {
-            self.globalMessageView.globalMessages = try CKController.getAllGlobalMessages(completionHandler: {})
-        } catch {
-            print(error.localizedDescription)
-        }
-      
         
-        
+
     }
   
    
+    
+    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -118,12 +128,30 @@ class BoardViewController: TVViewController {
         
         self.dateLabel.text = dateFormatter.string(from: date)
     }
+    
+    private func setNormalFrame() {
+        keynoteBlurView.autoPinEdge(toSuperviewEdge: .left, withInset:30)
+        keynoteBlurView.autoPinEdge(toSuperviewEdge: .top, withInset:60)
+        keynoteBlurView.autoSetDimensions(to: CGSize(width: 897, height: 550))
+        globalMessageView.setLayout(type: .normal)
+        
+    }
+    private func setKeynoteFrame() {
+        keynoteBlurView.autoPinEdge(toSuperviewEdge: .left, withInset:30)
+        keynoteBlurView.autoPinEdge(toSuperviewEdge: .top, withInset:60)
+        keynoteBlurView.autoSetDimensions(to: CGSize(width: 457, height: 761))
+        globalMessageView.setLayout(type: .keynote)
+    }
    
 }
+
+
+
 
 extension BoardViewController: ATVKeynoteViewDelegate {
     func show(keynote: [UIImage]) {
 //        Perform UI Keynote  Showing
+        setKeynoteFrame()
         keynoteView.fadeIn()
         var page = 0
         keynoteView.image = keynote[page]
@@ -138,6 +166,8 @@ extension BoardViewController: ATVKeynoteViewDelegate {
     func hideKeynote() {
 //        Perform UI Keynote hiding
         keynoteView.fadeOut()
+        setNormalFrame()
+        
     }
     
     
