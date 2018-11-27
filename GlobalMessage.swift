@@ -10,7 +10,7 @@ import Foundation
 import CloudKit
 
 class GlobalMessageModel {
-    
+     
     static func getAllMessages(completionHandler: @escaping ([GlobalMessage]?,Error?)->Void) {
         var messages = [GlobalMessage]()
         let query = CKQuery(recordType: GlobalMessage.recordType, predicate: NSPredicate(value: true))
