@@ -10,16 +10,16 @@ import UIKit
 import Photos
 
 class PosterViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-
+    
     var imagePicker = UIImagePickerController()
     
-    @IBOutlet weak var imageViewController: UIImageView!{
+    @IBOutlet weak var imageView: UIImageView!{
         didSet{
-            imageViewController.contentMode = .scaleAspectFit
-            imageViewController.layer.borderWidth = 2
-            imageViewController.layer.borderColor = UIColor.blue.cgColor
-            imageViewController.layer.cornerRadius = 10
-            imageViewController.clipsToBounds = true
+            imageView.contentMode = .scaleAspectFit
+            imageView.layer.borderWidth = 2
+            imageView.layer.borderColor = UIColor.blue.cgColor
+            imageView.layer.cornerRadius = 10
+            imageView.clipsToBounds = true
         }
     }
     
@@ -31,7 +31,7 @@ class PosterViewController: UIViewController, UINavigationControllerDelegate, UI
         imagePicker.allowsEditing = false
         
     }
-
+    
     @IBAction func getImageFromGallery(_ sender: UIButton) {
         
         let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
@@ -62,10 +62,10 @@ class PosterViewController: UIViewController, UINavigationControllerDelegate, UI
             break
         }
     }
-
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[.originalImage] as? UIImage{
-            imageViewController.image = pickedImage
+            imageView.image = pickedImage
         }
         self.imagePicker.dismiss(animated: true, completion: nil)
     }
@@ -80,7 +80,7 @@ class PosterViewController: UIViewController, UINavigationControllerDelegate, UI
             break
         case "postImageSegue":
             
-            guard imageViewController.image != nil else {
+            guard imageView.image != nil else {
                 
                 let alert = UIAlertController(title: "Select Image", message: "You have to select an image to share.", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
@@ -91,7 +91,7 @@ class PosterViewController: UIViewController, UINavigationControllerDelegate, UI
             
             if segue.identifier == "ChooseLocationSegue"{
                 if let destination = segue.destination as? TvListViewController{
-                    destination.image = imageViewController.image!
+                    destination.image = imageView.image!
                 }
             }
             
