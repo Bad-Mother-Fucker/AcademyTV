@@ -93,7 +93,9 @@ class MessagesTableViewController: UIViewController, UITableViewDataSource, UITa
     private func getAllMessages(with query: CKQuery){
         
         do {
-           self.globalMessages = try CKController.getAllGlobalMessages()
+//            self.globalMessages = try CKController.getAllGlobalMessages(completionHandler: {
+//                
+//            })
         }catch {
             print(error.localizedDescription) //Handle connection timed out error
         }
