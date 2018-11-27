@@ -546,24 +546,10 @@
             </objects>
             <point key="canvasLocation" x="1805.5999999999999" y="2428.3358320839584"/>
         </scene>
-        <!--Ticker Messages-->
-        <scene sceneID="7GC-Ch-3oe">
-            <objects>
-                <viewController title="Ticker Messages" id="zbY-70-dLK" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="jjA-Gy-eym">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="UZt-ew-uae"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iy5-rC-N4L" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1806" y="1673"/>
-        </scene>
         <!--Locations-->
         <scene sceneID="kNs-11-m4Y">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5kD-mT-DLG" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="4Oy-iG-JEM" customClass="TvListViewController" customModule="Viewer_iOs" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="443-Ym-v1k">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -673,7 +659,6 @@
                         <outlet property="collectionView" destination="d7H-vM-zi4" id="t4K-ja-ehk"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5kD-mT-DLG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1806" y="937"/>
         </scene>
@@ -745,7 +730,6 @@
                     <navigationItem key="navigationItem" title="Viewer" id="m2w-73-D5P"/>
                     <connections>
                         <segue destination="4DE-id-ctg" kind="show" identifier="showBooquableLateDeviceSegue" id="Ks9-Di-yeO"/>
-                        <segue destination="zbY-70-dLK" kind="show" identifier="postTickerMessageSegue" id="ROL-WJ-y38"/>
                         <segue destination="djF-mg-Fo4" kind="show" identifier="postGlobalMessageSegue" id="xu7-SU-Pqr"/>
                         <segue destination="4Oy-iG-JEM" kind="show" identifier="postKeynoteSegue" id="qTE-Zj-QYN"/>
                     </connections>

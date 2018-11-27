@@ -13,8 +13,7 @@ class MenuViewController: UITableViewController {
     let props: [(title: String, description: String, image: UIImage?)] = [
         (title: "Booqable Availability", description: "Displays a list of names that are overdue, on hold and ready for pickup", image: UIImage(named: "Booquable")),
         (title: "Global Message", description: "Displays a message with title, description, date & time, location and URL", image: UIImage(named: "GlobalMessage")),
-        (title: "Ticker Message", description: "Dislays a short message always visible at the bottom of the screen", image: UIImage(named: "Ticker")),
-        (title: "Keynote", description: "Dislays a short message always visible at the bottom of the screen", image: UIImage(named: "Keynote"))
+        (title: "Keynote", description: "Dislays a keynote on selected area, airplay is not needed", image: UIImage(named: "Keynote"))
     ]
     
     private let identifier = "PropsTableViewCell"
@@ -68,32 +67,11 @@ class MenuViewController: UITableViewController {
             performSegue(withIdentifier: "postGlobalMessageSegue", sender: nil)
             break
         case 2:
-            performSegue(withIdentifier: "postTickerMessageSegue", sender: nil)
-            break
-        case 3:
             performSegue(withIdentifier: "postKeynoteSegue", sender: nil)
             break
         default:
             break
         }
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        switch segue.identifier {
-        case "postGlobalMessageSegue":
-            break
-        case "postKeynoteSegue":
-            break
-        case "postTickerMessageSegue":
-            break
-        case "showBooquableLateDeviceSegue":
-            break
-        
-        default:
-            break
-        }
-        
     }
     
 }
