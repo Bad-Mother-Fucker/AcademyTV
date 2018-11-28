@@ -354,6 +354,21 @@ import PureLayout
             let index = nextIndex()
             //print("will show messages[\(index)]")
             self.set(message: messages[index])
+            if textExceedBoundsOf(self.descriptionLabel) {
+//                var startingPoit = 0
+//
+//                Timer.scheduledTimer(withTimeInterval: 8, repeats: true, block: { (timer) in
+//                    startingPoit = startingPoit + Int(self.descriptionLabel.frame.height)
+//                    self.descriptionLabel.scrollRangeToVisible(NSRange(location: startingPoit, length: Int(self.descriptionLabel.frame.height)))
+//
+//                })
+            }
+        }
+        
+        
+        func textExceedBoundsOf(_ textView: UITextView) -> Bool {
+            let textHeight = textView.contentSize.height
+            return textHeight > textView.bounds.height
         }
         
     }
