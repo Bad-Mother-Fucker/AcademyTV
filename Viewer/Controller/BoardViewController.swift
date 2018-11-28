@@ -22,18 +22,18 @@ class BoardViewController: TVViewController {
             keynoteBlurView.contentView.clipsToBounds = true
         }
     }
-
-    @IBOutlet var blurViews: [UIVisualEffectView]!{
+    @IBOutlet weak var globalMessageBlurEffect: UIVisualEffectView!{
         didSet{
-            blurViews.forEach { (view) in
-                view.layer.cornerRadius = 20
-                view.contentView.layer.cornerRadius = 20
-                view.clipsToBounds = true
-                view.contentView.clipsToBounds = true
-                view.alpha = 0.8
-            }
+            globalMessageBlurEffect.layer.cornerRadius = 20
+            globalMessageBlurEffect.contentView.layer.cornerRadius = 20
+            globalMessageBlurEffect.clipsToBounds = true
+            globalMessageBlurEffect.contentView.clipsToBounds = true
+            globalMessageBlurEffect.alpha = 0.8
         }
     }
+    
+    @IBOutlet weak var dateBlurEffect: UIVisualEffectView!
+    @IBOutlet weak var tvNameBlurEffect: UIVisualEffectView!
     
     @IBOutlet weak var keynoteView: UIImageView! {
         didSet{
@@ -48,6 +48,14 @@ class BoardViewController: TVViewController {
     @IBOutlet weak var tvNameLabel: UILabel!{
         didSet{
             tvNameLabel.text = UIDevice.current.name
+            
+            let tvMaskPath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: 500, height: 85),
+                                          byRoundingCorners: [.topLeft, .bottomLeft],
+                                          cornerRadii: CGSize(width: 15.0, height: 15.0))
+            
+            let tvShape = CAShapeLayer()
+            tvShape.path = tvMaskPath.cgPath
+            tvNameBlurEffect.layer.mask = tvShape
         }
     }
     
@@ -59,6 +67,14 @@ class BoardViewController: TVViewController {
             Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { [weak self] (timer) in
                 self?.setDate()
             }
+            
+            let dateMaskPath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: (dateLabel.frame.width*3)+5, height: 85),
+                                            byRoundingCorners: [.bottomRight, .topRight],
+                                            cornerRadii: CGSize(width: 15.0, height: 15.0))
+            
+            let dateShape = CAShapeLayer()
+            dateShape.path = dateMaskPath.cgPath
+            dateBlurEffect.layer.mask = dateShape
         }
     }
     
@@ -91,15 +107,8 @@ class BoardViewController: TVViewController {
             }
             
         }
-        
-        
-
     }
   
-   
-    
-    
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 //        player.play()
