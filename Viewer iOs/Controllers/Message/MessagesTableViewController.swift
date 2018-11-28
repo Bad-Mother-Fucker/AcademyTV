@@ -115,7 +115,7 @@ class MessagesTableViewController: UITableViewController{
         switch segue.identifier {
         case "EditMessageSegue":
             if let destination = segue.destination as? EditMessageViewController{
-                destination.message = sender as! GlobalMessage
+                destination.message = (sender as! GlobalMessage)
             }
             
             break
