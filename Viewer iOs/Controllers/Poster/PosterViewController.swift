@@ -42,6 +42,7 @@ class PosterViewController: UIViewController, UICollectionViewDelegate, UICollec
         }
         
         for group in tvGroups{
+            CKController.removeKeynote(fromTVGroup: group)
             CKController.postKeynote(keynotes, ofType: ImageFileType.PNG, onTVsOfGroup: group)
         }
         

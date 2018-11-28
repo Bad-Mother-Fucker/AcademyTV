@@ -73,6 +73,24 @@
                                     <constraint firstAttribute="width" constant="1392" id="Zc6-e5-rbY"/>
                                 </constraints>
                             </imageView>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="edG-sc-kzu">
+                                <rect key="frame" x="370" y="960" width="1520" height="85"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" id="RGm-nN-RDh">
+                                    <rect key="frame" x="0.0" y="0.0" width="1520" height="85"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Kh-cS-dGE">
+                                            <rect key="frame" x="8" y="0.0" width="1506" height="85"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </view>
+                                <blurEffect style="dark"/>
+                            </visualEffectView>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C7z-wd-41c">
                                 <rect key="frame" x="178" y="960" width="141" height="85"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="hri-Qb-UtZ">
@@ -118,6 +136,8 @@
                         <outlet property="globalMessageBlurEffect" destination="S46-g9-J6v" id="Nye-Pe-a8j"/>
                         <outlet property="globalMessageView" destination="v8C-TD-9es" id="Bhy-Ae-a03"/>
                         <outlet property="keynoteView" destination="Gf1-AQ-UDc" id="y2W-ck-jjy"/>
+                        <outlet property="serviceMessageBlurView" destination="edG-sc-kzu" id="thc-ce-BSg"/>
+                        <outlet property="serviceMessageLabel" destination="7Kh-cS-dGE" id="9wK-nH-wKp"/>
                         <outlet property="tvNameBlurEffect" destination="kVA-Se-YNi" id="RAn-cO-E6i"/>
                         <outlet property="tvNameLabel" destination="1ND-ps-g75" id="ebX-fM-3Eo"/>
                     </connections>

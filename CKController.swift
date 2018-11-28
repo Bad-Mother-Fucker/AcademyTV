@@ -55,6 +55,10 @@ class CKController {
         CKKeys.database.save(subscription) { (subscription, error) in
             guard let _ = subscription, error == nil else {
                 print(error!.localizedDescription)
+                let err = error as! CKError
+                if err.code ==  CKError.Code.serverRejectedRequest {
+                    print("subscription already extists")
+                }
                 return
             }
             debugPrint ("subscription \(subscription!.subscriptionID) saved")
@@ -200,9 +204,9 @@ class CKController {
    static func postKeynote(_ keynote: [UIImage],ofType imageType:ImageFileType?, onTVsOfGroup group: TVGroup) {
         TVModel.getTvs(ofGroup: group) { (tvs, error) in
             guard let _ = tvs else {return}
-            tvs!.forEach({ (tv) in
+            for tv in tvs! {
                 tv.set(keynote: keynote, imageType: imageType ?? .PNG)
-            })
+            }
         }
     
     }
@@ -231,6 +235,7 @@ class CKController {
         TVModel.getTvs(ofGroup: g) { (tvs, error) in
             guard let tvs = tvs else {return}
             for tv in tvs {
+                print("removing keynote from \(tv.name)")
                 tv.removeKeynote() //Add error handling
             }
         }

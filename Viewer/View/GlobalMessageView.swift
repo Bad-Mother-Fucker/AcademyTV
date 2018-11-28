@@ -332,7 +332,7 @@ import PureLayout
         
         Timer.scheduledTimer(withTimeInterval: 15, repeats: true) { (timer) in
             let index = nextIndex()
-            print("will show messages[\(index)]")
+            //print("will show messages[\(index)]")
             self.set(message: messages[index])
         }
         

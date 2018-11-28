@@ -88,6 +88,12 @@ class TVModel {
             let tvs = records!.map({ (record) -> TV in
                 return TV(record: record)
             })
+            debugPrint("Got \(tvs.count) tvs from CK ")
+            for tv in tvs {
+                debugPrint("tvName: \(tv.name), recordID: \(tv.record.recordID)")
+            }
+            
+            
             completionHandler(tvs,nil)
         }
     }
@@ -188,7 +194,7 @@ class TV: CloudStored {
    
     
     func set(keynote: [UIImage], imageType: ImageFileType) {
-        
+        print("setting keynote on \(self.name), recordID: \(self.record.recordID)")
         var assets: [CKAsset] = []
         
         for page in keynote {
@@ -202,7 +208,7 @@ class TV: CloudStored {
         }
         self.record.setValue(assets,forKey:TV.keys.keynote)
         let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
-        op.savePolicy = .changedKeys
+        op.savePolicy = .allKeys
         CKKeys.database.add(op)
     }
     

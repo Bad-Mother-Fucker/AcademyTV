@@ -59,10 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
                 CKKeys.database.save(ServiceMessage.record, completionHandler: { (record, error) in
                     guard error == nil else {
                         debugPrint(error!.localizedDescription)
-                        let err = error as! CKError
-                        if err.code ==  CKError.Code.serverRejectedRequest {
-                            print("subscription already extists")
-                        }
+                       
                         return
                     }
                 })
@@ -103,7 +100,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
             }
         }
    
-        if UIDevice.current.name == "Glass Office"{
+        if UIDevice.current.name == "Lab-04-05"{
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let glassView = storyboard.instantiateViewController(withIdentifier: "GlassOfficeViewController")
             self.window?.rootViewController = glassView
@@ -150,11 +147,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {
-//        playVideo()
+        playVideo()
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
-//        playVideo()
+        playVideo()
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
@@ -166,7 +163,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
     
     private func playVideo(){
         if let boardViewController = window?.rootViewController as? BoardViewController {
-            boardViewController.player.play()
+            boardViewController.playVideo()
         }
     }
     

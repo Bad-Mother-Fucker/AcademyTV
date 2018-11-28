@@ -62,7 +62,11 @@ class ServiceMessageModel {
 
 class ServiceMessage {
     
-    static var record: CKRecord!
+    static var record: CKRecord! {
+        didSet{
+            NotificationCenter.default.post(name: Notification.Name("serviceMessageSet"), object: nil)
+        }
+    }
     static var recordType: String = "ServiceMessage"
     static var keys = (text:"text",timer:"timer")
     
@@ -93,7 +97,9 @@ class ServiceMessage {
         }
         set {
             record.setValue(newValue, forKey: ServiceMessage.keys.text)
+            NotificationCenter.default.post(name: Notification.Name("serviceMessageSet"), object: nil)
         }
+        
     }
     
     static var timer: Double {

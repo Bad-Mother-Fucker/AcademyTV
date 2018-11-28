@@ -114,6 +114,7 @@ class TVViewController: UIViewController {
         case .recordCreated:
             break
         case .recordDeleted:
+            
             break
         case .recordUpdated:
             

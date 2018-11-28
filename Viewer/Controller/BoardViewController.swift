@@ -13,6 +13,8 @@ import AVFoundation
 class BoardViewController: TVViewController {
     
     var player: AVPlayer!
+    var videosURL = [URL]()
+    var videoIndex = 0
     
     var keynoteBlurView: UIVisualEffectView!{
         didSet{
@@ -78,16 +80,48 @@ class BoardViewController: TVViewController {
         }
     }
     
+    
+    @IBOutlet weak var serviceMessageLabel: UILabel! {
+        didSet {
+            serviceMessageLabel.isHidden = true
+            serviceMessageLabel.textColor = .white
+        }
+    }
+    
+    @IBOutlet weak var serviceMessageBlurView: UIVisualEffectView! {
+        didSet {
+            serviceMessageBlurView.isHidden = true
+            serviceMessageBlurView.layer.cornerRadius = 20
+            serviceMessageBlurView.clipsToBounds = true
+        }
+    }
+    
     // MARK: View Controller Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        getVideoRefence()
+        playVideo()
+        NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: player.currentItem, queue: .main) { [weak self] _ in
+            self?.player.seek(to: CMTime.zero)
+            self?.videoIndex = ((self?.videoIndex)! >= (self?.videosURL.count)! - 1) ? 0 : 1
+            //self?.player.play()
+            self?.playVideo()
+        }
         
-//        playVideo()
-//        NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: player.currentItem, queue: .main) { [weak self] _ in
-//            self?.player.seek(to: CMTime.zero)
-//            self?.player.play()
-//        }
         
+        NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: "serviceMessageSet"), object: nil, queue: .main) { (_) in
+            self.serviceMessageLabel.text = ServiceMessage.text
+            if ServiceMessage.text != "" {
+                self.serviceMessageBlurView.fadeIn()
+                self.serviceMessageLabel.fadeIn()
+                
+            }else {
+                self.serviceMessageBlurView.fadeOut()
+                self.serviceMessageLabel.fadeOut()
+            }
+            
+            
+        }
         
         
         NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: CKNotificationName.tvSet.rawValue), object: nil, queue: .main) { _ in
@@ -111,22 +145,34 @@ class BoardViewController: TVViewController {
   
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        player.play()
+        player.play()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-//        player.play()
+        player.play()
     }
     
     // MARK: Private Implementation
-    private func playVideo() {
-        guard let path = Bundle.main.path(forResource: "Background", ofType:"m4v") else {
-            debugPrint("Background.mp4 not found")
+    
+    private func getVideoRefence(){
+        guard let first = Bundle.main.path(forResource: "Uovo", ofType:"m4v"),
+        let second = Bundle.main.path(forResource: "Elmo", ofType:"m4v") else {
+            debugPrint("Files m4v not found")
             return
         }
         
-        player = AVPlayer(url: URL(fileURLWithPath: path))
+        videosURL.append(URL(fileURLWithPath: first))
+        videosURL.append(URL(fileURLWithPath: second))
+    }
+    
+    func playVideo() {
+        guard videosURL.count != 0 else {
+            debugPrint("Videos not found")
+            return
+        }
+        
+        player = AVPlayer(url: videosURL[videoIndex])
         player.isMuted = true
         let layer = AVPlayerLayer(player: player)
         layer.videoGravity = .resizeAspectFill
@@ -135,7 +181,7 @@ class BoardViewController: TVViewController {
         
         self.view.layer.addSublayer(layer)
         
-//        player.play()
+        player.play()
         
     }
     
