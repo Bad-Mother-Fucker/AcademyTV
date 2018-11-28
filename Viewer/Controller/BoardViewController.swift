@@ -9,6 +9,7 @@
 import UIKit
 import CloudKit
 import AVFoundation
+import PureLayout
 
 class BoardViewController: TVViewController {
     
@@ -16,14 +17,8 @@ class BoardViewController: TVViewController {
     var videosURL = [URL]()
     var videoIndex = 0
     
-    var keynoteBlurView: UIVisualEffectView!{
-        didSet{
-            keynoteBlurView.layer.cornerRadius = 20
-            keynoteBlurView.clipsToBounds = true
-            keynoteBlurView.contentView.layer.cornerRadius = 20
-            keynoteBlurView.contentView.clipsToBounds = true
-        }
-    }
+    
+    
     @IBOutlet weak var globalMessageBlurEffect: UIVisualEffectView!{
         didSet{
             globalMessageBlurEffect.layer.cornerRadius = 20
@@ -31,6 +26,9 @@ class BoardViewController: TVViewController {
             globalMessageBlurEffect.clipsToBounds = true
             globalMessageBlurEffect.contentView.clipsToBounds = true
             globalMessageBlurEffect.alpha = 0.8
+            
+            globalMessageBlurEffect.autoPinEdge(toSuperviewEdge: .left, withInset:30)
+            globalMessageBlurEffect.autoPinEdge(toSuperviewEdge: .top, withInset:60)
         }
     }
     
@@ -85,6 +83,9 @@ class BoardViewController: TVViewController {
         didSet {
             serviceMessageLabel.isHidden = true
             serviceMessageLabel.textColor = .white
+            serviceMessageLabel.numberOfLines = 0
+            serviceMessageLabel.configureForAutoLayout()
+            serviceMessageLabel.autoPinEdgesToSuperviewEdges()
         }
     }
     
@@ -93,21 +94,29 @@ class BoardViewController: TVViewController {
             serviceMessageBlurView.isHidden = true
             serviceMessageBlurView.layer.cornerRadius = 20
             serviceMessageBlurView.clipsToBounds = true
+            serviceMessageBlurView.configureForAutoLayout()
+            serviceMessageBlurView.autoPinEdge(.left,
+                                               to: .right,
+                                               of: dateBlurEffect,
+                                               withOffset: 10)
+        serviceMessageBlurView.autoPinEdge(toSuperviewEdge: .right,withInset:10)
+            serviceMessageBlurView.autoPinEdge(.bottom, to: .bottom, of: dateBlurEffect)
+            serviceMessageBlurView.autoMatch(.height, to: .height, of: dateBlurEffect)
+            
         }
     }
     
     // MARK: View Controller Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        getVideoRefence()
-        playVideo()
-        NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: player.currentItem, queue: .main) { [weak self] _ in
-            self?.player.seek(to: CMTime.zero)
-            self?.videoIndex = ((self?.videoIndex)! >= (self?.videosURL.count)! - 1) ? 0 : 1
-            //self?.player.play()
-            self?.playVideo()
-        }
-        
+//        getVideoRefence()
+//        playVideo()
+////        NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: player.currentItem, queue: .main) { [weak self] _ in
+//            self?.player.seek(to: CMTime.zero)
+//            self?.videoIndex = ((self?.videoIndex)! >= (self?.videosURL.count)! - 1) ? 0 : 1
+//            //self?.player.play()
+//            self?.playVideo()
+//        }
         
         NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: "serviceMessageSet"), object: nil, queue: .main) { (_) in
             self.serviceMessageLabel.text = ServiceMessage.text
@@ -128,10 +137,10 @@ class BoardViewController: TVViewController {
             self.currentTV = (UIApplication.shared.delegate as! AppDelegate).currentTV
             self.currentTV.keynoteDelegate = self
             if let keynote = self.currentTV.keynote {
-                self.keynoteBlurView = self.view.viewWithTag(1) as? UIVisualEffectView
+               
                 self.show(keynote: keynote)
             }else {
-                self.keynoteBlurView = self.view.viewWithTag(1) as? UIVisualEffectView
+               
                 self.hideKeynote()
             }
             do {
@@ -145,45 +154,45 @@ class BoardViewController: TVViewController {
   
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        player.play()
+//        player.play()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        player.play()
+//        player.play()
     }
     
     // MARK: Private Implementation
-    
-    private func getVideoRefence(){
-        guard let first = Bundle.main.path(forResource: "Uovo", ofType:"m4v"),
-        let second = Bundle.main.path(forResource: "Elmo", ofType:"m4v") else {
-            debugPrint("Files m4v not found")
-            return
-        }
-        
-        videosURL.append(URL(fileURLWithPath: first))
-        videosURL.append(URL(fileURLWithPath: second))
-    }
-    
-    func playVideo() {
-        guard videosURL.count != 0 else {
-            debugPrint("Videos not found")
-            return
-        }
-        
-        player = AVPlayer(url: videosURL[videoIndex])
-        player.isMuted = true
-        let layer = AVPlayerLayer(player: player)
-        layer.videoGravity = .resizeAspectFill
-        layer.zPosition = -1
-        layer.frame = self.view.frame
-        
-        self.view.layer.addSublayer(layer)
-        
-        player.play()
-        
-    }
+//
+//    private func getVideoRefence(){
+//        guard let first = Bundle.main.path(forResource: "Uovo", ofType:"m4v"),
+//        let second = Bundle.main.path(forResource: "Elmo", ofType:"m4v") else {
+//            debugPrint("Files m4v not found")
+//            return
+//        }
+//
+//        videosURL.append(URL(fileURLWithPath: first))
+//        videosURL.append(URL(fileURLWithPath: second))
+//    }
+//
+//    func playVideo() {
+//        guard videosURL.count != 0 else {
+//            debugPrint("Videos not found")
+//            return
+//        }
+//
+//        player = AVPlayer(url: videosURL[videoIndex])
+//        player.isMuted = true
+//        let layer = AVPlayerLayer(player: player)
+//        layer.videoGravity = .resizeAspectFill
+//        layer.zPosition = -1
+//        layer.frame = self.view.frame
+//
+//        self.view.layer.addSublayer(layer)
+//
+//        player.play()
+//
+//    }
     
     private func setDate(){
         let date = Date()
@@ -194,17 +203,27 @@ class BoardViewController: TVViewController {
     }
     
     private func setNormalFrame() {
-        keynoteBlurView.autoPinEdge(toSuperviewEdge: .left, withInset:30)
-        keynoteBlurView.autoPinEdge(toSuperviewEdge: .top, withInset:60)
-        keynoteBlurView.autoSetDimensions(to: CGSize(width: 897, height: 550))
-        globalMessageView.setLayout(type: .normal)
-        
+        UIView.animate(withDuration: 3) {
+//            self.globalMessageBlurEffect.constraints.forEach { (constraint) in
+//                constraint.autoRemove()
+//            }
+            self.globalMessageBlurEffect.autoPinEdge(toSuperviewEdge: .left, withInset:30)
+            self.globalMessageBlurEffect.autoPinEdge(toSuperviewEdge: .top, withInset:60)
+            self.globalMessageBlurEffect.autoSetDimensions(to: CGSize(width: 897, height: 550))
+            self.globalMessageView.setLayout(type: .normal)
+        }
+    
     }
     private func setKeynoteFrame() {
-        keynoteBlurView.autoPinEdge(toSuperviewEdge: .left, withInset:30)
-        keynoteBlurView.autoPinEdge(toSuperviewEdge: .top, withInset:60)
-        keynoteBlurView.autoSetDimensions(to: CGSize(width: 457, height: 761))
-        globalMessageView.setLayout(type: .keynote)
+        
+        UIView.animate(withDuration: 3) {
+          
+            self.globalMessageBlurEffect.autoPinEdge(toSuperviewEdge: .left, withInset:30)
+            self.globalMessageBlurEffect.autoPinEdge(toSuperviewEdge: .top, withInset:60)
+            self.globalMessageBlurEffect.autoSetDimensions(to: CGSize(width: 465, height: 783))
+            self.globalMessageView.setLayout(type: .keynote)
+
+        }
     }
    
 }
@@ -218,12 +237,22 @@ extension BoardViewController: ATVKeynoteViewDelegate {
         setKeynoteFrame()
         keynoteView.fadeIn()
         var page = 0
-        keynoteView.image = keynote[page]
+    
         Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { (timer) in
-            page = (page + 1) % keynote.count
-            self.keynoteView.image = keynote[page]
+            self.keynoteView.image = keynote[nextPage()]
         }
         
+        func nextPage() -> Int {
+            let index: Int
+            if page >= 0 && page < keynote.count {
+                index = page
+                page = page + 1
+                return index
+            }else {
+                page = 0
+                return nextPage()
+            }
+        }
         
     }
     
@@ -233,6 +262,7 @@ extension BoardViewController: ATVKeynoteViewDelegate {
         setNormalFrame()
         
     }
+    
     
     
     

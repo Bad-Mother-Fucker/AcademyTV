@@ -135,6 +135,17 @@ import PureLayout
     
     
     private func originalLayout() {
+        
+        constraints.forEach { (constraint) in
+            constraint.autoRemove()
+        }
+//
+//        subviews.forEach { (view) in
+//            view.constraints.forEach({ (constraint) in
+//                constraint.autoRemove()
+//            })
+//        }
+        
         autoPinEdgesToSuperviewEdges()
         
         //        Subitle Layout
@@ -189,6 +200,17 @@ import PureLayout
     
     private func keynoteLayout() {
         
+        constraints.forEach { (constraint) in
+            constraint.autoRemove()
+        }
+        
+//        subviews.forEach { (view) in
+//            view.constraints.forEach { (constraint) in
+//                constraint.autoRemove()
+//            }
+//        }
+        
+        
         //        View Layout
         autoPinEdgesToSuperviewEdges()
                 
@@ -240,19 +262,17 @@ import PureLayout
         
         locationLabel.autoPinEdge(.left, to: .left, of: whereLabel)
         locationLabel.autoPinEdge(.right, to: .right, of: whereLabel)
-        locationLabel.autoPinEdge(.top, to: .bottom, of: whereLabel,withOffset: 8)
+        locationLabel.autoAlignAxis(.horizontal, toSameAxisOf: dateLabel)
         
     }
     
     
     func setLayout(type: TVLayoutType) {
-        UIView.animate(withDuration: 3) { [weak self] in
-            switch type {
-            case .normal:
-                self?.originalLayout()
-            case .keynote:
-                self?.keynoteLayout()
-            }
+        switch type {
+        case .normal:
+            originalLayout()
+        case .keynote:
+            keynoteLayout()
         }
     }
     
@@ -286,30 +306,30 @@ import PureLayout
     }
     
     func set(message: GlobalMessage) {
-        UIView.animate(withDuration: 1, animations: {
-            
-            self.titleLabel.text = message.title
-            self.subTitleLabel.text = message.subtitle
-            self.descriptionLabel.text = message.description
-            self.locationLabel.text = message.location
-            self.qrCodeImage.image = self.generateQRCode(from: message.url?.absoluteString ?? "")
-            self.dateLabel.text = message.date.day
-            self.timeLabel.text = message.date.time
-            
-            
-            if self.dateLabel.text == nil && self.timeLabel.text == nil {
-                self.whenLabel.text = ""
-            }else {
-                self.whenLabel.text = "When"
-            }
-    
-            if self.locationLabel.text == nil {
-                self.whereLabel.text = ""
-            }else {
-                self.whereLabel.text = "Where"
-            }
-            
-        })
+        
+        
+        self.titleLabel.text = message.title
+        self.subTitleLabel.text = message.subtitle
+        self.descriptionLabel.text = message.description
+        self.locationLabel.text = message.location
+        self.qrCodeImage.image = self.generateQRCode(from: message.url?.absoluteString ?? "")
+        self.dateLabel.text = message.date.day
+        self.timeLabel.text = message.date.time
+        
+        
+        if self.dateLabel.text == nil && self.timeLabel.text == nil {
+            self.whenLabel.text = ""
+        }else {
+            self.whenLabel.text = "When"
+        }
+        
+        if self.locationLabel.text == nil {
+            self.whereLabel.text = ""
+        }else {
+            self.whereLabel.text = "Where"
+        }
+        
+        
     }
     
     
