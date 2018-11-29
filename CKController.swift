@@ -19,6 +19,9 @@ class CKController {
     // MARK: - static methods implementation
    
     
+    
+    
+    
 //    Creates and saves subscriptions to push notifications
     
    static func saveSubscription(for type: String, ID:String) {
@@ -94,6 +97,8 @@ class CKController {
         
         
     }
+    
+    
 
     
 //    Fetch service message
@@ -113,6 +118,7 @@ class CKController {
     }
     
     
+    
     static func postServiceMessage(_ text:String,forSeconds timer: Double) {
         ServiceMessageModel.post(message: text, forSeconds: timer) { (record, error) in
             guard error == nil else  {
@@ -125,6 +131,13 @@ class CKController {
     static func removeServiceMessage() {
         ServiceMessageModel.removeMessage()
     }
+    
+
+    static func remove(globalMessage: GlobalMessage) {
+        GlobalMessageModel.delete(record: globalMessage.record)
+    }
+    
+    
     
 //    Fetches all global messages from the CK database
     
