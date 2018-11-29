@@ -77,18 +77,18 @@ class MessagesTableViewController: UITableViewController{
     }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let remove = UITableViewRowAction(style: .destructive, title: "Cancel") {[weak self] (action, indexPath) in
-            self?.delegate.database.delete(withRecordID: (self?.globalMessages[indexPath.row].record.recordID)!, completionHandler: { (record, error) in
-                guard error == nil else{
-                    print(error.debugDescription)
-                    return
-                }
+        let remove = UITableViewRowAction(style: .destructive, title: "Delete") { [weak self] (action, indexPath) in
+            
                 DispatchQueue.main.async {
                     self?.globalMessages.remove(at: indexPath.row)
+                    CKController.remove(globalMessage: self?.gobalMessages[indexPath.row])
                     self?.tableView.reloadData()
                 }
             })
         }
+        
+        
+        
         remove.backgroundColor = .red
         return [remove]
     }
