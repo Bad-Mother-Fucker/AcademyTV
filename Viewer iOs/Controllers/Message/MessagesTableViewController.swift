@@ -9,7 +9,7 @@
 import UIKit
 import CloudKit
 
-class MessagesTableViewController: UITableViewController{
+class MessagesTableViewController: UITableViewController {
     
     // MARK: Variables
     let delegate = (UIApplication.shared.delegate as! AppDelegate)
@@ -81,14 +81,11 @@ class MessagesTableViewController: UITableViewController{
             
                 DispatchQueue.main.async {
                     self?.globalMessages.remove(at: indexPath.row)
-                    CKController.remove(globalMessage: self?.gobalMessages[indexPath.row])
+                    CKController.remove(globalMessage: (self?.globalMessages[indexPath.row])!)
                     self?.tableView.reloadData()
                 }
-            })
-        }
-        
-        
-        
+            }
+ 
         remove.backgroundColor = .red
         return [remove]
     }
@@ -124,3 +121,4 @@ class MessagesTableViewController: UITableViewController{
         }
     }
 }
+

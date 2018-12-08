@@ -139,13 +139,14 @@ import PureLayout
         constraints.forEach { (constraint) in
             constraint.autoRemove()
         }
-//
-//        subviews.forEach { (view) in
-//            view.constraints.forEach({ (constraint) in
-//                constraint.autoRemove()
-//            })
-//        }
         
+        subviews.forEach { (view) in
+            view.constraints.forEach({ (constraint) in
+                if constraint.identifier == "dimension"{
+                    constraint.autoRemove()
+                }
+            })
+        }
         autoPinEdgesToSuperviewEdges()
         
         //        Subitle Layout
@@ -192,7 +193,8 @@ import PureLayout
         
         locationLabel.autoPinEdge(.left, to: .left, of: whereLabel)
         locationLabel.autoSetDimension(.width, toSize: 123)
-        locationLabel.autoPinEdge(.top, to: .bottom, of: whereLabel,withOffset: 8)
+      
+        locationLabel.autoAlignAxis(.horizontal, toSameAxisOf: dateLabel)
         
     }
     
@@ -204,13 +206,13 @@ import PureLayout
             constraint.autoRemove()
         }
         
-//        subviews.forEach { (view) in
-//            view.constraints.forEach { (constraint) in
-//                constraint.autoRemove()
-//            }
-//        }
-        
-        
+        subviews.forEach { (view) in
+            view.constraints.forEach({ (constraint) in
+                if constraint.identifier == "dimension"{
+                    constraint.autoRemove()
+                }
+            })
+        }
         //        View Layout
         autoPinEdgesToSuperviewEdges()
                 
@@ -218,7 +220,7 @@ import PureLayout
         subTitleLabel.autoPinEdge(toSuperviewEdge: .top, withInset: 15)
         subTitleLabel.autoPinEdge(toSuperviewEdge: .left, withInset: 10)
         subTitleLabel.autoPinEdge(toSuperviewEdge: .right, withInset: 10)
-        subTitleLabel.autoSetDimension(.height, toSize: 36)
+        subTitleLabel.autoSetDimension(.height, toSize: 36).autoIdentify("dimension")
         
         //        Title Layout
         titleLabel.autoPinEdge(.left, to: .left, of: subTitleLabel)
@@ -230,7 +232,7 @@ import PureLayout
         descriptionLabel.autoPinEdge(.left, to: .left, of: subTitleLabel)
         descriptionLabel.autoPinEdge(.right, to: .right, of: subTitleLabel)
         descriptionLabel.autoPinEdge(.top, to: .bottom, of: titleLabel,withOffset: 25)
-        descriptionLabel.autoSetDimension(.height, toSize: 102)
+        descriptionLabel.autoSetDimension(.height, toSize: 102).autoIdentify("dimesion")
         
         
         
@@ -247,18 +249,19 @@ import PureLayout
         
         whereLabel.autoPinEdge(toSuperviewEdge: .right, withInset: 60)
         whereLabel.autoSetDimensions(to: CGSize(width: 123, height: 46))
+        
         whereLabel.autoPinEdge(.top, to: .bottom, of: qrCodeImage,withOffset:45)
         
         
         dateLabel.autoPinEdge(.top, to: .bottom, of: whenLabel,withOffset: 8)
         dateLabel.autoPinEdge(.left, to: .left, of: whenLabel)
         dateLabel.autoPinEdge(.right, to: .right, of: whenLabel)
-        dateLabel.autoSetDimension(.height, toSize: 60)
+        dateLabel.autoSetDimension(.height, toSize: 60).autoIdentify("dimension")
         
         timeLabel.autoPinEdge(.top, to: .bottom, of: dateLabel,withOffset: 8)
         timeLabel.autoPinEdge(.left, to: .left, of: whenLabel)
         timeLabel.autoPinEdge(.right, to: .right, of: whenLabel)
-        timeLabel.autoSetDimension(.height, toSize: 60)
+        timeLabel.autoSetDimension(.height, toSize: 60).autoIdentify("dimension")
         
         locationLabel.autoPinEdge(.left, to: .left, of: whereLabel)
         locationLabel.autoPinEdge(.right, to: .right, of: whereLabel)
@@ -350,19 +353,12 @@ import PureLayout
             }
         }
         
-        Timer.scheduledTimer(withTimeInterval: 15, repeats: true) { (timer) in
+        Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { (timer) in
             let index = nextIndex()
             //print("will show messages[\(index)]")
             self.set(message: messages[index])
-            if textExceedBoundsOf(self.descriptionLabel) {
-//                var startingPoit = 0
-//
-//                Timer.scheduledTimer(withTimeInterval: 8, repeats: true, block: { (timer) in
-//                    startingPoit = startingPoit + Int(self.descriptionLabel.frame.height)
-//                    self.descriptionLabel.scrollRangeToVisible(NSRange(location: startingPoit, length: Int(self.descriptionLabel.frame.height)))
-//
-//                })
-            }
+            scrollTextIfNeeded(in: self.descriptionLabel)
+            
         }
         
         
@@ -371,6 +367,23 @@ import PureLayout
             return textHeight > textView.bounds.height
         }
         
+        func scrollTextIfNeeded(in textView: UITextView) {
+            guard textExceedBoundsOf(textView) else {return}
+            textView.scrollRangeToVisible(NSRange(location: 0, length: 0))
+            var lastRange = NSRange(location: 0, length: 250)
+            Timer.scheduledTimer(withTimeInterval: 6, repeats: true) { (timer) in
+                guard textExceedBoundsOf(textView) else {
+                    timer.invalidate()
+                    return
+                }
+               
+                let newRange = NSRange(location: lastRange.upperBound, length: 250)
+                textView.scrollRangeToVisible(newRange)
+                lastRange = newRange
+            }
+        }
+        
+
     }
 
 }

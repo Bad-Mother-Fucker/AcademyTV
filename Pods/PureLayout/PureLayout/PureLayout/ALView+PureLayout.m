@@ -788,6 +788,7 @@
     PL__NSMutableArray_of(NSLayoutConstraint *) *constraints = [NSMutableArray new];
     [constraints addObject:[self autoSetDimension:ALDimensionWidth toSize:size.width]];
     [constraints addObject:[self autoSetDimension:ALDimensionHeight toSize:size.height]];
+    
     return constraints;
 }
 
@@ -817,6 +818,7 @@
     NSLayoutAttribute layoutAttribute = [NSLayoutConstraint al_layoutAttributeForAttribute:(ALAttribute)dimension];
     NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:self attribute:layoutAttribute relatedBy:relation toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0.0 constant:size];
     [constraint autoInstall];
+    [constraint autoIdentify:@"dimension"];
     return constraint;
 }
 

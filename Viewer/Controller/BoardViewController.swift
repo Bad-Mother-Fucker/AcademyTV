@@ -85,7 +85,7 @@ class BoardViewController: TVViewController {
             serviceMessageLabel.textColor = .white
             serviceMessageLabel.numberOfLines = 0
             serviceMessageLabel.configureForAutoLayout()
-            serviceMessageLabel.autoPinEdgesToSuperviewEdges()
+            serviceMessageLabel.autoPinEdgesToSuperviewEdges(with: UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10))
         }
     }
     
@@ -99,6 +99,7 @@ class BoardViewController: TVViewController {
                                                to: .right,
                                                of: dateBlurEffect,
                                                withOffset: 20)
+            
             serviceMessageBlurView.autoPinEdge(toSuperviewEdge: .right,withInset: 10)
             serviceMessageBlurView.autoPinEdge(.bottom, to: .bottom, of: dateBlurEffect)
             serviceMessageBlurView.autoMatch(.height, to: .height, of: dateBlurEffect)
@@ -198,17 +199,25 @@ class BoardViewController: TVViewController {
         let date = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM dd, HH:mm"
-        
         self.dateLabel.text = dateFormatter.string(from: date)
     }
     
     private func setNormalFrame() {
         UIView.animate(withDuration: 3) {
-            //            self.globalMessageBlurEffect.constraints.forEach { (constraint) in
-            //                constraint.autoRemove()
-            //            }
+           
+            self.globalMessageBlurEffect.removeFromSuperview()
+            self.view.addSubview(self.globalMessageBlurEffect)
+            
+            self.globalMessageBlurEffect.constraints.forEach({ (constraint) in
+                if constraint.identifier == "dimension"{
+                    debugPrint("removing dimension constraint")
+                    constraint.autoRemove()
+                }
+            })
+            
             self.globalMessageBlurEffect.autoPinEdge(toSuperviewEdge: .left, withInset:30)
             self.globalMessageBlurEffect.autoPinEdge(toSuperviewEdge: .top, withInset:60)
+            self.globalMessageBlurEffect.frame = CGRect(origin: self.globalMessageBlurEffect.frame.origin, size: CGSize(width: 897, height: 550))
             self.globalMessageBlurEffect.autoSetDimensions(to: CGSize(width: 897, height: 550))
             self.globalMessageView.setLayout(type: .normal)
         }
@@ -216,11 +225,28 @@ class BoardViewController: TVViewController {
     }
     private func setKeynoteFrame() {
         
-        UIView.animate(withDuration: 3) {
+           UIView.animate(withDuration: 3) {
+
+    
+            self.globalMessageBlurEffect.removeFromSuperview()
+            self.view.addSubview(self.globalMessageBlurEffect)
             
+            self.globalMessageBlurEffect.constraints.forEach({ (constraint) in
+                if constraint.identifier == "dimension"{
+                    debugPrint("removing dimension constraint")
+                    constraint.autoRemove()
+                }
+            })
+            
+            
+              self.globalMessageBlurEffect.frame = CGRect(origin: self.globalMessageBlurEffect.frame.origin, size: CGSize(width: 465, height: self.keynoteView.frame.height))
             self.globalMessageBlurEffect.autoPinEdge(toSuperviewEdge: .left, withInset:30)
-            self.globalMessageBlurEffect.autoPinEdge(toSuperviewEdge: .top, withInset:60)
             self.globalMessageBlurEffect.autoSetDimensions(to: CGSize(width: 465, height: 783))
+//            self.globalMessageBlurEffect.autoSetDimension(.height, toSize: 783)
+          
+            self.globalMessageBlurEffect.autoPinEdge(.top, to: .top, of: self.keynoteView)
+            self.globalMessageBlurEffect.autoPinEdge(.bottom, to: .bottom, of: self.keynoteView)
+            self.globalMessageBlurEffect.autoPinEdge(.right, to: .left, of: self.keynoteView, withOffset: -8)
             self.globalMessageView.setLayout(type: .keynote)
             
         }
@@ -233,12 +259,14 @@ class BoardViewController: TVViewController {
 
 extension BoardViewController: ATVKeynoteViewDelegate {
     func show(keynote: [UIImage]) {
-        //        Perform UI Keynote  Showing
+//      Perform UI Keynote  Showing
         setKeynoteFrame()
         keynoteView.fadeIn()
+        
+       
         var page = 0
         
-        Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { (timer) in
+        Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { (timer) in
             self.keynoteView.image = keynote[nextPage()]
         }
         
