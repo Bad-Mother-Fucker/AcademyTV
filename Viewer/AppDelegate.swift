@@ -58,7 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
                 
                 CKKeys.database.save(ServiceMessage.record, completionHandler: { (record, error) in
                     guard error == nil else {
-                        debugPrint(error!.localizedDescription)
+                        print(error!.localizedDescription)
                        
                         return
                     }
@@ -71,7 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         // MARK: Check if the current TV is already on CK otherwise it Saves the new record
         
         TVModel.doesExist { (exists, error) in
-            print("tv \(exists)")
+            debugPrint("tv \(exists)")
             
             if !exists{
                 
@@ -163,7 +163,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
     
     private func playVideo(){
         if let boardViewController = window?.rootViewController as? BoardViewController {
-//            boardViewController.playVideo()
+            boardViewController.playVideo()
         }
     }
     

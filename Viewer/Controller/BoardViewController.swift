@@ -14,7 +14,28 @@ import PureLayout
 class BoardViewController: TVViewController {
     
     var player: AVPlayer!
-    var videosURL = [URL]()
+    var videosURL: [AVPlayerItem] {
+        var videos:[URL?] = [URL(string: "https://dl.dropboxusercontent.com/s/jiygs4mqvfmube2/Elmo180.m4v?dl=0"),
+                             URL(string: "https://dl.dropboxusercontent.com/s/0s48rm38u8awzve/Floridiana180.m4v?dl=0"),
+                             URL(string: "https://dl.dropboxusercontent.com/s/pikrsmippuu59qq/Lungomare180.m4v?dl=0" ),
+                             URL(string: "https://dl.dropboxusercontent.com/s/n0aczqi5irkhzcb/Uovo180.m4v?dl=0")
+        ]
+        
+        videos.forEach { (URL) in
+            guard let _ = URL else {
+                videos.remove(at: videos.index(of:URL)!)
+                print("failed to get video at index: \(videos.index(of:URL)!)")
+                return
+            }
+            return
+        }
+        
+        
+        let items = videos.map { (url) -> AVPlayerItem in
+            return AVPlayerItem(url: url!)
+        }
+        return items
+    }
     var videoIndex = 0
     
     
@@ -85,7 +106,7 @@ class BoardViewController: TVViewController {
             serviceMessageLabel.textColor = .white
             serviceMessageLabel.numberOfLines = 0
             serviceMessageLabel.configureForAutoLayout()
-            serviceMessageLabel.autoPinEdgesToSuperviewEdges(with: UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10))
+            serviceMessageLabel.autoPinEdgesToSuperviewEdges(with: UIEdgeInsets(top: 0, left: 25, bottom: 0, right: 25))
         }
     }
     
@@ -100,7 +121,7 @@ class BoardViewController: TVViewController {
                                                of: dateBlurEffect,
                                                withOffset: 20)
             
-            serviceMessageBlurView.autoPinEdge(toSuperviewEdge: .right,withInset: 10)
+//            serviceMessageBlurView.autoPinEdge(toSuperviewEdge: .right,withInset: 10)
             serviceMessageBlurView.autoPinEdge(.bottom, to: .bottom, of: dateBlurEffect)
             serviceMessageBlurView.autoMatch(.height, to: .height, of: dateBlurEffect)
             
@@ -110,15 +131,15 @@ class BoardViewController: TVViewController {
     // MARK: View Controller Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        //        getVideoRefence()
-        //        playVideo()
-        ////        NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: player.currentItem, queue: .main) { [weak self] _ in
-        //            self?.player.seek(to: CMTime.zero)
-        //            self?.videoIndex = ((self?.videoIndex)! >= (self?.videosURL.count)! - 1) ? 0 : 1
-        //            //self?.player.play()
-        //            self?.playVideo()
-        //        }
         
+                playVideo()
+                NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: player.currentItem, queue: .main) { [weak self] _ in
+                    self?.player.seek(to: CMTime.zero)
+                    self?.videoIndex = ((self?.videoIndex)! >= (self?.videosURL.count)! - 1) ? 0 : 1
+                    self?.player.play()
+                    self?.playVideo()
+                }
+    
         NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: "serviceMessageSet"), object: nil, queue: .main) { (_) in
             self.serviceMessageLabel.text = ServiceMessage.text
             if ServiceMessage.text != "" {
@@ -155,45 +176,53 @@ class BoardViewController: TVViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        //        player.play()
+                player.play()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        //        player.play()
+                player.play()
     }
     
     // MARK: Private Implementation
-    //
-    //    private func getVideoRefence(){
-    //        guard let first = Bundle.main.path(forResource: "Uovo", ofType:"m4v"),
-    //        let second = Bundle.main.path(forResource: "Elmo", ofType:"m4v") else {
-    //            debugPrint("Files m4v not found")
-    //            return
-    //        }
-    //
-    //        videosURL.append(URL(fileURLWithPath: first))
-    //        videosURL.append(URL(fileURLWithPath: second))
-    //    }
-    //
-    //    func playVideo() {
-    //        guard videosURL.count != 0 else {
-    //            debugPrint("Videos not found")
-    //            return
-    //        }
-    //
-    //        player = AVPlayer(url: videosURL[videoIndex])
-    //        player.isMuted = true
-    //        let layer = AVPlayerLayer(player: player)
-    //        layer.videoGravity = .resizeAspectFill
-    //        layer.zPosition = -1
-    //        layer.frame = self.view.frame
-    //
-    //        self.view.layer.addSublayer(layer)
-    //
-    //        player.play()
-    //
-    //    }
+    
+    
+
+    func playVideo() {
+        
+        guard videosURL.count != 0 else {
+            debugPrint("Videos not found")
+            return
+        }
+        
+        func nextIndex() -> Int {
+            let index: Int
+            if videoIndex >= 0 && videoIndex < videosURL.count {
+                index = videoIndex
+                videoIndex = videoIndex + 1
+                return index
+            }else {
+                videoIndex = 0
+                return nextIndex()
+            }
+        }
+
+
+        player = AVQueuePlayer(items: videosURL)
+        player.actionAtItemEnd = .advance
+        player.isMuted = true
+        let layer = AVPlayerLayer(player: player)
+        layer.videoGravity = .resizeAspectFill
+        layer.zPosition = -1
+        layer.frame = self.view.frame
+
+        self.view.layer.addSublayer(layer)
+
+        player.play()
+        
+        
+
+    }
     
     private func setDate(){
         let date = Date()
@@ -281,7 +310,7 @@ extension BoardViewController: ATVKeynoteViewDelegate {
                 return nextPage()
             }
         }
-        
+
     }
     
     func hideKeynote() {

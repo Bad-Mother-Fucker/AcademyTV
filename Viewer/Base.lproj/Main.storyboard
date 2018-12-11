@@ -64,15 +64,33 @@
                                         </view>
                                     </subviews>
                                 </view>
+                                <blurEffect style="extraDark"/>
+                            </visualEffectView>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xlL-jU-CXx">
+                                <rect key="frame" x="498" y="60" width="1392" height="783"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="gLT-Cn-MtI">
+                                    <rect key="frame" x="0.0" y="0.0" width="1392" height="783"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Gf1-AQ-UDc">
+                                            <rect key="frame" x="0.0" y="0.0" width="1392" height="783"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="783" id="5YZ-5P-vgM"/>
+                                                <constraint firstAttribute="width" secondItem="Gf1-AQ-UDc" secondAttribute="height" multiplier="16:9" id="UsL-R4-RF0"/>
+                                            </constraints>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Gf1-AQ-UDc" firstAttribute="top" secondItem="gLT-Cn-MtI" secondAttribute="top" id="MLI-Rj-fjz"/>
+                                        <constraint firstAttribute="trailing" secondItem="Gf1-AQ-UDc" secondAttribute="trailing" id="dhB-2A-t4w"/>
+                                        <constraint firstAttribute="bottom" secondItem="Gf1-AQ-UDc" secondAttribute="bottom" id="hob-qE-qWM"/>
+                                        <constraint firstAttribute="trailing" secondItem="Gf1-AQ-UDc" secondAttribute="trailing" id="tKu-ta-Y4f"/>
+                                        <constraint firstItem="Gf1-AQ-UDc" firstAttribute="leading" secondItem="gLT-Cn-MtI" secondAttribute="leading" id="wSq-3A-3hN"/>
+                                    </constraints>
+                                </view>
                                 <blurEffect style="dark"/>
                             </visualEffectView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Gf1-AQ-UDc">
-                                <rect key="frame" x="498" y="60" width="1392" height="783"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="Gf1-AQ-UDc" secondAttribute="height" multiplier="16:9" id="Dgy-mm-OPT"/>
-                                    <constraint firstAttribute="width" constant="1392" id="Zc6-e5-rbY"/>
-                                </constraints>
-                            </imageView>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="edG-sc-kzu">
                                 <rect key="frame" x="370" y="960" width="1520" height="85"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -124,9 +142,7 @@
                             <constraint firstAttribute="bottom" secondItem="C7z-wd-41c" secondAttribute="bottom" constant="35" id="UaQ-wk-IiN"/>
                             <constraint firstAttribute="bottom" secondItem="kVA-Se-YNi" secondAttribute="bottom" constant="35" id="V6g-nL-vn6"/>
                             <constraint firstItem="C7z-wd-41c" firstAttribute="leading" secondItem="kVA-Se-YNi" secondAttribute="trailing" constant="2" id="Vp6-YJ-xLY"/>
-                            <constraint firstAttribute="trailing" secondItem="Gf1-AQ-UDc" secondAttribute="trailing" constant="30" id="xaW-1X-LLl"/>
                             <constraint firstItem="kVA-Se-YNi" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="35" id="zZh-Pd-SiG"/>
-                            <constraint firstItem="Gf1-AQ-UDc" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="zlI-uS-GJl"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="wu6-TO-1qx"/>
                     </view>
@@ -144,7 +160,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="60" y="62"/>
+            <point key="canvasLocation" x="590" y="-151"/>
         </scene>
         <!--Glass Office View Controller-->
         <scene sceneID="43l-BE-iMS">
