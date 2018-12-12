@@ -38,6 +38,13 @@ class BoardViewController: TVViewController {
     }
     var videoIndex = 0
     
+    @IBOutlet weak var keynoteBlurVIew: UIVisualEffectView! {
+        didSet {
+            keynoteBlurVIew.isHidden = true
+            keynoteBlurVIew.layer.cornerRadius = 15
+            keynoteBlurVIew.clipsToBounds = true
+        }
+    }
     
     
     @IBOutlet weak var globalMessageBlurEffect: UIVisualEffectView!{
@@ -47,7 +54,6 @@ class BoardViewController: TVViewController {
             globalMessageBlurEffect.clipsToBounds = true
             globalMessageBlurEffect.contentView.clipsToBounds = true
             globalMessageBlurEffect.alpha = 0.8
-            
             globalMessageBlurEffect.autoPinEdge(toSuperviewEdge: .left, withInset:35)
             globalMessageBlurEffect.autoPinEdge(toSuperviewEdge: .top, withInset:30)
         }
@@ -89,7 +95,7 @@ class BoardViewController: TVViewController {
                 self?.setDate()
             }
             
-            let dateMaskPath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: (dateLabel.frame.width*3)+5, height: 85),
+            let dateMaskPath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: dateBlurEffect.frame.width, height: 85),
                                             byRoundingCorners: [.bottomRight, .topRight],
                                             cornerRadii: CGSize(width: 15.0, height: 15.0))
             
@@ -121,9 +127,17 @@ class BoardViewController: TVViewController {
                                                of: dateBlurEffect,
                                                withOffset: 20)
             
-//            serviceMessageBlurView.autoPinEdge(toSuperviewEdge: .right,withInset: 10)
-            serviceMessageBlurView.autoPinEdge(.bottom, to: .bottom, of: dateBlurEffect)
-            serviceMessageBlurView.autoMatch(.height, to: .height, of: dateBlurEffect)
+            serviceMessageBlurView.autoPinEdge(.bottom,
+                                               to: .bottom,
+                                               of: dateBlurEffect)
+            
+            serviceMessageBlurView.autoMatch(.height,
+                                             to: .height,
+                                             of: dateBlurEffect)
+            
+//            serviceMessageBlurView.autoPinEdge(toSuperviewEdge: .right,
+//                                               withInset:10,
+//                                               relation: .greaterThanOrEqual)
             
         }
     }
@@ -208,8 +222,21 @@ class BoardViewController: TVViewController {
         }
 
 
+       
+        
         player = AVQueuePlayer(items: videosURL)
-        player.actionAtItemEnd = .advance
+        player.actionAtItemEnd = {
+            let index = videosURL.index(of: player.currentItem!)
+            if index == videosURL.count + 1 {
+                player.seek(to: CMTime.zero)
+                player.replaceCurrentItem(with: videosURL.first!)
+                player.play()
+                return .advance
+            }else {
+                return .advance
+            }
+        }()
+        
         player.isMuted = true
         let layer = AVPlayerLayer(player: player)
         layer.videoGravity = .resizeAspectFill
@@ -290,6 +317,7 @@ extension BoardViewController: ATVKeynoteViewDelegate {
     func show(keynote: [UIImage]) {
 //      Perform UI Keynote  Showing
         setKeynoteFrame()
+        keynoteBlurVIew.fadeIn()
         keynoteView.fadeIn()
         
        
@@ -316,6 +344,7 @@ extension BoardViewController: ATVKeynoteViewDelegate {
     func hideKeynote() {
         //        Perform UI Keynote hiding
         keynoteView.fadeOut()
+        keynoteBlurVIew.fadeOut()
         setNormalFrame()
         
     }
@@ -340,4 +369,6 @@ extension UIView {
         }
     }
 }
+
+
 
