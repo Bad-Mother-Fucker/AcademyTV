@@ -64,9 +64,9 @@
                                         </view>
                                     </subviews>
                                 </view>
-                                <blurEffect style="extraDark"/>
+                                <blurEffect style="dark"/>
                             </visualEffectView>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xlL-jU-CXx">
+                            <visualEffectView opaque="NO" alpha="0.55000000000000004" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xlL-jU-CXx">
                                 <rect key="frame" x="498" y="60" width="1392" height="783"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="gLT-Cn-MtI">
@@ -92,16 +92,16 @@
                                 <blurEffect style="dark"/>
                             </visualEffectView>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="edG-sc-kzu">
-                                <rect key="frame" x="370" y="960" width="1520" height="85"/>
+                                <rect key="frame" x="470" y="960" width="1420" height="85"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" id="RGm-nN-RDh">
-                                    <rect key="frame" x="0.0" y="0.0" width="1520" height="85"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1420" height="85"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XWw-Ux-5Fy">
-                                            <rect key="frame" x="25" y="19" width="93" height="46"/>
+                                            <rect key="frame" x="25" y="19" width="91" height="46"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="38"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -110,13 +110,13 @@
                                 <blurEffect style="dark"/>
                             </visualEffectView>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C7z-wd-41c">
-                                <rect key="frame" x="178" y="960" width="141" height="85"/>
+                                <rect key="frame" x="178" y="960" width="284" height="85"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="hri-Qb-UtZ">
-                                    <rect key="frame" x="0.0" y="0.0" width="141" height="85"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="284" height="85"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l1V-In-Lw9">
-                                            <rect key="frame" x="25" y="0.0" width="91" height="85"/>
+                                            <rect key="frame" x="25" y="0.0" width="234" height="85"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="38"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
@@ -132,12 +132,13 @@
                                     </constraints>
                                 </view>
                                 <constraints>
+                                    <constraint firstAttribute="width" constant="284" id="P90-sw-kK4"/>
                                     <constraint firstAttribute="height" constant="85" id="QgC-bR-hD6"/>
                                 </constraints>
                                 <blurEffect style="dark"/>
                             </visualEffectView>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="C7z-wd-41c" secondAttribute="bottom" constant="35" id="UaQ-wk-IiN"/>
                             <constraint firstAttribute="bottom" secondItem="kVA-Se-YNi" secondAttribute="bottom" constant="35" id="V6g-nL-vn6"/>
@@ -151,6 +152,7 @@
                         <outlet property="dateLabel" destination="l1V-In-Lw9" id="yng-ER-fx4"/>
                         <outlet property="globalMessageBlurEffect" destination="S46-g9-J6v" id="Nye-Pe-a8j"/>
                         <outlet property="globalMessageView" destination="v8C-TD-9es" id="Bhy-Ae-a03"/>
+                        <outlet property="keynoteBlurVIew" destination="xlL-jU-CXx" id="GEC-ul-5bg"/>
                         <outlet property="keynoteView" destination="Gf1-AQ-UDc" id="y2W-ck-jjy"/>
                         <outlet property="serviceMessageBlurView" destination="edG-sc-kzu" id="thc-ce-BSg"/>
                         <outlet property="serviceMessageLabel" destination="XWw-Ux-5Fy" id="8Ar-0l-4FN"/>
