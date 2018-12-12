@@ -13,6 +13,7 @@ class MenuViewController: UITableViewController {
     let props: [(title: String, description: String, image: UIImage?)] = [
         (title: "Booqable Availability", description: "Displays a list of names that are overdue, on hold and ready for pickup", image: UIImage(named: "Booquable")),
         (title: "Global Message", description: "Displays a message with title, description, date & time, location and URL", image: UIImage(named: "GlobalMessage")),
+        (title: "Ticker", description: "Displays a short messager always visibile at the bottom of the screen", image: UIImage(named: "Ticker")),
         (title: "Keynote", description: "Dislays a keynote on selected area, airplay is not needed", image: UIImage(named: "Keynote"))
     ]
     

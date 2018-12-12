@@ -426,10 +426,10 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gRS-uS-YpO">
-                                                    <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Checked" translatesAutoresizingMaskIntoConstraints="NO" id="gl7-pQ-GB8">
-                                                    <rect key="frame" x="65" y="65" width="30" height="30"/>
+                                                    <rect key="frame" x="40" y="40" width="30" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="5Tw-81-bGL"/>
                                                         <constraint firstAttribute="width" constant="30" id="mv0-8o-Lpk"/>
@@ -549,7 +549,6 @@
         <!--Locations-->
         <scene sceneID="kNs-11-m4Y">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5kD-mT-DLG" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="4Oy-iG-JEM" customClass="TvListViewController" customModule="Viewer_iOs" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="443-Ym-v1k">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -649,16 +648,25 @@
                         <viewLayoutGuide key="safeArea" id="nS4-hc-AYd"/>
                     </view>
                     <navigationItem key="navigationItem" title="Locations" id="ImP-K9-bcu">
-                        <barButtonItem key="rightBarButtonItem" title="Next" id="xCb-0d-cCy">
-                            <connections>
-                                <segue destination="Tlr-0C-jel" kind="show" identifier="setTheTvSegue" id="0qe-ff-Xwi"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Next" id="xCb-0d-cCy">
+                                <connections>
+                                    <segue destination="Tlr-0C-jel" kind="show" identifier="setTheTvSegue" id="0qe-ff-Xwi"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem enabled="NO" title="Clear" id="2Yc-mv-if9">
+                                <connections>
+                                    <action selector="clearKeynotes:" destination="4Oy-iG-JEM" id="eOj-xU-Ydf"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="clearBarButtonItem" destination="2Yc-mv-if9" id="ttS-Qq-JN0"/>
                         <outlet property="collectionView" destination="d7H-vM-zi4" id="t4K-ja-ehk"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5kD-mT-DLG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1806" y="937"/>
         </scene>
