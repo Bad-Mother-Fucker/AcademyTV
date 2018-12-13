@@ -9,7 +9,7 @@
 import Foundation
 import AVFoundation
 
-class VideoManger {
+class VideoManager {
     
     init(onLayer parentLayer: CALayer, videos: [AVPlayerItem]) {
         playingVideos = videos
@@ -64,23 +64,53 @@ class VideoManger {
     }
 
     
-    static func getVideos() {
-        let videoImageUrl = "https://dl.dropboxusercontent.com/s/jiygs4mqvfmube2/Elmo180.m4v?dl=0"
-        DispatchQueue.global(qos: .background).async {
-            if let url = URL(string: videoImageUrl),
-                let urlData = NSData(contentsOf: url) {
-                let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0];
-                let filePath="\(documentsPath)/video.mp4"
-                DispatchQueue.main.async {
-                    urlData.write(toFile: filePath, atomically: true)
-                    UserDefaults.standard.set(URL(fileURLWithPath: filePath), forKey: "videofile")
-                    UserDefaults.standard.synchronize()
-                }
-            }
-        }
-    }
+
     
     
     
 }
+
+class VideoDownloader {
+    static private func downloadVideosFrom(URLs:[URL]) {
+        
+        DispatchQueue.global(qos: .background).async {
+            var localURLs: [URL] = []
+            URLs.forEach({ (url) in
+                if let urlData = NSData(contentsOf: url) {
+                    let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0];
+                    let filePath="\(documentsPath)/video\(URLs.index(of:url)!).mp4"
+                    
+                    urlData.write(toFile: filePath, atomically: true)
+                    localURLs.append(URL(fileURLWithPath: filePath))
+                    
+                }
+            })
+            
+            let defaults = UserDefaults.standard
+            let data = NSKeyedArchiver.archivedData(withRootObject: localURLs)
+            defaults.setValue(data, forKey: "videoURLs")
+            
+        }
+    }
+    
+    
+//    Al primo avvio ritorna le URL dei video su dropbox e in contemporanea li salva su userdefaults
+//    Dal secondo avvio ritorna i video salvati su userdefaults
+    static func getVideos(from urls: [URL]) -> [URL] {
+        if let videoData = UserDefaults.standard.value(forKey: "videoURLs") as? Data {
+            if let urlsArray = NSKeyedUnarchiver.unarchiveObject(with: videoData) as? [URL] {
+                return urlsArray
+            }else {
+                print("Error unarchiving video files, donwloading from dropbox")
+                VideoDownloader.downloadVideosFrom(URLs: urls)
+                return urls
+            }
+        } else {
+            VideoDownloader.downloadVideosFrom(URLs: urls)
+            return urls
+        }
+    }
+}
+
+
 
