@@ -26,7 +26,7 @@ class TVViewController: UIViewController {
                              URL(string: "https://dl.dropboxusercontent.com/s/0s48rm38u8awzve/Floridiana180.m4v?dl=0"),
                              URL(string: "https://dl.dropboxusercontent.com/s/pikrsmippuu59qq/Lungomare180.m4v?dl=0" ),
                              URL(string: "https://dl.dropboxusercontent.com/s/n0aczqi5irkhzcb/Uovo180.m4v?dl=0")
-        ]
+                            ]
         
         videos.forEach { (URL) in
             guard let _ = URL else {
@@ -37,6 +37,9 @@ class TVViewController: UIViewController {
             return
         }
         
+//      comment to use videos directly from Dropbox
+        videos = VideoDownloader.getVideos(from: videos as! [URL])
+        
         
         let items = videos.map { (url) -> AVPlayerItem in
             return AVPlayerItem(url: url!)
@@ -44,7 +47,7 @@ class TVViewController: UIViewController {
         return items
     }
     
-    var videoManager:VideoManger!
+    var videoManager:VideoManager!
     
     override func viewDidLoad() {
         super.viewDidLoad()
