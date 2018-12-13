@@ -68,6 +68,9 @@ class MenuViewController: UITableViewController {
             performSegue(withIdentifier: "postGlobalMessageSegue", sender: nil)
             break
         case 2:
+            performSegue(withIdentifier: "ThickerMessageSegue", sender: nil)
+            break
+        case 3:
             performSegue(withIdentifier: "postKeynoteSegue", sender: nil)
             break
         default:

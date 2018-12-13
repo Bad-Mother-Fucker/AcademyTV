@@ -180,7 +180,6 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
                 }
             }
         }
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
