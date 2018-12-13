@@ -37,7 +37,7 @@ class TVViewController: UIViewController {
             return
         }
         
-//        Uncomment to use videos directly from Dropbox
+//      comment to use videos directly from Dropbox
         videos = VideoDownloader.getVideos(from: videos as! [URL])
         
         
