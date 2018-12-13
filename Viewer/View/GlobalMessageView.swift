@@ -9,38 +9,8 @@
 import UIKit
 import PureLayout
 
-@IBDesignable class GlobalMessageView: UIView {
-    
-    // TODO: - Add the correct numbers
-    
-    // MARK: - Frame mesure
-    @IBInspectable var originalFrame = CGRect(x: 30, y: 30, width: 800, height: 495)
-    @IBInspectable var secondFrame = CGRect(x: 30, y: 85, width: 380, height: 818)
-    
-    // MARK: - title Label mesure
-    @IBInspectable var titleLabelOriginalFrame = CGRect(x: 41, y: 76, width: 764, height: 48)
-    @IBInspectable var titleLabelSecondFrame = CGRect(x: 35, y: 160, width: 363, height: 96)
-    
-    // MARK: - subTitle Label mesure
-    @IBInspectable var subTitleOriginalFrame = CGRect(x: 41, y: 41, width: 764, height: 36)
-    @IBInspectable var subTitleSecondFrame = CGRect(x: 35, y: 110, width: 305, height: 36)
-    
-    // MARK: - Description Label mesure
-    @IBInspectable var descriptionOriginalFrame = CGRect(x: 41, y: 150, width: 764, height: 151)
-    @IBInspectable var descriptionSecondFrame = CGRect(x: 35, y: 270, width: 363, height: 214)
-    
-    // MARK: - time Label Label mesure
-    @IBInspectable var timeOriginalFrame = CGRect(x: 215, y: 405, width: 128, height: 48)
-    @IBInspectable var timeSecondFrame = CGRect(x: 44, y: 771, width: 130, height: 96)
-    
-    // MARK: - location Label mesure
-    @IBInspectable var locationOriginalFrame = CGRect(x: 562, y: 405, width: 122, height: 48)
-    @IBInspectable var locationSecondFrame = CGRect(x: 243, y: 770, width: 130, height: 96)
-    
-    // MARK: - QR Image mesure
-    @IBInspectable var qrImageViewOriginalFrame = CGRect(x: 595, y: 405, width: 122, height: 48)
-    @IBInspectable var qrImageViewSecondFrame = CGRect(x: 128, y: 509, width: 163, height: 163)
-    
+class GlobalMessageView: UIView {
+ 
     var titleLabel = UILabel()
     var subTitleLabel = UILabel()
     var descriptionLabel = UITextView()

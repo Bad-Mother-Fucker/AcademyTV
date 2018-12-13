@@ -56,11 +56,11 @@
                                     <rect key="frame" x="0.0" y="0.0" width="897" height="550"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <view tag="2" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v8C-TD-9es" customClass="GlobalMessageView" customModule="Viewer" customModuleProvider="target">
+                                        <view opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v8C-TD-9es" customClass="GlobalMessageView" customModule="Viewer" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="897" height="550"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <color key="tintColor" red="1" green="1" blue="1" alpha="0.34345569349999999" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
                                     </subviews>
                                 </view>
@@ -75,6 +75,8 @@
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Gf1-AQ-UDc">
                                             <rect key="frame" x="0.0" y="0.0" width="1392" height="783"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="783" id="5YZ-5P-vgM"/>
                                                 <constraint firstAttribute="width" secondItem="Gf1-AQ-UDc" secondAttribute="height" multiplier="16:9" id="UsL-R4-RF0"/>

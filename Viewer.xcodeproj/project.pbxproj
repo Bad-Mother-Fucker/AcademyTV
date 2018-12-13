@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1993840821BE87C400A5C725 /* ParisBackground.m4v in Resources */ = {isa = PBXBuildFile; fileRef = 1993840721BE87C400A5C725 /* ParisBackground.m4v */; };
+		1915AD2221C15FB200CF0E2F /* VideoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1915AD2121C15FB200CF0E2F /* VideoManager.swift */; };
 		19C227CD21A3372400BB4BC3 /* TVViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C227CC21A3372400BB4BC3 /* TVViewController.swift */; };
 		19FA365D21A8202400E3B1C0 /* UIImage+CKAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FA365A21A8202300E3B1C0 /* UIImage+CKAsset.swift */; };
 		19FA365E21A8202400E3B1C0 /* UIImage+CKAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FA365A21A8202300E3B1C0 /* UIImage+CKAsset.swift */; };
@@ -88,7 +88,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1993840721BE87C400A5C725 /* ParisBackground.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = ParisBackground.m4v; sourceTree = "<group>"; };
+		1915AD2121C15FB200CF0E2F /* VideoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoManager.swift; sourceTree = "<group>"; };
 		19C227CC21A3372400BB4BC3 /* TVViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVViewController.swift; sourceTree = "<group>"; };
 		19FA365A21A8202300E3B1C0 /* UIImage+CKAsset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+CKAsset.swift"; sourceTree = "<group>"; };
 		19FA365B21A8202300E3B1C0 /* ServiceMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceMessage.swift; sourceTree = "<group>"; };
@@ -234,6 +234,7 @@
 		99AC09472174E6B100CFCAD0 = {
 			isa = PBXGroup;
 			children = (
+				1915AD2121C15FB200CF0E2F /* VideoManager.swift */,
 				19FA366621A8203D00E3B1C0 /* CKController.swift */,
 				19FA365B21A8202300E3B1C0 /* ServiceMessage.swift */,
 				19FA365C21A8202300E3B1C0 /* TV.swift */,
@@ -264,7 +265,6 @@
 		99AC09522174E6B100CFCAD0 /* Viewer */ = {
 			isa = PBXGroup;
 			children = (
-				1993840721BE87C400A5C725 /* ParisBackground.m4v */,
 				997395ED21AC336B00F650A6 /* Viewer.entitlements */,
 				99AC09532174E6B100CFCAD0 /* AppDelegate.swift */,
 				99AC095A2174E6B300CFCAD0 /* Assets.xcassets */,
@@ -505,7 +505,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				99AC095B2174E6B300CFCAD0 /* Assets.xcassets in Resources */,
-				1993840821BE87C400A5C725 /* ParisBackground.m4v in Resources */,
 				99AC09592174E6B100CFCAD0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -633,6 +632,7 @@
 			files = (
 				99FA31AF21A449ED00A31F02 /* GlassOfficeTableViewCell.swift in Sources */,
 				99F6B24E21A3040300B3FA65 /* GlassOfficeViewController.swift in Sources */,
+				1915AD2221C15FB200CF0E2F /* VideoManager.swift in Sources */,
 				99FA31AD21A41EDB00A31F02 /* CKController.swift in Sources */,
 				19FA366321A8202400E3B1C0 /* TV.swift in Sources */,
 				19FA366021A8202400E3B1C0 /* ServiceMessage.swift in Sources */,
