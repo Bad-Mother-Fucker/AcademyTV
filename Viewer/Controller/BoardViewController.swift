@@ -122,7 +122,7 @@ class BoardViewController: TVViewController {
     // MARK: View Controller Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        videoManager =  VideoManger(onLayer: self.view.layer, videos: videosURL)
+        videoManager =  VideoManager(onLayer: self.view.layer, videos: videosURL)
         videoManager.playVideo()
 
         NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: "serviceMessageSet"), object: nil, queue: .main) { (_) in

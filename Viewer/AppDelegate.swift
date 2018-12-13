@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
     var tvRecord: CKRecord!
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
         application.isIdleTimerDisabled = true
         
         UNUserNotificationCenter.current().delegate = self

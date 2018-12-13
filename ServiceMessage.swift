@@ -91,9 +91,9 @@ class ServiceMessage {
     
    
     
-    static var text: String {
+    static var text: String? {
         get {
-            return record.value(forKey: ServiceMessage.keys.text) as! String
+            return record.value(forKey: ServiceMessage.keys.text) as? String
         }
         set {
             record.setValue(newValue, forKey: ServiceMessage.keys.text)
