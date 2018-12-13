@@ -8,6 +8,7 @@
 
 import UIKit
 import CloudKit
+import AVFoundation
 
 class TVViewController: UIViewController {
     var globalMessages = [GlobalMessage](){
@@ -20,9 +21,34 @@ class TVViewController: UIViewController {
     
     var currentTV:TV!
     
+    var videosURL: [AVPlayerItem] {
+        var videos:[URL?] = [URL(string: "https://dl.dropboxusercontent.com/s/jiygs4mqvfmube2/Elmo180.m4v?dl=0"),
+                             URL(string: "https://dl.dropboxusercontent.com/s/0s48rm38u8awzve/Floridiana180.m4v?dl=0"),
+                             URL(string: "https://dl.dropboxusercontent.com/s/pikrsmippuu59qq/Lungomare180.m4v?dl=0" ),
+                             URL(string: "https://dl.dropboxusercontent.com/s/n0aczqi5irkhzcb/Uovo180.m4v?dl=0")
+        ]
+        
+        videos.forEach { (URL) in
+            guard let _ = URL else {
+                videos.remove(at: videos.index(of:URL)!)
+                print("failed to get video at index: \(videos.index(of:URL)!)")
+                return
+            }
+            return
+        }
+        
+        
+        let items = videos.map { (url) -> AVPlayerItem in
+            return AVPlayerItem(url: url!)
+        }
+        return items
+    }
+    
+    var videoManager:VideoManger!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+       
         NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: CKNotificationName.globalMessages.rawValue), object: nil, queue: OperationQueue.main) { (notification) in
             if let ckqn = notification.userInfo?[CKNotificationName.notification.rawValue] as? CKQueryNotification {
                 self.handleCKNotification(ckqn)
@@ -44,6 +70,9 @@ class TVViewController: UIViewController {
             debugPrint("service message uploaded")
         }
         
+      
+        
+       
        
         
     }

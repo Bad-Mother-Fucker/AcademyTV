@@ -163,7 +163,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
     
     private func playVideo(){
         if let boardViewController = window?.rootViewController as? BoardViewController {
-            boardViewController.playVideo()
+            boardViewController.videoManager.playVideo()
         }
     }
     

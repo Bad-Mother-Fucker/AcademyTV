@@ -13,30 +13,7 @@ import PureLayout
 
 class BoardViewController: TVViewController {
     
-    var player: AVPlayer!
-    var videosURL: [AVPlayerItem] {
-        var videos:[URL?] = [URL(string: "https://dl.dropboxusercontent.com/s/jiygs4mqvfmube2/Elmo180.m4v?dl=0"),
-                             URL(string: "https://dl.dropboxusercontent.com/s/0s48rm38u8awzve/Floridiana180.m4v?dl=0"),
-                             URL(string: "https://dl.dropboxusercontent.com/s/pikrsmippuu59qq/Lungomare180.m4v?dl=0" ),
-                             URL(string: "https://dl.dropboxusercontent.com/s/n0aczqi5irkhzcb/Uovo180.m4v?dl=0")
-        ]
-        
-        videos.forEach { (URL) in
-            guard let _ = URL else {
-                videos.remove(at: videos.index(of:URL)!)
-                print("failed to get video at index: \(videos.index(of:URL)!)")
-                return
-            }
-            return
-        }
-        
-        
-        let items = videos.map { (url) -> AVPlayerItem in
-            return AVPlayerItem(url: url!)
-        }
-        return items
-    }
-    var videoIndex = 0
+
     
     @IBOutlet weak var keynoteBlurVIew: UIVisualEffectView! {
         didSet {
@@ -145,15 +122,9 @@ class BoardViewController: TVViewController {
     // MARK: View Controller Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-                playVideo()
-                NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: player.currentItem, queue: .main) { [weak self] _ in
-                    self?.player.seek(to: CMTime.zero)
-                    self?.videoIndex = ((self?.videoIndex)! >= (self?.videosURL.count)! - 1) ? 0 : 1
-                    self?.player.play()
-                    self?.playVideo()
-                }
-    
+        videoManager =  VideoManger(onLayer: self.view.layer, videos: videosURL)
+        videoManager.playVideo()
+
         NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: "serviceMessageSet"), object: nil, queue: .main) { (_) in
             self.serviceMessageLabel.text = ServiceMessage.text
             if ServiceMessage.text != "" {
@@ -184,72 +155,30 @@ class BoardViewController: TVViewController {
             } catch {
                 print(error.localizedDescription)
             }
-            
+        }
+        
+        NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: nil, queue: .main) { [weak self] _ in
+            debugPrint("Video ended")
+            self?.videoManager.nextVideo() 
+            debugPrint("Playing next video")
         }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-                player.play()
+                videoManager.playVideo()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-                player.play()
+                videoManager.playVideo()
     }
     
     // MARK: Private Implementation
     
     
 
-    func playVideo() {
-        
-        guard videosURL.count != 0 else {
-            debugPrint("Videos not found")
-            return
-        }
-        
-        func nextIndex() -> Int {
-            let index: Int
-            if videoIndex >= 0 && videoIndex < videosURL.count {
-                index = videoIndex
-                videoIndex = videoIndex + 1
-                return index
-            }else {
-                videoIndex = 0
-                return nextIndex()
-            }
-        }
 
-
-       
-        
-        player = AVQueuePlayer(items: videosURL)
-        player.actionAtItemEnd = {
-            let index = videosURL.index(of: player.currentItem!)
-            if index == videosURL.count + 1 {
-                player.seek(to: CMTime.zero)
-                player.replaceCurrentItem(with: videosURL.first!)
-                player.play()
-                return .advance
-            }else {
-                return .advance
-            }
-        }()
-        
-        player.isMuted = true
-        let layer = AVPlayerLayer(player: player)
-        layer.videoGravity = .resizeAspectFill
-        layer.zPosition = -1
-        layer.frame = self.view.frame
-
-        self.view.layer.addSublayer(layer)
-
-        player.play()
-        
-        
-
-    }
     
     private func setDate(){
         let date = Date()
@@ -259,7 +188,7 @@ class BoardViewController: TVViewController {
     }
     
     private func setNormalFrame() {
-        UIView.animate(withDuration: 3) {
+        UIView.animate(withDuration: 2) {
            
             self.globalMessageBlurEffect.removeFromSuperview()
             self.view.addSubview(self.globalMessageBlurEffect)
@@ -281,7 +210,7 @@ class BoardViewController: TVViewController {
     }
     private func setKeynoteFrame() {
         
-           UIView.animate(withDuration: 3) {
+           UIView.animate(withDuration: 2) {
 
     
             self.globalMessageBlurEffect.removeFromSuperview()
