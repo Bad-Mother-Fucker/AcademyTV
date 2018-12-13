@@ -91,11 +91,27 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
         }
     }
     
+    @IBOutlet weak var clearBarButtonItem: UIBarButtonItem!{
+        didSet{
+            if selectedGroups != nil{
+                if selectedGroups.count != 0 {
+                    clearBarButtonItem.isEnabled = true
+                }
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         if (traitCollection.forceTouchCapability == .available){
         }
         
+    }
+    
+    @IBAction func clearKeynotes(_ sender: UIBarButtonItem) {
+        for group in selectedGroups{
+            CKController.removeKeynote(fromTVGroup: group)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -137,6 +153,7 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
         if cell?.reuseIdentifier == "TVGroup"{
             cell!.isSelected = true
             selectedGroups.append(groups[indexPath.item].name)
+            clearBarButtonItem.isEnabled = true
         }else{
             for tvCell in collectionView.visibleCells{
                 tvCell.isSelected = true
@@ -148,7 +165,6 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         
         let cell = collectionView.cellForItem(at: indexPath)
-        
         if cell?.reuseIdentifier == "TVGroup"{
             cell!.isSelected = false
         }else{
@@ -156,6 +172,7 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
                 tvCell.isSelected = false
                 selectedGroups = selectedGroups.filter { (tvGroup) -> Bool in
                     if tvGroup == groups[indexPath.item].name{
+                        clearBarButtonItem.isEnabled = false
                         return false
                     }else{
                         return true
@@ -163,7 +180,6 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
                 }
             }
         }
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
