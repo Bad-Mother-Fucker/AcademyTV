@@ -13,6 +13,7 @@ class PosterViewController: UIViewController, UICollectionViewDelegate, UICollec
     var tvGroups: [TVGroup]!
     var keynotes = [UIImage]()
     
+    @IBOutlet weak var saveBarButtonItem: UIBarButtonItem!
     @IBOutlet weak var barButtonItem: UIBarButtonItem!
     @IBOutlet weak var collectionView: UICollectionView!{
         didSet{
@@ -24,9 +25,19 @@ class PosterViewController: UIViewController, UICollectionViewDelegate, UICollec
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        let tvList = try? CKController.getAllTVs(from: tvGroups.first!)
+//        if let tvs = tvList{
+//            tvs.forEach { (tv) in
+//                self.keynotes = tv.keynote!
+//            }
+//        }
+        
         if keynotes.count != 0{
             barButtonItem.title = "Save"
             barButtonItem.action = #selector(saveKeynote)
+        }else{
+            
+            saveBarButtonItem.isEnabled = false
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(getPhotosFromGallery(_:)), name: NSNotification.Name("GetAllSelectedPhotos"), object: nil)
@@ -55,6 +66,7 @@ class PosterViewController: UIViewController, UICollectionViewDelegate, UICollec
     @objc func getPhotosFromGallery(_ notification: NSNotification){
         if let image = notification.userInfo?["images"] as? [UIImage] {
             keynotes = image
+            saveBarButtonItem.isEnabled = true
             self.collectionView.reloadData()
         }
     }

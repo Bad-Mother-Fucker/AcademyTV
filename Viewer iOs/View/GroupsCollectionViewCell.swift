@@ -8,10 +8,19 @@
 
 import UIKit
 
+/// This class are used for rappresent the TV Groups Collection View Cell
 class GroupsCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var gradientView: UIView!
+    //MARK: - Outlets
     
+    /**
+     The outlat linked to the title of the cell.
+     */
+   
+    @IBOutlet weak var gradientView: UIView!
+    /**
+     The outlat linked to the title of the cell.
+     */
     @IBOutlet weak var optionButton: UIButton!{
         didSet{
             optionButton.backgroundColor = UIColor.black.withAlphaComponent(0.2)
@@ -20,7 +29,14 @@ class GroupsCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    /**
+     The outlat linked to the title of the cell.
+     */
     @IBOutlet weak var checkMarkImageView: UIImageView!
+    
+    /**
+     The outlat linked to the title of the cell.
+     */
     @IBOutlet weak var groupNameLabel: UILabel!
     
     override var isSelected: Bool{

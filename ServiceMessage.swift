@@ -96,6 +96,7 @@ class ServiceMessage {
             return record.value(forKey: ServiceMessage.keys.text) as? String
         }
         set {
+            // FIXME: App Crash here - record value found nil
             record.setValue(newValue, forKey: ServiceMessage.keys.text)
             NotificationCenter.default.post(name: Notification.Name("serviceMessageSet"), object: nil)
         }
