@@ -27,7 +27,7 @@ class EditMessageViewController: UITableViewController, UITextFieldDelegate {
     }
     
     var datePickerIsVisible = false
-    let editButton = UIBarButtonItem(title: "Edit", style: .done, target: self, action: #selector(sendMessage))
+    let editButton = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(sendMessage))
     
     // MARK: - Outlet
     @IBOutlet var textFields: [UITextField]!{
@@ -88,6 +88,8 @@ class EditMessageViewController: UITableViewController, UITextFieldDelegate {
                                                          message: "Message saved correctly",
                                                          preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Confirm", style: .cancel, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
         
     }
     

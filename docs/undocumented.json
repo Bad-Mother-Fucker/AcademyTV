@@ -1,0 +1,12 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/Controller/GlassOfficeViewController.swift",
+      "line": 12,
+      "symbol": "UITableViewCell.canBecomeFocused",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/gianluca/Documents/Developer/Apple Project/Viewer"
+}
