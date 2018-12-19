@@ -40,7 +40,7 @@ class TickerViewController: UITableViewController, UITextFieldDelegate {
     @IBAction func saveThickerMessage(_ sender: UIBarButtonItem) {
         if let message = textField.text{
             if message != ""{
-                CKController.postServiceMessage(message, forSeconds: 60*60)
+                CKController.postServiceMessage(message, onTvGroup: .all)
             }else{
                 let alert = UIAlertController(title: "Add a message to post", message: "The message to post cann't be empty", preferredStyle: .alert)
                 let action = UIAlertAction(title: "OK", style: .default, handler: nil)

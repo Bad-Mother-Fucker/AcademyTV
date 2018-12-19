@@ -77,7 +77,7 @@ class GlassOfficeViewController: TVViewController, UITableViewDelegate {
         
         NotificationCenter.default.addObserver(forName: Notification.Name(CKNotificationName.tvSet.rawValue), object: nil, queue: .main) { (notification) in
             self.currentTV = (UIApplication.shared.delegate as! AppDelegate).currentTV
-            self.currentTV.keynoteDelegate = self
+            self.currentTV.viewDelegate = self
         }
 
     }
@@ -151,7 +151,15 @@ extension GlassOfficeViewController: UITableViewDataSource{
     }
 }
 
-extension GlassOfficeViewController: ATVKeynoteViewDelegate {
+extension GlassOfficeViewController: ATVViewDelegate {
+    func show(ticker: String) {
+        
+    }
+    
+    func hideTicker() {
+        
+    }
+    
     func show(keynote: [UIImage]) {
         //        Perform UI Keynote  Showing
         self.keynoteImageView.image = keynote[0]

@@ -125,24 +125,21 @@ class BoardViewController: TVViewController {
         videoManager =  VideoManager(onLayer: self.view.layer, videos: videosURL)
         videoManager.playVideo()
 
-        NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: "serviceMessageSet"), object: nil, queue: .main) { (_) in
-            self.serviceMessageLabel.text = ServiceMessage.text
-            if ServiceMessage.text != "" {
-                self.serviceMessageBlurView.fadeIn()
-                self.serviceMessageLabel.fadeIn()
-                
+        NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: "serviceMessageSet"), object: nil, queue: .main) {[weak self] (_) in
+            
+            if self!.currentTV.tickerMsg.count > 0 {
+               self?.currentTV.viewDelegate?.show(ticker: self!.currentTV.tickerMsg)
             }else {
-                self.serviceMessageBlurView.fadeOut()
-                self.serviceMessageLabel.fadeOut()
+                self?.currentTV.viewDelegate?.hideTicker()
             }
             
-            
+    
         }
         
         
         NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: CKNotificationName.tvSet.rawValue), object: nil, queue: .main) { _ in
             self.currentTV = (UIApplication.shared.delegate as! AppDelegate).currentTV
-            self.currentTV.keynoteDelegate = self
+            self.currentTV.viewDelegate = self
             if let keynote = self.currentTV.keynote {
                 
                 self.show(keynote: keynote)
@@ -242,7 +239,19 @@ class BoardViewController: TVViewController {
 
 
 
-extension BoardViewController: ATVKeynoteViewDelegate {
+extension BoardViewController: ATVViewDelegate {
+    func show(ticker text: String) {
+        serviceMessageLabel.fadeIn()
+        serviceMessageBlurView.fadeIn()
+        self.serviceMessageLabel.text = text
+    }
+    
+    func hideTicker() {
+        serviceMessageBlurView.fadeOut()
+        serviceMessageLabel.fadeOut()
+        self.serviceMessageLabel.text = ""
+    }
+    
     func show(keynote: [UIImage]) {
 //      Perform UI Keynote  Showing
         setKeynoteFrame()
@@ -271,7 +280,7 @@ extension BoardViewController: ATVKeynoteViewDelegate {
     }
     
     func hideKeynote() {
-        //        Perform UI Keynote hiding
+//        Perform UI Keynote hiding
         keynoteView.fadeOut()
         keynoteBlurVIew.fadeOut()
         setNormalFrame()

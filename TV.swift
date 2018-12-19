@@ -105,13 +105,13 @@ class TV: CloudStored {
     var record: CKRecord
     
     static var recordType: String = "TVs"
-    static var keys = (name: "name", uuid: "recordName", tvGroup: "tvGroup",isOn:"isOn",keynote:"keynote")
+    static var keys = (name: "name", uuid: "recordName", tvGroup: "tvGroup",isOn:"isOn",keynote:"keynote",ticker:"tickerMessage")
     
     required init(record: CKRecord) {
         self.record = record
     }
     
-    var keynoteDelegate: ATVKeynoteViewDelegate?
+    var viewDelegate: ATVViewDelegate?
     var hasKeynote: Bool = false
     
     init (name: String) {
@@ -134,7 +134,8 @@ class TV: CloudStored {
     var keynote:[UIImage]? {
         if let assets = record.value(forKey: TV.keys.keynote) as? [CKAsset] {
             let images: [UIImage] = assets.map { (asset) -> UIImage in
-                guard let image = asset.image else {return UIImage()} //Returns a white background image if it was not possible to decode single image data
+                guard let image = asset.image else {return UIImage()}
+                //Returns a white background image if it was not possible to decode single image data
                 return image
             }
             return images
@@ -186,6 +187,20 @@ class TV: CloudStored {
         }
         set{
             record.setValue(newValue.rawValue, forKey: TV.keys.tvGroup)
+            let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
+            op.savePolicy = .changedKeys
+            CKKeys.database.add(op)
+        }
+    }
+    
+    
+    var tickerMsg: String {
+        get {
+            return record.value(forKey: TV.keys.ticker) as? String ?? ""
+        }
+        set {
+           
+            record.setValue(newValue, forKey: TV.keys.ticker)
             let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
             op.savePolicy = .changedKeys
             CKKeys.database.add(op)
