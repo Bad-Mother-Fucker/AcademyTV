@@ -24,6 +24,14 @@
 		19FA366B21A8226500E3B1C0 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99AC097A2174F4B000CFCAD0 /* CloudKit.framework */; };
 		51B3F4D35CD099A47581DEC1 /* Pods_ShareExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B8BD54B923A7ECE82347270 /* Pods_ShareExtension.framework */; };
 		5DCC34A91F76E25443F254F3 /* Pods_Viewer_iOs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4B06A49A2CE53E02260DED8 /* Pods_Viewer_iOs.framework */; };
+		656887F421C919F400EBD49B /* TvListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F6B24721A2FF5D00B3FA65 /* TvListViewController.swift */; };
+		656887F521C91A2400EBD49B /* GroupsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F596C221A30F9000E999D7 /* GroupsCollectionViewCell.swift */; };
+		656887F621C91A3400EBD49B /* BorderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991AB6B621A30D8300D0565E /* BorderCollectionViewCell.swift */; };
+		656887F721C91A3C00EBD49B /* PosterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DE995521AD7FBF00D01FF5 /* PosterViewController.swift */; };
+		656887F821C91A4400EBD49B /* ImagePickerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DE995E21ADF7DD00D01FF5 /* ImagePickerCollectionViewCell.swift */; };
+		656887FA21C9450F00EBD49B /* SharePosterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656887F921C9450F00EBD49B /* SharePosterViewController.swift */; };
+		65D9BAC221C9612E000466BA /* ShareBackgroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D9BAC121C9612E000466BA /* ShareBackgroundViewController.swift */; };
+		65D9BAC421C9664A000466BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99AC096F2174E9C200CFCAD0 /* Assets.xcassets */; };
 		9904CA5F217BDCED00210884 /* BoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9904CA5E217BDCED00210884 /* BoardViewController.swift */; };
 		9904CA67217DC5F100210884 /* GlobalMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9904CA66217DC5F100210884 /* GlobalMessageTableViewCell.swift */; };
 		9904CA6B217DDBAD00210884 /* GlobalMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9904CA6A217DDBAD00210884 /* GlobalMessage.swift */; };
@@ -98,6 +106,8 @@
 		1F6815584B256216294B6F83 /* Pods-ShareExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShareExtension/Pods-ShareExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		24AED3E0F51268D6EAB55BF0 /* Pods-Viewer iOs.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Viewer iOs.release.xcconfig"; path = "Pods/Target Support Files/Pods-Viewer iOs/Pods-Viewer iOs.release.xcconfig"; sourceTree = "<group>"; };
 		601F4B5E7C5F3E12B6471F5D /* Pods-Viewer iOs.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Viewer iOs.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Viewer iOs/Pods-Viewer iOs.debug.xcconfig"; sourceTree = "<group>"; };
+		656887F921C9450F00EBD49B /* SharePosterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePosterViewController.swift; sourceTree = "<group>"; };
+		65D9BAC121C9612E000466BA /* ShareBackgroundViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareBackgroundViewController.swift; sourceTree = "<group>"; };
 		72BBBBE98CED0A3235ECE0E3 /* Pods-Viewer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Viewer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Viewer/Pods-Viewer.debug.xcconfig"; sourceTree = "<group>"; };
 		7B8BD54B923A7ECE82347270 /* Pods_ShareExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShareExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D11BFD865F1940A05173CA5 /* Pods-ShareExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-ShareExtension/Pods-ShareExtension.release.xcconfig"; sourceTree = "<group>"; };
@@ -204,6 +214,8 @@
 			children = (
 				997395EC21AC335200F650A6 /* ShareExtension.entitlements */,
 				99308B7621A6FAE500EA0F9C /* ShareViewController.swift */,
+				65D9BAC121C9612E000466BA /* ShareBackgroundViewController.swift */,
+				656887F921C9450F00EBD49B /* SharePosterViewController.swift */,
 				99308B7821A6FAE500EA0F9C /* MainInterface.storyboard */,
 				99308B7B21A6FAE500EA0F9C /* Info.plist */,
 			);
@@ -507,6 +519,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65D9BAC421C9664A000466BA /* Assets.xcassets in Resources */,
 				99308B7A21A6FAE500EA0F9C /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -628,12 +641,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				656887F521C91A2400EBD49B /* GroupsCollectionViewCell.swift in Sources */,
 				19FA366921A8203D00E3B1C0 /* CKController.swift in Sources */,
 				19FA366221A8202400E3B1C0 /* ServiceMessage.swift in Sources */,
 				19FA366A21A821A200E3B1C0 /* GlobalMessage.swift in Sources */,
 				19FA366521A8202400E3B1C0 /* TV.swift in Sources */,
+				65D9BAC221C9612E000466BA /* ShareBackgroundViewController.swift in Sources */,
+				656887F721C91A3C00EBD49B /* PosterViewController.swift in Sources */,
+				656887F621C91A3400EBD49B /* BorderCollectionViewCell.swift in Sources */,
 				19FA365F21A8202400E3B1C0 /* UIImage+CKAsset.swift in Sources */,
 				99308B7721A6FAE500EA0F9C /* ShareViewController.swift in Sources */,
+				656887FA21C9450F00EBD49B /* SharePosterViewController.swift in Sources */,
+				656887F421C919F400EBD49B /* TvListViewController.swift in Sources */,
+				656887F821C91A4400EBD49B /* ImagePickerCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -740,7 +760,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5QJLL8HM6C;
+				DEVELOPMENT_TEAM = EHA3KYEH4L;
 				INFOPLIST_FILE = ShareExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -748,7 +768,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.TRogue.Viewer-iOS.ShareExtension";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.andre.TRogue.Viewer-iOS.ShareExtension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -765,7 +785,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5QJLL8HM6C;
+				DEVELOPMENT_TEAM = EHA3KYEH4L;
 				INFOPLIST_FILE = ShareExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -773,7 +793,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.TRogue.Viewer-iOS.ShareExtension";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.andre.TRogue.Viewer-iOS.ShareExtension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -908,14 +928,15 @@
 				CODE_SIGN_ENTITLEMENTS = Viewer/Viewer.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5QJLL8HM6C;
+				DEVELOPMENT_TEAM = EHA3KYEH4L;
 				INFOPLIST_FILE = Viewer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.TRogue.Viewer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andre.TRogue.Viewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 11.0;
@@ -931,14 +952,15 @@
 				CODE_SIGN_ENTITLEMENTS = Viewer/Viewer.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5QJLL8HM6C;
+				DEVELOPMENT_TEAM = EHA3KYEH4L;
 				INFOPLIST_FILE = Viewer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.TRogue.Viewer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andre.TRogue.Viewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 11.0;
@@ -954,14 +976,14 @@
 				CODE_SIGN_ENTITLEMENTS = "Viewer iOs/Viewer iOs.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5QJLL8HM6C;
+				DEVELOPMENT_TEAM = EHA3KYEH4L;
 				INFOPLIST_FILE = "Viewer iOs/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.TRogue.Viewer-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.andre.TRogue.Viewer-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_ENABLE_BATCH_MODE = NO;
@@ -979,14 +1001,14 @@
 				CODE_SIGN_ENTITLEMENTS = "Viewer iOs/Viewer iOs.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5QJLL8HM6C;
+				DEVELOPMENT_TEAM = EHA3KYEH4L;
 				INFOPLIST_FILE = "Viewer iOs/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.TRogue.Viewer-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.andre.TRogue.Viewer-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_ENABLE_BATCH_MODE = NO;
