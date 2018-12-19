@@ -1,0 +1,8 @@
+module: Viewer
+author: Team Rogue
+github_url: https://github.com/Bad-Mother-Fucker/AcademyTV
+
+min_acl: private
+skip_undocumented: false
+theme: apple
+clean: true

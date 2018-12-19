@@ -11,15 +11,18 @@ import UIKit
 /// This class are used for rappresent the TV Groups Collection View Cell
 class GroupsCollectionViewCell: UICollectionViewCell {
     
-    //MARK: - Outlets
+    // MARK: - Outlets
     
     /**
-     The outlat linked to the title of the cell.
+     UIView - The outlet linked to the title of the cell.
      */
    
     @IBOutlet weak var gradientView: UIView!
+    
     /**
-     The outlat linked to the title of the cell.
+     UIButton - The outlet linked to the option button.
+     
+     - Attention: We have to finish to implement this for select inividual tvs
      */
     @IBOutlet weak var optionButton: UIButton!{
         didSet{
@@ -30,15 +33,18 @@ class GroupsCollectionViewCell: UICollectionViewCell {
     }
     
     /**
-     The outlat linked to the title of the cell.
+     UIImageView - The outlet linked to the "check" image.
      */
     @IBOutlet weak var checkMarkImageView: UIImageView!
     
     /**
-     The outlat linked to the title of the cell.
+     UILabel - The outlet linked to the title of the group name cell.
      */
     @IBOutlet weak var groupNameLabel: UILabel!
     
+    /**
+     Bool - Control the selection state of the cell.
+     */
     override var isSelected: Bool{
         didSet{
             if isSelected{
@@ -49,12 +55,29 @@ class GroupsCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    // MARK: - View Controller Life Cycle
+    
+    /**
+     Override the default awakeFromNib.
+     
+     We use this for set the basic layout information of the cell
+     */
     override func awakeFromNib() {
         super.awakeFromNib()
         self.layer.cornerRadius = 10
         self.clipsToBounds = true
     }
     
+    // MARK: - Public Function
+    
+    /**
+     Creates a gradient color starting from the left to the right inside the view.
+     
+     - Parameters:
+        - startingColor: The starting color of the gradient.
+        - endingColor: The ending color of the gradient.
+    
+    */
     func setGradientBackground(form startingColor: UIColor, to endingColor: UIColor) {
         
         let gradientLayer = CAGradientLayer()
