@@ -139,7 +139,7 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
             return cell
         }else{
             let borderCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddAllTVGroup", for: indexPath) as! BorderCollectionViewCell
-            borderCell.frame.size = CGSize(width: 343, height: 43)
+            borderCell.frame.size = CGSize(width: 386, height: 45)
             borderCell.titleLabel.text = "Select All"
             return borderCell
         }

@@ -8,9 +8,19 @@
 
 import UIKit
 
+/// This class are used for rappresent the Border Cell
 class BorderCollectionViewCell: UICollectionViewCell {
+    
+    /**
+     The outlat linked to the title of the cell.
+     */
     @IBOutlet weak var titleLabel: UILabel!
     
+    /**
+     Override the basic isSelected variables for customise the behavior when change.
+     
+     - Returns: A new string saying hello to `recipient`.
+     */
     override var isSelected: Bool{
         didSet{
             if isSelected{
@@ -21,6 +31,9 @@ class BorderCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    /**
+     Prepares the receiver for service after it has been loaded from an Interface Builder archive, or nib file..
+     */
     override func awakeFromNib() {
         
         super.awakeFromNib()

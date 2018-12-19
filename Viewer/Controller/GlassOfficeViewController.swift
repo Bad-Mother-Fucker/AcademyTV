@@ -8,16 +8,44 @@
 
 import UIKit
 
+/**
+ UITableViewCell Extension
+ 
+ This extension are used just for override the canBecomeFocused property of the table view cell.
+ The goal is to remove the user interaction UI element
+ 
+ - Note: Use this extension fot customize the behaviour of the Table View Cell
+ 
+ - Version: 1.0
+ 
+ - Author: @GianlucaOrpello
+ */
 extension UITableViewCell{
     override open var canBecomeFocused: Bool{
         return false
     }
 }
 
+/**
+ TVViewController
+ 
+ This controller manage the data that need to be displayed on the Glass Office
+ 
+ - SeeAlso: TVViewController class.
+ 
+ - Todo: Check if Booqable data is collecting during all the day
+ 
+ - Version: 1.0
+ 
+ - Author: @GianlucaOrpello
+
+ */
 class GlassOfficeViewController: TVViewController, UITableViewDelegate {
     
+    // MARK: - Private API
     fileprivate let formatter = "yyyy-MM-dd"
     
+    // MARK: - Public API
     var orders = [BooquableOrder](){
         didSet{
             if booquableTableView != nil{
@@ -31,6 +59,8 @@ class GlassOfficeViewController: TVViewController, UITableViewDelegate {
             }
         }
     }
+    
+    // MARK: - Outlets
     
     @IBOutlet weak var keynoteImageView: UIImageView!
     @IBOutlet weak var booquableTableView: UITableView!{
@@ -59,6 +89,17 @@ class GlassOfficeViewController: TVViewController, UITableViewDelegate {
         }
     }
     
+    // MARK: - View Controller life cylce
+    
+    /**
+    viewDidAppear method implementation
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     
+     - Todo: Check the observer beheviours, maybe they need to be release at the and of the life of the controller.
+     */
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -77,18 +118,42 @@ class GlassOfficeViewController: TVViewController, UITableViewDelegate {
         
         NotificationCenter.default.addObserver(forName: Notification.Name(CKNotificationName.tvSet.rawValue), object: nil, queue: .main) { (notification) in
             self.currentTV = (UIApplication.shared.delegate as! AppDelegate).currentTV
-            self.currentTV.keynoteDelegate = self
+            self.currentTV.viewDelegate = self
         }
 
     }
     
-    
+    /**
+     Add Order inside the array list of the table view
+     
+     This function are created for append a new element inside the array list. this function are called with a notification every time that booquable return a new element.
+     
+     - Parameters:
+        - notification: NSNotification that call this function
+     
+     - SeeAlso: For more info see the [Booquable Documentation](https://booqable.com/blog/booqable-api-documentation/)
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     @objc private func addOrder(notification: NSNotification){
         if let order = notification.userInfo?["order"] as? BooquableOrder {
             orders.append(order)
         }
     }
     
+    /**
+     Get All the order from Booquable
+     
+     This function are created for gett all the current order from Booquable
+     
+     - SeeAlso: For more info see the [Booquable Documentation](https://booqable.com/blog/booqable-api-documentation/)
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     @objc private func getAllOrders(){
         orders = []
         BooquableManager.shared.ids.forEach { (id) in
@@ -96,6 +161,17 @@ class GlassOfficeViewController: TVViewController, UITableViewDelegate {
         }
     }
     
+    // MARK: - Private Implementation
+    
+    /**
+     Set Date label of the tv
+     
+     Update the time every minute and set as text inside the label
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     private func setDate(){
         let date = Date()
         let dateFormatter = DateFormatter()
@@ -104,6 +180,23 @@ class GlassOfficeViewController: TVViewController, UITableViewDelegate {
         self.dateLabel.text = dateFormatter.string(from: date)
     }
     
+    /**
+     Get the date with a specific formatter.
+     
+     Get a date instance and return it formatted in the choosen way.
+     
+     - Parameters:
+        - date: The current date in String format.
+        - formatter: The formatter to apply at the date in String format.
+     
+     - Return: Return the date formatted.
+     
+     - Warning: Can fail if the date couldn't be formatted.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     fileprivate func get(_ date: String, with formatter: String) -> Date?{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = formatter
@@ -114,6 +207,21 @@ class GlassOfficeViewController: TVViewController, UITableViewDelegate {
         return returnDate
     }
     
+    /**
+     Get the number of days between two days
+     
+     This function can return the numbers of days between two dates. This are used for calculate if you have to return a device.
+     
+     - Parameters:
+        - start: The first date
+        - end: The second date
+     
+     - Return: The number of days passed between the two dates
+    
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     fileprivate func getDifference(from start: Date, and end: Date) -> Int?{
         let calendar = Calendar.current
         
@@ -126,6 +234,17 @@ class GlassOfficeViewController: TVViewController, UITableViewDelegate {
     }
 }
 
+// MARK: - UITableViewDataSource Implementation
+
+/**
+ Extension created for implement the data source protocol for the table view.
+ 
+ - Remark: Extension
+ 
+ - Version: 1.0
+ 
+ - Author: @GianlucaOrpello
+ */
 extension GlassOfficeViewController: UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -151,7 +270,17 @@ extension GlassOfficeViewController: UITableViewDataSource{
     }
 }
 
-extension GlassOfficeViewController: ATVKeynoteViewDelegate {
+// TODO: - Document this part
+// MARK: - ATVViewDelegate Implementation
+extension GlassOfficeViewController: ATVViewDelegate {
+    func show(ticker: String) {
+        
+    }
+    
+    func hideTicker() {
+        
+    }
+    
     func show(keynote: [UIImage]) {
         //        Perform UI Keynote  Showing
         self.keynoteImageView.image = keynote[0]
@@ -163,4 +292,3 @@ extension GlassOfficeViewController: ATVKeynoteViewDelegate {
         self.keynoteImageView.image = nil
     }
 }
-

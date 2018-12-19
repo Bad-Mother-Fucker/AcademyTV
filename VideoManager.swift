@@ -40,11 +40,11 @@ class VideoManager {
         player.play()
     }
     
-    func startFromBeginnig() {
-        player.replaceCurrentItem(with: videos.first!)
-        player.seek(to: CMTime.zero)
-        player.play()
-    }
+//    func startFromBeginnig() {
+//        player.replaceCurrentItem(with: videos.first!)
+//        player.seek(to: CMTime.zero)
+//        player.play()
+//    }
     
     func nextVideo() {
         player.replaceCurrentItem(with: videos[nextVideoIndex()])
@@ -55,22 +55,18 @@ class VideoManager {
     private func nextVideoIndex() -> Int {
         guard let currentVideo = currentPlayingVideo else { return 0 }
         var currentIndex = videos.index(of: currentVideo)!
-        if currentIndex >= 0 && currentIndex < videos.count {
+        if currentIndex >= 0 && currentIndex < (videos.count - 1) {
             return currentIndex + 1
         }else {
             currentIndex = 0
             return currentIndex
         }
     }
-
-    
-
-    
-    
     
 }
 
 class VideoDownloader {
+    
     static private func downloadVideosFrom(URLs:[URL]) {
         
         DispatchQueue.global(qos: .background).async {

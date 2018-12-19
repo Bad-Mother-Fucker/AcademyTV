@@ -38,7 +38,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
                      application.registerForRemoteNotifications()
                     UNUserNotificationCenter.current().delegate = self
                     CKController.saveSubscription(for: GlobalMessage.recordType,ID:CKKeys.messageSubscriptionKey)
-                    CKController.saveSubscription(for: ServiceMessage.recordType, ID: CKKeys.serviceSubscriptionKey)
                     CKController.saveSubscription(for: TV.recordType,ID:CKKeys.tvSubscriptionKey)
                 
                 }
@@ -49,24 +48,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         
         // MARK: Check the existence of a ServiceMessage
         
-        ServiceMessageModel.isThereAMessage { (isThere,message,error)  in
-            if isThere {
-                ServiceMessage.record = message!
-            } else {
-                ServiceMessage.record = CKRecord(recordType: ServiceMessage.recordType)
-                ServiceMessage.record.setValue("", forKey: ServiceMessage.keys.text)
-                ServiceMessage.record.setValue(0, forKey: ServiceMessage.keys.timer)
-                
-                CKKeys.database.save(ServiceMessage.record, completionHandler: { (record, error) in
-                    guard error == nil else {
-                        print(error!.localizedDescription)
-                       
-                        return
-                    }
-                })
-
-            }
-        }
+//        ServiceMessageModel.isThereAMessage { (isThere,message,error)  in
+//            if isThere {
+//                ServiceMessage.record = message!
+//            } else {
+//                ServiceMessage.record = CKRecord(recordType: ServiceMessage.recordType)
+//                ServiceMessage.record.setValue("", forKey: ServiceMessage.keys.text)
+//                ServiceMessage.record.setValue(0, forKey: ServiceMessage.keys.timer)
+//
+//                CKKeys.database.save(ServiceMessage.record, completionHandler: { (record, error) in
+//                    guard error == nil else {
+//                        print(error!.localizedDescription)
+//
+//                        return
+//                    }
+//                })
+//
+//            }
+//        }
         
         
         // MARK: Check if the current TV is already on CK otherwise it Saves the new record
@@ -127,6 +126,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         print("notification recieved")
         let notificationName: CKNotificationName
         let ckqn = CKQueryNotification(fromRemoteNotificationDictionary: userInfo as! [String:Any])
+    
         switch ckqn.subscriptionID {
         case CKKeys.tvSubscriptionKey:
             notificationName = .tv

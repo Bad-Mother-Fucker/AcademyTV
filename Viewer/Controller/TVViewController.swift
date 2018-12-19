@@ -38,7 +38,7 @@ class TVViewController: UIViewController {
         }
         
 //      comment to use videos directly from Dropbox
-        videos = VideoDownloader.getVideos(from: videos as! [URL])
+//        videos = VideoDownloader.getVideos(from: videos as! [URL])
         
         
         let items = videos.map { (url) -> AVPlayerItem in
@@ -95,7 +95,8 @@ class TVViewController: UIViewController {
     }
     
     private func handleServiceMessageNotification(_ ckqn: CKQueryNotification) {
-        try? CKController.getServiceMessage()
+    
+        
     }
     
     private func handleMsgNotification(_ ckqn: CKQueryNotification) {
@@ -155,10 +156,17 @@ class TVViewController: UIViewController {
                 DispatchQueue.main.async {
                     self.appDelegate.currentTV.record = record!
                     if let keynote = self.appDelegate.currentTV.keynote {
-                        self.appDelegate.currentTV.keynoteDelegate?.show(keynote: keynote)
+                        self.appDelegate.currentTV.viewDelegate?.show(keynote: keynote)
                     } else {
-                        self.appDelegate.currentTV.keynoteDelegate?.hideKeynote()
+                        self.appDelegate.currentTV.viewDelegate?.hideKeynote()
                     }
+                    
+                    if self.appDelegate.currentTV.tickerMsg.count > 0 {
+                        self.appDelegate.currentTV.viewDelegate?.show(ticker:self.appDelegate.currentTV.tickerMsg)
+                    } else {
+                        self.appDelegate.currentTV.viewDelegate?.hideTicker()
+                    }
+                    
                 }
                 
             }
