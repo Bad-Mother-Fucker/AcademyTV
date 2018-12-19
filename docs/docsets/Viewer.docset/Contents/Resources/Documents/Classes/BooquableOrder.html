@@ -14,7 +14,7 @@
     <a title="BooquableOrder Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">Viewer Docs</a> (0% documented)</p>
+        <p><a href="../index.html">Viewer Docs</a> (7% documented)</p>
         <p class="header-right"><a href="https://github.com/Bad-Mother-Fucker/AcademyTV"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -66,12 +66,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/GlobalMessageView/TVLayoutType.html">– TVLayoutType</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/ServiceMessage.html">ServiceMessage</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/ServiceMessageModel.html">ServiceMessageModel</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/TV.html">TV</a>
@@ -146,7 +140,7 @@
             <a href="../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Protocols/ATVKeynoteViewDelegate.html">ATVKeynoteViewDelegate</a>
+                <a href="../Protocols/ATVViewDelegate.html">ATVViewDelegate</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/CloudStored.html">CloudStored</a>
@@ -165,11 +159,35 @@
 
                 </div>
               </div>
-            <p>Undocumented</p>
+            <h2 id='booquable-order' class='heading'>Booquable Order</h2>
+
+<p>This class rappresent a generic order from Booquable.</p>
+<div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <p>For more info see the <a href="https://booqable.com/blog/booqable-api-documentation/">Booquable Documentation</a></p>
+
+</div>
+<div class="aside aside-version">
+    <p class="aside-title">Version</p>
+    <p>1.0</p>
+
+</div>
+<div class="aside aside-author">
+    <p class="aside-title">Author</p>
+    <p>@GianlucaOrpello</p>
+
+</div>
 
           </section>
           <section class="section task-group-section">
             <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Public%20API"></a>
+                <a name="//apple_ref/swift/Section/Public API" class="dashAnchor"></a>
+                <a href="#/Public%20API">
+                  <h3 class="section-name">Public API</h3>
+                </a>
+              </div>
               <ul>
                 <li class="item">
                   <div>
@@ -306,6 +324,17 @@
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Init"></a>
+                <a name="//apple_ref/swift/Section/Init" class="dashAnchor"></a>
+                <a href="#/Init">
+                  <h3 class="section-name">Init</h3>
+                </a>
+              </div>
+              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -319,7 +348,22 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <h2 id='class-initializer' class='heading'>Class initializer</h2>
+<div class="aside aside-remark">
+    <p class="aside-title">Remark</p>
+    <p>Initializer</p>
+
+</div>
+<div class="aside aside-version">
+    <p class="aside-title">Version</p>
+    <p>1.0</p>
+
+</div>
+<div class="aside aside-author">
+    <p class="aside-title">Author</p>
+    <p>@GianlucaOrpello</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
@@ -330,9 +374,87 @@
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The id ot the order inside Booquable.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>startAt</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The date of the begginning of the order.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>stopAt</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The date of the ending of the order.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>customer</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The associated customer at the order.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>lines</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The line associated at the order, usefull for get the device info.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Public%20function"></a>
+                <a name="//apple_ref/swift/Section/Public function" class="dashAnchor"></a>
+                <a href="#/Public%20function">
+                  <h3 class="section-name">Public function</h3>
+                </a>
+              </div>
+              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -346,7 +468,18 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <h2 id='get-the-customer-name' class='heading'>Get the customer name</h2>
+<li><p>Return: The name of the customer associated to the order</p></li>
+<div class="aside aside-version">
+    <p class="aside-title">Version</p>
+    <p>1.0</p>
+
+</div>
+<div class="aside aside-author">
+    <p class="aside-title">Author</p>
+    <p>@GianlucaOrpello</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
@@ -373,7 +506,18 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <h2 id='get-the-device-name' class='heading'>Get the device name</h2>
+<li><p>Return: A tuple with the device name and the gliph name associated to the order</p></li>
+<div class="aside aside-version">
+    <p class="aside-title">Version</p>
+    <p>1.0</p>
+
+</div>
+<div class="aside aside-author">
+    <p class="aside-title">Author</p>
+    <p>@GianlucaOrpello</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
@@ -387,12 +531,23 @@
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Private%20function"></a>
+                <a name="//apple_ref/swift/Section/Private function" class="dashAnchor"></a>
+                <a href="#/Private%20function">
+                  <h3 class="section-name">Private function</h3>
+                </a>
+              </div>
+              <ul>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6Viewer14BooquableOrderC8getGlypg33_E4E15711A41ADEE9DF14188DE8CCAE3ELL4fromAA9GliphNameOSS_tF"></a>
-                    <a name="//apple_ref/swift/Method/getGlypg(from:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6Viewer14BooquableOrderC8getGlypg33_E4E15711A41ADEE9DF14188DE8CCAE3ELL4fromAA9GliphNameOSS_tF">getGlypg(from:)</a>
+                    <a name="/s:6Viewer14BooquableOrderC8getGliph33_E4E15711A41ADEE9DF14188DE8CCAE3ELL4fromAA0E4NameOSS_tF"></a>
+                    <a name="//apple_ref/swift/Method/getGliph(from:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Viewer14BooquableOrderC8getGliph33_E4E15711A41ADEE9DF14188DE8CCAE3ELL4fromAA0E4NameOSS_tF">getGliph(from:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -400,16 +555,48 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <h2 id='obtain-the-gliph-name' class='heading'>Obtain the gliph name</h2>
+
+<p>Get the GliphName key associated to the order, based on the name of the device</p>
+<li><p>Return: The raw value of the gliph associated to the device name</p></li>
+<div class="aside aside-version">
+    <p class="aside-title">Version</p>
+    <p>1.0</p>
+
+</div>
+<div class="aside aside-author">
+    <p class="aside-title">Author</p>
+    <p>@GianlucaOrpello</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">getGlypg</span><span class="p">(</span><span class="n">from</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/GliphName.html">GliphName</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">getGliph</span><span class="p">(</span><span class="n">from</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/GliphName.html">GliphName</a></span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>name</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The litteral name of the device</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -419,7 +606,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2018 <a class="link" href="" target="_blank" rel="external">Team Rogue</a>. All rights reserved. (Last updated: 2018-12-18)</p>
+          <p>&copy; 2018 <a class="link" href="" target="_blank" rel="external">Team Rogue</a>. All rights reserved. (Last updated: 2018-12-19)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

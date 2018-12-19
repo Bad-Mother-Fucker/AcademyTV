@@ -14,7 +14,7 @@
     <a title="BooquableManager Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">Viewer Docs</a> (0% documented)</p>
+        <p><a href="../index.html">Viewer Docs</a> (7% documented)</p>
         <p class="header-right"><a href="https://github.com/Bad-Mother-Fucker/AcademyTV"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -66,12 +66,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/GlobalMessageView/TVLayoutType.html">– TVLayoutType</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/ServiceMessage.html">ServiceMessage</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/ServiceMessageModel.html">ServiceMessageModel</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/TV.html">TV</a>
@@ -146,7 +140,7 @@
             <a href="../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Protocols/ATVKeynoteViewDelegate.html">ATVKeynoteViewDelegate</a>
+                <a href="../Protocols/ATVViewDelegate.html">ATVViewDelegate</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/CloudStored.html">CloudStored</a>
@@ -165,11 +159,33 @@
 
                 </div>
               </div>
-            <p>Undocumented</p>
+            <h2 id='manager-class-for-booquable' class='heading'>Manager class for Booquable</h2>
+<div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <p>For more info see the <a href="https://booqable.com/blog/booqable-api-documentation/">Booquable Documentation</a></p>
+
+</div>
+<div class="aside aside-version">
+    <p class="aside-title">Version</p>
+    <p>1.0</p>
+
+</div>
+<div class="aside aside-author">
+    <p class="aside-title">Author</p>
+    <p>@GianlucaOrpello</p>
+
+</div>
 
           </section>
           <section class="section task-group-section">
             <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Shared%20instance"></a>
+                <a name="//apple_ref/swift/Section/Shared instance" class="dashAnchor"></a>
+                <a href="#/Shared%20instance">
+                  <h3 class="section-name">Shared instance</h3>
+                </a>
+              </div>
               <ul>
                 <li class="item">
                   <div>
@@ -198,6 +214,17 @@
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Private%20init"></a>
+                <a name="//apple_ref/swift/Section/Private init" class="dashAnchor"></a>
+                <a href="#/Private%20init">
+                  <h3 class="section-name">Private init</h3>
+                </a>
+              </div>
+              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -321,10 +348,10 @@
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/Private%20API%20Apple%20Developer%20Academy"></a>
-                <a name="//apple_ref/swift/Section/Private API Apple Developer Academy" class="dashAnchor"></a>
-                <a href="#/Private%20API%20Apple%20Developer%20Academy">
-                  <h3 class="section-name">Private API Apple Developer Academy</h3>
+                <a name="/Private%20API%20related%20to%20Apple%20Developer%20Academy"></a>
+                <a name="//apple_ref/swift/Section/Private API related to Apple Developer Academy" class="dashAnchor"></a>
+                <a href="#/Private%20API%20related%20to%20Apple%20Developer%20Academy">
+                  <h3 class="section-name">Private API related to Apple Developer Academy</h3>
                 </a>
               </div>
               <ul>
@@ -382,6 +409,17 @@
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Public%20function"></a>
+                <a name="//apple_ref/swift/Section/Public function" class="dashAnchor"></a>
+                <a href="#/Public%20function">
+                  <h3 class="section-name">Public function</h3>
+                </a>
+              </div>
+              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -395,7 +433,20 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <h2 id='collect-the-orders-with-a-specific-status' class='heading'>Collect the orders with a specific status.</h2>
+
+<p>When this function is called a urs session is started. The end point is the booquable webservice.
+This function are called in asynchronous way, at the end they return all the orders from booquable.</p>
+<div class="aside aside-version">
+    <p class="aside-title">Version</p>
+    <p>1.0</p>
+
+</div>
+<div class="aside aside-author">
+    <p class="aside-title">Author</p>
+    <p>@GianlucaOrpello</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
@@ -405,6 +456,25 @@
                           <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getOrders</span><span class="p">(</span><span class="n">with</span> <span class="nv">status</span><span class="p">:</span> <span class="kt"><a href="../Enums/OrderStatus.html">OrderStatus</a></span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>status</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The stus of the orders. According to Booquable API, you can query the orders based on the current status</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -422,7 +492,20 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <h2 id='get-a-specific-order-from-the-order-list' class='heading'>Get a specific order from the order list</h2>
+
+<p>With this function is possible to extract the data of a specific order inside the order list.
+You can call it with a specific order ID. When a order is extract, a notification with the key <q>NewOrder</q> are posted.</p>
+<div class="aside aside-version">
+    <p class="aside-title">Version</p>
+    <p>1.0</p>
+
+</div>
+<div class="aside aside-author">
+    <p class="aside-title">Author</p>
+    <p>@GianlucaOrpello</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
@@ -432,6 +515,25 @@
                           <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getOrder</span><span class="p">(</span><span class="n">from</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The ID of the specific order</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -449,7 +551,25 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <h2 id='get-a-json-from-a-specific-url' class='heading'>Get a json from a specific URL</h2>
+
+<p>When this function is called a urs session is started. The session point to the specific endpoint passed inside the argument.
+This function are called in asynchronous way, at the end they return the json.</p>
+<div class="aside aside-todo">
+    <p class="aside-title">Todo</p>
+    <p>Check if the session need to be closed,</p>
+
+</div>
+<div class="aside aside-version">
+    <p class="aside-title">Version</p>
+    <p>1.0</p>
+
+</div>
+<div class="aside aside-author">
+    <p class="aside-title">Author</p>
+    <p>@GianlucaOrpello</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
@@ -460,6 +580,37 @@
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>url</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The endpoint of the json.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>callBack</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A function to execute when the json is downloaded.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -468,7 +619,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2018 <a class="link" href="" target="_blank" rel="external">Team Rogue</a>. All rights reserved. (Last updated: 2018-12-18)</p>
+          <p>&copy; 2018 <a class="link" href="" target="_blank" rel="external">Team Rogue</a>. All rights reserved. (Last updated: 2018-12-19)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

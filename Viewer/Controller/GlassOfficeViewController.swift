@@ -9,7 +9,7 @@
 import UIKit
 
 /**
- UITableViewCell Extension
+ ## UITableViewCell Extension
  
  This extension are used just for override the canBecomeFocused property of the table view cell.
  The goal is to remove the user interaction UI element
@@ -27,7 +27,7 @@ extension UITableViewCell{
 }
 
 /**
- TVViewController
+ ## TVViewController
  
  This controller manage the data that need to be displayed on the Glass Office
  
@@ -92,7 +92,7 @@ class GlassOfficeViewController: TVViewController, UITableViewDelegate {
     // MARK: - View Controller life cylce
     
     /**
-    viewDidAppear method implementation
+     ## viewDidAppear method implementation
      
      - Version: 1.0
      
@@ -124,7 +124,7 @@ class GlassOfficeViewController: TVViewController, UITableViewDelegate {
     }
     
     /**
-     Add Order inside the array list of the table view
+     ## Add Order inside the array list of the table view
      
      This function are created for append a new element inside the array list. this function are called with a notification every time that booquable return a new element.
      
@@ -144,7 +144,7 @@ class GlassOfficeViewController: TVViewController, UITableViewDelegate {
     }
     
     /**
-     Get All the order from Booquable
+     ## Get All the order from Booquable
      
      This function are created for gett all the current order from Booquable
      
@@ -164,7 +164,7 @@ class GlassOfficeViewController: TVViewController, UITableViewDelegate {
     // MARK: - Private Implementation
     
     /**
-     Set Date label of the tv
+     ## Set Date label of the tv
      
      Update the time every minute and set as text inside the label
      
@@ -181,7 +181,7 @@ class GlassOfficeViewController: TVViewController, UITableViewDelegate {
     }
     
     /**
-     Get the date with a specific formatter.
+     ## Get the date with a specific formatter.
      
      Get a date instance and return it formatted in the choosen way.
      
@@ -208,7 +208,7 @@ class GlassOfficeViewController: TVViewController, UITableViewDelegate {
     }
     
     /**
-     Get the number of days between two days
+     ## Get the number of days between two days
      
      This function can return the numbers of days between two dates. This are used for calculate if you have to return a device.
      
@@ -237,7 +237,7 @@ class GlassOfficeViewController: TVViewController, UITableViewDelegate {
 // MARK: - UITableViewDataSource Implementation
 
 /**
- Extension created for implement the data source protocol for the table view.
+ ## Extension created for implement the data source protocol for the table view.
  
  - Remark: Extension
  

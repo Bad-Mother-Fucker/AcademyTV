@@ -14,7 +14,7 @@
     <a title="TV Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">Viewer Docs</a> (0% documented)</p>
+        <p><a href="../index.html">Viewer Docs</a> (7% documented)</p>
         <p class="header-right"><a href="https://github.com/Bad-Mother-Fucker/AcademyTV"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -66,12 +66,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/GlobalMessageView/TVLayoutType.html">– TVLayoutType</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/ServiceMessage.html">ServiceMessage</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/ServiceMessageModel.html">ServiceMessageModel</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/TV.html">TV</a>
@@ -146,7 +140,7 @@
             <a href="../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Protocols/ATVKeynoteViewDelegate.html">ATVKeynoteViewDelegate</a>
+                <a href="../Protocols/ATVViewDelegate.html">ATVViewDelegate</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/CloudStored.html">CloudStored</a>
@@ -228,9 +222,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6Viewer2TVC4keysSS4name_SS4uuidSS7tvGroupSS4isOnSS7keynotetvpZ"></a>
+                    <a name="/s:6Viewer2TVC4keysSS4name_SS4uuidSS7tvGroupSS4isOnSS7keynoteSS6tickertvpZ"></a>
                     <a name="//apple_ref/swift/Variable/keys" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6Viewer2TVC4keysSS4name_SS4uuidSS7tvGroupSS4isOnSS7keynotetvpZ">keys</a>
+                    <a class="token" href="#/s:6Viewer2TVC4keysSS4name_SS4uuidSS7tvGroupSS4isOnSS7keynoteSS6tickertvpZ">keys</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -245,7 +239,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">var</span> <span class="nv">keys</span><span class="p">:</span> <span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">uuid</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">tvGroup</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">isOn</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">keynote</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">var</span> <span class="nv">keys</span><span class="p">:</span> <span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">uuid</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">tvGroup</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">isOn</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">keynote</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">ticker</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -282,9 +276,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6Viewer2TVC15keynoteDelegateAA014ATVKeynoteViewD0_pSgvp"></a>
-                    <a name="//apple_ref/swift/Property/keynoteDelegate" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6Viewer2TVC15keynoteDelegateAA014ATVKeynoteViewD0_pSgvp">keynoteDelegate</a>
+                    <a name="/s:6Viewer2TVC12viewDelegateAA07ATVViewD0_pSgvp"></a>
+                    <a name="//apple_ref/swift/Property/viewDelegate" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Viewer2TVC12viewDelegateAA07ATVViewD0_pSgvp">viewDelegate</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -299,7 +293,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">keynoteDelegate</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ATVKeynoteViewDelegate.html">ATVKeynoteViewDelegate</a></span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">viewDelegate</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ATVViewDelegate.html">ATVViewDelegate</a></span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -498,6 +492,33 @@
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:6Viewer2TVC9tickerMsgSSvp"></a>
+                    <a name="//apple_ref/swift/Property/tickerMsg" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Viewer2TVC9tickerMsgSSvp">tickerMsg</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">tickerMsg</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:6Viewer2TVC3set7keynote9imageTypeySaySo7UIImageCG_AA09ImageFileF0OtF"></a>
                     <a name="//apple_ref/swift/Method/set(keynote:imageType:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:6Viewer2TVC3set7keynote9imageTypeySaySo7UIImageCG_AA09ImageFileF0OtF">set(keynote:imageType:)</a>
@@ -581,7 +602,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2018 <a class="link" href="" target="_blank" rel="external">Team Rogue</a>. All rights reserved. (Last updated: 2018-12-18)</p>
+          <p>&copy; 2018 <a class="link" href="" target="_blank" rel="external">Team Rogue</a>. All rights reserved. (Last updated: 2018-12-19)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

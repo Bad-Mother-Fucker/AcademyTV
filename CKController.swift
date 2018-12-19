@@ -12,15 +12,10 @@ import Foundation
 import CloudKit
 import UIKit
 
-
-
 class CKController {
     
     // MARK: - static methods implementation
-   
-    
-    
-    
+
     
 //    Creates and saves subscriptions to push notifications
     
