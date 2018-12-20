@@ -122,20 +122,15 @@ class TVViewController: UIViewController {
                 
             }
         case .recordDeleted:
-            self.globalMessages = self.globalMessages.filter { (msg) -> Bool in
-                return msg.record.recordID != recordID
-            }
+            
+            NotificationCenter.default.post(name: Notification.Name(rawValue: CKNotificationName.MessageNotification.delete.rawValue), object: self, userInfo: ["message":recordID])
             
         case .recordUpdated:
             CKKeys.database.fetch(withRecordID: recordID) { (record, error) in
                 guard let _ = record, error == nil else {return}
-                let newMsg = GlobalMessage(record: record!)
+                let msg = GlobalMessage(record: record!)
                 DispatchQueue.main.async {
-                    self.globalMessages = self.globalMessages.map { (msg) -> GlobalMessage in
-                        if msg.record.recordID == recordID {
-                            return newMsg
-                        }
-                        return msg
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: CKNotificationName.MessageNotification.update.rawValue), object: self, userInfo: ["modifiedMessage":msg])
                     }
                 }
             }

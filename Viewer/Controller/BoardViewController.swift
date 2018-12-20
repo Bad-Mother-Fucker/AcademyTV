@@ -254,6 +254,7 @@ class BoardViewController: TVViewController {
 extension BoardViewController: ATVViewDelegate {
     func show(ticker text: String) {
         serviceMessageBlurView.fadeIn()
+        serviceMessageLabel.isHidden = false
         self.serviceMessageLabel.text = text
     }
     
@@ -266,6 +267,7 @@ extension BoardViewController: ATVViewDelegate {
 //      Perform UI Keynote  Showing
         setKeynoteFrame()
         keynoteBlurVIew.fadeIn()
+        keynoteView.isHidden = false
         
         self.keynote = keynote
     }
@@ -274,6 +276,7 @@ extension BoardViewController: ATVViewDelegate {
 //        Perform UI Keynote hiding
         
         keynoteBlurVIew.fadeOut()
+        keynoteView.isHidden = true
         setNormalFrame()
         self.keynote = []
         
