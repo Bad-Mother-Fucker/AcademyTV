@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Edit Message View Controller-->
+        <!--Messages-->
         <scene sceneID="iHY-Vm-3As">
             <objects>
                 <tableViewController id="PcX-Yj-AkG" customClass="EditMessageViewController" customModule="Viewer_iOs" customModuleProvider="target" sceneMemberID="viewController">
@@ -218,6 +218,13 @@
                             <outlet property="delegate" destination="PcX-Yj-AkG" id="tVn-sH-vbt"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Messages" id="rtu-m0-qiw">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="iHh-lM-H53">
+                            <connections>
+                                <action selector="sendMessage:" destination="PcX-Yj-AkG" id="6V3-z2-YUl"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="dateLabel" destination="uKh-wU-2eW" id="hJe-2G-qc8"/>
                         <outlet property="datePicker" destination="GrB-US-vuQ" id="ZDb-xP-tdf"/>
@@ -926,6 +933,6 @@
         <image name="PreviewTicker" width="343" height="206"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="9Hd-NR-VQK"/>
+        <segue reference="ROF-vS-klw"/>
     </inferredMetricsTieBreakers>
 </document>
