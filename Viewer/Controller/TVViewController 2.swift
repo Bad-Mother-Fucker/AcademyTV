@@ -38,9 +38,7 @@ class TVViewController: UIViewController {
         }
         
 //      comment to use videos directly from Dropbox
-
 //        videos = VideoDownloader.getVideos(from: videos as! [URL])
-
         
         
         let items = videos.map { (url) -> AVPlayerItem in
@@ -117,7 +115,7 @@ class TVViewController: UIViewController {
                 }
                 let msg = GlobalMessage(record: record!)
                 DispatchQueue.main.async {
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: CKNotificationName.MessageNotification.create.rawValue), object: self, userInfo: ["newMsg":msg])
+                    self.globalMessages.append(msg)
                 }
                 
             }
