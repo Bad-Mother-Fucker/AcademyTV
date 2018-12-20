@@ -24,6 +24,7 @@ enum ImageFileType {
 
 
 enum Quality: CGFloat {
+    // FIXME: "Hight" should be "high"
     case hight = 0.8
     case medium = 0.5
     case low = 0.3

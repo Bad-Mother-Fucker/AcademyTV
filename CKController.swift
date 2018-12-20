@@ -12,15 +12,10 @@ import Foundation
 import CloudKit
 import UIKit
 
-
-
 class CKController {
     
     // MARK: - static methods implementation
-   
-    
-    
-    
+
     
 //    Creates and saves subscriptions to push notifications
     
@@ -103,35 +98,82 @@ class CKController {
     
 //    Fetch service message
     
-    static func getServiceMessage() throws {
-        let sem = DispatchSemaphore(value: 0)
-        ServiceMessageModel.getServiceMessage { (record, error) in
-            guard error == nil else {
-                return
+//    static func getServiceMessage() throws {
+//        let sem = DispatchSemaphore(value: 0)
+//        ServiceMessageModel.getServiceMessage { (record, error) in
+//            guard error == nil else {
+//                return
+//            }
+//            ServiceMessage.record = record!
+//            sem.signal()
+//        }
+//        if sem.wait(timeout: .distantFuture) == .timedOut {
+//            throw CKQueryException.connectionTimedOut("could not get service message, request timed out")
+//        }
+//    }
+    
+    static func removeMessage(fromTVNamed name:String) {
+        TVModel.getTV(withName: name) { (tv, error) in
+            guard let _ = tv, error == nil else {print(error!.localizedDescription);return}
+            tv!.tickerMsg = ""
+            let op = CKModifyRecordsOperation(recordsToSave: [tv!.record], recordIDsToDelete: nil)
+            op.savePolicy = .changedKeys
+            CKKeys.database.add(op)
+        }
+    }
+    
+    static func postServiceMessage(_ text:String,onTvNamed name: String) {
+            TVModel.getTV(withName: name) { (tv, error) in
+                guard let _ = tv, error == nil else {print(error!.localizedDescription);return}
+                tv!.tickerMsg = text
+                let op = CKModifyRecordsOperation(recordsToSave: [tv!.record], recordIDsToDelete: nil)
+                op.savePolicy = .changedKeys
+                CKKeys.database.add(op)
             }
-            ServiceMessage.record = record!
-            sem.signal()
-        }
-        if sem.wait(timeout: .distantFuture) == .timedOut {
-            throw CKQueryException.connectionTimedOut("could not get service message, request timed out")
-        }
     }
     
+    static func postServiceMessage(_ text:String,onTvGroup group: TVGroup) {
+        TVModel.getTvs(ofGroup: group) { (tvs, error) in
+            guard let _ = tvs, error == nil else {print(error!.localizedDescription);return}
+            tvs!.forEach({ (tv) in
+                tv.tickerMsg = text
+            })
+            
+            let records = tvs!.map({ (tv) -> CKRecord in
+                return tv.record
+            })
+            
+            let op = CKModifyRecordsOperation(recordsToSave: records, recordIDsToDelete: nil)
+            op.savePolicy = .changedKeys
+            CKKeys.database.add(op)
+         
+           }
+        
+    }
     
-    
-    static func postServiceMessage(_ text:String,forSeconds timer: Double) {
-        ServiceMessageModel.post(message: text, forSeconds: timer) { (record, error) in
-            guard error == nil else  {
-                debugPrint(error!.localizedDescription)
-                return
-            }
+    static func removeServiceMessage(from group: TVGroup) {
+        TVModel.getTvs(ofGroup: group) { (tvs, error) in
+            guard let _ = tvs, error == nil else {print(error!.localizedDescription);return}
+            
+            let records = tvs!.map({ (tv) -> CKRecord in
+                tv.record.setValue(nil, forKey: TV.keys.ticker)
+                return tv.record
+            })
+            
+            let op = CKModifyRecordsOperation(recordsToSave: records, recordIDsToDelete: nil)
+            op.savePolicy = .changedKeys
+            CKKeys.database.add(op)
+            
         }
+        
     }
+
     
-    static func removeServiceMessage() {
-        ServiceMessageModel.removeMessage()
+    
+    
+    static func isThereAMessage(onTV tv:TV)->Bool {
+        return tv.tickerMsg != ""
     }
-    
 
     static func remove(globalMessage: GlobalMessage) {
         GlobalMessageModel.delete(record: globalMessage.record)
@@ -283,16 +325,18 @@ enum CKNotificationName: String {
 
 enum CKKeys {
     
-    static let database = CKContainer(identifier: "iCloud.com.TeamRogue.Viewer").publicCloudDatabase
+    static let database = CKContainer(identifier: "iCloud.com.Rogue.Viewer").publicCloudDatabase
     static let messageSubscriptionKey = "CKMessageSubscription"
     static let tvSubscriptionKey = "CKTVSubscription"
     static let serviceSubscriptionKey = "CKServiceMessageSubscription"
     
 }
 
-protocol ATVKeynoteViewDelegate {
+protocol ATVViewDelegate {
     func show(keynote:[UIImage])
     func hideKeynote()
+    func show(ticker:String)
+    func hideTicker()
 }
 
 enum TVGroup: String{

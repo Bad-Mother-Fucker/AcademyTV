@@ -6,8 +6,10 @@
 	<dict>
 		<key>ShareExtension.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<true/>
 			<key>orderHint</key>
-			<integer>4</integer>
+			<integer>1</integer>
 		</dict>
 		<key>Viewer iOs.xcscheme</key>
 		<dict>
@@ -17,7 +19,7 @@
 		<key>Viewer iOs.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>5</integer>
+			<integer>0</integer>
 		</dict>
 		<key>Viewer.xcscheme</key>
 		<dict>
@@ -32,7 +34,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>99308B7321A6FAE500EA0F9C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>99AC094F2174E6B100CFCAD0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>99AC09652174E9C100CFCAD0</key>
 		<dict>
 			<key>primary</key>
 			<true/>

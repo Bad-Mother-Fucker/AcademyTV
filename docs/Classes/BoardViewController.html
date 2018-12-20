@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>BoardViewController Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/BoardViewController" class="dashAnchor"></a>
+    <a title="BoardViewController Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">Viewer Docs</a> (7% documented)</p>
+        <p class="header-right"><a href="https://github.com/Bad-Mother-Fucker/AcademyTV"><img src="../img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">Viewer Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        BoardViewController Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/AppDelegate.html">AppDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BoardViewController.html">BoardViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BooquableManager.html">BooquableManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BooquableOrder.html">BooquableOrder</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CKController.html">CKController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/GlassOfficeTableViewCell.html">GlassOfficeTableViewCell</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/GlassOfficeViewController.html">GlassOfficeViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/GlobalMessage.html">GlobalMessage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/GlobalMessageModel.html">GlobalMessageModel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/GlobalMessageTableViewCell.html">GlobalMessageTableViewCell</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/GlobalMessageView.html">GlobalMessageView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/GlobalMessageView/TVLayoutType.html">– TVLayoutType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TV.html">TV</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TVModel.html">TVModel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TVViewController.html">TVViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VideoDownloader.html">VideoDownloader</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VideoManager.html">VideoManager</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/CKKeys.html">CKKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/CKNotificationName.html">CKNotificationName</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/CKQueryException.html">CKQueryException</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/GliphName.html">GliphName</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ImageError.html">ImageError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ImageFileType.html">ImageFileType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/OrderStatus.html">OrderStatus</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Quality.html">Quality</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/TVGroup.html">TVGroup</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/CKAsset.html">CKAsset</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Data.html">Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/UIImage.html">UIImage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/UITableViewCell.html">UITableViewCell</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/UIView.html">UIView</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/ATVViewDelegate.html">ATVViewDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/CloudStored.html">CloudStored</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>BoardViewController</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">BoardViewController</span> <span class="p">:</span> <span class="kt"><a href="../Classes/TVViewController.html">TVViewController</a></span></code></pre>
+
+                </div>
+              </div>
+            <p>Undocumented</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Viewer@objc(cs)BoardViewController(py)keynoteBlurVIew"></a>
+                    <a name="//apple_ref/swift/Property/keynoteBlurVIew" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Viewer@objc(cs)BoardViewController(py)keynoteBlurVIew">keynoteBlurVIew</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">weak</span> <span class="k">var</span> <span class="nv">keynoteBlurVIew</span><span class="p">:</span> <span class="kt">UIVisualEffectView</span><span class="o">!</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Viewer@objc(cs)BoardViewController(py)globalMessageBlurEffect"></a>
+                    <a name="//apple_ref/swift/Property/globalMessageBlurEffect" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Viewer@objc(cs)BoardViewController(py)globalMessageBlurEffect">globalMessageBlurEffect</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">weak</span> <span class="k">var</span> <span class="nv">globalMessageBlurEffect</span><span class="p">:</span> <span class="kt">UIVisualEffectView</span><span class="o">!</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Viewer@objc(cs)BoardViewController(py)dateBlurEffect"></a>
+                    <a name="//apple_ref/swift/Property/dateBlurEffect" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Viewer@objc(cs)BoardViewController(py)dateBlurEffect">dateBlurEffect</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">weak</span> <span class="k">var</span> <span class="nv">dateBlurEffect</span><span class="p">:</span> <span class="kt">UIVisualEffectView</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Viewer@objc(cs)BoardViewController(py)tvNameBlurEffect"></a>
+                    <a name="//apple_ref/swift/Property/tvNameBlurEffect" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Viewer@objc(cs)BoardViewController(py)tvNameBlurEffect">tvNameBlurEffect</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">weak</span> <span class="k">var</span> <span class="nv">tvNameBlurEffect</span><span class="p">:</span> <span class="kt">UIVisualEffectView</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Viewer@objc(cs)BoardViewController(py)keynoteView"></a>
+                    <a name="//apple_ref/swift/Property/keynoteView" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Viewer@objc(cs)BoardViewController(py)keynoteView">keynoteView</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">weak</span> <span class="k">var</span> <span class="nv">keynoteView</span><span class="p">:</span> <span class="kt">UIImageView</span><span class="o">!</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Contextual%20Label"></a>
+                <a name="//apple_ref/swift/Section/Contextual Label" class="dashAnchor"></a>
+                <a href="#/Contextual%20Label">
+                  <h3 class="section-name">Contextual Label</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Viewer@objc(cs)BoardViewController(py)tvNameLabel"></a>
+                    <a name="//apple_ref/swift/Property/tvNameLabel" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Viewer@objc(cs)BoardViewController(py)tvNameLabel">tvNameLabel</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">weak</span> <span class="k">var</span> <span class="nv">tvNameLabel</span><span class="p">:</span> <span class="kt">UILabel</span><span class="o">!</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Viewer@objc(cs)BoardViewController(py)globalMessageView"></a>
+                    <a name="//apple_ref/swift/Property/globalMessageView" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Viewer@objc(cs)BoardViewController(py)globalMessageView">globalMessageView</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">weak</span> <span class="k">var</span> <span class="nv">globalMessageView</span><span class="p">:</span> <span class="kt"><a href="../Classes/GlobalMessageView.html">GlobalMessageView</a></span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Viewer@objc(cs)BoardViewController(py)dateLabel"></a>
+                    <a name="//apple_ref/swift/Property/dateLabel" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Viewer@objc(cs)BoardViewController(py)dateLabel">dateLabel</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">weak</span> <span class="k">var</span> <span class="nv">dateLabel</span><span class="p">:</span> <span class="kt">UILabel</span><span class="o">!</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Viewer@objc(cs)BoardViewController(py)serviceMessageLabel"></a>
+                    <a name="//apple_ref/swift/Property/serviceMessageLabel" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Viewer@objc(cs)BoardViewController(py)serviceMessageLabel">serviceMessageLabel</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">weak</span> <span class="k">var</span> <span class="nv">serviceMessageLabel</span><span class="p">:</span> <span class="kt">UILabel</span><span class="o">!</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Viewer@objc(cs)BoardViewController(py)serviceMessageBlurView"></a>
+                    <a name="//apple_ref/swift/Property/serviceMessageBlurView" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Viewer@objc(cs)BoardViewController(py)serviceMessageBlurView">serviceMessageBlurView</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">weak</span> <span class="k">var</span> <span class="nv">serviceMessageBlurView</span><span class="p">:</span> <span class="kt">UIVisualEffectView</span><span class="o">!</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/View%20Controller%20Life%20cycle"></a>
+                <a name="//apple_ref/swift/Section/View Controller Life cycle" class="dashAnchor"></a>
+                <a href="#/View%20Controller%20Life%20cycle">
+                  <h3 class="section-name">View Controller Life cycle</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Viewer@objc(cs)BoardViewController(im)viewDidLoad"></a>
+                    <a name="//apple_ref/swift/Method/viewDidLoad()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Viewer@objc(cs)BoardViewController(im)viewDidLoad">viewDidLoad()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">override</span> <span class="kd">func</span> <span class="nf">viewDidLoad</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Viewer@objc(cs)BoardViewController(im)viewDidAppear:"></a>
+                    <a name="//apple_ref/swift/Method/viewDidAppear(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Viewer@objc(cs)BoardViewController(im)viewDidAppear:">viewDidAppear(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">override</span> <span class="kd">func</span> <span class="nf">viewDidAppear</span><span class="p">(</span><span class="n">_</span> <span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Viewer@objc(cs)BoardViewController(im)viewWillAppear:"></a>
+                    <a name="//apple_ref/swift/Method/viewWillAppear(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Viewer@objc(cs)BoardViewController(im)viewWillAppear:">viewWillAppear(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">override</span> <span class="kd">func</span> <span class="nf">viewWillAppear</span><span class="p">(</span><span class="n">_</span> <span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Private%20Implementation"></a>
+                <a name="//apple_ref/swift/Section/Private Implementation" class="dashAnchor"></a>
+                <a href="#/Private%20Implementation">
+                  <h3 class="section-name">Private Implementation</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Viewer19BoardViewControllerC7setDate33_D2CFC0F815DB1C2755A206BB511DE21BLLyyF"></a>
+                    <a name="//apple_ref/swift/Method/setDate()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Viewer19BoardViewControllerC7setDate33_D2CFC0F815DB1C2755A206BB511DE21BLLyyF">setDate()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">setDate</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Viewer19BoardViewControllerC14setNormalFrame33_D2CFC0F815DB1C2755A206BB511DE21BLLyyF"></a>
+                    <a name="//apple_ref/swift/Method/setNormalFrame()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Viewer19BoardViewControllerC14setNormalFrame33_D2CFC0F815DB1C2755A206BB511DE21BLLyyF">setNormalFrame()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">setNormalFrame</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Viewer19BoardViewControllerC15setKeynoteFrame33_D2CFC0F815DB1C2755A206BB511DE21BLLyyF"></a>
+                    <a name="//apple_ref/swift/Method/setKeynoteFrame()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Viewer19BoardViewControllerC15setKeynoteFrame33_D2CFC0F815DB1C2755A206BB511DE21BLLyyF">setKeynoteFrame()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">setKeynoteFrame</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Viewer19BoardViewControllerC4show6tickerySS_tF"></a>
+                    <a name="//apple_ref/swift/Method/show(ticker:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Viewer19BoardViewControllerC4show6tickerySS_tF">show(ticker:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">show</span><span class="p">(</span><span class="n">ticker</span> <span class="nv">text</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Viewer19BoardViewControllerC10hideTickeryyF"></a>
+                    <a name="//apple_ref/swift/Method/hideTicker()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Viewer19BoardViewControllerC10hideTickeryyF">hideTicker()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">hideTicker</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Viewer19BoardViewControllerC4show7keynoteySaySo7UIImageCG_tF"></a>
+                    <a name="//apple_ref/swift/Method/show(keynote:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Viewer19BoardViewControllerC4show7keynoteySaySo7UIImageCG_tF">show(keynote:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="../Classes/BoardViewController/show(keynote:).html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">show</span><span class="p">(</span><span class="nv">keynote</span><span class="p">:</span> <span class="p">[</span><span class="kt">UIImage</span><span class="p">])</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Viewer19BoardViewControllerC11hideKeynoteyyF"></a>
+                    <a name="//apple_ref/swift/Method/hideKeynote()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Viewer19BoardViewControllerC11hideKeynoteyyF">hideKeynote()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">hideKeynote</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2018 <a class="link" href="" target="_blank" rel="external">Team Rogue</a>. All rights reserved. (Last updated: 2018-12-19)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

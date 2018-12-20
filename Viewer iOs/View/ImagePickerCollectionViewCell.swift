@@ -10,6 +10,12 @@ import UIKit
 
 class ImagePickerCollectionViewCell: UICollectionViewCell {
     
+    var image: UIImage?{
+        didSet{
+            imageView.image = image
+        }
+    }
+    
     @IBOutlet weak var imageView: UIImageView!{
         didSet{
             imageView.contentMode = .scaleAspectFit
@@ -26,5 +32,10 @@ class ImagePickerCollectionViewCell: UICollectionViewCell {
                 checkerView.isHidden = true
             }
         }
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        imageView.image = image
     }
 }

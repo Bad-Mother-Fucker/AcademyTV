@@ -24,21 +24,20 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegate, UIC
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         let allPhotoOption = PHFetchOptions()
         allPhotoOption.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
         
         allPhotos = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: allPhotoOption)
-        
     }
     
-    func getAssetThumbnail(asset: PHAsset) -> UIImage {
+    func getAssetThumbnail(asset: PHAsset) -> UIImage? {
         let manager = PHImageManager.default()
         let option = PHImageRequestOptions()
-        var thumbnail = UIImage()
-        option.isSynchronous = true
+        var thumbnail: UIImage?
+        option.isSynchronous = false
         manager.requestImage(for: asset, targetSize: CGSize(width: 1920, height: 1080), contentMode: .aspectFit, options: option, resultHandler: {(result, info)->Void in
-            thumbnail = result!
+            thumbnail = result
         })
         return thumbnail
     }
@@ -56,15 +55,16 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegate, UIC
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImgeCollectionViewCell", for: indexPath) as! ImagePickerCollectionViewCell
         
-        cell.imageView.image = getAssetThumbnail(asset: allPhotos[indexPath.item])
+        cell.image = getAssetThumbnail(asset: allPhotos[indexPath.item])
         cell.isSelected = false
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.cellForItem(at: indexPath)?.isSelected = true
-        selectedPhoto.append(getAssetThumbnail(asset: allPhotos[indexPath.item]))
+        let cell = collectionView.cellForItem(at: indexPath) as! ImagePickerCollectionViewCell
+        cell.isSelected = true
+        selectedPhoto.append(cell.imageView.image!)
     }
 
 }
