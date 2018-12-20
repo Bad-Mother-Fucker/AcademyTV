@@ -28,6 +28,8 @@ class GlobalMessageView: UIView {
         didSet {
             if globalMessages.count > 0 {
                 switchMessages()
+            }else {
+                set(message: .voidMessage)
             }
         }
     }

@@ -147,7 +147,6 @@ class BoardViewController: TVViewController {
             }else {
                 self?.currentTV.viewDelegate?.hideTicker()
             }
-            
     
         }
         
