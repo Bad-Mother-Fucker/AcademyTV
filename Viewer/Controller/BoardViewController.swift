@@ -171,6 +171,11 @@ class BoardViewController: TVViewController {
             self?.videoManager.nextVideo() 
             debugPrint("Playing next video")
         }
+        
+        NotificationCenter.default.addObserver(forName: Notification.Name(CKNotificationName.MessageNotification.create.rawValue), object: nil, queue: .main) { (notification) in
+            let userinfo = notification.userInfo as! [String:GlobalMessage]
+            let msg = userinfo["newMessage"]
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

@@ -75,10 +75,6 @@ class TVViewController: UIViewController {
             debugPrint("service message uploaded")
         }
         
-      
-        
-       
-       
         
     }
     
@@ -130,11 +126,12 @@ class TVViewController: UIViewController {
                 guard let _ = record, error == nil else {return}
                 let msg = GlobalMessage(record: record!)
                 DispatchQueue.main.async {
+                    
                     NotificationCenter.default.post(name: Notification.Name(rawValue: CKNotificationName.MessageNotification.update.rawValue), object: self, userInfo: ["modifiedMessage":msg])
-                    }
                 }
             }
         }
+        
     }
     
     private func handleTVNotification(_ ckqn: CKQueryNotification) {
