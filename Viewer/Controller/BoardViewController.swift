@@ -266,13 +266,13 @@ extension BoardViewController: ATVViewDelegate {
 //      Perform UI Keynote  Showing
         setKeynoteFrame()
         keynoteBlurVIew.fadeIn()
-        keynoteView.fadeIn()
+        
         self.keynote = keynote
     }
     
     func hideKeynote() {
 //        Perform UI Keynote hiding
-        keynoteView.fadeOut()
+        
         keynoteBlurVIew.fadeOut()
         setNormalFrame()
         self.keynote = []

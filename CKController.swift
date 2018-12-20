@@ -320,7 +320,14 @@ enum CKNotificationName: String {
     case null = ""
     case notification = "notification"
     case tvSet = "currentTvSet"
-    case serviceMessageSet = "serviceMessageSet "
+    case serviceMessageSet = "serviceMessageSet"
+    
+    
+    enum MessageNotification: String {
+        case create = "msgCreated"
+        case delete = "msgDeleted"
+        case update = "msgUpdated"
+    }
 }
 
 enum CKKeys {
@@ -329,6 +336,7 @@ enum CKKeys {
     static let messageSubscriptionKey = "CKMessageSubscription"
     static let tvSubscriptionKey = "CKTVSubscription"
     static let serviceSubscriptionKey = "CKServiceMessageSubscription"
+    
     
 }
 
