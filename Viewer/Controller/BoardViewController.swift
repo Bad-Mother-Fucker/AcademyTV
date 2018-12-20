@@ -12,8 +12,9 @@ import AVFoundation
 import PureLayout
 
 class BoardViewController: TVViewController {
-    
-
+    var keynoteTimer: Timer!
+    var keynote: [UIImage] = []
+    var page = 0
     
     @IBOutlet weak var keynoteBlurVIew: UIVisualEffectView! {
         didSet {
@@ -63,7 +64,10 @@ class BoardViewController: TVViewController {
         }
     }
     
-    @IBOutlet weak var globalMessageView: GlobalMessageView!
+    @IBOutlet weak var globalMessageView: GlobalMessageView! {
+        didSet {
+        }
+    }
     
     @IBOutlet weak var dateLabel: UILabel!{
         didSet{
@@ -135,6 +139,14 @@ class BoardViewController: TVViewController {
             
     
         }
+        
+        keynoteTimer = Timer.init(timeInterval: 10, repeats: true, block: { (timer) in
+            if self.keynote.count > 1 {
+                 self.keynoteView.image = self.keynote[self.nextPage(of: self.keynote)]
+            }
+        })
+        
+        RunLoop.current.add(keynoteTimer, forMode: .common)
         
         
         NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: CKNotificationName.tvSet.rawValue), object: nil, queue: .main) { _ in
@@ -241,14 +253,12 @@ class BoardViewController: TVViewController {
 
 extension BoardViewController: ATVViewDelegate {
     func show(ticker text: String) {
-        serviceMessageLabel.fadeIn()
         serviceMessageBlurView.fadeIn()
         self.serviceMessageLabel.text = text
     }
     
     func hideTicker() {
         serviceMessageBlurView.fadeOut()
-        serviceMessageLabel.fadeOut()
         self.serviceMessageLabel.text = ""
     }
     
@@ -257,26 +267,7 @@ extension BoardViewController: ATVViewDelegate {
         setKeynoteFrame()
         keynoteBlurVIew.fadeIn()
         keynoteView.fadeIn()
-        
-       
-        var page = 0
-        
-        Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { (timer) in
-            self.keynoteView.image = keynote[nextPage()]
-        }
-        
-        func nextPage() -> Int {
-            let index: Int
-            if page >= 0 && page < keynote.count {
-                index = page
-                page = page + 1
-                return index
-            }else {
-                page = 0
-                return nextPage()
-            }
-        }
-
+        self.keynote = keynote
     }
     
     func hideKeynote() {
@@ -284,11 +275,22 @@ extension BoardViewController: ATVViewDelegate {
         keynoteView.fadeOut()
         keynoteBlurVIew.fadeOut()
         setNormalFrame()
+        self.keynote = []
         
     }
     
     
-    
+    private func nextPage(of array: [UIImage]) -> Int {
+        guard let image = keynoteView.image else {return 0}
+        guard var currentIndex = keynote.index(of: image) else {return 0}
+        if currentIndex >= 0 && currentIndex < keynote.count - 1  {
+            return currentIndex + 1
+        }else {
+            currentIndex = 0
+            return currentIndex
+        }
+    }
+
     
 }
 

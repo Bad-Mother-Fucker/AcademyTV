@@ -38,9 +38,7 @@ class TVViewController: UIViewController {
         }
         
 //      comment to use videos directly from Dropbox
-
 //        videos = VideoDownloader.getVideos(from: videos as! [URL])
-
         
         
         let items = videos.map { (url) -> AVPlayerItem in
