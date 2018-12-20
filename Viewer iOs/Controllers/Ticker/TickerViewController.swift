@@ -80,6 +80,10 @@ class TickerViewController: UITableViewController, UITextFieldDelegate, UIPicker
         if let message = textField.text{
             if message != ""{
                 CKController.postServiceMessage(message, onTvGroup: selectedGroup)
+                let alert = UIAlertController(title: "Success", message: "Your message will be post soon.", preferredStyle: .alert)
+                let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alert.addAction(action)
+                self.present(alert, animated: true, completion: nil)
             }else{
                 let alert = UIAlertController(title: "Add a message to post", message: "The message to post cann't be empty", preferredStyle: .alert)
                 let action = UIAlertAction(title: "OK", style: .default, handler: nil)
