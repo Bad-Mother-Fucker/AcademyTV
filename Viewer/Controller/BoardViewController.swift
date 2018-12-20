@@ -66,6 +66,17 @@ class BoardViewController: TVViewController {
     
     @IBOutlet weak var globalMessageView: GlobalMessageView! {
         didSet {
+            do {
+                globalMessageView.globalMessages = try CKController.getAllGlobalMessages {}
+            }catch {
+                let alert = UIAlertController(title: "Unable to get messages", message: "It seems that there's no internet connection.Check it and try again", preferredStyle: .alert)
+                let ok = UIAlertAction(title: "Ok", style: .default) { (action) in
+                    // TODO: Insert code to try again
+                    self.dismiss(animated: true, completion: nil)
+                }
+                alert.addAction(ok)
+                present(alert, animated: true, completion: nil)
+            }
         }
     }
     
@@ -187,7 +198,16 @@ class BoardViewController: TVViewController {
         }
         
         
-        
+        NotificationCenter.default.addObserver(forName: Notification.Name(CKNotificationName.MessageNotification.update.rawValue), object: nil, queue: .main) { (notification) in
+            let userinfo = notification.userInfo as! [String:GlobalMessage]
+            let newMsg = userinfo["modifiedMsg"]!
+            self.globalMessageView.globalMessages = self.globalMessageView.globalMessages.map({ (msg) -> GlobalMessage in
+                if msg.record.recordID == newMsg.record.recordID {
+                    return newMsg
+                }
+                return msg
+            })
+        }
         
     }
     

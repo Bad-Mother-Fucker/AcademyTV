@@ -290,13 +290,14 @@ class GlobalMessageView: UIView {
         self.timeLabel.text = message.date.time
         
         
-        if self.dateLabel.text == nil && self.timeLabel.text == nil {
+        if (self.dateLabel.text == nil && self.timeLabel.text == nil) || (self.dateLabel.text == "" && self.timeLabel.text == "") {
             self.whenLabel.text = ""
         }else {
             self.whenLabel.text = "When"
         }
         
-        if self.locationLabel.text == nil {
+        
+        if self.locationLabel.text == nil || self.locationLabel.text == "" {
             self.whereLabel.text = ""
         }else {
             self.whereLabel.text = "Where"
@@ -336,6 +337,7 @@ class GlobalMessageView: UIView {
             let textHeight = textView.contentSize.height
             return textHeight > textView.bounds.height
         }
+    
         
         func scrollTextIfNeeded(in textView: UITextView) {
             guard textExceedBoundsOf(textView) else {return}
@@ -346,7 +348,6 @@ class GlobalMessageView: UIView {
                     timer.invalidate()
                     return
                 }
-               
                 let newRange = NSRange(location: lastRange.upperBound, length: 250)
                 textView.scrollRangeToVisible(newRange)
                 lastRange = newRange
