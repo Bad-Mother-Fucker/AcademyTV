@@ -105,6 +105,9 @@ class PosterViewController: UIViewController, UICollectionViewDelegate, UICollec
         keynotes.append(chosenImage)
         DispatchQueue.main.async {
             self.collectionView.reloadData()
+            if self.keynotes.count != 0{
+                self.saveBarButtonItem.isEnabled = true
+            }
         }
         dismiss(animated:true, completion: nil)
     }
