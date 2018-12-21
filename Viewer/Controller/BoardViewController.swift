@@ -305,8 +305,9 @@ extension BoardViewController: ATVViewDelegate {
         setKeynoteFrame()
         keynoteBlurVIew.fadeIn()
         keynoteView.isHidden = false
-        
+        keynoteView.alpha = 1
         self.keynote = keynote
+        keynoteView.image = keynote.first!
     }
     
     func hideKeynote() {

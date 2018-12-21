@@ -19,16 +19,14 @@ class GlobalMessageView: UIView {
     var dateLabel = UILabel()
     var whenLabel = UILabel()
     var whereLabel = UILabel()
-    
+    var nextMsg = 0
     
     
     var qrCodeImage = UIImageView()
     
     var globalMessages: [GlobalMessage] = [] {
         didSet {
-            if globalMessages.count > 0 {
-                switchMessages()
-            }else {
+            if globalMessages.count == 0 {
                 set(message: .voidMessage)
             }
         }
@@ -102,6 +100,14 @@ class GlobalMessageView: UIView {
             view.configureForAutoLayout()
         }
         
+        Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { (timer) in
+            if self.globalMessages.count > 0 {
+                let index = self.nextIndex()
+                self.set(message: self.globalMessages[index])
+                self.scrollTextIfNeeded(in: self.descriptionLabel)
+            }
+        
+        }
        
     }
     
@@ -309,30 +315,21 @@ class GlobalMessageView: UIView {
     }
     
     
-    func switchMessages() {
-        let messages = self.globalMessages
-        
-        var next = 0
-        
+   
+    
         func nextIndex() -> Int {
             let index: Int
-            if next >= 0 && next < messages.count {
-                index = next
-                next = next + 1
+            if nextMsg >= 0 && nextMsg < globalMessages.count {
+                index = nextMsg
+                nextMsg = nextMsg + 1
                 return index
             }else {
-                next = 0
+                nextMsg = 0
                 return nextIndex()
             }
         }
         
-        Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { (timer) in
-            let index = nextIndex()
-            //print("will show messages[\(index)]")
-            self.set(message: messages[index])
-            scrollTextIfNeeded(in: self.descriptionLabel)
-            
-        }
+    
         
         
         func textExceedBoundsOf(_ textView: UITextView) -> Bool {
@@ -346,7 +343,7 @@ class GlobalMessageView: UIView {
             textView.scrollRangeToVisible(NSRange(location: 0, length: 0))
             var lastRange = NSRange(location: 0, length: 250)
             Timer.scheduledTimer(withTimeInterval: 6, repeats: true) { (timer) in
-                guard textExceedBoundsOf(textView) else {
+                guard self.textExceedBoundsOf(textView) else {
                     timer.invalidate()
                     return
                 }
@@ -357,6 +354,6 @@ class GlobalMessageView: UIView {
         }
         
 
-    }
+    
 
 }
