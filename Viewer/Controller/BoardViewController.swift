@@ -11,20 +11,74 @@ import CloudKit
 import AVFoundation
 import PureLayout
 
+/**
+ ## Board View Controller
+
+ The main View Controller of all the Tvs. Here we can manage all the messages and the keynote promps.
+ 
+ - Version: 1.0
+ 
+ - Author: @GianlucaOrpello, @Micheledes
+ */
 class BoardViewController: TVViewController {
+    
+    /**
+     ## Keynote Timer
+     
+     - Version: 1.0
+     
+     - Author: @Micheledes
+     */
     var keynoteTimer: Timer!
+    
+    /**
+     ## Keynote Image List
+     
+     List of image that contains all the keynote page.
+     
+     - Version: 1.0
+     
+     - Author: @Micheledes
+     */
     var keynote: [UIImage] = []
+    
+    /**
+     ## Page Counter
+     
+     - Version: 1.0
+     
+     - Author: @Micheledes
+     */
     var page = 0
     
-    @IBOutlet weak var keynoteBlurVIew: UIVisualEffectView! {
+    // MARK: - Outlets
+    
+    /**
+     ## Visual Effect View Keynote
+     
+     View used for manage the blur effect under the keynote promp.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
+    @IBOutlet weak var keynoteBlurView: UIVisualEffectView! {
         didSet {
-            keynoteBlurVIew.isHidden = true
-            keynoteBlurVIew.layer.cornerRadius = 15
-            keynoteBlurVIew.clipsToBounds = true
+            keynoteBlurView.isHidden = true
+            keynoteBlurView.layer.cornerRadius = 15
+            keynoteBlurView.clipsToBounds = true
         }
     }
     
-    
+    /**
+     ## Visual Effect View Message
+     
+     View used for manage the blur effect under the Global Message promp.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     @IBOutlet weak var globalMessageBlurEffect: UIVisualEffectView!{
         didSet{
             globalMessageBlurEffect.layer.cornerRadius = 15
@@ -37,9 +91,37 @@ class BoardViewController: TVViewController {
         }
     }
     
+    /**
+     ## Visual Effect View Date
+     
+     View used for manage the blur effect under the Date promp.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     @IBOutlet weak var dateBlurEffect: UIVisualEffectView!
+    
+    /**
+     ## Visual Effect View TvName
+     
+     View used for manage the blur effect under the Tv Name promp.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     @IBOutlet weak var tvNameBlurEffect: UIVisualEffectView!
     
+    /**
+     ## Keynote Image View Container
+     
+     Image view used for display the keynote file converted as an image.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     @IBOutlet weak var keynoteView: UIImageView! {
         didSet{
             keynoteView.isHidden = true
@@ -48,8 +130,18 @@ class BoardViewController: TVViewController {
         }
     }
     
-    
     // MARK: Contextual Label
+    
+    /**
+     ## Tv Name Label
+     
+     Label used for display the name of the current tv.
+     This data are taken from the setting of the current device, be sure that have the correct name.
+   
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     @IBOutlet weak var tvNameLabel: UILabel!{
         didSet{
             tvNameLabel.text = UIDevice.current.name
@@ -64,6 +156,15 @@ class BoardViewController: TVViewController {
         }
     }
     
+    /**
+     ## Global Message View Promp.
+     
+     View used for managing the Global Message Promp.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     @IBOutlet weak var globalMessageView: GlobalMessageView! {
         didSet {
             do {
@@ -80,6 +181,15 @@ class BoardViewController: TVViewController {
         }
     }
     
+    /**
+     ## Date Label
+     
+     Label used for show the current date.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     @IBOutlet weak var dateLabel: UILabel!{
         didSet{
             setDate()
@@ -97,7 +207,15 @@ class BoardViewController: TVViewController {
         }
     }
     
-    
+    /**
+     ## Service Message Label
+     
+     Label used for managing the Thicker Message Promp.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     @IBOutlet weak var serviceMessageLabel: UILabel! {
         didSet {
             serviceMessageLabel.isHidden = true
@@ -108,6 +226,15 @@ class BoardViewController: TVViewController {
         }
     }
     
+    /**
+     ## Visual Effect View Service Message
+     
+     View used for manage the blur effect under the Thicker View promp.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     @IBOutlet weak var serviceMessageBlurView: UIVisualEffectView! {
         didSet {
             serviceMessageBlurView.isHidden = true
@@ -135,6 +262,19 @@ class BoardViewController: TVViewController {
     }
     
     // MARK: View Controller Life cycle
+    
+    /**
+     ## View Did Load
+     
+     * Load the background Video
+     * Add all the Observer needed for check the events and notification.
+     
+     - Todo: Check if we need to remove the observer.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
         videoManager =  VideoManager(onLayer: self.view.layer, videos: videosURL)
@@ -210,22 +350,45 @@ class BoardViewController: TVViewController {
         
     }
     
+    /**
+     ## View Did Appear
+     
+     On View appear just play the video.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-                videoManager.playVideo()
+        videoManager.playVideo()
     }
     
+    /**
+     ## View Will Appear
+     
+     On View appear just play the video.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-                videoManager.playVideo()
+        videoManager.playVideo()
     }
     
     // MARK: Private Implementation
     
-    
-
-
-    
+    /**
+     ## Set the current date
+     
+     Get the current date and set the label.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     private func setDate(){
         let date = Date()
         let dateFormatter = DateFormatter()
@@ -254,6 +417,7 @@ class BoardViewController: TVViewController {
         }
         
     }
+
     private func setKeynoteFrame() {
         
            UIView.animate(withDuration: 2) {
@@ -281,14 +445,11 @@ class BoardViewController: TVViewController {
             self.globalMessageView.setLayout(type: .keynote)
             
         }
-    }
-    
+    }    
 }
 
-
-
-
 extension BoardViewController: ATVViewDelegate {
+    
     func show(ticker text: String) {
         serviceMessageBlurView.fadeIn()
         serviceMessageLabel.isHidden = false
@@ -303,7 +464,7 @@ extension BoardViewController: ATVViewDelegate {
     func show(keynote: [UIImage]) {
 //      Perform UI Keynote  Showing
         setKeynoteFrame()
-        keynoteBlurVIew.fadeIn()
+        keynoteBlurView.fadeIn()
         keynoteView.isHidden = false
         keynoteView.alpha = 1
         self.keynote = keynote
@@ -313,7 +474,7 @@ extension BoardViewController: ATVViewDelegate {
     func hideKeynote() {
 //        Perform UI Keynote hiding
         
-        keynoteBlurVIew.fadeOut()
+        keynoteBlurView.fadeOut()
         keynoteView.isHidden = true
         setNormalFrame()
         self.keynote = []

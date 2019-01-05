@@ -13,7 +13,7 @@
     <a title="Viewer  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">Viewer Docs</a> (7% documented)</p>
+        <p><a href="index.html">Viewer Docs</a> (9% documented)</p>
         <p class="header-right"><a href="https://github.com/Bad-Mother-Fucker/AcademyTV"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -93,6 +93,9 @@
                 <a href="Enums/CKNotificationName.html">CKNotificationName</a>
               </li>
               <li class="nav-group-task">
+                <a href="Enums/CKNotificationName/MessageNotification.html">– MessageNotification</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Enums/CKQueryException.html">CKQueryException</a>
               </li>
               <li class="nav-group-task">
@@ -152,15 +155,169 @@
         <section>
           <section class="section">
             
-            <h1 id='viewer' class='heading'>Viewer</h1>
-<h3 id='authors' class='heading'>Authors</h3>
+            <h1 id='project-viewer' class='heading'>Project Viewer</h1>
 
-<p>Team Rogue</p>
+<p>subtitle:
+Documentation
+Working in progress&hellip;</p>
+<h2 id='overview' class='heading'>Overview</h2>
+
+<p>One way to build compelling AR experiences is to recognize features of the user&rsquo;s environment and use them to trigger the appearance of virtual content. For example, a museum app might add interactive 3D visualizations when the user points their device at a displayed sculpture or artifact. </p>
+
+<p>In iOS 12, you can create such AR experiences by enabling <em>object detection</em> in ARKit: Your app provides <em>reference objects</em>, which encode three-dimensional spatial features of known real-world objects, and ARKit tells your app when and where it detects the corresponding real-world objects during an AR session.</p>
+
+<p>This sample code project provides multiple ways to make use of object detection:</p>
+
+<ul>
+<li>Run the app to scan a real-world object and export a reference object file, which you can use in your own apps to detect that object.</li>
+<li>Use the <a href="https://developer.apple.com/documentation/arkit/arobjectscanningconfiguration"><code>ARObjectScanningConfiguration</code></a> and <a href="https://developer.apple.com/documentation/arkit/arreferenceobject"><code>ARReferenceObject</code></a> classes as demonstrated in this sample app to record reference objects as part of your own asset production pipeline.</li>
+<li>Use <a href="https://developer.apple.com/documentation/arkit/arworldtrackingconfiguration/2968177-detectionobjects"><code>detectionObjects</code></a> in a world-tracking AR session to recognize a reference object and create AR interactions.</li>
+</ul>
+<h2 id='getting-started' class='heading'>Getting Started</h2>
+
+<p>Requires Xcode 10.0, iOS 12.0 and an iOS device with an A9 or later processor. ARKit is not supported in iOS Simulator.</p>
+<h2 id='scan-real-world-objects-with-an-ios-app' class='heading'>Scan Real-World Objects with an iOS App</h2>
+
+<p>The programming steps to scan and define a reference object that ARKit can use for detection are simple. (See <q>Create a Reference Object in an AR Session</q> below.) However, the fidelity of the reference object you create, and thus your success at detecting that reference object in your own apps, depends on your physical interactions with the object when scanning. Build and run this app on your iOS device to walk through a series of steps for getting high-quality scan data, resulting in reference object files that you can use for detection in your own apps.</p>
+
+<p><img src="Documentation/ScannerAppUIFlow.png" alt="Screenshots of the five steps in using the sample app to scan a real-world object: prepare, define bounding box, scan, adjust origin, then test and export."></p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    For easy object scanning, use a recent, high-performance iOS device. Scanned objects can be detected on any ARKit-supported device, but the process of creating a high-quality scan is faster and smoother on a high-performance device.
+
+</div>
+
+<ol>
+<li><strong>Prepare to scan.</strong> When first run, the app displays a box that roughly estimates the size of whatever real-world objects appear centered in the camera view. Position the object you want to scan on a surface free of other objects (like an empty tabletop). Then move your device so that the object appears centered in the box, and tap the Next button.</li>
+<li><strong>Define bounding box.</strong> Before scanning, you need to tell the app what region of the world contains the object you want to scan. Drag to move the box around in 3D, or press and hold on a side of the box and then drag to resize it. (Or, if you leave the box untouched, you can move around the object and the app will attempt to automatically fit a box around it.) Make sure the bounding box contains only features of the object you want to scan (not those from the environment it&rsquo;s in), then tap the Scan button.</li>
+<li><strong>Scan the object.</strong> Move around to look at the object from different angles. The app highlights parts of the bounding box to indicate when you&rsquo;ve scanned enough to recognize the object from the corresponding direction. Be sure to scan on all sides from which you want users of your app to be able to recognize the object. The app automatically proceeds to the next step when a scan is complete, or you can tap the Stop button to proceed manually.</li>
+<li><strong>Adjust origin.</strong> The app displays x, y, and z coordinate axis lines showing the object&rsquo;s anchor point, or <em>origin</em>. Drag the circles to move the origin relative to the object. In this step you can also use the Add (+) button to load a 3D model in USDZ format. The app displays the model as it would appear in AR upon detecting the real-world object, and uses the model&rsquo;s size to adjust the scale of the reference object. Tap the Test button when done.</li>
+<li><strong>Test and export.</strong> The app has now created an <a href="https://developer.apple.com/documentation/arkit/arreferenceobject"><code>ARReferenceObject</code></a> and has reconfigured its session to detect it. Look at the real-world object from different angles, in various environments and lighting conditions, to verify that ARKit reliably recognizes its position and orientation. Tap the Export button to open a share sheet for saving the finished <code>.arobject</code> file. For example, you can easily send it to your development Mac using AirDrop, or send it to the Files app to save it to iCloud Drive.</li>
+</ol>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    An <a href="https://developer.apple.com/documentation/arkit/arreferenceobject"><code>ARReferenceObject</code></a> contains only the spatial feature information needed for ARKit to recognize the real-world object, and is not a displayable 3D reconstruction of that object.
+
+</div>
+<h2 id='detect-reference-objects-in-an-ar-experience' class='heading'>Detect Reference Objects in an AR Experience</h2>
+
+<p>You can use an Xcode asset catalog to bundle reference objects in an app for use in detection:</p>
+
+<ol>
+<li><p>Open your project&rsquo;s asset catalog, then use the Add button (+) to add a new AR resource group.</p></li>
+<li><p>Drag <code>.arobject</code> files from the Finder into the newly created resource group.</p></li>
+<li><p>Optionally, for each reference object, use the inspector to provide a descriptive name for your own use.</p></li>
+</ol>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    Put all objects you want to look for in the same session into a resource group, and use separate resource groups to hold sets of objects for use in separate sessions. For example, a museum app might use separate sessions (and thus separate resource groups) for recognizing displays in different wings of the museum.
+
+</div>
+
+<p>To enable object detection in an AR session, load the reference objects you want to detect as <a href="https://developer.apple.com/documentation/arkit/arreferenceobject"><code>ARReferenceObject</code></a> instances, provide those objects for the <a href="https://developer.apple.com/documentation/arkit/arworldtrackingconfiguration/2968177-detectionobjects"><code>detectionObjects</code></a> property of an <a href="https://developer.apple.com/documentation/arkit/arworldtrackingconfiguration"><code>ARWorldTrackingConfiguration</code></a>, and run an <a href="https://developer.apple.com/documentation/arkit/arsession"><code>ARSession</code></a> with that configuration:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">configuration</span> <span class="o">=</span> <span class="kt">ARWorldTrackingConfiguration</span><span class="p">()</span>
+<span class="k">guard</span> <span class="k">let</span> <span class="nv">referenceObjects</span> <span class="o">=</span> <span class="kt">ARReferenceObject</span><span class="o">.</span><span class="nf">referenceObjects</span><span class="p">(</span><span class="nv">inGroupNamed</span><span class="p">:</span> <span class="s">"gallery"</span><span class="p">,</span> <span class="nv">bundle</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nf">fatalError</span><span class="p">(</span><span class="s">"Missing expected asset catalog resources."</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="n">configuration</span><span class="o">.</span><span class="n">detectionObjects</span> <span class="o">=</span> <span class="n">referenceObjects</span>
+<span class="n">sceneView</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="nf">run</span><span class="p">(</span><span class="n">configuration</span><span class="p">)</span>
+</code></pre>
+
+<p>When ARKit detects one of your reference objects, the session automatically adds a corresponding <a href="https://developer.apple.com/documentation/arkit/arobjectanchor"><code>ARObjectAnchor</code></a> to its list of anchors. To respond to an object being recognized, implement an appropriate <a href="https://developer.apple.com/documentation/arkit/arsessionDelegate"><code>ARSessionDelegate</code></a>, <a href="https://developer.apple.com/documentation/arkit/arscnviewdelegate"><code>ARSKViewDelegate</code></a>, or <a href="https://developer.apple.com/documentation/arkit/arskviewdelegate"><code>ARSCNViewDelegate</code></a> method that reports the new anchor being added to the session. For example, in a SceneKit-based app you can implement  <a href="https://developer.apple.com/documentation/arkit/arscnviewdelegate/2865794-renderer"><code>renderer(_:didAdd:for:)</code></a> to add a 3D asset to the scene, automatically matching the position and orientation of the anchor:</p>
+<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">renderer</span><span class="p">(</span><span class="n">_</span> <span class="nv">renderer</span><span class="p">:</span> <span class="kt">SCNSceneRenderer</span><span class="p">,</span> <span class="n">didAdd</span> <span class="nv">node</span><span class="p">:</span> <span class="kt">SCNNode</span><span class="p">,</span> <span class="k">for</span> <span class="nv">anchor</span><span class="p">:</span> <span class="kt">ARAnchor</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="k">let</span> <span class="nv">objectAnchor</span> <span class="o">=</span> <span class="n">anchor</span> <span class="k">as?</span> <span class="kt">ARObjectAnchor</span> <span class="p">{</span>
+        <span class="n">node</span><span class="o">.</span><span class="nf">addChildNode</span><span class="p">(</span><span class="k">self</span><span class="o">.</span><span class="n">model</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>For best results with object scanning and detection, follow these tips:</p>
+
+<ul>
+<li>ARKit looks for areas of clear, stable visual detail when scanning and detecting objects. Detailed, textured objects work better for detection than plain or reflective objects.</li>
+<li>Object scanning and detection is optimized for objects small enough to fit on a tabletop.</li>
+<li>An object to be detected must have the same shape as the scanned reference object. Rigid objects work better for detection than soft bodies or items that bend, twist, fold, or otherwise change shape.</li>
+<li>Detection works best when the lighting conditions for the real-world object to be detected are similar to those in which the original object was scanned. Consistent indoor lighting works best.</li>
+</ul>
+<h2 id='create-a-reference-object-in-an-ar-session' class='heading'>Create a Reference Object in an AR Session</h2>
+
+<p>This sample app provides one way to create reference objects. You can also scan reference objects in your own app—for example, to build asset management tools for defining AR content that goes into other apps you create.</p>
+
+<p>A reference object encodes a slice of the internal spatial-mapping data that ARKit uses to track a device&rsquo;s position and orientation. To enable the high-quality data collection required for object scanning, run a session with <a href="https://developer.apple.com/documentation/arkit/arobjectscanningconfiguration"><code>ARObjectScanningConfiguration</code></a>:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">configuration</span> <span class="o">=</span> <span class="kt">ARObjectScanningConfiguration</span><span class="p">()</span>
+<span class="n">configuration</span><span class="o">.</span><span class="n">planeDetection</span> <span class="o">=</span> <span class="o">.</span><span class="n">horizontal</span>
+<span class="n">sceneView</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="nf">run</span><span class="p">(</span><span class="n">configuration</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="o">.</span><span class="n">resetTracking</span><span class="p">)</span>
+</code></pre>
+
+<p><a href="x-source-tag://ARObjectScanningConfiguration">View in Source</a></p>
+
+<p>During your object-scanning AR session, scan the object from various angles to make sure you collect enough spatial data to recognize it. (If you&rsquo;re building your own object-scanning tools, help users walk through the same steps this sample app provides.) </p>
+
+<p>After scanning, call <a href="https://developer.apple.com/documentation/arkit/arsession/3001731-createreferenceobjectwithtransfo"><code>createReferenceObject(transform:center:extent:completionHandler:)</code></a> to produce an <a href="https://developer.apple.com/documentation/arkit/arreferenceobject"><code>ARReferenceObject</code></a> from a region of the user environment mapped by the session:</p>
+<pre class="highlight swift"><code><span class="c1">// Extract the reference object based on the position &amp; orientation of the bounding box.</span>
+<span class="n">sceneView</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="nf">createReferenceObject</span><span class="p">(</span>
+    <span class="nv">transform</span><span class="p">:</span> <span class="n">boundingBox</span><span class="o">.</span><span class="n">simdWorldTransform</span><span class="p">,</span>
+    <span class="nv">center</span><span class="p">:</span> <span class="nf">float3</span><span class="p">(),</span> <span class="nv">extent</span><span class="p">:</span> <span class="n">boundingBox</span><span class="o">.</span><span class="n">extent</span><span class="p">,</span>
+    <span class="nv">completionHandler</span><span class="p">:</span> <span class="p">{</span> <span class="n">object</span><span class="p">,</span> <span class="n">error</span> <span class="k">in</span>
+        <span class="k">if</span> <span class="k">let</span> <span class="nv">referenceObject</span> <span class="o">=</span> <span class="n">object</span> <span class="p">{</span>
+            <span class="c1">// Adjust the object's origin with the user-provided transform.</span>
+            <span class="k">self</span><span class="o">.</span><span class="n">scannedReferenceObject</span> <span class="o">=</span> <span class="n">referenceObject</span><span class="o">.</span><span class="nf">applyingTransform</span><span class="p">(</span><span class="n">origin</span><span class="o">.</span><span class="n">simdTransform</span><span class="p">)</span>
+            <span class="k">self</span><span class="o">.</span><span class="n">scannedReferenceObject</span><span class="o">!.</span><span class="n">name</span> <span class="o">=</span> <span class="k">self</span><span class="o">.</span><span class="n">scannedObject</span><span class="o">.</span><span class="n">scanName</span>
+
+            <span class="k">if</span> <span class="k">let</span> <span class="nv">referenceObjectToMerge</span> <span class="o">=</span> <span class="kt">ViewController</span><span class="o">.</span><span class="n">instance</span><span class="p">?</span><span class="o">.</span><span class="n">referenceObjectToMerge</span> <span class="p">{</span>
+                <span class="kt">ViewController</span><span class="o">.</span><span class="n">instance</span><span class="p">?</span><span class="o">.</span><span class="n">referenceObjectToMerge</span> <span class="o">=</span> <span class="kc">nil</span>
+
+                <span class="c1">// Show activity indicator during the merge.</span>
+                <span class="kt">ViewController</span><span class="o">.</span><span class="n">instance</span><span class="p">?</span><span class="o">.</span><span class="nf">showAlert</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="s">""</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"Merging previous scan into this scan..."</span><span class="p">,</span> <span class="nv">buttonTitle</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
+
+                <span class="c1">// Try to merge the object which was just scanned with the existing one.</span>
+                <span class="k">self</span><span class="o">.</span><span class="n">scannedReferenceObject</span><span class="p">?</span><span class="o">.</span><span class="nf">mergeInBackground</span><span class="p">(</span><span class="nv">with</span><span class="p">:</span> <span class="n">referenceObjectToMerge</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">{</span> <span class="p">(</span><span class="n">mergedObject</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span> <span class="k">in</span>
+
+                    <span class="k">if</span> <span class="k">let</span> <span class="nv">mergedObject</span> <span class="o">=</span> <span class="n">mergedObject</span> <span class="p">{</span>
+                        <span class="n">mergedObject</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="k">self</span><span class="o">.</span><span class="n">scannedReferenceObject</span><span class="p">?</span><span class="o">.</span><span class="n">name</span>
+                        <span class="k">self</span><span class="o">.</span><span class="n">scannedReferenceObject</span> <span class="o">=</span> <span class="n">mergedObject</span>
+                        <span class="kt">ViewController</span><span class="o">.</span><span class="n">instance</span><span class="p">?</span><span class="o">.</span><span class="nf">showAlert</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="s">"Merge successful"</span><span class="p">,</span>
+                                                           <span class="nv">message</span><span class="p">:</span> <span class="s">"The previous scan has been merged into this scan."</span><span class="p">,</span> <span class="nv">buttonTitle</span><span class="p">:</span> <span class="s">"OK"</span><span class="p">)</span>
+                        <span class="nf">creationFinished</span><span class="p">(</span><span class="k">self</span><span class="o">.</span><span class="n">scannedReferenceObject</span><span class="p">)</span>
+
+                    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                        <span class="nf">print</span><span class="p">(</span><span class="s">"Error: Failed to merge scans. </span><span class="se">\(</span><span class="n">error</span><span class="p">?</span><span class="o">.</span><span class="n">localizedDescription</span> <span class="p">??</span> <span class="s">""</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+                        <span class="k">let</span> <span class="nv">message</span> <span class="o">=</span> <span class="s">"""
+                                Merging the previous scan into this scan failed. Please make sure that
+                                there is sufficient overlap between both scans and that the lighting
+                                environment hasn't changed drastically.
+                                Which scan do you want to use for testing?
+                                """</span>
+                        <span class="k">let</span> <span class="nv">thisScan</span> <span class="o">=</span> <span class="kt">UIAlertAction</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="s">"Use This Scan"</span><span class="p">,</span> <span class="nv">style</span><span class="p">:</span> <span class="o">.</span><span class="k">default</span><span class="p">)</span> <span class="p">{</span> <span class="n">_</span> <span class="k">in</span>
+                            <span class="nf">creationFinished</span><span class="p">(</span><span class="k">self</span><span class="o">.</span><span class="n">scannedReferenceObject</span><span class="p">)</span>
+                        <span class="p">}</span>
+                        <span class="k">let</span> <span class="nv">previousScan</span> <span class="o">=</span> <span class="kt">UIAlertAction</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="s">"Use Previous Scan"</span><span class="p">,</span> <span class="nv">style</span><span class="p">:</span> <span class="o">.</span><span class="k">default</span><span class="p">)</span> <span class="p">{</span> <span class="n">_</span> <span class="k">in</span>
+                            <span class="k">self</span><span class="o">.</span><span class="n">scannedReferenceObject</span> <span class="o">=</span> <span class="n">referenceObjectToMerge</span>
+                            <span class="nf">creationFinished</span><span class="p">(</span><span class="k">self</span><span class="o">.</span><span class="n">scannedReferenceObject</span><span class="p">)</span>
+                        <span class="p">}</span>
+                        <span class="kt">ViewController</span><span class="o">.</span><span class="n">instance</span><span class="p">?</span><span class="o">.</span><span class="nf">showAlert</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="s">"Merge failed"</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="n">message</span><span class="p">,</span> <span class="nv">actions</span><span class="p">:</span> <span class="p">[</span><span class="n">thisScan</span><span class="p">,</span> <span class="n">previousScan</span><span class="p">])</span>
+                    <span class="p">}</span>
+                <span class="p">})</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="nf">creationFinished</span><span class="p">(</span><span class="k">self</span><span class="o">.</span><span class="n">scannedReferenceObject</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nf">print</span><span class="p">(</span><span class="s">"Error: Failed to create reference object. </span><span class="se">\(</span><span class="n">error</span><span class="o">!.</span><span class="n">localizedDescription</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+            <span class="nf">creationFinished</span><span class="p">(</span><span class="kc">nil</span><span class="p">)</span>
+        <span class="p">}</span>
+<span class="p">})</span>
+</code></pre>
+
+<p><a href="x-source-tag://ExtractReferenceObject">View in Source</a></p>
+
+<p>When detecting a reference object, ARKit reports its position based on the origin the reference object defines. If you want to place virtual content that appears to sit on the same surface as the real-world object, make sure the reference object&rsquo;s origin is placed at the point where the real-world object sits. To adjust the origin after capturing an <a href="https://developer.apple.com/documentation/arkit/arreferenceobject"><code>ARReferenceObject</code></a>, use the <a href="https://developer.apple.com/documentation/arkit/arreferenceobject/2977514-applyingtransform"><code>applyingTransform(_:)</code></a> method.</p>
+
+<p>After you obtain an <a href="https://developer.apple.com/documentation/arkit/arreferenceobject"><code>ARReferenceObject</code></a>, you can either use it immediately for detection (see <q>Detect Reference Objects in an AR Experience</q> above) or save it as an <code>.arobject</code> file for use in later sessions or other ARKit-based apps. To save an object to a file, use the <a href="https://developer.apple.com/documentation/arkit/arreferenceobject/2968198-export"><code>export</code></a> method. In that method, you can provide a picture of the real-world object for Xcode to use as a preview image.</p>
 
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2018 <a class="link" href="" target="_blank" rel="external">Team Rogue</a>. All rights reserved. (Last updated: 2018-12-19)</p>
+          <p>&copy; 2019 <a class="link" href="" target="_blank" rel="external">Team Rogue</a>. All rights reserved. (Last updated: 2019-01-05)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
