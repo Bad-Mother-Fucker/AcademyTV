@@ -42,6 +42,7 @@
 		99308B7A21A6FAE500EA0F9C /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99308B7821A6FAE500EA0F9C /* MainInterface.storyboard */; };
 		99308B7E21A6FAE500EA0F9C /* ShareExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 99308B7421A6FAE500EA0F9C /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		994CDB8621A06FBF005909BF /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 994CDB8521A06FBF005909BF /* CloudKit.framework */; };
+		995801D521E0BF6800A6BD49 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 995801D421E0BF6800A6BD49 /* README.md */; };
 		996353E82195E2E500AE8AAE /* GlobalMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996353E72195E2E500AE8AAE /* GlobalMessageView.swift */; };
 		9964188A2180C6DA005267E4 /* MessagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996418892180C6DA005267E4 /* MessagesTableViewCell.swift */; };
 		99AC09542174E6B100CFCAD0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99AC09532174E6B100CFCAD0 /* AppDelegate.swift */; };
@@ -120,6 +121,7 @@
 		99308B7921A6FAE500EA0F9C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		99308B7B21A6FAE500EA0F9C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		994CDB8521A06FBF005909BF /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		995801D421E0BF6800A6BD49 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		996353E72195E2E500AE8AAE /* GlobalMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalMessageView.swift; sourceTree = "<group>"; };
 		996418892180C6DA005267E4 /* MessagesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViewCell.swift; sourceTree = "<group>"; };
 		997395EC21AC335200F650A6 /* ShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareExtension.entitlements; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 		99AC09472174E6B100CFCAD0 = {
 			isa = PBXGroup;
 			children = (
+				995801D421E0BF6800A6BD49 /* README.md */,
 				1915AD2121C15FB200CF0E2F /* VideoManager.swift */,
 				19FA366621A8203D00E3B1C0 /* CKController.swift */,
 				19FA365B21A8202300E3B1C0 /* ServiceMessage.swift */,
@@ -528,6 +531,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				995801D521E0BF6800A6BD49 /* README.md in Resources */,
 				99AC095B2174E6B300CFCAD0 /* Assets.xcassets in Resources */,
 				99AC09592174E6B100CFCAD0 /* Main.storyboard in Resources */,
 			);
