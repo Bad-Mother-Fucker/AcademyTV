@@ -27,7 +27,6 @@ class EditMessageViewController: UITableViewController, UITextFieldDelegate {
     }
     
     var datePickerIsVisible = false
-    let editButton = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(sendMessage))
     
     // MARK: - Outlet
     @IBOutlet var textFields: [UITextField]!{
@@ -52,7 +51,6 @@ class EditMessageViewController: UITableViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         self.title = "New Message"
-        self.navigationItem.rightBarButtonItem = editButton
 
         self.tableView.tableHeaderView = UIView()
     }
@@ -87,10 +85,10 @@ class EditMessageViewController: UITableViewController, UITextFieldDelegate {
         let alert: UIAlertController = UIAlertController(title: "Success",
                                                          message: "Message saved correctly",
                                                          preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Confirm", style: .cancel, handler: nil))
-        
+        alert.addAction(UIAlertAction(title: "Confirm", style: .cancel, handler: { (alert) in
+            self.navigationController?.popViewController(animated: true)
+        }))
         self.present(alert, animated: true, completion: nil)
-        
     }
     
     private func toggleShowDateDatepicker () {

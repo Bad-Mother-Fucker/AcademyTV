@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PosterViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class PosterViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var tvGroups: [TVGroup]!
     var keynotes = [UIImage]()
@@ -73,8 +73,14 @@ class PosterViewController: UIViewController, UICollectionViewDelegate, UICollec
     
     @IBAction func openImagePicker(_ sender: UIBarButtonItem) {
         
-        let imagePicker = self.storyboard?.instantiateViewController(withIdentifier: "ImagePickerViewController")
-        self.present(imagePicker!, animated: true, completion: nil)
+        let libraryPicker = UIImagePickerController()
+        libraryPicker.delegate = self
+        libraryPicker.sourceType = .photoLibrary
+        libraryPicker.allowsEditing = false
+        self.present(libraryPicker, animated: true, completion: nil)
+
+        //let imagePicker = self.storyboard?.instantiateViewController(withIdentifier: "ImagePickerViewController")
+        //self.present(imagePicker!, animated: true, completion: nil)
         
     }
     
@@ -89,5 +95,25 @@ class PosterViewController: UIViewController, UICollectionViewDelegate, UICollec
         cell.checkerView.isHidden = true
         
         return cell
+    }
+    
+    //MARK: - Image picker Delegates
+    
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let chosenImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+        keynotes.append(chosenImage)
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+            if self.keynotes.count != 0{
+                self.saveBarButtonItem.isEnabled = true
+            }
+        }
+        dismiss(animated:true, completion: nil)
+    }
+    
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
     }
 }

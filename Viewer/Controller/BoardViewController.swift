@@ -11,19 +11,74 @@ import CloudKit
 import AVFoundation
 import PureLayout
 
+/**
+ ## Board View Controller
+
+ The main View Controller of all the Tvs. Here we can manage all the messages and the keynote promps.
+ 
+ - Version: 1.0
+ 
+ - Author: @GianlucaOrpello, @Micheledes
+ */
 class BoardViewController: TVViewController {
     
-
+    /**
+     ## Keynote Timer
+     
+     - Version: 1.0
+     
+     - Author: @Micheledes
+     */
+    var keynoteTimer: Timer!
     
-    @IBOutlet weak var keynoteBlurVIew: UIVisualEffectView! {
+    /**
+     ## Keynote Image List
+     
+     List of image that contains all the keynote page.
+     
+     - Version: 1.0
+     
+     - Author: @Micheledes
+     */
+    var keynote: [UIImage] = []
+    
+    /**
+     ## Page Counter
+     
+     - Version: 1.0
+     
+     - Author: @Micheledes
+     */
+    var page = 0
+    
+    // MARK: - Outlets
+    
+    /**
+     ## Visual Effect View Keynote
+     
+     View used for manage the blur effect under the keynote promp.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
+    @IBOutlet weak var keynoteBlurView: UIVisualEffectView! {
         didSet {
-            keynoteBlurVIew.isHidden = true
-            keynoteBlurVIew.layer.cornerRadius = 15
-            keynoteBlurVIew.clipsToBounds = true
+            keynoteBlurView.isHidden = true
+            keynoteBlurView.layer.cornerRadius = 15
+            keynoteBlurView.clipsToBounds = true
         }
     }
     
-    
+    /**
+     ## Visual Effect View Message
+     
+     View used for manage the blur effect under the Global Message promp.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     @IBOutlet weak var globalMessageBlurEffect: UIVisualEffectView!{
         didSet{
             globalMessageBlurEffect.layer.cornerRadius = 15
@@ -36,9 +91,37 @@ class BoardViewController: TVViewController {
         }
     }
     
+    /**
+     ## Visual Effect View Date
+     
+     View used for manage the blur effect under the Date promp.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     @IBOutlet weak var dateBlurEffect: UIVisualEffectView!
+    
+    /**
+     ## Visual Effect View TvName
+     
+     View used for manage the blur effect under the Tv Name promp.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     @IBOutlet weak var tvNameBlurEffect: UIVisualEffectView!
     
+    /**
+     ## Keynote Image View Container
+     
+     Image view used for display the keynote file converted as an image.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     @IBOutlet weak var keynoteView: UIImageView! {
         didSet{
             keynoteView.isHidden = true
@@ -47,8 +130,18 @@ class BoardViewController: TVViewController {
         }
     }
     
-    
     // MARK: Contextual Label
+    
+    /**
+     ## Tv Name Label
+     
+     Label used for display the name of the current tv.
+     This data are taken from the setting of the current device, be sure that have the correct name.
+   
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     @IBOutlet weak var tvNameLabel: UILabel!{
         didSet{
             tvNameLabel.text = UIDevice.current.name
@@ -63,8 +156,40 @@ class BoardViewController: TVViewController {
         }
     }
     
-    @IBOutlet weak var globalMessageView: GlobalMessageView!
+    /**
+     ## Global Message View Promp.
+     
+     View used for managing the Global Message Promp.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
+    @IBOutlet weak var globalMessageView: GlobalMessageView! {
+        didSet {
+            do {
+                globalMessageView.globalMessages = try CKController.getAllGlobalMessages {}
+            }catch {
+                let alert = UIAlertController(title: "Unable to get messages", message: "It seems that there's no internet connection.Check it and try again", preferredStyle: .alert)
+                let ok = UIAlertAction(title: "Ok", style: .default) { (action) in
+                    // TODO: Insert code to try again
+                    self.dismiss(animated: true, completion: nil)
+                }
+                alert.addAction(ok)
+                present(alert, animated: true, completion: nil)
+            }
+        }
+    }
     
+    /**
+     ## Date Label
+     
+     Label used for show the current date.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     @IBOutlet weak var dateLabel: UILabel!{
         didSet{
             setDate()
@@ -82,7 +207,15 @@ class BoardViewController: TVViewController {
         }
     }
     
-    
+    /**
+     ## Service Message Label
+     
+     Label used for managing the Thicker Message Promp.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     @IBOutlet weak var serviceMessageLabel: UILabel! {
         didSet {
             serviceMessageLabel.isHidden = true
@@ -93,6 +226,15 @@ class BoardViewController: TVViewController {
         }
     }
     
+    /**
+     ## Visual Effect View Service Message
+     
+     View used for manage the blur effect under the Thicker View promp.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     @IBOutlet weak var serviceMessageBlurView: UIVisualEffectView! {
         didSet {
             serviceMessageBlurView.isHidden = true
@@ -120,6 +262,19 @@ class BoardViewController: TVViewController {
     }
     
     // MARK: View Controller Life cycle
+    
+    /**
+     ## View Did Load
+     
+     * Load the background Video
+     * Add all the Observer needed for check the events and notification.
+     
+     - Todo: Check if we need to remove the observer.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
         videoManager =  VideoManager(onLayer: self.view.layer, videos: videosURL)
@@ -132,9 +287,16 @@ class BoardViewController: TVViewController {
             }else {
                 self?.currentTV.viewDelegate?.hideTicker()
             }
-            
     
         }
+        
+        keynoteTimer = Timer.init(timeInterval: 10, repeats: true, block: { (timer) in
+            if self.keynote.count > 1 {
+                 self.keynoteView.image = self.keynote[self.nextPage(of: self.keynote)]
+            }
+        })
+        
+        RunLoop.current.add(keynoteTimer, forMode: .common)
         
         
         NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: CKNotificationName.tvSet.rawValue), object: nil, queue: .main) { _ in
@@ -159,24 +321,74 @@ class BoardViewController: TVViewController {
             self?.videoManager.nextVideo() 
             debugPrint("Playing next video")
         }
+        
+        NotificationCenter.default.addObserver(forName: Notification.Name(CKNotificationName.MessageNotification.create.rawValue), object: nil, queue: .main) { (notification) in
+            let userinfo = notification.userInfo as! [String:GlobalMessage]
+            let msg = userinfo["newMsg"]!
+            self.globalMessageView.globalMessages.append(msg)
+        }
+        
+        NotificationCenter.default.addObserver(forName: Notification.Name(CKNotificationName.MessageNotification.delete.rawValue), object: nil, queue: .main) { (notification) in
+            let userinfo = notification.userInfo as! [String:CKRecord.ID]
+            let recordID = userinfo["recordID"]!
+            self.globalMessageView.globalMessages = self.globalMessageView.globalMessages.filter({ (msg) -> Bool in
+                return msg.record.recordID != recordID
+            })
+        }
+        
+        
+        NotificationCenter.default.addObserver(forName: Notification.Name(CKNotificationName.MessageNotification.update.rawValue), object: nil, queue: .main) { (notification) in
+            let userinfo = notification.userInfo as! [String:GlobalMessage]
+            let newMsg = userinfo["modifiedMsg"]!
+            self.globalMessageView.globalMessages = self.globalMessageView.globalMessages.map({ (msg) -> GlobalMessage in
+                if msg.record.recordID == newMsg.record.recordID {
+                    return newMsg
+                }
+                return msg
+            })
+        }
+        
     }
     
+    /**
+     ## View Did Appear
+     
+     On View appear just play the video.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-                videoManager.playVideo()
+        videoManager.playVideo()
     }
     
+    /**
+     ## View Will Appear
+     
+     On View appear just play the video.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-                videoManager.playVideo()
+        videoManager.playVideo()
     }
     
     // MARK: Private Implementation
     
-    
-
-
-    
+    /**
+     ## Set the current date
+     
+     Get the current date and set the label.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     private func setDate(){
         let date = Date()
         let dateFormatter = DateFormatter()
@@ -205,6 +417,7 @@ class BoardViewController: TVViewController {
         }
         
     }
+
     private func setKeynoteFrame() {
         
            UIView.animate(withDuration: 2) {
@@ -232,63 +445,54 @@ class BoardViewController: TVViewController {
             self.globalMessageView.setLayout(type: .keynote)
             
         }
-    }
-    
+    }    
 }
 
-
-
-
 extension BoardViewController: ATVViewDelegate {
+    
     func show(ticker text: String) {
-        serviceMessageLabel.fadeIn()
         serviceMessageBlurView.fadeIn()
+        serviceMessageLabel.isHidden = false
         self.serviceMessageLabel.text = text
     }
     
     func hideTicker() {
         serviceMessageBlurView.fadeOut()
-        serviceMessageLabel.fadeOut()
         self.serviceMessageLabel.text = ""
     }
     
     func show(keynote: [UIImage]) {
 //      Perform UI Keynote  Showing
         setKeynoteFrame()
-        keynoteBlurVIew.fadeIn()
-        keynoteView.fadeIn()
-        
-       
-        var page = 0
-        
-        Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { (timer) in
-            self.keynoteView.image = keynote[nextPage()]
-        }
-        
-        func nextPage() -> Int {
-            let index: Int
-            if page >= 0 && page < keynote.count {
-                index = page
-                page = page + 1
-                return index
-            }else {
-                page = 0
-                return nextPage()
-            }
-        }
-
+        keynoteBlurView.fadeIn()
+        keynoteView.isHidden = false
+        keynoteView.alpha = 1
+        self.keynote = keynote
+        keynoteView.image = keynote.first!
     }
     
     func hideKeynote() {
 //        Perform UI Keynote hiding
-        keynoteView.fadeOut()
-        keynoteBlurVIew.fadeOut()
+        
+        keynoteBlurView.fadeOut()
+        keynoteView.isHidden = true
         setNormalFrame()
+        self.keynote = []
         
     }
     
     
-    
+    private func nextPage(of array: [UIImage]) -> Int {
+        guard let image = keynoteView.image else {return 0}
+        guard var currentIndex = keynote.index(of: image) else {return 0}
+        if currentIndex >= 0 && currentIndex < keynote.count - 1  {
+            return currentIndex + 1
+        }else {
+            currentIndex = 0
+            return currentIndex
+        }
+    }
+
     
 }
 

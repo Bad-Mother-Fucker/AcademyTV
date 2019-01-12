@@ -18,7 +18,7 @@ import UIKit
  
  - Version: 1.0
  
- - Author: @GianlucaOrpello
+ - Author: @GianlucaOrpello, @Micheledes
  */
 extension UITableViewCell{
     override open var canBecomeFocused: Bool{
@@ -43,9 +43,31 @@ extension UITableViewCell{
 class GlassOfficeViewController: TVViewController, UITableViewDelegate {
     
     // MARK: - Private API
+    
+    /**
+     ## Date formatter
+   
+     Specific date formatter used for display the date in the chosed way.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     fileprivate let formatter = "yyyy-MM-dd"
     
     // MARK: - Public API
+    
+    /**
+     ## Booquable Order
+     
+    The list of the booquable order, filtred by the date of the end.
+     
+     - Todo: Check when the didSet was called, the list must me cleaned.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     var orders = [BooquableOrder](){
         didSet{
             if booquableTableView != nil{
@@ -62,7 +84,26 @@ class GlassOfficeViewController: TVViewController, UITableViewDelegate {
     
     // MARK: - Outlets
     
+    /**
+     ## Keynote ImageView
+     
+     Image View used for display the keynote
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     @IBOutlet weak var keynoteImageView: UIImageView!
+    
+    /**
+     ## Order Table View
+     
+     Table View used for display the booquable order list.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     @IBOutlet weak var booquableTableView: UITableView!{
         didSet{
             booquableTableView.delegate = self
@@ -70,6 +111,15 @@ class GlassOfficeViewController: TVViewController, UITableViewDelegate {
         }
     }
     
+    /**
+     ## Date Label
+     
+     Label used for display the currwnt date.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     @IBOutlet weak var dateLabel: UILabel!{
         didSet{
             setDate()
@@ -79,6 +129,15 @@ class GlassOfficeViewController: TVViewController, UITableViewDelegate {
         }
     }
     
+    /**
+     ## visual Effect View
+     
+     View used for create the blur effect.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     @IBOutlet weak var blurEffect: UIVisualEffectView!{
         didSet{
             blurEffect.layer.cornerRadius = 20

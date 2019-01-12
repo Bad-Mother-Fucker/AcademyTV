@@ -320,15 +320,23 @@ enum CKNotificationName: String {
     case null = ""
     case notification = "notification"
     case tvSet = "currentTvSet"
-    case serviceMessageSet = "serviceMessageSet "
+    case serviceMessageSet = "serviceMessageSet"
+    
+    
+    enum MessageNotification: String {
+        case create = "msgCreated"
+        case delete = "msgDeleted"
+        case update = "msgUpdated"
+    }
 }
 
 enum CKKeys {
     
-    static let database = CKContainer(identifier: "iCloud.com.Rogue.Viewer").publicCloudDatabase
+    static let database = CKContainer(identifier: "iCloud.com.TeamRogue.Viewer").publicCloudDatabase
     static let messageSubscriptionKey = "CKMessageSubscription"
     static let tvSubscriptionKey = "CKTVSubscription"
     static let serviceSubscriptionKey = "CKServiceMessageSubscription"
+    
     
 }
 

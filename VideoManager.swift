@@ -40,11 +40,11 @@ class VideoManager {
         player.play()
     }
     
-//    func startFromBeginnig() {
-//        player.replaceCurrentItem(with: videos.first!)
-//        player.seek(to: CMTime.zero)
-//        player.play()
-//    }
+    func startFromBeginnig() {
+        player.replaceCurrentItem(with: videos.first!)
+        player.seek(to: CMTime.zero)
+        player.play()
+    }
     
     func nextVideo() {
         player.replaceCurrentItem(with: videos[nextVideoIndex()])
@@ -62,11 +62,11 @@ class VideoManager {
             return currentIndex
         }
     }
+
     
 }
 
 class VideoDownloader {
-    
     static private func downloadVideosFrom(URLs:[URL]) {
         
         DispatchQueue.global(qos: .background).async {

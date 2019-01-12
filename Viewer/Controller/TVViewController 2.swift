@@ -38,9 +38,7 @@ class TVViewController: UIViewController {
         }
         
 //      comment to use videos directly from Dropbox
-
 //        videos = VideoDownloader.getVideos(from: videos as! [URL])
-
         
         
         let items = videos.map { (url) -> AVPlayerItem in
@@ -75,6 +73,10 @@ class TVViewController: UIViewController {
             debugPrint("service message uploaded")
         }
         
+      
+        
+       
+       
         
     }
     
@@ -113,25 +115,29 @@ class TVViewController: UIViewController {
                 }
                 let msg = GlobalMessage(record: record!)
                 DispatchQueue.main.async {
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: CKNotificationName.MessageNotification.create.rawValue), object: self, userInfo: ["newMsg":msg])
+                    self.globalMessages.append(msg)
                 }
                 
             }
         case .recordDeleted:
-            
-            NotificationCenter.default.post(name: Notification.Name(rawValue: CKNotificationName.MessageNotification.delete.rawValue), object: self, userInfo: ["recordID":recordID])
+            self.globalMessages = self.globalMessages.filter { (msg) -> Bool in
+                return msg.record.recordID != recordID
+            }
             
         case .recordUpdated:
             CKKeys.database.fetch(withRecordID: recordID) { (record, error) in
                 guard let _ = record, error == nil else {return}
-                let msg = GlobalMessage(record: record!)
+                let newMsg = GlobalMessage(record: record!)
                 DispatchQueue.main.async {
-                    
-                    NotificationCenter.default.post(name: Notification.Name(rawValue: CKNotificationName.MessageNotification.update.rawValue), object: self, userInfo: ["modifiedMsg":msg])
+                    self.globalMessages = self.globalMessages.map { (msg) -> GlobalMessage in
+                        if msg.record.recordID == recordID {
+                            return newMsg
+                        }
+                        return msg
+                    }
                 }
             }
         }
-        
     }
     
     private func handleTVNotification(_ ckqn: CKQueryNotification) {
