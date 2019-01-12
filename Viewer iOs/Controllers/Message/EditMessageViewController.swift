@@ -67,7 +67,7 @@ class EditMessageViewController: UITableViewController, UITextFieldDelegate {
     // MARK: - Private implementation
     @objc func sendMessage() {
         
-        record = CKRecord(recordType: "GlobalMessages")
+        record = CKRecord(recordType: GlobalMessage.recordType)
         
         record["title"] = textFields[0].text! as CKRecordValue
         record["subtitle"] = textFields[1].text! as CKRecordValue

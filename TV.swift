@@ -128,6 +128,7 @@ class TV: CloudStored {
             group = TVGroup(rawValue: String(name.dropLast(3))) ?? .all
         }
         record.setValue(group.rawValue, forKey: TV.keys.tvGroup)
+        debugPrint("TV assigned to group \(group.rawValue)")
         record.setValue(UIDevice.current.identifierForVendor!.uuidString, forKey: TV.keys.uuid)
     }
     
