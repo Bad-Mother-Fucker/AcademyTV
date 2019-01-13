@@ -42,10 +42,7 @@ class GlobalMessageModel {
             }
         }
     }
-    
-    
 }
-
 
 class GlobalMessage: CloudStored {
     
@@ -189,9 +186,5 @@ class GlobalMessage: CloudStored {
             op.savePolicy = .changedKeys
             CKKeys.database.add(op)
         }
-    }
-    
-    
-    
-    
+    }   
 }

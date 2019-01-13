@@ -89,12 +89,7 @@ class CKController {
                 return
             }
         }
-        
-        
     }
-    
-    
-
     
 //    Fetch service message
     
@@ -110,7 +105,7 @@ class CKController {
 //        if sem.wait(timeout: .distantFuture) == .timedOut {
 //            throw CKQueryException.connectionTimedOut("could not get service message, request timed out")
 //        }
-//    }
+    //    }
     
     static func removeMessage(fromTVNamed name:String) {
         TVModel.getTV(withName: name) { (tv, error) in
@@ -122,17 +117,17 @@ class CKController {
         }
     }
     
-    static func postServiceMessage(_ text:String,onTvNamed name: String) {
-            TVModel.getTV(withName: name) { (tv, error) in
-                guard let _ = tv, error == nil else {print(error!.localizedDescription);return}
-                tv!.tickerMsg = text
-                let op = CKModifyRecordsOperation(recordsToSave: [tv!.record], recordIDsToDelete: nil)
-                op.savePolicy = .changedKeys
-                CKKeys.database.add(op)
-            }
+    static func postServiceMessage(_ text:String, onTvNamed name: String) {
+        TVModel.getTV(withName: name) { (tv, error) in
+            guard let _ = tv, error == nil else {print(error!.localizedDescription);return}
+            tv!.tickerMsg = text
+            let op = CKModifyRecordsOperation(recordsToSave: [tv!.record], recordIDsToDelete: nil)
+            op.savePolicy = .changedKeys
+            CKKeys.database.add(op)
+        }
     }
     
-    static func postServiceMessage(_ text:String,onTvGroup group: TVGroup) {
+    static func postServiceMessage(_ text:String, onTvGroup group: TVGroup) {
         TVModel.getTvs(ofGroup: group) { (tvs, error) in
             guard let _ = tvs, error == nil else {print(error!.localizedDescription);return}
             tvs!.forEach({ (tv) in
@@ -146,9 +141,7 @@ class CKController {
             let op = CKModifyRecordsOperation(recordsToSave: records, recordIDsToDelete: nil)
             op.savePolicy = .changedKeys
             CKKeys.database.add(op)
-         
-           }
-        
+        }
     }
     
     static func removeServiceMessage(from group: TVGroup) {
@@ -165,12 +158,8 @@ class CKController {
             CKKeys.database.add(op)
             
         }
-        
     }
 
-    
-    
-    
     static func isThereAMessage(onTV tv:TV)->Bool {
         return tv.tickerMsg != ""
     }
@@ -178,8 +167,6 @@ class CKController {
     static func remove(globalMessage: GlobalMessage) {
         GlobalMessageModel.delete(record: globalMessage.record)
     }
-    
-    
     
 //    Fetches all global messages from the CK database
     
