@@ -61,6 +61,7 @@
 		99DE995F21ADF7DD00D01FF5 /* ImagePickerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DE995E21ADF7DD00D01FF5 /* ImagePickerCollectionViewCell.swift */; };
 		99E378FC21EA274D006380F7 /* LiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E378FB21EA274D006380F7 /* LiveViewController.swift */; };
 		99E378FE21EA2ED0006380F7 /* NoLivePrompView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E378FD21EA2ED0006380F7 /* NoLivePrompView.swift */; };
+		99E3790221EBDF27006380F7 /* UsageStatistic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E3790121EBDF27006380F7 /* UsageStatistic.swift */; };
 		99F596C321A30F9000E999D7 /* GroupsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F596C221A30F9000E999D7 /* GroupsCollectionViewCell.swift */; };
 		99F6B24221A2F82000B3FA65 /* EditMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F6B24021A2F82000B3FA65 /* EditMessageViewController.swift */; };
 		99F6B24321A2F82000B3FA65 /* MessagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F6B24121A2F82000B3FA65 /* MessagesTableViewController.swift */; };
@@ -159,6 +160,7 @@
 		99DE995E21ADF7DD00D01FF5 /* ImagePickerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerCollectionViewCell.swift; sourceTree = "<group>"; };
 		99E378FB21EA274D006380F7 /* LiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveViewController.swift; sourceTree = "<group>"; };
 		99E378FD21EA2ED0006380F7 /* NoLivePrompView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoLivePrompView.swift; sourceTree = "<group>"; };
+		99E3790121EBDF27006380F7 /* UsageStatistic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageStatistic.swift; sourceTree = "<group>"; };
 		99F596C221A30F9000E999D7 /* GroupsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsCollectionViewCell.swift; sourceTree = "<group>"; };
 		99F6B24021A2F82000B3FA65 /* EditMessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditMessageViewController.swift; sourceTree = "<group>"; };
 		99F6B24121A2F82000B3FA65 /* MessagesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesTableViewController.swift; sourceTree = "<group>"; };
@@ -268,6 +270,7 @@
 			isa = PBXGroup;
 			children = (
 				995801D421E0BF6800A6BD49 /* README.md */,
+				99E3790121EBDF27006380F7 /* UsageStatistic.swift */,
 				1915AD2121C15FB200CF0E2F /* VideoManager.swift */,
 				19FA366621A8203D00E3B1C0 /* CKController.swift */,
 				19FA365B21A8202300E3B1C0 /* ServiceMessage.swift */,
@@ -708,6 +711,7 @@
 				992C547021AD5C3300E05494 /* BooquableManager.swift in Sources */,
 				99F6B24221A2F82000B3FA65 /* EditMessageViewController.swift in Sources */,
 				99F6B24821A2FF5D00B3FA65 /* TvListViewController.swift in Sources */,
+				99E3790221EBDF27006380F7 /* UsageStatistic.swift in Sources */,
 				19FA366421A8202400E3B1C0 /* TV.swift in Sources */,
 				99E378FE21EA2ED0006380F7 /* NoLivePrompView.swift in Sources */,
 				99DE995621AD7FBF00D01FF5 /* PosterViewController.swift in Sources */,
@@ -791,7 +795,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.TeamRogue.Viewer-iOS.ShareExtension";
+				PRODUCT_BUNDLE_IDENTIFIER = com.TeamRogue.Viewer.iOS.ShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -816,7 +820,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.TeamRogue.Viewer-iOS.ShareExtension";
+				PRODUCT_BUNDLE_IDENTIFIER = com.TeamRogue.Viewer.iOS.ShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1006,7 +1010,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.TeamRogue.Viewer-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = com.TeamRogue.Viewer.iOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_ENABLE_BATCH_MODE = NO;
@@ -1031,7 +1035,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.TeamRogue.Viewer-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = com.TeamRogue.Viewer.iOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_ENABLE_BATCH_MODE = NO;

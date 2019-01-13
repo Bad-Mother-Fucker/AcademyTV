@@ -82,6 +82,7 @@ class NoLivePrompView: UIView {
      - Author: @GianlucaOrpello
      */
     required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
         self.addSubview(titleLabel)
         self.addSubview(subTitleLabel)
         self.addSubview(contactbutton)

@@ -79,7 +79,7 @@ class TickerViewController: UITableViewController, UITextFieldDelegate, UIPicker
     @IBAction func saveThickerMessage(_ sender: UIBarButtonItem) {
         if let message = textField.text{
             if message != ""{
-                CKController.postServiceMessage(message, onTvGroup: selectedGroup)
+                CKController.postTickerMessage(message, onTvGroup: selectedGroup)
                 let alert = UIAlertController(title: "Success", message: "Your message will be post soon.", preferredStyle: .alert)
                 let action = UIAlertAction(title: "OK", style: .default, handler: nil)
                 alert.addAction(action)
