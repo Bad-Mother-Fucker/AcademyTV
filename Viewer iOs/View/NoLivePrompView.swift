@@ -48,6 +48,19 @@ class NoLivePrompView: UIView {
     }
     
     /**
+     ## Action for report a problem.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
+    var contactbutton = UIButton(frame: CGRect(x: 0, y: 819, width: 414, height: 60)){
+        didSet{
+            contactbutton.setTitle("Something's wrong?", for: .normal)
+        }
+    }
+    
+    /**
      ## UIView - Init with frame
      
      - Version: 1.0
@@ -58,6 +71,7 @@ class NoLivePrompView: UIView {
         super.init(frame: frame)
         self.addSubview(titleLabel)
         self.addSubview(subTitleLabel)
+        self.addSubview(contactbutton)
     }
     
     /**
@@ -70,6 +84,6 @@ class NoLivePrompView: UIView {
     required init?(coder aDecoder: NSCoder) {
         self.addSubview(titleLabel)
         self.addSubview(subTitleLabel)
-        
+        self.addSubview(contactbutton)
     }
 }

@@ -152,7 +152,7 @@ class CKController {
         }
     }
 
-    static func removeTickerMessage(fromTVNamed name:String) {
+    static func removeTickerMessage(fromTVNamed name: String) {
         TVModel.getTV(withName: name) { (tv, error) in
             guard let _ = tv, error == nil else {print(error!.localizedDescription);return}
             tv!.tickerMsg = ""
@@ -169,9 +169,9 @@ class CKController {
     }
     
 
-    static func getAiringTickers(in group: TVGroup) -> [(String,String)] {
+    static func getAiringTickers(in group: TVGroup) -> [(message: String, tvName: String)] {
         let sem = DispatchSemaphore(value: 0)
-        var tickers: [(message: String,tvName: String)] = []
+        var tickers: [(message: String, tvName: String)] = []
         TVModel.getTvs(ofGroup: group) {(tvs, error) in
             guard let _ = tvs, error == nil else {print(error!.localizedDescription);return}
             

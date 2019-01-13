@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MessageUI
 
 /**
  ## List of categories section of the table view.
@@ -40,7 +41,27 @@ class LiveViewController: UIViewController {
      */
     var numberOfObject: Int = 0
     
+    /**
+     ## All the global message airing.
+    
+     - Todo: Try to pass this information inside all the application.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     var globalMessages: [GlobalMessage]? = nil
+    
+    /**
+     ## All the thicker message airing.
+     
+     - Todo: Try to pass this information inside all the application.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
+    var thikerMessage: [(message: String, tvName: String)]? = nil
     
     /**
      ## UIVIewController - View did Load Methods
@@ -52,10 +73,12 @@ class LiveViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        thikerMessage = CKController.getAiringTickers(in: .all)
+        
         globalMessages = try? CKController.getAllGlobalMessages(completionHandler: {
             self.viewDidAppear(true)
         })
-    
+        
     }
     
     /**
@@ -72,6 +95,7 @@ class LiveViewController: UIViewController {
         
         if numberOfObject == 0{
             let noLiveView = NoLivePrompView(frame: CGRect(x: 20, y: 419, width: 375, height: 58))
+            noLiveView.contactbutton.addTarget(self, action: #selector(sendEmail), for: .normal)
             self.view.addSubview(noLiveView)
         }else{
             for views in self.view.subviews{
@@ -81,6 +105,29 @@ class LiveViewController: UIViewController {
             tableView.delegate = self
             tableView.dataSource = self
             self.view.addSubview(tableView)
+        }
+    }
+    
+    /**
+     ## Send an email for report a problem
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
+    @objc func sendEmail(){
+        if MFMailComposeViewController.canSendMail() {
+            let mail = MFMailComposeViewController()
+            mail.mailComposeDelegate = self
+            mail.setToRecipients(["g.orpello@gmail.com"])
+            mail.setMessageBody("<p>There is an error inside Viewer app.</p>", isHTML: true)
+            
+            present(mail, animated: true)
+        } else {
+            let alert = UIAlertController(title: "Ops...", message: "There is an error with the network, please contact a manager.", preferredStyle: .alert)
+            let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
+            alert.addAction(action)
+            self.present(alert, animated: true, completion: nil)
         }
     }
 }
