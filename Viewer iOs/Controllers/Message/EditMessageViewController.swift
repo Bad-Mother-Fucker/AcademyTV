@@ -50,7 +50,13 @@ class EditMessageViewController: UITableViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "New Message"
+        if let message = self.message {
+            self.title = "Edit Message"
+        }else {
+            self.title = "New Message"
+        }
+        
+        
 
         self.tableView.tableHeaderView = UIView()
     }
@@ -63,8 +69,13 @@ class EditMessageViewController: UITableViewController, UITextFieldDelegate {
     }
     
     // MARK: - Private implementation
-    @IBAction func sendMessage(_ sender: UIBarButtonItem) {
-        record = CKRecord(recordType: "GlobalMessages")
+    @objc func sendMessage() {
+        if let message = self.message {
+            record = message.record
+        }else {
+            record = CKRecord(recordType: GlobalMessage.recordType)
+        }
+        
         
         record["title"] = textFields[0].text! as CKRecordValue
         record["subtitle"] = textFields[1].text! as CKRecordValue
@@ -73,12 +84,21 @@ class EditMessageViewController: UITableViewController, UITextFieldDelegate {
         record["date"] = dateLabel.text! as CKRecordValue
         record["description"] = descriptionTextView.text! as CKRecordValue
         
-        CKController.postMessage(title: textFields[0].text!,
-                                 subtitle: textFields[1].text!,
-                                 location: textFields[3].text!,
-                                 description: descriptionTextView.text!,
-                                 URL: URL(string: textFields[2].text!),
-                                 timeToLive: 5)
+        if let message = self.message {
+            let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
+            op.savePolicy = .changedKeys
+            CKKeys.database.add(op)
+        }else {
+            CKController.postMessage(title: textFields[0].text!,
+                                     subtitle: textFields[1].text!,
+                                     location: textFields[3].text!,
+                                     description: descriptionTextView.text!,
+                                     URL: URL(string: textFields[2].text!),
+                                     timeToLive: 5)
+        }
+        
+        
+        
         
         
         let alert: UIAlertController = UIAlertController(title: "Success",

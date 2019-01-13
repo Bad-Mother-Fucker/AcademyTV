@@ -107,27 +107,19 @@ class CKController {
 //        }
     //    }
     
-    static func removeMessage(fromTVNamed name:String) {
-        TVModel.getTV(withName: name) { (tv, error) in
-            guard let _ = tv, error == nil else {print(error!.localizedDescription);return}
-            tv!.tickerMsg = ""
-            let op = CKModifyRecordsOperation(recordsToSave: [tv!.record], recordIDsToDelete: nil)
-            op.savePolicy = .changedKeys
-            CKKeys.database.add(op)
-        }
+   
+    
+    static func postTickerMessage(_ text:String,onTvNamed name: String) {
+            TVModel.getTV(withName: name) { (tv, error) in
+                guard let _ = tv, error == nil else {print(error!.localizedDescription);return}
+                tv!.tickerMsg = text
+                let op = CKModifyRecordsOperation(recordsToSave: [tv!.record], recordIDsToDelete: nil)
+                op.savePolicy = .changedKeys
+                CKKeys.database.add(op)
+            }
     }
     
-    static func postServiceMessage(_ text:String, onTvNamed name: String) {
-        TVModel.getTV(withName: name) { (tv, error) in
-            guard let _ = tv, error == nil else {print(error!.localizedDescription);return}
-            tv!.tickerMsg = text
-            let op = CKModifyRecordsOperation(recordsToSave: [tv!.record], recordIDsToDelete: nil)
-            op.savePolicy = .changedKeys
-            CKKeys.database.add(op)
-        }
-    }
-    
-    static func postServiceMessage(_ text:String, onTvGroup group: TVGroup) {
+    static func postTickerMessage(_ text:String,onTvGroup group: TVGroup) {
         TVModel.getTvs(ofGroup: group) { (tvs, error) in
             guard let _ = tvs, error == nil else {print(error!.localizedDescription);return}
             tvs!.forEach({ (tv) in
@@ -144,7 +136,7 @@ class CKController {
         }
     }
     
-    static func removeServiceMessage(from group: TVGroup) {
+    static func removeTickerMessage(from group: TVGroup) {
         TVModel.getTvs(ofGroup: group) { (tvs, error) in
             guard let _ = tvs, error == nil else {print(error!.localizedDescription);return}
             
@@ -160,13 +152,50 @@ class CKController {
         }
     }
 
+    static func removeTickerMessage(fromTVNamed name:String) {
+        TVModel.getTV(withName: name) { (tv, error) in
+            guard let _ = tv, error == nil else {print(error!.localizedDescription);return}
+            tv!.tickerMsg = ""
+            let op = CKModifyRecordsOperation(recordsToSave: [tv!.record], recordIDsToDelete: nil)
+            op.savePolicy = .changedKeys
+            CKKeys.database.add(op)
+        }
+    }
+    
+    
+    
     static func isThereAMessage(onTV tv:TV)->Bool {
         return tv.tickerMsg != ""
     }
+    
 
+    static func getAiringTickers(in group: TVGroup) -> [(String,String)] {
+        let sem = DispatchSemaphore(value: 0)
+        var tickers: [(message: String,tvName: String)] = []
+        TVModel.getTvs(ofGroup: group) {(tvs, error) in
+            guard let _ = tvs, error == nil else {print(error!.localizedDescription);return}
+            
+            tvs?.forEach({ (tv) in
+                if isThereAMessage(onTV: tv) {
+                    tickers.append((message: tv.tickerMsg, tvName: tv.name))
+                }
+            })
+            sem.signal()
+        }
+        
+        if sem.wait(timeout: .distantFuture) == .timedOut {
+            print("Ticker request timed out")
+        }
+        return tickers
+    }
+    
+    
+    
     static func remove(globalMessage: GlobalMessage) {
         GlobalMessageModel.delete(record: globalMessage.record)
     }
+    
+    
     
 //    Fetches all global messages from the CK database
     
