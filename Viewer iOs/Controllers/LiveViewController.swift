@@ -76,9 +76,9 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
         thikerMessage = CKController.getAiringTickers(in: .all)
         
         globalMessages = try? CKController.getAllGlobalMessages(completionHandler: {
-            self.viewDidAppear(true)
+            
         })
-        
+        print(thikerMessage?.count)
     }
     
     /**
@@ -94,7 +94,7 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
         super.viewDidAppear(animated)
         
         if numberOfObject == 0{
-            let noLiveView = NoLivePrompView(frame: CGRect(x: 20, y: 419, width: 375, height: 58))
+            let noLiveView = NoLivePrompView(frame: CGRect(x: 0, y: 0, width: 414, height: 896))
             noLiveView.contactbutton.addTarget(self, action: #selector(sendEmail), for: .touchUpInside)
             self.view.addSubview(noLiveView)
         }else{
@@ -121,6 +121,7 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
             let mail = MFMailComposeViewController()
             mail.mailComposeDelegate = self
             mail.setToRecipients(["g.orpello@gmail.com"])
+            mail.setSubject("Viewer: Problem on execution.")
             mail.setMessageBody("<p>There is an error inside Viewer app.</p>", isHTML: true)
             
             present(mail, animated: true)
