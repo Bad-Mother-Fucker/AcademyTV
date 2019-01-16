@@ -64,6 +64,17 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
     var thikerMessage: [(message: String, tvName: String)]? = nil
     
     /**
+     ## All the keynote airing.
+     
+     - Todo: Try to pass this information inside all the application.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
+    var keynote: [(image: [UIImage]?, tvName: String)]? = nil
+    
+    /**
      ## UIVIewController - View did Load Methods
      
      - Version: 1.1
@@ -74,11 +85,16 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
         super.viewDidLoad()
         
         thikerMessage = CKController.getAiringTickers(in: .all)
+        keynote = CKController.getAiringKeynote(in: .all)
         
-        globalMessages = try? CKController.getAllGlobalMessages(completionHandler: {
-            
-        })
-        print(thikerMessage?.count)
+        do{
+            globalMessages = try CKController.getAllGlobalMessages(completionHandler: {
+                self.numberOfObject = 1
+            })
+        }catch{
+            print("Error getting the messages.")
+            numberOfObject = 0
+        }
     }
     
     /**
@@ -105,6 +121,8 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
             tableView.delegate = self
             tableView.dataSource = self
             tableView.tableFooterView = UIView()
+            tableView.tintColor = UIColor(red: 0, green: 119/255, blue: 1, alpha: 1)
+
             self.view.addSubview(tableView)
         }
     }
@@ -195,8 +213,6 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
         case 1:
             return Categories.KeynoteViewer.rawValue
         case 2:
-            return Categories.KeynoteViewer.rawValue
-        case 3:
             return Categories.GlobalMessage.rawValue
         default:
             return nil
@@ -211,7 +227,7 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
      - Author: @GianlucaOrpello
      */
     func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        
+        self.present(SummaryTableViewController(), animated: true, completion: nil)
     }
     
     // MARK: - UITableView Data Source
@@ -224,7 +240,7 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
      - Author: @GianlucaOrpello
      */
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
+        return 4
     }
     
     /**
@@ -241,11 +257,11 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
         case 0:
             return thikerMessage?.count ?? 0
         case 1:
-            return 0
+            return keynote?.count ?? 0
         case 2:
-            return 0
-        case 3:
             return globalMessages?.count ?? 0
+        case 3:
+            return 1
         default:
             return 0
         }
@@ -269,55 +285,67 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
             let cell = UITableViewCell()
             cell.accessoryType = .detailButton
             
-            var titleLabel = UILabel(frame: CGRect(x: 16, y: 16, width: 350, height: 44)){
-                didSet{
-                    titleLabel.text = thikerMessage?[indexPath.row].message
-                    titleLabel.font = UIFont.systemFont(ofSize: 17, weight: .regular)
-                    titleLabel.textColor = .black
-                }
-            }
+            let titleLabel = UILabel(frame: CGRect(x: 16, y: 16, width: 350, height: 44))
             
-            var subtitleLabel = UILabel(frame: CGRect(x: 16, y: 66, width: 350, height: 13)){
-                didSet{
-                    subtitleLabel.text = thikerMessage?[indexPath.row].tvName
-                    subtitleLabel.font = UIFont.systemFont(ofSize: 11, weight: .regular)
-                    titleLabel.textColor = .lightGray
-                }
-            }
+            titleLabel.text = thikerMessage?[indexPath.row].message
+            titleLabel.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+            titleLabel.textColor = .black
+            
+            let subtitleLabel = UILabel(frame: CGRect(x: 16, y: 66, width: 350, height: 13))
+            
+            subtitleLabel.text = thikerMessage?[indexPath.row].tvName
+            subtitleLabel.font = UIFont.systemFont(ofSize: 11, weight: .regular)
+            subtitleLabel.textColor = .lightGray
             
             cell.contentView.addSubview(titleLabel)
             cell.contentView.addSubview(subtitleLabel)
             
             return cell
             
-        case 3:
+        case 1:
             
             let cell = UITableViewCell()
             cell.accessoryType = .detailButton
             
-            var titleLabel = UILabel(frame: CGRect(x: 16, y: 16, width: 350, height: 22)){
-                didSet{
-                    titleLabel.text = globalMessages?[indexPath.row].title
-                    titleLabel.font = UIFont.systemFont(ofSize: 17, weight: .bold)
-                    titleLabel.textColor = .black
-                }
-            }
+            let titleLabel = UILabel(frame: CGRect(x: 16, y: 16, width: 350, height: 22))
             
-            var subtitleLabel = UILabel(frame: CGRect(x: 16, y: 38, width: 350, height: 22)){
-                didSet{
-                    subtitleLabel.text = globalMessages?[indexPath.row].subtitle
-                    subtitleLabel.font = UIFont.systemFont(ofSize: 17, weight: .regular)
-                    titleLabel.textColor = .black
-                }
-            }
+            titleLabel.text = "Unnamed"
+            titleLabel.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+            titleLabel.textColor = .black
             
-            var locationLabel = UILabel(frame: CGRect(x: 16, y: 66, width: 350, height: 13)){
-                didSet{
-                    subtitleLabel.text = "Everywhere"
-                    subtitleLabel.font = UIFont.systemFont(ofSize: 11, weight: .regular)
-                    titleLabel.textColor = .lightGray
-                }
-            }
+            let subtitleLabel = UILabel(frame: CGRect(x: 16, y: 44, width: 350, height: 13))
+            
+            subtitleLabel.text = keynote?[indexPath.row].tvName
+            subtitleLabel.font = UIFont.systemFont(ofSize: 11, weight: .regular)
+            subtitleLabel.textColor = .lightGray
+            
+            cell.contentView.addSubview(titleLabel)
+            cell.contentView.addSubview(subtitleLabel)
+            
+            return cell
+            
+        case 2:
+            
+            let cell = UITableViewCell()
+            cell.accessoryType = .detailButton
+            
+            let titleLabel = UILabel(frame: CGRect(x: 16, y: 16, width: 350, height: 22))
+            
+            titleLabel.text = globalMessages?[indexPath.row].title
+            titleLabel.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+            titleLabel.textColor = .black
+            
+            let subtitleLabel = UILabel(frame: CGRect(x: 16, y: 38, width: 350, height: 22))
+            
+            subtitleLabel.text = globalMessages?[indexPath.row].subtitle
+            subtitleLabel.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+            subtitleLabel.textColor = .black
+            
+            let locationLabel = UILabel(frame: CGRect(x: 16, y: 66, width: 350, height: 13))
+            
+            locationLabel.text = "Everywhere"
+            locationLabel.font = UIFont.systemFont(ofSize: 11, weight: .regular)
+            locationLabel.textColor = .lightGray
             
             cell.contentView.addSubview(titleLabel)
             cell.contentView.addSubview(subtitleLabel)
@@ -325,16 +353,17 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
             
             return cell
             
-        case 5:
+        case 3:
             
             let cell = UITableViewCell()
+            cell.selectionStyle = .none
+            tableView.separatorStyle = .none
             
-            var button = UIButton(frame: CGRect(x: 0, y: 0, width: 350, height: 60)){
-                didSet{
-                    button.setTitle("Something's wrong?", for: .normal)
-                    button.addTarget(self, action: #selector(sendEmail), for: .touchUpInside)
-                }
-            }
+            let button = UIButton(frame: CGRect(x: 0, y: 10, width: 414, height: 40))
+            
+            button.setTitle("Something's wrong?", for: .normal)
+            button.setTitleColor(UIColor(red: 0, green: 119/255, blue: 1, alpha: 1), for: .normal)
+            button.addTarget(self, action: #selector(sendEmail), for: .touchUpInside)
             
             cell.contentView.addSubview(button)
             

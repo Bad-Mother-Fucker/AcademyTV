@@ -945,7 +945,7 @@
             </objects>
             <point key="canvasLocation" x="-1072" y="937"/>
         </scene>
-        <!--live-->
+        <!--Live-->
         <scene sceneID="djF-vH-Ino">
             <objects>
                 <viewController id="2Jm-ZI-rd9" customClass="LiveViewController" customModule="Viewer_iOs" customModuleProvider="target" sceneMemberID="viewController">
@@ -956,7 +956,7 @@
                         <color key="tintColor" name="selectedTextColor" catalog="System" colorSpace="catalog"/>
                         <viewLayoutGuide key="safeArea" id="AUh-Te-Lug"/>
                     </view>
-                    <navigationItem key="navigationItem" title="live" id="D0s-y5-Qm5">
+                    <navigationItem key="navigationItem" title="Live" id="D0s-y5-Qm5">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="bLh-xs-RZg"/>
                     </navigationItem>
                 </viewController>

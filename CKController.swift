@@ -168,7 +168,24 @@ class CKController {
         return tv.tickerMsg != ""
     }
     
-
+    /**
+     ## Check if there is a keynote on that screen.
+     
+     - Parameters:
+        - tv: The tv that we have to check.
+     
+     - Return: Return true if there are some keynote.
+     
+     - Todo: Check with @Micheledes
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
+    static func isThereAKeynote(on tv: TV)-> Bool {
+        return tv.keynote != nil
+    }
+    
     static func getAiringTickers(in group: TVGroup) -> [(message: String, tvName: String)] {
         let sem = DispatchSemaphore(value: 0)
         var tickers: [(message: String, tvName: String)] = []
@@ -189,7 +206,39 @@ class CKController {
         return tickers
     }
     
-    
+    /**
+     ## Check if there is a keynote on that screen.
+     
+     - Parameters:
+        - group: The tv group that we have to check.
+     
+     - Return: Return the arrey with the images, if there are some.
+     
+     - Todo: Check with @Micheledes
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
+    static func getAiringKeynote(in group: TVGroup) -> [(image: [UIImage]?, tvName: String)] {
+        let sem = DispatchSemaphore(value: 0)
+        var keynote: [(image: [UIImage]?, tvName: String)] = []
+        TVModel.getTvs(ofGroup: group) {(tvs, error) in
+            guard let _ = tvs, error == nil else {print(error!.localizedDescription);return}
+            
+            tvs?.forEach({ (tv) in
+                if isThereAKeynote(on: tv) {
+                    keynote.append((image: tv.keynote, tvName: tv.name))
+                }
+            })
+            sem.signal()
+        }
+        
+        if sem.wait(timeout: .distantFuture) == .timedOut {
+            print("Ticker request timed out")
+        }
+        return keynote
+    }
     
     static func remove(globalMessage: GlobalMessage) {
         GlobalMessageModel.delete(record: globalMessage.record)
