@@ -69,6 +69,10 @@ class EditMessageViewController: UITableViewController, UITextFieldDelegate {
     }
     
     // MARK: - Private implementation
+    @IBAction func sendMessageButtonPressed(_ sender: Any) {
+        sendMessage()
+    }
+    
     @objc func sendMessage() {
         if let message = self.message {
             record = message.record

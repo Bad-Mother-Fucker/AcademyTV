@@ -221,7 +221,7 @@
                     <navigationItem key="navigationItem" title="Messages" id="rtu-m0-qiw">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="iHh-lM-H53">
                             <connections>
-                                <action selector="sendMessage:" destination="PcX-Yj-AkG" id="6V3-z2-YUl"/>
+                                <action selector="sendMessageButtonPressed:" destination="PcX-Yj-AkG" id="V9p-0h-gxT"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -434,10 +434,10 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gRS-uS-YpO">
-                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="130" height="130"/>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Checked" translatesAutoresizingMaskIntoConstraints="NO" id="gl7-pQ-GB8">
-                                                    <rect key="frame" x="115" y="115" width="30" height="30"/>
+                                                    <rect key="frame" x="95" y="95" width="30" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="5Tw-81-bGL"/>
                                                         <constraint firstAttribute="width" constant="30" id="mv0-8o-Lpk"/>
