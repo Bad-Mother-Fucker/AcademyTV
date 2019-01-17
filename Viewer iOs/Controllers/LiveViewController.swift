@@ -171,9 +171,12 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
      - Author: @GianlucaOrpello
      */
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section != 5 {
+        switch indexPath.section {
+        case 0, 2:
             return 95
-        }else{
+        case 1:
+            return 73
+        default:
             return 60
         }
     }
@@ -191,8 +194,16 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
         let remove = UITableViewRowAction(style: .destructive, title: "Delete") {
             [weak self] (action, indexPath) in
 
-            tableView.reloadData()
+            let alert = UIAlertController(title: "Delete Prop", message: "The prop will be removed from all the screens. This cannot be undone.", preferredStyle: .alert)
+            let cancel = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+            let delete = UIAlertAction(title: "Delete", style: .cancel, handler: { (action) in
+                tableView.reloadData()
+            })
             
+            alert.addAction(cancel)
+            alert.addAction(delete)
+            
+            self?.present(alert, animated: true, completion: nil)
         }
         
         remove.backgroundColor = .red
@@ -227,7 +238,11 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
      - Author: @GianlucaOrpello
      */
     func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        self.present(SummaryTableViewController(), animated: true, completion: nil)
+        let destination = SummaryViewController()
+        let nav = UINavigationController(rootViewController: destination)
+        nav.navigationBar.prefersLargeTitles = true
+        
+        self.present(nav, animated: true, completion: nil)
     }
     
     // MARK: - UITableView Data Source
@@ -284,6 +299,7 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
             
             let cell = UITableViewCell()
             cell.accessoryType = .detailButton
+            cell.selectionStyle = .none
             
             let titleLabel = UILabel(frame: CGRect(x: 16, y: 16, width: 350, height: 44))
             
@@ -306,6 +322,7 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
             
             let cell = UITableViewCell()
             cell.accessoryType = .detailButton
+            cell.selectionStyle = .none
             
             let titleLabel = UILabel(frame: CGRect(x: 16, y: 16, width: 350, height: 22))
             
@@ -328,6 +345,7 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
             
             let cell = UITableViewCell()
             cell.accessoryType = .detailButton
+            cell.selectionStyle = .none
             
             let titleLabel = UILabel(frame: CGRect(x: 16, y: 16, width: 350, height: 22))
             

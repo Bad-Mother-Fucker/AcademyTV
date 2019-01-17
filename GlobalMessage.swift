@@ -58,7 +58,7 @@ class GlobalMessage: CloudStored {
     let formatter = DateFormatter()
     let timeFormatter = DateFormatter()
    
-    static let voidMessage = GlobalMessage(title: "🖥 AirPlay", subtitle: "Wirelessly send what's on your iOS device or computer on this display using AirPlay. To learn more go to apple.com/airplay.", location: nil, description: nil, URL: nil, timeToLive: nil) 
+    static let voidMessage = GlobalMessage(title: "🖥 AirPlay", subtitle: "", location: nil, description: "Wirelessly send what's on your iOS device or computer on this display using AirPlay. To learn more go to apple.com/airplay.", URL: nil, timeToLive: nil) 
     
     init (title:String,subtitle:String,location:String?,description:String?,URL:URL?,timeToLive: TimeInterval?) {
         
