@@ -42,6 +42,15 @@ class TickerViewController: UITableViewController, UITextFieldDelegate, UIPicker
         return true
     }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let currentText = textField.text ?? ""
+        guard let stringRange = Range(range, in: currentText) else { return false }
+        
+        let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+        
+        return updatedText.count <= 70
+    }
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -76,16 +85,17 @@ class TickerViewController: UITableViewController, UITextFieldDelegate, UIPicker
         self.present(alert,animated: true, completion: nil )
     }
     
+    // - FIXME: Typos
     @IBAction func saveThickerMessage(_ sender: UIBarButtonItem) {
         if let message = textField.text{
             if message != ""{
                 CKController.postServiceMessage(message, onTvGroup: selectedGroup)
-                let alert = UIAlertController(title: "Success", message: "Your message will be post soon.", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Success", message: "Your message will be posted soon.", preferredStyle: .alert)
                 let action = UIAlertAction(title: "OK", style: .default, handler: nil)
                 alert.addAction(action)
                 self.present(alert, animated: true, completion: nil)
             }else{
-                let alert = UIAlertController(title: "Add a message to post", message: "The message to post cann't be empty", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Add a message to post", message: "The message to post can't be empty", preferredStyle: .alert)
                 let action = UIAlertAction(title: "OK", style: .default, handler: nil)
                 alert.addAction(action)
                 self.present(alert, animated: true, completion: nil)
