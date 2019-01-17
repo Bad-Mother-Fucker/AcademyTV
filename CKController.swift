@@ -94,8 +94,6 @@ class CKController {
                 return
             }
         }
-        
-        
     }
     
     
@@ -160,9 +158,7 @@ class CKController {
             let op = CKModifyRecordsOperation(recordsToSave: records, recordIDsToDelete: nil)
             op.savePolicy = .changedKeys
             CKKeys.database.add(op)
-         
-           }
-        
+        }
     }
     
     
@@ -195,7 +191,6 @@ class CKController {
             CKKeys.database.add(op)
             
         }
-        
     }
     
     
@@ -215,7 +210,7 @@ class CKController {
      - Author: @Micheledes
      */
 
-    static func removeTickerMessage(fromTVNamed name:String) {
+    static func removeTickerMessage(fromTVNamed name: String) {
         TVModel.getTV(withName: name) { (tv, error) in
             guard let _ = tv, error == nil else {print(error!.localizedDescription);return}
             tv!.tickerMsg = ""
@@ -264,7 +259,7 @@ class CKController {
 
     static func getAiringTickers(in group: TVGroup) -> [(String,String)] {
         let sem = DispatchSemaphore(value: 0)
-        var tickers: [(message: String,tvName: String)] = []
+        var tickers: [(message: String, tvName: String)] = []
         TVModel.getTvs(ofGroup: group) {(tvs, error) in
             guard let _ = tvs, error == nil else {print(error!.localizedDescription);return}
             
@@ -282,7 +277,39 @@ class CKController {
         return tickers
     }
     
-    
+    /**
+     ## Check if there is a keynote on that screen.
+     
+     - Parameters:
+        - group: The tv group that we have to check.
+     
+     - Return: Return the arrey with the images, if there are some.
+     
+     - Todo: Check with @Micheledes
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
+    static func getAiringKeynote(in group: TVGroup) -> [(image: [UIImage]?, tvName: String)] {
+        let sem = DispatchSemaphore(value: 0)
+        var keynote: [(image: [UIImage]?, tvName: String)] = []
+        TVModel.getTvs(ofGroup: group) {(tvs, error) in
+            guard let _ = tvs, error == nil else {print(error!.localizedDescription);return}
+            
+            tvs?.forEach({ (tv) in
+                if isThereAKeynote(on: tv) {
+                    keynote.append((image: tv.keynote, tvName: tv.name))
+                }
+            })
+            sem.signal()
+        }
+        
+        if sem.wait(timeout: .distantFuture) == .timedOut {
+            print("Ticker request timed out")
+        }
+        return keynote
+    }
     
     
     /**

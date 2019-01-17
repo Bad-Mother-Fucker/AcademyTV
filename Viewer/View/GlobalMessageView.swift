@@ -9,21 +9,114 @@
 import UIKit
 import PureLayout
 
+/**
+ ## Global Maessage Promp View
+ 
+ This is the view dedicated to manage the global message promp.
+ 
+ - Version: 1.0
+ 
+ - Author: @GianlucaOrpello
+ */
 class GlobalMessageView: UIView {
  
+    /**
+     ## Title label of the message.
+    
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     var titleLabel = UILabel()
+    
+    /**
+     ## Subtitle label of the message.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     var subTitleLabel = UILabel()
+    
+    /**
+     ## Description label of the message.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     var descriptionLabel = UITextView()
+    
+    /**
+     ## Subtitle label of the message.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     var timeLabel = UILabel()
+    
+    /**
+     ## Location label of the message.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     var locationLabel = UILabel()
+    
+    /**
+     ## Date label of the message.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     var dateLabel = UILabel()
+    
+    /**
+     ## Timing label of the message.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     var whenLabel = UILabel()
+    
+    /**
+     ## Location label of the message.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     var whereLabel = UILabel()
+    
+    /**
+     ## Index of the current message
+     
+     - Version: 1.0
+     
+     - Author: @Micheledes
+     */
     var nextMsg = 0
     
-    
+    /**
+     ## Qr Code Image Container
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     var qrCodeImage = UIImageView()
     
+    /**
+     ## The Global Message values.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     var globalMessages: [GlobalMessage] = [] {
         didSet {
             if globalMessages.count == 0 {
@@ -32,9 +125,18 @@ class GlobalMessageView: UIView {
         }
     }
     
-    
-    
-    
+    /**
+     ## Initializer
+     
+     Initializer of the View. The main activities is to add the sub views inside the hierarchy.
+     
+     - Parameters:
+        - frame: The frame of the Global Message View
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.addSubview(titleLabel)
@@ -50,6 +152,13 @@ class GlobalMessageView: UIView {
        
     }
     
+    /**
+     ## Required Initializer
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello, @Micheledes
+     */
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
@@ -101,7 +210,120 @@ class GlobalMessageView: UIView {
                 self.set(message: self.globalMessages[index])
 //                self.scrollTextIfNeeded(in: self.descriptionLabel)
             }
+        }
+    }
+    
+    /**
+     ## <#Title#>
+     
+     - Parameters:
+     - <#Parameter#>
+     
+     - Warning: <#Warning#>
+     
+     - Throws: <#Throws#>
+     
+     - Return: <#Return#>
+     
+     - Remark: <#Remark#>
+     
+     - SeeAlso: <#SeeAlso#>
+     
+     - Precondition: <#Precondition#>
+     
+     - Requires: <#Requires#>
+     
+     - Todo: <#Todo#>
+     
+     - Note: <#Note#>
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
+    private func originalLayout() {
         
+        constraints.forEach { (constraint) in
+            constraint.autoRemove()
+        }
+        
+        subviews.forEach { (view) in
+            view.constraints.forEach({ (constraint) in
+                if constraint.identifier == "dimension"{
+                    constraint.autoRemove()
+                }
+            })
+        }
+        autoPinEdgesToSuperviewEdges()
+        
+        //        Subitle Layout
+        subTitleLabel.autoPinEdge(toSuperviewEdge: .top, withInset: 20)
+        subTitleLabel.autoPinEdge(toSuperviewEdge: .left, withInset: 20)
+        subTitleLabel.autoPinEdge(toSuperviewEdge: .right, withInset: 20)
+        subTitleLabel.autoSetDimension(.height, toSize: 46)
+        
+        //        Title Layout
+        titleLabel.autoPinEdge(.left, to: .left, of: subTitleLabel)
+        titleLabel.autoPinEdge(.right, to: .right, of: subTitleLabel)
+        titleLabel.autoPinEdge(.top, to: .bottom, of: subTitleLabel)
+        titleLabel.autoSetDimension(.height, toSize: 68)
+        
+        //        Description Layout
+        descriptionLabel.autoPinEdge(.left, to: .left, of: subTitleLabel)
+        descriptionLabel.autoPinEdge(.right, to: .right, of: subTitleLabel)
+        descriptionLabel.autoPinEdge(.top, to: .bottom, of: titleLabel,withOffset: 8)
+        descriptionLabel.autoSetDimension(.height, toSize: 151)
+        
+//        Bottom Labels layout
+        
+        whenLabel.autoPinEdge(toSuperviewEdge: .left, withInset: 200)
+        whenLabel.autoSetDimensions(to: CGSize(width: 113, height: 46))
+        whenLabel.autoPinEdge(toSuperviewEdge: .bottom, withInset: 195)
+        
+        dateLabel.autoPinEdge(.top, to: .bottom, of: whenLabel,withOffset: 8)
+        dateLabel.autoPinEdge(.left, to: .left, of: whenLabel)
+        dateLabel.autoPinEdge(.right, to: .right, of: whenLabel)
+        dateLabel.autoSetDimension(.height, toSize: 60)
+        
+        timeLabel.autoPinEdge(.top, to: .bottom, of: dateLabel,withOffset: 8)
+        timeLabel.autoPinEdge(.left, to: .left, of: whenLabel)
+        timeLabel.autoPinEdge(.right, to: .right, of: whenLabel)
+        timeLabel.autoSetDimension(.height, toSize: 60)
+        
+        qrCodeImage.autoSetDimensions(to: CGSize(width: 194, height: 194))
+        qrCodeImage.autoPinEdge(toSuperviewEdge: .bottom, withInset: 70)
+        qrCodeImage.autoPinEdge(.left, to: .right, of: timeLabel,withOffset: 25)
+        
+        whereLabel.autoPinEdge(.left, to: .right, of: qrCodeImage, withOffset: 25)
+        whereLabel.autoSetDimensions(to: CGSize(width: 123, height: 36))
+        whereLabel.autoPinEdge(toSuperviewEdge: .bottom, withInset: 195)
+        
+        locationLabel.autoPinEdge(.left, to: .left, of: whereLabel)
+        locationLabel.autoSetDimension(.width, toSize: 123)
+      
+        locationLabel.autoAlignAxis(.horizontal, toSameAxisOf: dateLabel)
+        
+    }
+    
+    /**
+     ## Add the keynote layout
+     
+     - Version: 1.0
+     
+     - Author: @Micheledes
+     */
+    private func keynoteLayout() {
+        
+        constraints.forEach { (constraint) in
+            constraint.autoRemove()
+        }
+        
+        subviews.forEach { (view) in
+            view.constraints.forEach({ (constraint) in
+                if constraint.identifier == "dimension"{
+                    constraint.autoRemove()
+                }
+            })
         }
        
     }
@@ -181,7 +403,36 @@ class GlobalMessageView: UIView {
         return nil
     }
     
+    /**
+     ## <#Title#>
+     
+     - Parameters:
+     - <#Parameter#>
+     
+     - Warning: <#Warning#>
+     
+     - Throws: <#Throws#>
+     
+     - Return: <#Return#>
+     
+     - Remark: <#Remark#>
+     
+     - SeeAlso: <#SeeAlso#>
+     
+     - Precondition: <#Precondition#>
+     
+     - Requires: <#Requires#>
+     
+     - Todo: <#Todo#>
+     
+     - Note: <#Note#>
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     func set(message: GlobalMessage) {
+        
         self.titleLabel.text = message.title
         self.subTitleLabel.text = message.subtitle.uppercased()
         self.descriptionLabel.text = message.description
