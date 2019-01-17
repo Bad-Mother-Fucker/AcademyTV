@@ -93,11 +93,9 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     @IBOutlet weak var clearBarButtonItem: UIBarButtonItem!{
         didSet{
-            if selectedGroups != nil{
                 if selectedGroups.count != 0 {
                     clearBarButtonItem.isEnabled = true
                 }
-            }
         }
     }
     

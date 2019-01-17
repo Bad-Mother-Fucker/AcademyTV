@@ -88,7 +88,6 @@ class TVViewController: UIViewController {
             handleServiceMessageNotification(ckqn)
         default:
             break
-            
         }
     }
     

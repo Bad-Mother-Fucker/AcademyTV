@@ -9,21 +9,114 @@
 import UIKit
 import PureLayout
 
+/**
+ ## Global Maessage Promp View
+ 
+ This is the view dedicated to manage the global message promp.
+ 
+ - Version: 1.0
+ 
+ - Author: @GianlucaOrpello
+ */
 class GlobalMessageView: UIView {
  
+    /**
+     ## Title label of the message.
+    
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     var titleLabel = UILabel()
+    
+    /**
+     ## Subtitle label of the message.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     var subTitleLabel = UILabel()
+    
+    /**
+     ## Description label of the message.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     var descriptionLabel = UITextView()
+    
+    /**
+     ## Subtitle label of the message.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     var timeLabel = UILabel()
+    
+    /**
+     ## Location label of the message.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     var locationLabel = UILabel()
+    
+    /**
+     ## Date label of the message.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     var dateLabel = UILabel()
+    
+    /**
+     ## Timing label of the message.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     var whenLabel = UILabel()
+    
+    /**
+     ## Location label of the message.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     var whereLabel = UILabel()
+    
+    /**
+     ## Index of the current message
+     
+     - Version: 1.0
+     
+     - Author: @Micheledes
+     */
     var nextMsg = 0
     
-    
+    /**
+     ## Qr Code Image Container
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     var qrCodeImage = UIImageView()
     
+    /**
+     ## The Global Message values.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     var globalMessages: [GlobalMessage] = [] {
         didSet {
             if globalMessages.count == 0 {
@@ -32,9 +125,18 @@ class GlobalMessageView: UIView {
         }
     }
     
-    
-    
-    
+    /**
+     ## Initializer
+     
+     Initializer of the View. The main activities is to add the sub views inside the hierarchy.
+     
+     - Parameters:
+        - frame: The frame of the Global Message View
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.addSubview(titleLabel)
@@ -55,6 +157,13 @@ class GlobalMessageView: UIView {
        
     }
     
+    /**
+     ## Required Initializer
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello, @Micheledes
+     */
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
@@ -84,8 +193,6 @@ class GlobalMessageView: UIView {
         
         descriptionLabel.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         
-        
-        
         self.addSubview(titleLabel)
         self.addSubview(timeLabel)
         self.addSubview(subTitleLabel)
@@ -106,12 +213,37 @@ class GlobalMessageView: UIView {
                 self.set(message: self.globalMessages[index])
                 self.scrollTextIfNeeded(in: self.descriptionLabel)
             }
-        
         }
-       
     }
     
-    
+    /**
+     ## <#Title#>
+     
+     - Parameters:
+     - <#Parameter#>
+     
+     - Warning: <#Warning#>
+     
+     - Throws: <#Throws#>
+     
+     - Return: <#Return#>
+     
+     - Remark: <#Remark#>
+     
+     - SeeAlso: <#SeeAlso#>
+     
+     - Precondition: <#Precondition#>
+     
+     - Requires: <#Requires#>
+     
+     - Todo: <#Todo#>
+     
+     - Note: <#Note#>
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     private func originalLayout() {
         
         constraints.forEach { (constraint) in
@@ -176,8 +308,13 @@ class GlobalMessageView: UIView {
         
     }
     
-    
-    
+    /**
+     ## Add the keynote layout
+     
+     - Version: 1.0
+     
+     - Author: @Micheledes
+     */
     private func keynoteLayout() {
         
         constraints.forEach { (constraint) in
@@ -212,13 +349,9 @@ class GlobalMessageView: UIView {
         descriptionLabel.autoPinEdge(.top, to: .bottom, of: titleLabel,withOffset: 25)
         descriptionLabel.autoSetDimension(.height, toSize: 102).autoIdentify("dimesion")
         
-        
-        
         qrCodeImage.autoSetDimensions(to: CGSize(width: 194, height: 194))
         qrCodeImage.autoAlignAxis(.vertical, toSameAxisOf: descriptionLabel)
         qrCodeImage.autoPinEdge(.top, to: .bottom, of: descriptionLabel,withOffset: 8)
-        
-        
         
         whenLabel.autoPinEdge(toSuperviewEdge: .left, withInset: 60)
         whenLabel.autoSetDimensions(to: CGSize(width: 113, height: 46))
@@ -229,7 +362,6 @@ class GlobalMessageView: UIView {
         whereLabel.autoSetDimensions(to: CGSize(width: 123, height: 46))
         
         whereLabel.autoPinEdge(.top, to: .bottom, of: qrCodeImage,withOffset:45)
-        
         
         dateLabel.autoPinEdge(.top, to: .bottom, of: whenLabel,withOffset: 8)
         dateLabel.autoPinEdge(.left, to: .left, of: whenLabel)
@@ -247,7 +379,34 @@ class GlobalMessageView: UIView {
         
     }
     
-    
+    /**
+     ## <#Title#>
+     
+     - Parameters:
+     - <#Parameter#>
+     
+     - Warning: <#Warning#>
+     
+     - Throws: <#Throws#>
+     
+     - Return: <#Return#>
+     
+     - Remark: <#Remark#>
+     
+     - SeeAlso: <#SeeAlso#>
+     
+     - Precondition: <#Precondition#>
+     
+     - Requires: <#Requires#>
+     
+     - Todo: <#Todo#>
+     
+     - Note: <#Note#>
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     func setLayout(type: TVLayoutType) {
         switch type {
         case .normal:
@@ -262,7 +421,20 @@ class GlobalMessageView: UIView {
         case keynote
     }
     
-    
+    /**
+     ## Generate a QR Code from a generic String.
+     
+     This function return an oprional UIImage if is possible to convert the string in qr code.
+     
+     - Parameters:
+        - string: The generic string from what we generate the qr code.
+     
+     - Return: The image object that rappresent the qrcode if is possible.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     func generateQRCode(from string: String) -> UIImage? {
         let data = string.data(using: String.Encoding.ascii)
         if string == "" {return nil}
@@ -286,8 +458,35 @@ class GlobalMessageView: UIView {
         return nil
     }
     
+    /**
+     ## <#Title#>
+     
+     - Parameters:
+     - <#Parameter#>
+     
+     - Warning: <#Warning#>
+     
+     - Throws: <#Throws#>
+     
+     - Return: <#Return#>
+     
+     - Remark: <#Remark#>
+     
+     - SeeAlso: <#SeeAlso#>
+     
+     - Precondition: <#Precondition#>
+     
+     - Requires: <#Requires#>
+     
+     - Todo: <#Todo#>
+     
+     - Note: <#Note#>
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
     func set(message: GlobalMessage) {
-        
         
         self.titleLabel.text = message.title
         self.subTitleLabel.text = message.subtitle
@@ -310,50 +509,121 @@ class GlobalMessageView: UIView {
         }else {
             self.whereLabel.text = "Where"
         }
-        
-        
     }
     
+    /**
+     ## <#Title#>
+     
+     - Parameters:
+     - <#Parameter#>
+     
+     - Warning: <#Warning#>
+     
+     - Throws: <#Throws#>
+     
+     - Return: <#Return#>
+     
+     - Remark: <#Remark#>
+     
+     - SeeAlso: <#SeeAlso#>
+     
+     - Precondition: <#Precondition#>
+     
+     - Requires: <#Requires#>
+     
+     - Todo: <#Todo#>
+     
+     - Note: <#Note#>
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
+    func nextIndex() -> Int {
+        let index: Int
+        if nextMsg >= 0 && nextMsg < globalMessages.count {
+            index = nextMsg
+            nextMsg = nextMsg + 1
+            return index
+        }else {
+            nextMsg = 0
+            return nextIndex()
+        }
+    }
     
-   
+    /**
+     ## <#Title#>
+     
+     - Parameters:
+     - <#Parameter#>
+     
+     - Warning: <#Warning#>
+     
+     - Throws: <#Throws#>
+     
+     - Return: <#Return#>
+     
+     - Remark: <#Remark#>
+     
+     - SeeAlso: <#SeeAlso#>
+     
+     - Precondition: <#Precondition#>
+     
+     - Requires: <#Requires#>
+     
+     - Todo: <#Todo#>
+     
+     - Note: <#Note#>
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
+    func textExceedBoundsOf(_ textView: UITextView) -> Bool {
+        let textHeight = textView.contentSize.height
+        return textHeight > textView.bounds.height
+    }
     
-        func nextIndex() -> Int {
-            let index: Int
-            if nextMsg >= 0 && nextMsg < globalMessages.count {
-                index = nextMsg
-                nextMsg = nextMsg + 1
-                return index
-            }else {
-                nextMsg = 0
-                return nextIndex()
+    /**
+     ## <#Title#>
+     
+     - Parameters:
+     - <#Parameter#>
+     
+     - Warning: <#Warning#>
+     
+     - Throws: <#Throws#>
+     
+     - Return: <#Return#>
+     
+     - Remark: <#Remark#>
+     
+     - SeeAlso: <#SeeAlso#>
+     
+     - Precondition: <#Precondition#>
+     
+     - Requires: <#Requires#>
+     
+     - Todo: <#Todo#>
+     
+     - Note: <#Note#>
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
+    func scrollTextIfNeeded(in textView: UITextView) {
+        guard textExceedBoundsOf(textView) else {return}
+        textView.scrollRangeToVisible(NSRange(location: 0, length: 0))
+        var lastRange = NSRange(location: 0, length: 250)
+        Timer.scheduledTimer(withTimeInterval: 6, repeats: true) { (timer) in
+            guard self.textExceedBoundsOf(textView) else {
+                timer.invalidate()
+                return
             }
+            let newRange = NSRange(location: lastRange.upperBound, length: 250)
+            textView.scrollRangeToVisible(newRange)
+            lastRange = newRange
         }
-        
-    
-        
-        
-        func textExceedBoundsOf(_ textView: UITextView) -> Bool {
-            let textHeight = textView.contentSize.height
-            return textHeight > textView.bounds.height
-        }
-    
-        
-        func scrollTextIfNeeded(in textView: UITextView) {
-            guard textExceedBoundsOf(textView) else {return}
-            textView.scrollRangeToVisible(NSRange(location: 0, length: 0))
-            var lastRange = NSRange(location: 0, length: 250)
-            Timer.scheduledTimer(withTimeInterval: 6, repeats: true) { (timer) in
-                guard self.textExceedBoundsOf(textView) else {
-                    timer.invalidate()
-                    return
-                }
-                let newRange = NSRange(location: lastRange.upperBound, length: 250)
-                textView.scrollRangeToVisible(newRange)
-                lastRange = newRange
-            }
-        }
-        
-
-    
-
+    }
 }

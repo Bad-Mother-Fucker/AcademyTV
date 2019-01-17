@@ -89,12 +89,7 @@ class CKController {
                 return
             }
         }
-        
-        
     }
-    
-    
-
     
 //    Fetch service message
     
@@ -110,19 +105,11 @@ class CKController {
 //        if sem.wait(timeout: .distantFuture) == .timedOut {
 //            throw CKQueryException.connectionTimedOut("could not get service message, request timed out")
 //        }
-//    }
+    //    }
     
-    static func removeMessage(fromTVNamed name:String) {
-        TVModel.getTV(withName: name) { (tv, error) in
-            guard let _ = tv, error == nil else {print(error!.localizedDescription);return}
-            tv!.tickerMsg = ""
-            let op = CKModifyRecordsOperation(recordsToSave: [tv!.record], recordIDsToDelete: nil)
-            op.savePolicy = .changedKeys
-            CKKeys.database.add(op)
-        }
-    }
+   
     
-    static func postServiceMessage(_ text:String,onTvNamed name: String) {
+    static func postTickerMessage(_ text:String,onTvNamed name: String) {
             TVModel.getTV(withName: name) { (tv, error) in
                 guard let _ = tv, error == nil else {print(error!.localizedDescription);return}
                 tv!.tickerMsg = text
@@ -132,7 +119,7 @@ class CKController {
             }
     }
     
-    static func postServiceMessage(_ text:String,onTvGroup group: TVGroup) {
+    static func postTickerMessage(_ text:String,onTvGroup group: TVGroup) {
         TVModel.getTvs(ofGroup: group) { (tvs, error) in
             guard let _ = tvs, error == nil else {print(error!.localizedDescription);return}
             tvs!.forEach({ (tv) in
@@ -146,12 +133,10 @@ class CKController {
             let op = CKModifyRecordsOperation(recordsToSave: records, recordIDsToDelete: nil)
             op.savePolicy = .changedKeys
             CKKeys.database.add(op)
-         
-           }
-        
+        }
     }
     
-    static func removeServiceMessage(from group: TVGroup) {
+    static func removeTickerMessage(from group: TVGroup) {
         TVModel.getTvs(ofGroup: group) { (tvs, error) in
             guard let _ = tvs, error == nil else {print(error!.localizedDescription);return}
             
@@ -165,16 +150,96 @@ class CKController {
             CKKeys.database.add(op)
             
         }
-        
     }
 
+    static func removeTickerMessage(fromTVNamed name: String) {
+        TVModel.getTV(withName: name) { (tv, error) in
+            guard let _ = tv, error == nil else {print(error!.localizedDescription);return}
+            tv!.tickerMsg = ""
+            let op = CKModifyRecordsOperation(recordsToSave: [tv!.record], recordIDsToDelete: nil)
+            op.savePolicy = .changedKeys
+            CKKeys.database.add(op)
+        }
+    }
     
     
     
     static func isThereAMessage(onTV tv:TV)->Bool {
         return tv.tickerMsg != ""
     }
-
+    
+    /**
+     ## Check if there is a keynote on that screen.
+     
+     - Parameters:
+        - tv: The tv that we have to check.
+     
+     - Return: Return true if there are some keynote.
+     
+     - Todo: Check with @Micheledes
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
+    static func isThereAKeynote(on tv: TV)-> Bool {
+        return tv.keynote != nil
+    }
+    
+    static func getAiringTickers(in group: TVGroup) -> [(message: String, tvName: String)] {
+        let sem = DispatchSemaphore(value: 0)
+        var tickers: [(message: String, tvName: String)] = []
+        TVModel.getTvs(ofGroup: group) {(tvs, error) in
+            guard let _ = tvs, error == nil else {print(error!.localizedDescription);return}
+            
+            tvs?.forEach({ (tv) in
+                if isThereAMessage(onTV: tv) {
+                    tickers.append((message: tv.tickerMsg, tvName: tv.name))
+                }
+            })
+            sem.signal()
+        }
+        
+        if sem.wait(timeout: .distantFuture) == .timedOut {
+            print("Ticker request timed out")
+        }
+        return tickers
+    }
+    
+    /**
+     ## Check if there is a keynote on that screen.
+     
+     - Parameters:
+        - group: The tv group that we have to check.
+     
+     - Return: Return the arrey with the images, if there are some.
+     
+     - Todo: Check with @Micheledes
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
+    static func getAiringKeynote(in group: TVGroup) -> [(image: [UIImage]?, tvName: String)] {
+        let sem = DispatchSemaphore(value: 0)
+        var keynote: [(image: [UIImage]?, tvName: String)] = []
+        TVModel.getTvs(ofGroup: group) {(tvs, error) in
+            guard let _ = tvs, error == nil else {print(error!.localizedDescription);return}
+            
+            tvs?.forEach({ (tv) in
+                if isThereAKeynote(on: tv) {
+                    keynote.append((image: tv.keynote, tvName: tv.name))
+                }
+            })
+            sem.signal()
+        }
+        
+        if sem.wait(timeout: .distantFuture) == .timedOut {
+            print("Ticker request timed out")
+        }
+        return keynote
+    }
+    
     static func remove(globalMessage: GlobalMessage) {
         GlobalMessageModel.delete(record: globalMessage.record)
     }
