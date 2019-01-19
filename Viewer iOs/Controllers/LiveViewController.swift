@@ -196,8 +196,22 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
 
             let alert = UIAlertController(title: "Delete Prop", message: "The prop will be removed from all the screens. This cannot be undone.", preferredStyle: .alert)
             let cancel = UIAlertAction(title: "Cancel", style: .default, handler: nil)
-            let delete = UIAlertAction(title: "Delete", style: .cancel, handler: { (action) in
-                #warning("Remove the record from cloudKit...")
+            let delete = UIAlertAction(title: "Delete", style: .cancel, handler: { [weak self] (action) in
+
+                switch indexPath.section{
+                case 0:
+                    CKController.removeTickerMessage(fromTVNamed: (self?.thikerMessage![indexPath.row].tvName)!)
+                    break
+                case 1:
+                    CKController.removeKeynote(FromTV: (self?.keynote![indexPath.row].tvName)!)
+                    break
+                case 2:
+                    CKController.remove(globalMessage: (self?.globalMessages![indexPath.row])!)
+                    break
+                default:
+                    break
+                }
+                
                 tableView.reloadData()
             })
             

@@ -147,6 +147,23 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
     }
     
     /**
+     ## Remove ticker message form CloudKit
+    
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
+    @objc fileprivate func remove(){
+        if let thicker = prop as? (message: String, tvName: String){
+            CKController.removeTickerMessage(fromTVNamed: thicker.tvName)
+        }else if let keynote = prop as? (image: [UIImage]?, tvName: String){
+            CKController.removeKeynote(FromTV: keynote.tvName)
+        }else if let globalMessage = prop as? GlobalMessage{
+            CKController.remove(globalMessage: globalMessage)
+        }
+    }
+    
+    /**
      ## Dissmiss the Summary View controller and remove the navigation controller.
      
      - Version: 1.0
@@ -368,7 +385,7 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource{
                     button.setTitle("Delete Prop", for: .normal)
                     button.setTitleColor(.red, for: .normal)
                     
-                    #warning("Add a target to this button...")
+                    button.addTarget(self, action: #selector(remove), for: .touchUpInside)
                     
                     cell.contentView.addSubview(button)
                     
@@ -454,8 +471,8 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource{
                     button.setTitle("Delete Prop", for: .normal)
                     button.setTitleColor(.red, for: .normal)
                     
-                    #warning("Add a target to this button...")
-                    
+                    button.addTarget(self, action: #selector(remove), for: .touchUpInside)
+
                     cell.contentView.addSubview(button)
                     
                     return cell
@@ -589,8 +606,8 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource{
                     button.setTitle("Delete Prop", for: .normal)
                     button.setTitleColor(.red, for: .normal)
                     
-                    #warning("Add a target to this button...")
-                    
+                    button.addTarget(self, action: #selector(remove), for: .touchUpInside)
+
                     cell.contentView.addSubview(button)
                     
                     return cell
