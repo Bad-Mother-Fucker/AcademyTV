@@ -239,7 +239,7 @@ class CKController {
         }
         return keynote
     }
-    
+
     static func remove(globalMessage: GlobalMessage) {
         GlobalMessageModel.delete(record: globalMessage.record)
     }
