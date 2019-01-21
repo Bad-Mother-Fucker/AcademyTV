@@ -186,6 +186,7 @@ class AddPropsViewController: UIViewController {
         
     }
     
+    // Todo: Check this function...
     func getProp() -> Any {
         switch props.title {
         case Categories.GlobalMessage.rawValue:

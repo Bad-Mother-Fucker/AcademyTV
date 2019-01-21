@@ -34,7 +34,6 @@
 		656E2A0D21F62C5800B9FD77 /* LiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E378FB21EA274D006380F7 /* LiveViewController.swift */; };
 		656E2A0E21F62C7900B9FD77 /* PropsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F6B24521A2F9DB00B3FA65 /* PropsViewController.swift */; };
 		656E2A0F21F62C9200B9FD77 /* PropsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DE995121AD5FA500D01FF5 /* PropsTableViewCell.swift */; };
-		656E2A1021F62C9700B9FD77 /* SetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9986D1C521F4DD140051AD85 /* SetsViewController.swift */; };
 		656E2A1121F62C9E00B9FD77 /* EditMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F6B24021A2F82000B3FA65 /* EditMessageViewController.swift */; };
 		656E2A1221F62CA000B9FD77 /* MessagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F6B24121A2F82000B3FA65 /* MessagesTableViewController.swift */; };
 		656E2A1321F62CA400B9FD77 /* ImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DE995C21ADF55A00D01FF5 /* ImagePickerViewController.swift */; };
@@ -60,7 +59,6 @@
 		996353E82195E2E500AE8AAE /* GlobalMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996353E72195E2E500AE8AAE /* GlobalMessageView.swift */; };
 		9964188A2180C6DA005267E4 /* MessagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996418892180C6DA005267E4 /* MessagesTableViewCell.swift */; };
 		9986D1C021EFA3A20051AD85 /* SummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9986D1BF21EFA3A20051AD85 /* SummaryViewController.swift */; };
-		9986D1C621F4DD140051AD85 /* SetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9986D1C521F4DD140051AD85 /* SetsViewController.swift */; };
 		99AC09542174E6B100CFCAD0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99AC09532174E6B100CFCAD0 /* AppDelegate.swift */; };
 		99AC09592174E6B100CFCAD0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99AC09572174E6B100CFCAD0 /* Main.storyboard */; };
 		99AC095B2174E6B300CFCAD0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99AC095A2174E6B300CFCAD0 /* Assets.xcassets */; };
@@ -69,6 +67,7 @@
 		99AC09702174E9C200CFCAD0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99AC096F2174E9C200CFCAD0 /* Assets.xcassets */; };
 		99AC09732174E9C200CFCAD0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99AC09712174E9C200CFCAD0 /* LaunchScreen.storyboard */; };
 		99AC097B2174F4B000CFCAD0 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99AC097A2174F4B000CFCAD0 /* CloudKit.framework */; };
+		99B0DDFA21F672E500E3FAAA /* AddPropsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B0DDF921F672E500E3FAAA /* AddPropsViewController.swift */; };
 		99B66A6321C1613000135680 /* TickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B66A6221C1613000135680 /* TickerViewController.swift */; };
 		99DE995221AD5FA500D01FF5 /* PropsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DE995121AD5FA500D01FF5 /* PropsTableViewCell.swift */; };
 		99DE995621AD7FBF00D01FF5 /* PosterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DE995521AD7FBF00D01FF5 /* PosterViewController.swift */; };
@@ -157,7 +156,6 @@
 		997395EC21AC335200F650A6 /* ShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareExtension.entitlements; sourceTree = "<group>"; };
 		997395ED21AC336B00F650A6 /* Viewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Viewer.entitlements; sourceTree = "<group>"; };
 		9986D1BF21EFA3A20051AD85 /* SummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewController.swift; sourceTree = "<group>"; };
-		9986D1C521F4DD140051AD85 /* SetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetsViewController.swift; sourceTree = "<group>"; };
 		99AC09502174E6B100CFCAD0 /* Viewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Viewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99AC09532174E6B100CFCAD0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		99AC09582174E6B100CFCAD0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -171,6 +169,7 @@
 		99AC09742174E9C200CFCAD0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		99AC09782174F4AE00CFCAD0 /* Viewer iOs.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Viewer iOs.entitlements"; sourceTree = "<group>"; };
 		99AC097A2174F4B000CFCAD0 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
+		99B0DDF921F672E500E3FAAA /* AddPropsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPropsViewController.swift; sourceTree = "<group>"; };
 		99B66A6221C1613000135680 /* TickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerViewController.swift; sourceTree = "<group>"; };
 		99DE995121AD5FA500D01FF5 /* PropsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropsTableViewCell.swift; sourceTree = "<group>"; };
 		99DE995521AD7FBF00D01FF5 /* PosterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterViewController.swift; sourceTree = "<group>"; };
@@ -282,7 +281,7 @@
 				99E378FB21EA274D006380F7 /* LiveViewController.swift */,
 				9986D1BF21EFA3A20051AD85 /* SummaryViewController.swift */,
 				99F6B24521A2F9DB00B3FA65 /* PropsViewController.swift */,
-				9986D1C521F4DD140051AD85 /* SetsViewController.swift */,
+				99B0DDF921F672E500E3FAAA /* AddPropsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -712,7 +711,6 @@
 				656887FA21C9450F00EBD49B /* SharePosterViewController.swift in Sources */,
 				656E2A1321F62CA400B9FD77 /* ImagePickerViewController.swift in Sources */,
 				656E2A1221F62CA000B9FD77 /* MessagesTableViewController.swift in Sources */,
-				656E2A1021F62C9700B9FD77 /* SetsViewController.swift in Sources */,
 				656887F421C919F400EBD49B /* TvListViewController.swift in Sources */,
 				656887F821C91A4400EBD49B /* ImagePickerCollectionViewCell.swift in Sources */,
 				656E2A0C21F62C3E00B9FD77 /* SummaryViewController.swift in Sources */,
@@ -748,6 +746,7 @@
 				99F596C321A30F9000E999D7 /* GroupsCollectionViewCell.swift in Sources */,
 				992C547021AD5C3300E05494 /* BooquableManager.swift in Sources */,
 				99F6B24221A2F82000B3FA65 /* EditMessageViewController.swift in Sources */,
+				99B0DDFA21F672E500E3FAAA /* AddPropsViewController.swift in Sources */,
 				99F6B24821A2FF5D00B3FA65 /* TvListViewController.swift in Sources */,
 				99E3790221EBDF27006380F7 /* UsageStatistic.swift in Sources */,
 				19FA366421A8202400E3B1C0 /* TV.swift in Sources */,
@@ -767,7 +766,6 @@
 				99F6B25021A306EA00B3FA65 /* GlobalMessage.swift in Sources */,
 				99DE995821AD809D00D01FF5 /* BooquableTableViewController.swift in Sources */,
 				9986D1C021EFA3A20051AD85 /* SummaryViewController.swift in Sources */,
-				9986D1C621F4DD140051AD85 /* SetsViewController.swift in Sources */,
 				19FA365E21A8202400E3B1C0 /* UIImage+CKAsset.swift in Sources */,
 				99DE995221AD5FA500D01FF5 /* PropsTableViewCell.swift in Sources */,
 				99B66A6321C1613000135680 /* TickerViewController.swift in Sources */,
