@@ -27,6 +27,24 @@ class AddPropsViewController: UIViewController {
     var props: (title: String, description: String)!
     
     /**
+     ## Is location Picker visible.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
+    var locationPickerIsVisible: Bool = false
+    
+    /**
+     ## Is date Picker visible.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
+    var datePickerIsVisible: Bool = false
+    
+    /**
      ## Table View
      
      - Version: 1.0
@@ -124,6 +142,43 @@ class AddPropsViewController: UIViewController {
         #warning("Compleate methods.")
     }
     
+    /**
+     ## Action trigger when the switch value change.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
+    @objc fileprivate func openOrCloseDatePicker(){
+        toggleShowDateDatepicker()
+    }
+    
+    /**
+     ## Open or close the row with the date picker
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
+    fileprivate func toggleShowDateDatepicker () {
+        datePickerIsVisible = !datePickerIsVisible
+        self.tableView.beginUpdates()
+        self.tableView.endUpdates()
+    }
+    
+    /**
+     ## Open or close the row with the location picker
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
+    fileprivate func toggleShowLocationDatepicker() {
+        datePickerIsVisible = !datePickerIsVisible
+        self.tableView.beginUpdates()
+        self.tableView.endUpdates()
+    }
+    
 }
 
 /**
@@ -160,7 +215,17 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                     return 44
                 }
             case 3:
-                return 50
+                if locationPickerIsVisible && indexPath.row == 2{
+                    return 217
+                }else if !locationPickerIsVisible && indexPath.row == 2{
+                    return 0
+                }else if datePickerIsVisible && indexPath.row == 4{
+                    return 217
+                }else if !datePickerIsVisible && indexPath.row == 4{
+                    return 0
+                }else{
+                    return 50
+                }
             default:
                 return 0
             }
@@ -231,6 +296,21 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
             return nil
         }
     }
+    
+    /**
+     ## UITableView Delegate - didSelectRowAt Methods
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard props.title == Categories.GlobalMessage.rawValue,
+            indexPath.section == 3,
+            indexPath.row == 1 else { return }
+        
+        toggleShowLocationDatepicker()
+    }
 
     // MARK: - UITableView Data Source
 
@@ -270,7 +350,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                 if section == 2{
                     return 3
                 }else if section == 3{
-                    return 4
+                    return 5
                 }else{
                     return 0
                 }
@@ -404,16 +484,22 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         let label = UILabel(frame: CGRect(x: 16, y: 10, width: 100, height: 22))
                         label.text = "Location"
                         
-                        let button = UIButton(frame: CGRect(x: self.view.frame.size.width - 157, y: 10, width: 157, height: 22))
-                        button.setTitle("None", for: .normal)
-                        button.setTitleColor(.lightGray, for: .normal)
-                        #warning("Add Target to this button")
+                        let locationLabel = UILabel(frame: CGRect(x: self.view.frame.size.width - 157, y: 10, width: 157, height: 22))
+                        locationLabel.text = "None"
+                        locationLabel.textColor = .lightGray
                         
-                        cell.contentView.addSubview(button)
+                        cell.contentView.addSubview(locationLabel)
                         cell.contentView.addSubview(label)
                         return cell
                         
                     case 2:
+                        let cell = UITableViewCell()
+                        cell.selectionStyle = .none
+                        
+                        
+                        
+                        return cell
+                    case 3:
                         
                         let cell = UITableViewCell()
                         cell.selectionStyle = .none
@@ -429,13 +515,14 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         
                         let swi = UISwitch(frame: CGRect(x: self.view.frame.size.width - 65, y: 10, width: 55, height: 36))
                         swi.isOn = false
+                        swi.addTarget(self, action: #selector(openOrCloseDatePicker), for: .valueChanged)
                         
                         cell.contentView.addSubview(swi)
                         cell.contentView.addSubview(label)
                         cell.contentView.addSubview(locationLabel)
                         return cell
                         
-                    case 3:
+                    case 4:
                         
                         let cell = UITableViewCell()
                         cell.selectionStyle = .none
@@ -488,7 +575,6 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
                         label.textColor = .lightGray
                         label.text = "\(numberOfChar) characters left"
-                        #warning("Count the missing char.")
                         
                         cell.contentView.addSubview(label)
                         return cell
