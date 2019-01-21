@@ -47,7 +47,15 @@ class AddPropsViewController: UIViewController {
      
      - Author: @GianlucaOrpello
      */
-    var numberOfChar = 70
+    var numberOfChar = 70{
+        didSet{
+            if self.view != nil{
+                if let label = self.view.viewWithTag(150) as? UILabel{
+                    label.text = "\(numberOfChar) characters left"
+                }
+            }
+        }
+    }
     
     /**
      ## UIViewController - init Methods
@@ -336,6 +344,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         cell.selectionStyle = .none
                         
                         let textField = UITextField(frame: CGRect(x: 16, y: 10, width: self.view.frame.size.width - 32, height: 36))
+                        textField.delegate = self
                         textField.borderStyle = .none
                         textField.placeholder = "Title"
                         
@@ -346,6 +355,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         cell.selectionStyle = .none
                         
                         let textField = UITextField(frame: CGRect(x: 16, y: 10, width: self.view.frame.size.width - 32, height: 36))
+                        textField.delegate = self
                         textField.borderStyle = .none
                         textField.placeholder = "Description"
                         
@@ -356,6 +366,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         cell.selectionStyle = .none
                         
                         let textField = UITextField(frame: CGRect(x: 16, y: 10, width: self.view.frame.size.width - 32, height: 105))
+                        textField.delegate = self
                         textField.borderStyle = .none
                         textField.placeholder = "Message"
                         
@@ -376,6 +387,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         label.text = "URL"
                         
                         let textField = UITextField(frame: CGRect(x: self.view.frame.size.width - 167, y: 10, width: 157, height: 22))
+                        textField.delegate = self
                         textField.borderStyle = .none
                         textField.textColor = .lightGray
                         textField.placeholder = "https://example.com"
@@ -460,6 +472,8 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         cell.selectionStyle = .none
                         
                         let textField = UITextField(frame: CGRect(x: 16, y: 10, width: self.view.frame.size.width - 32, height: 36))
+                        textField.delegate = self
+                        textField.tag = 100
                         textField.borderStyle = .none
                         textField.placeholder = "Message"
                         
@@ -470,9 +484,10 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         cell.selectionStyle = .none
                         
                         let label = UILabel(frame: CGRect(x: 16, y: 10, width: self.view.frame.size.width - 32, height: 36))
+                        label.tag = 150
                         label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
                         label.textColor = .lightGray
-                        label.text = "70 characters left"
+                        label.text = "\(numberOfChar) characters left"
                         #warning("Count the missing char.")
                         
                         cell.contentView.addSubview(label)
@@ -547,4 +562,34 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
  */
 extension AddPropsViewController: UITextFieldDelegate{
     
+    /**
+     ## UITextFieldDelegate - textFieldShouldReturn Methods
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.endEditing(true)
+        return true
+    }
+    
+    /**
+     ## UITextFieldDelegate - shouldChangeCharactersIn Methods
+
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let text = textField.text, textField.tag == 100 else { return false }
+        let newLength = text.count + string.count - range.length
+        numberOfChar = 70 - newLength
+        
+        if numberOfChar > 0{
+            return true
+        }else{
+            return false
+        }
+    }
 }
