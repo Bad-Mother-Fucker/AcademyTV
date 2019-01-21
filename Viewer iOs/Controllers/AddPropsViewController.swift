@@ -122,6 +122,25 @@ class AddPropsViewController: UIViewController {
      */
     @objc func checkSummary(){
         #warning("Compleate methods.")
+        
+        
+    }
+    
+    func getProp() {
+        switch props.title {
+        case Categories.GlobalMessage.rawValue:
+            let title = (tableView.cellForRow(at: IndexPath(row: 0, section: 2))?.viewWithTag(500) as! UITextField).text!
+            let subtitle = (tableView.cellForRow(at: IndexPath(row: 1, section: 2))?.viewWithTag(500) as! UITextField).text!
+            let description = (tableView.cellForRow(at: IndexPath(row: 2, section: 2))?.viewWithTag(500) as! UITextField).text!
+            let url = (tableView.cellForRow(at: IndexPath(row: 3, section: 2))?.viewWithTag(500) as! UITextField).text!
+            
+            let prop = GlobalMessage(title:  )
+        case Categories.TikerMessage.rawValue:
+            <#code#>
+        case Categories.KeynoteViewer.rawValue:
+            
+        case Categories.Timer.rawValue:
+        }
     }
     
 }
@@ -347,6 +366,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         textField.delegate = self
                         textField.borderStyle = .none
                         textField.placeholder = "Title"
+                        textField.tag = 500
                         
                         cell.contentView.addSubview(textField)
                         return cell
@@ -354,11 +374,12 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         let cell = UITableViewCell()
                         cell.selectionStyle = .none
                         
+                        
                         let textField = UITextField(frame: CGRect(x: 16, y: 10, width: self.view.frame.size.width - 32, height: 36))
                         textField.delegate = self
                         textField.borderStyle = .none
                         textField.placeholder = "Description"
-                        
+                        textField.tag = 500
                         cell.contentView.addSubview(textField)
                         return cell
                     case 2:
@@ -369,6 +390,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         textField.delegate = self
                         textField.borderStyle = .none
                         textField.placeholder = "Message"
+                        textField.tag = 500
                         
                         cell.contentView.addSubview(textField)
                         return cell
@@ -391,7 +413,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         textField.borderStyle = .none
                         textField.textColor = .lightGray
                         textField.placeholder = "https://example.com"
-                        
+                        textField.tag = 500
                         cell.contentView.addSubview(textField)
                         cell.contentView.addSubview(label)
                         return cell
@@ -404,11 +426,11 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         let label = UILabel(frame: CGRect(x: 16, y: 10, width: 100, height: 22))
                         label.text = "Location"
                         
-                        let button = UIButton(frame: CGRect(x: self.view.frame.size.width - 157, y: 10, width: 157, height: 22))
+                        let locationLabel = UILabel(frame: CGRect(x: self.view.frame.size.width - 157, y: 10, width: 157, height: 22))
                         button.setTitle("None", for: .normal)
                         button.setTitleColor(.lightGray, for: .normal)
                         #warning("Add Target to this button")
-                        
+                        #warning("Remember to store location (in string) in the GMLocation var to pass to checkout VC")
                         cell.contentView.addSubview(button)
                         cell.contentView.addSubview(label)
                         return cell
@@ -476,7 +498,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         textField.tag = 100
                         textField.borderStyle = .none
                         textField.placeholder = "Message"
-                        
+                        textField.tag = 505
                         cell.contentView.addSubview(textField)
                         return cell
                     }else{
@@ -523,7 +545,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         button.setTitleColor(UIColor(red: 0, green: 122/255, blue: 1, alpha: 1), for: .normal)
                         button.contentHorizontalAlignment = .left
                         #warning("Add Target to this button")
-                        
+                        #warning("Remember to save the foto in keynoteFoto var to show in checkout VC")
                         cell.contentView.addSubview(button)
                         return cell
                         
