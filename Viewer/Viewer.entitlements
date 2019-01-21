@@ -6,7 +6,7 @@
 	<string>development</string>
 	<key>com.apple.developer.icloud-container-identifiers</key>
 	<array>
-		<string>iCloud.com.Rogue.Viewer</string>
+		<string>iCloud.com.TeamRogue.Viewer</string>
 	</array>
 	<key>com.apple.developer.icloud-services</key>
 	<array>
@@ -14,7 +14,7 @@
 	</array>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.Rogue.Viewer</string>
+		<string>group.TeamRogue.Viewer</string>
 	</array>
 </dict>
 </plist>
