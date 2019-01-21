@@ -625,119 +625,119 @@
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/GlobalMessage.swift",
-      "line": 50,
+      "line": 47,
       "symbol": "GlobalMessage",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/GlobalMessage.swift",
-      "line": 52,
+      "line": 49,
       "symbol": "GlobalMessage.record",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/GlobalMessage.swift",
-      "line": 54,
+      "line": 51,
       "symbol": "GlobalMessage.keys",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/GlobalMessage.swift",
-      "line": 56,
+      "line": 53,
       "symbol": "GlobalMessage.recordType",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/GlobalMessage.swift",
-      "line": 58,
+      "line": 55,
       "symbol": "GlobalMessage.init(record:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/GlobalMessage.swift",
-      "line": 61,
+      "line": 58,
       "symbol": "GlobalMessage.formatter",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/GlobalMessage.swift",
-      "line": 62,
+      "line": 59,
       "symbol": "GlobalMessage.timeFormatter",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/GlobalMessage.swift",
-      "line": 64,
+      "line": 61,
       "symbol": "GlobalMessage.voidMessage",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/GlobalMessage.swift",
-      "line": 66,
+      "line": 63,
       "symbol": "GlobalMessage.init(title:subtitle:location:description:URL:timeToLive:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/GlobalMessage.swift",
-      "line": 90,
+      "line": 87,
       "symbol": "GlobalMessage.timeToLive",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/GlobalMessage.swift",
-      "line": 104,
+      "line": 101,
       "symbol": "GlobalMessage.title",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/GlobalMessage.swift",
-      "line": 117,
+      "line": 114,
       "symbol": "GlobalMessage.subtitle",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/GlobalMessage.swift",
-      "line": 129,
+      "line": 126,
       "symbol": "GlobalMessage.location",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/GlobalMessage.swift",
-      "line": 142,
+      "line": 139,
       "symbol": "GlobalMessage.description",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/GlobalMessage.swift",
-      "line": 155,
+      "line": 152,
       "symbol": "GlobalMessage.creationDate",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/GlobalMessage.swift",
-      "line": 161,
+      "line": 158,
       "symbol": "GlobalMessage.url",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/GlobalMessage.swift",
-      "line": 175,
+      "line": 172,
       "symbol": "GlobalMessage.date",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
@@ -1192,196 +1192,63 @@
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/Controller/BoardViewController.swift",
-      "line": null,
-      "symbol": "BoardViewController",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/Controller/BoardViewController.swift",
-      "line": 14,
-      "symbol": "BoardViewController",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/Controller/BoardViewController.swift",
-      "line": 15,
-      "symbol": "BoardViewController.keynoteTimer",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/Controller/BoardViewController.swift",
-      "line": 16,
-      "symbol": "BoardViewController.keynote",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/Controller/BoardViewController.swift",
-      "line": 17,
-      "symbol": "BoardViewController.page",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/Controller/BoardViewController.swift",
-      "line": 19,
-      "symbol": "BoardViewController.keynoteBlurVIew",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/Controller/BoardViewController.swift",
-      "line": 28,
-      "symbol": "BoardViewController.globalMessageBlurEffect",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/Controller/BoardViewController.swift",
-      "line": 40,
-      "symbol": "BoardViewController.dateBlurEffect",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/Controller/BoardViewController.swift",
-      "line": 41,
-      "symbol": "BoardViewController.tvNameBlurEffect",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/Controller/BoardViewController.swift",
-      "line": 43,
-      "symbol": "BoardViewController.keynoteView",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/Controller/BoardViewController.swift",
-      "line": 53,
-      "symbol": "BoardViewController.tvNameLabel",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/Controller/BoardViewController.swift",
-      "line": 67,
-      "symbol": "BoardViewController.globalMessageView",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/Controller/BoardViewController.swift",
-      "line": 83,
-      "symbol": "BoardViewController.dateLabel",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/Controller/BoardViewController.swift",
-      "line": 101,
-      "symbol": "BoardViewController.serviceMessageLabel",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/Controller/BoardViewController.swift",
-      "line": 111,
-      "symbol": "BoardViewController.serviceMessageBlurView",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/Controller/BoardViewController.swift",
-      "line": 138,
-      "symbol": "BoardViewController.viewDidLoad()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/Controller/BoardViewController.swift",
-      "line": 213,
-      "symbol": "BoardViewController.viewDidAppear(_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/Controller/BoardViewController.swift",
-      "line": 218,
-      "symbol": "BoardViewController.viewWillAppear(_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/Controller/BoardViewController.swift",
-      "line": 229,
-      "symbol": "BoardViewController.setDate()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/Controller/BoardViewController.swift",
-      "line": 236,
+      "line": 399,
       "symbol": "BoardViewController.setNormalFrame()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/Controller/BoardViewController.swift",
-      "line": 257,
+      "line": 421,
       "symbol": "BoardViewController.setKeynoteFrame()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/Controller/BoardViewController.swift",
-      "line": 292,
+      "line": 453,
       "symbol": "BoardViewController.show(ticker:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/Controller/BoardViewController.swift",
-      "line": 298,
+      "line": 459,
       "symbol": "BoardViewController.hideTicker()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/Controller/BoardViewController.swift",
-      "line": 303,
+      "line": 464,
       "symbol": "BoardViewController.show(keynote:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/Controller/BoardViewController.swift",
-      "line": 313,
+      "line": 474,
       "symbol": "BoardViewController.hideKeynote()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/Controller/BoardViewController.swift",
-      "line": 324,
+      "line": 485,
       "symbol": "BoardViewController.nextPage(of:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/Controller/BoardViewController.swift",
-      "line": 339,
+      "line": 500,
       "symbol": "UIView.fadeIn()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/Controller/BoardViewController.swift",
-      "line": 347,
+      "line": 508,
       "symbol": "UIView.fadeOut()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"

@@ -140,5 +140,4 @@ class BooquableOrder{
             return .iphone8
         }
     }
-    
 }
