@@ -140,11 +140,17 @@ class AddPropsViewController: UIViewController {
      */
     @objc func checkSummary(){
         #warning("Compleate methods.")
-        
+        if props.title == Categories.GlobalMessage.rawValue {
+            let checkOutVC = SummaryViewController()
+            checkOutVC.categories = .GlobalMessage
+            checkOutVC.isCheckoutMode = true
+            checkOutVC.prop = getProp()
+            self.navigationController?.pushViewController(checkOutVC, animated: true)
+        }
         
     }
     
-    func getProp() {
+    func getProp() -> Any {
         switch props.title {
         case Categories.GlobalMessage.rawValue:
             let title = (tableView.cellForRow(at: IndexPath(row: 0, section: 2))?.viewWithTag(500) as! UITextField).text!
@@ -153,13 +159,21 @@ class AddPropsViewController: UIViewController {
             let url = (tableView.cellForRow(at: IndexPath(row: 0, section: 3))?.viewWithTag(500) as! UITextField).text
             let location = (tableView.cellForRow(at: IndexPath(row: 1, section: 3))?.viewWithTag(500) as! UILabel).text
             let dateTime = (tableView.cellForRow(at: IndexPath(row: 2, section: 3))?.viewWithTag(500) as! UILabel).text
-            let prop = GlobalMessage(title: title, subtitle: subtitle, location: location, description: description, URL: url, timeToLive: 0)
+            
+            if location == "None" {
+                location = nil
+            }
+            
+            let prop = GlobalMessage(title: title, subtitle: subtitle, location: location,date:(dateTime,nil) description: description, URL: url, timeToLive: 0)
             
         case Categories.TikerMessage.rawValue:
-            <#code#>
-        case Categories.KeynoteViewer.rawValue:
             
+            let text = (tableView.cellForRow(at: IndexPath(row: 0, section: 2))?.viewWithTag(500) as! UITextField).text!
+            
+        case Categories.KeynoteViewer.rawValue:
+            break
         case Categories.Timer.rawValue:
+            break
         }
     }
     
@@ -511,6 +525,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         let locationLabel = UILabel(frame: CGRect(x: self.view.frame.size.width - 157, y: 10, width: 157, height: 22))
                         locationLabel.text = "None"
                         locationLabel.textColor = .lightGray
+                        locationLabel.tag = 500
                         
                         cell.contentView.addSubview(locationLabel)
                         cell.contentView.addSubview(label)
@@ -588,7 +603,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         textField.tag = 100
                         textField.borderStyle = .none
                         textField.placeholder = "Message"
-                        textField.tag = 505
+                        textField.tag = 500
                         cell.contentView.addSubview(textField)
                         return cell
                     }else{
@@ -704,3 +719,7 @@ extension AddPropsViewController: UITextFieldDelegate{
         }
     }
 }
+
+typealias TickerMessage = String
+typealias Keynote = [UIImage]
+
