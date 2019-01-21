@@ -114,11 +114,37 @@ class AddPropsViewController: UIViewController {
      */
     @objc func checkSummary(){
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "SetsViewController") as! TvListViewController
-        controller.category = Categories.TikerMessage
+        let controller:UIViewController
+        
+        switch Categories {
+        case .GlobalMessage:
+            
+            
+        case .TickerMessage:
+            
+        case .KeynoteViewer:
+            
+        default:
+            <#code#>
+        }
+        
+        
+        func checkGlobalMessage() {
+            let title = (tableView.cellForRow(at: IndexPath(row: 0, section: 2))?.viewWithTag(500) as! UITextField).text ?? ""
+            let subtitle = (tableView.cellForRow(at: IndexPath(row: 1, section: 2))?.viewWithTag(500) as! UITextField).text ?? ""
+            let description = (tableView.cellForRow(at: IndexPath(row: 2, section: 2))?.viewWithTag(500) as! UITextField).text ?? ""
+            let url = (tableView.cellForRow(at: IndexPath(row: 0, section: 3))?.viewWithTag(500) as! UILabel).text ?? ""
+            let location = (tableView.cellForRow(at: IndexPath(row: 1, section: 3))?.viewWithTag(500) as! UILabel).text ?? ""
+            let dateTime = (tableView.cellForRow(at: IndexPath(row: 2, section: 3))?.viewWithTag(500) as! UILabel).text ?? ""
+            
+            let message = GlobalMessage(title: title, subtitle: subtitle, location: location, date: date, description: description, URL: url, timeToLive: 0)
+        }
+        
+        
+        
         //controller.tickerMessage = 
         navigationController?.pushViewController(controller, animated: true)
-        #warning("Compleate methods.")
+        #warning("Complete methods.")
     }
     
 }
@@ -161,7 +187,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
             default:
                 return 0
             }
-        case Categories.TikerMessage.rawValue:
+        case Categories.TickerMessage.rawValue:
             switch indexPath.section{
             case 0:
                 return 235
@@ -206,7 +232,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
             default:
                 return nil
             }
-        case Categories.TikerMessage.rawValue:
+        case Categories.TickerMessage.rawValue:
             switch section{
             case 1:
                 return "Description"
@@ -242,7 +268,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
         switch props.title {
         case Categories.GlobalMessage.rawValue:
             return 4
-        case Categories.TikerMessage.rawValue:
+        case Categories.TickerMessage.rawValue:
             return 3
         case Categories.KeynoteViewer.rawValue:
             return 3
@@ -271,7 +297,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                 }else{
                     return 0
                 }
-            case Categories.TikerMessage.rawValue:
+            case Categories.TickerMessage.rawValue:
                 return 2
             case Categories.KeynoteViewer.rawValue:
                 return 2
@@ -301,7 +327,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
             case Categories.GlobalMessage.rawValue:
                 image = UIImage(named: "PreviewGlobalMessage")
                 break
-            case Categories.TikerMessage.rawValue:
+            case Categories.TickerMessage.rawValue:
                 image = UIImage(named: "PreviewTicker")
                 break
             case Categories.KeynoteViewer.rawValue:
@@ -343,6 +369,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         let textField = UITextField(frame: CGRect(x: 16, y: 10, width: self.view.frame.size.width - 32, height: 36))
                         textField.borderStyle = .none
                         textField.placeholder = "Title"
+                        textField.tag = 500
                         
                         cell.contentView.addSubview(textField)
                         return cell
@@ -353,7 +380,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         let textField = UITextField(frame: CGRect(x: 16, y: 10, width: self.view.frame.size.width - 32, height: 36))
                         textField.borderStyle = .none
                         textField.placeholder = "Description"
-                        
+                        textField.tag = 500
                         cell.contentView.addSubview(textField)
                         return cell
                     case 2:
@@ -363,7 +390,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         let textField = UITextField(frame: CGRect(x: 16, y: 10, width: self.view.frame.size.width - 32, height: 105))
                         textField.borderStyle = .none
                         textField.placeholder = "Message"
-                        
+                        textField.tag = 500
                         cell.contentView.addSubview(textField)
                         return cell
                     default:
@@ -384,7 +411,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         textField.borderStyle = .none
                         textField.textColor = .lightGray
                         textField.placeholder = "https://example.com"
-                        
+                        textField.tag = 500
                         cell.contentView.addSubview(textField)
                         cell.contentView.addSubview(label)
                         return cell
@@ -396,7 +423,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         
                         let label = UILabel(frame: CGRect(x: 16, y: 10, width: 100, height: 22))
                         label.text = "Location"
-                        
+                        label.tag = 500
                         let button = UIButton(frame: CGRect(x: self.view.frame.size.width - 157, y: 10, width: 157, height: 22))
                         button.setTitle("None", for: .normal)
                         button.setTitleColor(.lightGray, for: .normal)
@@ -419,7 +446,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
                         label.textColor = .lightGray
                         label.text = "Today, 10:41"
-                        
+                        label.tag = 500
                         let swi = UISwitch(frame: CGRect(x: self.view.frame.size.width - 65, y: 10, width: 55, height: 36))
                         swi.isOn = false
                         
@@ -444,7 +471,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                     return UITableViewCell()
                 }
                 
-            case Categories.TikerMessage.rawValue:
+            case Categories.TickerMessage.rawValue:
                 switch indexPath.section{
                     
                 case 1:

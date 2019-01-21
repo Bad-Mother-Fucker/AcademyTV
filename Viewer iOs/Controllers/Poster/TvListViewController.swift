@@ -38,7 +38,7 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         #warning("Implement here segue, passing TV data")
         summary.categories = category
-        if (category == Categories.TikerMessage){
+        if (category == Categories.TickerMessage){
             var propArray = [(message: String, tvName: String)]()
             
             for group in selectedGroups{

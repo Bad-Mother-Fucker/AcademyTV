@@ -210,7 +210,7 @@ class BoardViewController: TVViewController {
     /**
      ## Service Message Label
      
-     Label used for managing the Thicker Message Promp.
+     Label used for managing the Ticker Message Promp.
      
      - Version: 1.0
      
@@ -229,7 +229,7 @@ class BoardViewController: TVViewController {
     /**
      ## Visual Effect View Service Message
      
-     View used for manage the blur effect under the Thicker View promp.
+     View used for manage the blur effect under the Ticker View promp.
      
      - Version: 1.0
      

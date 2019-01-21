@@ -166,7 +166,7 @@ class AddPropsViewController: UIViewController {
                 location = nil
             }
             
-            let prop = GlobalMessage(title: title, subtitle: subtitle, location: location,date:(dateTime,nil) description: description, URL: url, timeToLive: 0)
+            let prop = GlobalMessage(title: title, subtitle: subtitle, location: location,date:(dateTime,nil), description: description, URL: url, timeToLive: 0)
             
         case Categories.TikerMessage.rawValue:
             

@@ -130,7 +130,7 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
      */
     private func getCurrentCategories(){
         if let _ = prop as? (message: String, tvName: String){
-            self.categories = .TikerMessage
+            self.categories = .TickerMessage
         }else if let _ = prop as? (image: [UIImage]?, tvName: String){
             self.categories = .KeynoteViewer
         }else if let _ = prop as? GlobalMessage{
@@ -175,8 +175,8 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
         let cancel = UIAlertAction(title: "Cancel", style: .default, handler: nil)
         let delete = UIAlertAction(title: "Delete", style: .cancel, handler: { [weak self] (action) in
             
-            if let thicker = self?.prop as? (message: String, tvName: String){
-                CKController.removeTickerMessage(fromTVNamed: thicker.tvName)
+            if let ticker = self?.prop as? (message: String, tvName: String){
+                CKController.removeTickerMessage(fromTVNamed: ticker.tvName)
             }else if let keynote = self?.prop as? (image: [UIImage]?, tvName: String){
                 CKController.removeKeynote(FromTV: keynote.tvName)
             }else if let globalMessage = self?.prop as? GlobalMessage{
@@ -234,7 +234,7 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource{
      */
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch categories! {
-        case .TikerMessage:
+        case .TickerMessage:
             // Total of 6 rows
             
             switch indexPath.row{
@@ -305,7 +305,7 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource{
      */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch categories! {
-        case .TikerMessage, .GlobalMessage:
+        case .TickerMessage, .GlobalMessage:
             return isCheckoutMode ? 4:6
         case .KeynoteViewer:
             return isCheckoutMode ? 3:5
@@ -336,9 +336,9 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource{
             image.contentMode = .scaleAspectFit
             
             switch categories!{
-            case .TikerMessage:
+            case .TickerMessage:
                 image.image = UIImage(named: "Ticker")
-                textLabel.text = Categories.TikerMessage.rawValue
+                textLabel.text = Categories.TickerMessage.rawValue
                 break
             case .KeynoteViewer:
                 image.image = UIImage(named: "Keynote")
@@ -360,10 +360,10 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource{
         }else{
             
             switch categories!{
-            case .TikerMessage:
+            case .TickerMessage:
                 // Total of 6 rows
 
-                let thickerMessage = prop as! [(message: String, tvName: String)]
+                let tickerMessage = prop as! [(message: String, tvName: String)]
                 
                 switch indexPath.row{
                 case 1:
@@ -376,7 +376,7 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource{
                     label.text = "Text"
                     
                     let textLabel = UILabel(frame: CGRect(x: 72, y: 38, width: 287, height: 44))
-                    textLabel.text = thickerMessage[0].message
+                    textLabel.text = tickerMessage[0].message
                     textLabel.textColor = UIColor(red: 0, green: 119/255, blue: 1, alpha: 1)
                     
                     cell.contentView.addSubview(label)
@@ -397,7 +397,7 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource{
                     secondLabel.numberOfLines = 0
                     
                     var tvNamesString = String()
-                    for tm in thickerMessage{
+                    for tm in tickerMessage{
                         tvNamesString.append(contentsOf: tm.tvName)
                         tvNamesString.append(contentsOf: ",")
                     }

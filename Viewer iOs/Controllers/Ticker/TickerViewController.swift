@@ -86,7 +86,7 @@ class TickerViewController: UITableViewController, UITextFieldDelegate, UIPicker
     }
     
     // - FIXME: Typos
-    @IBAction func saveThickerMessage(_ sender: UIBarButtonItem) {
+    @IBAction func saveTickerMessage(_ sender: UIBarButtonItem) {
         if let message = textField.text{
             if message != ""{
                 CKController.postTickerMessage(message, onTvGroup: selectedGroup)

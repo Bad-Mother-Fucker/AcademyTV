@@ -17,7 +17,7 @@ import MessageUI
  - Author: @GianlucaOrpello
  */
 enum Categories: String{    
-    case TikerMessage = "Ticker Messages"
+    case TickerMessage = "Ticker Messages"
     case KeynoteViewer = "Content Viewer"
     case Timer = "Timer"
     case GlobalMessage = "Global Messages"
@@ -53,7 +53,7 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
     var globalMessages: [GlobalMessage]? = nil
     
     /**
-     ## All the thicker message airing.
+     ## All the ticker message airing.
      
      - Todo: Try to pass this information inside all the application.
      
@@ -251,7 +251,7 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
-            return Categories.TikerMessage.rawValue
+            return Categories.TickerMessage.rawValue
         case 1:
             return Categories.KeynoteViewer.rawValue
         case 2:

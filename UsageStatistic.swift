@@ -12,7 +12,7 @@ import CloudKit
 /**
  ## Class that rappresent the usage stats
  
- - Todo: Compleate the logic.
+ - Todo: Complete the logic.
  
  - Version: 1.0
  
@@ -42,7 +42,7 @@ class UsageStatistics {
                        numberGMLink: "numberGMLink",
                        numberGMDate: "numberGMDate",
                        numberGMlocation: "numberGMlocation",
-                       numberGMcompleate: "numberGMcompleate")
+                       numberGMcomplete: "numberGMcomplete")
     
     /**
      ## CloudKit record name
@@ -174,19 +174,19 @@ class UsageStatistics {
     }
     
     /**
-     ## Set the number of Global Message compleate posted
+     ## Set the number of Global Message complete posted
      
      - Version: 1.0
      
      - Author: @GianlucaOrpello
      */
-    var numberOfGlobalMessageCompleate: Int {
+    var numberOfGlobalMessageComplete: Int {
         get{
-            return record.object(forKey: UsageStatistics.keys.numberGMcompleate) as! Int
+            return record.object(forKey: UsageStatistics.keys.numberGMcomplete) as! Int
         }
         set{
-            let currentValue = record.object(forKey: UsageStatistics.keys.numberGMcompleate) as! Int
-            record.setValue(currentValue + newValue, forKey: UsageStatistics.keys.numberGMcompleate)
+            let currentValue = record.object(forKey: UsageStatistics.keys.numberGMcomplete) as! Int
+            record.setValue(currentValue + newValue, forKey: UsageStatistics.keys.numberGMcomplete)
             let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
             op.savePolicy = .changedKeys
             CKKeys.database.add(op)
