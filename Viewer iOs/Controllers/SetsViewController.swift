@@ -114,7 +114,10 @@ class AddPropsViewController: UIViewController {
      */
     @objc func checkSummary(){
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "someViewController")
+        let controller = storyboard.instantiateViewController(withIdentifier: "SetsViewController") as! TvListViewController
+        controller.category = Categories.TikerMessage
+        //controller.tickerMessage = 
+        navigationController?.pushViewController(controller, animated: true)
         #warning("Compleate methods.")
     }
     

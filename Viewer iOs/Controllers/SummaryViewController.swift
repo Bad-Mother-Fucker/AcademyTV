@@ -332,7 +332,7 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource{
             case .TikerMessage:
                 // Total of 6 rows
 
-                let thickerMessage = prop as! (message: String, tvName: String)
+                let thickerMessage = prop as! [(message: String, tvName: String)]
                 
                 switch indexPath.row{
                 case 1:
@@ -345,7 +345,7 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource{
                     label.text = "Text"
                     
                     let textLabel = UILabel(frame: CGRect(x: 72, y: 38, width: 287, height: 44))
-                    textLabel.text = thickerMessage.message
+                    textLabel.text = thickerMessage[0].message
                     textLabel.textColor = UIColor(red: 0, green: 119/255, blue: 1, alpha: 1)
                     
                     cell.contentView.addSubview(label)
@@ -364,7 +364,17 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource{
                     
                     let secondLabel = UILabel(frame: CGRect(x: 72, y: 37, width: 287, height: 44))
                     secondLabel.numberOfLines = 0
-                    secondLabel.text = thickerMessage.tvName
+                    
+                    var tvNamesString = String()
+                    for tm in thickerMessage{
+                        tvNamesString.append(contentsOf: tm.tvName)
+                        tvNamesString.append(contentsOf: ",")
+                    }
+                    
+                    tvNamesString.removeLast()
+                    
+                    secondLabel.text = tvNamesString
+                    
                     secondLabel.textColor = UIColor(red: 0, green: 119/255, blue: 1, alpha: 1)
                     
                     cell.contentView.addSubview(label)

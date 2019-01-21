@@ -694,7 +694,7 @@
         <!--Locations-->
         <scene sceneID="kNs-11-m4Y">
             <objects>
-                <viewController id="4Oy-iG-JEM" customClass="TvListViewController" customModule="Viewer_iOs" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SetsViewController" id="4Oy-iG-JEM" customClass="TvListViewController" customModule="Viewer_iOs" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="443-Ym-v1k">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -793,22 +793,15 @@
                         <viewLayoutGuide key="safeArea" id="nS4-hc-AYd"/>
                     </view>
                     <navigationItem key="navigationItem" title="Locations" id="ImP-K9-bcu">
-                        <rightBarButtonItems>
-                            <barButtonItem title="Next" id="xCb-0d-cCy">
-                                <connections>
-                                    <segue destination="Tlr-0C-jel" kind="show" identifier="setTheTvSegue" id="0qe-ff-Xwi"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem enabled="NO" title="Clear" id="2Yc-mv-if9">
-                                <connections>
-                                    <action selector="clearKeynotes:" destination="4Oy-iG-JEM" id="eOj-xU-Ydf"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" title="Next" id="xCb-0d-cCy">
+                            <connections>
+                                <action selector="nextBarButtonPressed:" destination="4Oy-iG-JEM" id="RWz-C6-GcH"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="clearBarButtonItem" destination="2Yc-mv-if9" id="ttS-Qq-JN0"/>
                         <outlet property="collectionView" destination="d7H-vM-zi4" id="t4K-ja-ehk"/>
+                        <outlet property="nextBarButtonItem" destination="xCb-0d-cCy" id="G4M-wx-O6o"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5kD-mT-DLG" userLabel="First Responder" sceneMemberID="firstResponder"/>
