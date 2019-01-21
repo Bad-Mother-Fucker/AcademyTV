@@ -16,7 +16,7 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     var selectedGroup: TVGroups?
     var selectedGroups = [TVGroup]()
-    var image: UIImage!
+    var keynote: [UIImage]?
     var category: Categories?
     var tickerMessage: String?
     
@@ -46,6 +46,14 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
             }
             
             summary.prop = propArray
+        }else if category == .KeynoteViewer.rawValue {
+            var tvNames: String = ""
+            for group in selectedGroups{
+                tvNames.append(contentsOf: group.rawValue)
+            }
+            var prop = (keynote: keynote,tvName: tvNames)
+            
+            summary.prop = prop
         }
         
             
