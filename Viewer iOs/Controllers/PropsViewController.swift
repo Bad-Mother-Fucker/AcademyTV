@@ -214,13 +214,12 @@ class PropsViewController: UITableViewController, UISearchResultsUpdating {
 //        }
         
         let destination = AddPropsViewController()
-        let nav = UINavigationController(rootViewController: destination)
-        nav.navigationBar.prefersLargeTitles = true
+        let nav = self.navigationController
+        nav?.navigationBar.prefersLargeTitles = true
 
         let prop = props[indexPath.row]
         destination.props = (title: prop.title, description: prop.description)
-
-        self.present(nav, animated: true, completion: nil)
+        nav?.pushViewController(destination, animated: true)
     }
     
 }
