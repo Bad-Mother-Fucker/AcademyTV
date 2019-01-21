@@ -110,7 +110,7 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
         super.viewDidAppear(animated)
         
         if numberOfObject == 0{
-            let noLiveView = NoLivePrompView(frame: CGRect(x: 0, y: 0, width: 414, height: 896))
+            let noLiveView = NoLivePrompView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height))
             noLiveView.contactbutton.addTarget(self, action: #selector(sendEmail), for: .touchUpInside)
             self.view.addSubview(noLiveView)
         }else{
@@ -123,8 +123,24 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
             tableView.tableFooterView = UIView()
             tableView.tintColor = UIColor(red: 0, green: 119/255, blue: 1, alpha: 1)
 
+            tableView.reloadData()
             self.view.addSubview(tableView)
         }
+    }
+    
+    /**
+     ## Bar Button Item action for add new prop.
+
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
+    @IBAction func addNewProp(_ sender: UIBarButtonItem) {
+        let destination = PropsViewController()
+        let nav = UINavigationController(rootViewController: destination)
+        nav.navigationBar.prefersLargeTitles = true
+                
+        self.present(nav, animated: true, completion: nil)
     }
     
     /**
@@ -138,7 +154,7 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
         if MFMailComposeViewController.canSendMail() {
             let mail = MFMailComposeViewController()
             mail.mailComposeDelegate = self
-            mail.setToRecipients(["g.orpello@gmail.com"])
+            mail.setToRecipients(["theappteam@icloud.com"])
             mail.setSubject("Viewer: Problem on execution.")
             mail.setMessageBody("<p>There is an error inside Viewer app.</p>", isHTML: true)
             

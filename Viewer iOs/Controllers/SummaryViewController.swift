@@ -154,13 +154,26 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
      - Author: @GianlucaOrpello
      */
     @objc fileprivate func remove(){
-        if let thicker = prop as? (message: String, tvName: String){
-            CKController.removeTickerMessage(fromTVNamed: thicker.tvName)
-        }else if let keynote = prop as? (image: [UIImage]?, tvName: String){
-            CKController.removeKeynote(FromTV: keynote.tvName)
-        }else if let globalMessage = prop as? GlobalMessage{
-            CKController.remove(globalMessage: globalMessage)
-        }
+        
+        let alert = UIAlertController(title: "Delete Prop", message: "The prop will be removed from all the screens. This cannot be undone.", preferredStyle: .alert)
+        let cancel = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+        let delete = UIAlertAction(title: "Delete", style: .cancel, handler: { [weak self] (action) in
+            
+            if let thicker = self?.prop as? (message: String, tvName: String){
+                CKController.removeTickerMessage(fromTVNamed: thicker.tvName)
+            }else if let keynote = self?.prop as? (image: [UIImage]?, tvName: String){
+                CKController.removeKeynote(FromTV: keynote.tvName)
+            }else if let globalMessage = self?.prop as? GlobalMessage{
+                CKController.remove(globalMessage: globalMessage)
+            }
+            
+            self?.dismiss(animated: true, completion: nil)
+        })
+        
+        alert.addAction(cancel)
+        alert.addAction(delete)
+        
+        self.present(alert, animated: true, completion: nil)
     }
     
     /**
