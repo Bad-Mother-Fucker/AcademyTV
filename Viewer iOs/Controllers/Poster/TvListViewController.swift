@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TvListViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UIPopoverPresentationControllerDelegate {
+class TvListViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UIPopoverPresentationControllerDelegate, UICollectionViewDelegateFlowLayout {
     
     // MARK: Class variables
     
@@ -25,8 +25,11 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
             collectionView.delegate = self
             collectionView.dataSource = self
             collectionView.allowsMultipleSelection = true
+            
         }
     }
+    
+    
     
     @IBOutlet weak var clearBarButtonItem: UIBarButtonItem!{
         didSet{
@@ -53,13 +56,41 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
         return groups.count + 1
     }
     
+    
+    // setting correct spacing
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 12.5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 28
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width : CGFloat
+        let height : CGFloat
+    
+        if indexPath.item < 1 {
+            width = 386
+            height = 45
+        } else {
+            width = 178
+            height = 95
+        }
+        return CGSize(width: width, height: height)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        if indexPath.item < groups.count{
+        if indexPath.item > 0{
              let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TVGroup", for: indexPath) as! GroupsCollectionViewCell
             
-            let group = groups[indexPath.item]
-            
+            let group = groups[indexPath.item - 1]
+    
             cell.setGradientBackground(form: UIColor(red: CGFloat(group.startingColor.red/255),
                                                      green: CGFloat(group.startingColor.green/255),
                                                      blue: CGFloat(group.startingColor.blue/255),
@@ -88,7 +119,7 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         if cell?.reuseIdentifier == "TVGroup"{
             cell!.isSelected = true
-            selectedGroups.append(groups[indexPath.item].name)
+            selectedGroups.append(groups[indexPath.item - 1].name)
             clearBarButtonItem.isEnabled = true
         }else{
             for tvCell in collectionView.visibleCells{
