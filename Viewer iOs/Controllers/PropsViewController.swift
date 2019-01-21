@@ -192,26 +192,6 @@ class PropsViewController: UITableViewController, UISearchResultsUpdating {
      - Author: @GianlucaOrpello
      */
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        switch indexPath.row {
-//        case 0:
-//            let destination = storyboard.instantiateViewController(withIdentifier: "postGlobalMessage")
-//            self.present(destination, animated: true, completion: nil)
-//
-//            break
-//        case 1:
-//            let destination = storyboard.instantiateViewController(withIdentifier: "addTickerMessage")
-//            self.present(destination, animated: true, completion: nil)
-//
-//            break
-//        case 2:
-//            let destination = storyboard.instantiateViewController(withIdentifier: "addPostKeynote")
-//            self.present(destination, animated: true, completion: nil)
-//
-//            break
-//        default:
-//            break
-//        }
         
         let destination = AddPropsViewController()
         let nav = self.navigationController
