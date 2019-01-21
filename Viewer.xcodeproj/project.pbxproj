@@ -487,6 +487,9 @@
 					99AC094F2174E6B100CFCAD0 = {
 						CreatedOnToolsVersion = 10.0;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
 							com.apple.BackgroundModes.appletvos = {
 								enabled = 1;
 							};
