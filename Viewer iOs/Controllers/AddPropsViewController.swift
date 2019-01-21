@@ -173,6 +173,7 @@ class AddPropsViewController: UIViewController {
      - Author: @GianlucaOrpello
      */
     @objc func checkSummary(){
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "someViewController")
         #warning("Compleate methods.")
@@ -196,21 +197,25 @@ class AddPropsViewController: UIViewController {
             let url = (tableView.cellForRow(at: IndexPath(row: 0, section: 3))?.viewWithTag(500) as! UITextField).text
             let location = (tableView.cellForRow(at: IndexPath(row: 1, section: 3))?.viewWithTag(500) as! UILabel).text
             let dateTime = (tableView.cellForRow(at: IndexPath(row: 2, section: 3))?.viewWithTag(500) as! UILabel).text
-            
-            if location == "None" {
-                location = nil
-            }
-            
-            let prop = GlobalMessage(title: title, subtitle: subtitle, location: location,date:(dateTime,nil) description: description, URL: url, timeToLive: 0)
+
+//            if location == "None" {
+//                location = nil
+//            }
+
+//            let prop = GlobalMessage(title: title, subtitle: subtitle, location: location,date:(dateTime,nil) description: description, URL: url, timeToLive: 0)
+
+            return ""
             
         case Categories.TikerMessage.rawValue:
-            
+
             let text = (tableView.cellForRow(at: IndexPath(row: 0, section: 2))?.viewWithTag(500) as! UITextField).text!
-            
+
         case Categories.KeynoteViewer.rawValue:
-            break
+            return ""
         case Categories.Timer.rawValue:
-            break
+            return "nil"
+        default:
+            return ""
         }
     }
     
