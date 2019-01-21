@@ -8,6 +8,23 @@
 
 import UIKit
 
+enum Locations: String, CaseIterable{
+    case none = "None"
+    case seminar = "Main Classroom"
+    case kitchen = "Kitchen"
+    case br1 = "Boardroom 1"
+    case br2 = "Boardroom 2"
+    case br3 = "Boardroom 3"
+    case lab1 = "Lab 1"
+    case collab1 = "Collab-01"
+    case lab2 = "Lab 2"
+    case collab2 = "Collab-02"
+    case lab3 = "Lab 3"
+    case collab3 = "Collab-03"
+    case lab4 = "Lab 4"
+    case collab4 = "Collab-04"
+}
+
 /**
  ## UIViewController that allow you to add a new props.
  
@@ -43,6 +60,23 @@ class AddPropsViewController: UIViewController {
      - Author: @GianlucaOrpello
      */
     var datePickerIsVisible: Bool = false
+    
+    /**
+     ## Selected location.
+     
+     Used only for GlobalMessage Promp
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
+    var selectedLocation: Locations = .none{
+        didSet{
+            if let label = self.view.viewWithTag(200) as? UILabel{
+                label.text = selectedLocation.rawValue
+            }
+        }
+    }
     
     /**
      ## Table View
@@ -211,9 +245,16 @@ class AddPropsViewController: UIViewController {
      - Author: @GianlucaOrpello
      */
     fileprivate func toggleShowLocationDatepicker() {
-        datePickerIsVisible = !datePickerIsVisible
+        locationPickerIsVisible = !locationPickerIsVisible
         self.tableView.beginUpdates()
         self.tableView.endUpdates()
+    }
+    
+    @objc func dateDidChange(sender: UIDatePicker){
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .medium
+//        self.dateLabel.text = dateFormatter.string(from: sender.date)
     }
     
 }
@@ -347,6 +388,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
             indexPath.row == 1 else { return }
         
         toggleShowLocationDatepicker()
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 
     // MARK: - UITableView Data Source
@@ -525,9 +567,9 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         label.text = "Location"
                         
                         let locationLabel = UILabel(frame: CGRect(x: self.view.frame.size.width - 157, y: 10, width: 157, height: 22))
-                        locationLabel.text = "None"
+                        locationLabel.text = selectedLocation.rawValue
                         locationLabel.textColor = .lightGray
-                        locationLabel.tag = 500
+                        locationLabel.tag = 200
                         
                         cell.contentView.addSubview(locationLabel)
                         cell.contentView.addSubview(label)
@@ -537,8 +579,12 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         let cell = UITableViewCell()
                         cell.selectionStyle = .none
                         
+                        let picker = UIPickerView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 217))
+                        picker.delegate = self
+                        picker.dataSource = self
+                        picker.isHidden = !locationPickerIsVisible
                         
-                        
+                        cell.contentView.addSubview(picker)
                         return cell
                     case 3:
                         
@@ -555,7 +601,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         label.text = "Today, 10:41"
                         label.tag = 500
                         let swi = UISwitch(frame: CGRect(x: self.view.frame.size.width - 65, y: 10, width: 55, height: 36))
-                        swi.isOn = false
+                        swi.isOn = datePickerIsVisible
                         swi.addTarget(self, action: #selector(openOrCloseDatePicker), for: .valueChanged)
                         
                         
@@ -569,8 +615,12 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         let cell = UITableViewCell()
                         cell.selectionStyle = .none
                         
+                        let picker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 217))
+                        picker.datePickerMode = .dateAndTime
+                        picker.isHidden = !datePickerIsVisible
+                        picker.addTarget(self, action: #selector(dateDidChange(sender:)), for: .valueChanged)
                         
-                        
+                        cell.contentView.addSubview(picker)
                         return cell
                         
                     default:
@@ -722,6 +772,53 @@ extension AddPropsViewController: UITextFieldDelegate{
     }
 }
 
-typealias TickerMessage = String
-typealias Keynote = [UIImage]
-
+extension AddPropsViewController: UIPickerViewDelegate, UIPickerViewDataSource{
+    
+    // MARK: - UIPickerView Delegate
+    
+    /**
+     ## UIPickerViewDelegate - titleForRow Methods
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return Locations.allCases[row].rawValue
+    }
+    
+    /**
+     ## UIPickerViewDelegate - didSelectRow Methods
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        selectedLocation = Locations.allCases[row]
+    }
+    
+    // MARK: - UIPickerView Data Source
+    
+    /**
+     ## UIPickerViewDataSource - numberOfComponents Methods
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    /**
+     ## UIPickerViewDataSource - numberOfRowsInComponent Methods
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return Locations.allCases.count
+    }
+}
