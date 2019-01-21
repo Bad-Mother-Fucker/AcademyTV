@@ -17,7 +17,7 @@ import MessageUI
  - Author: @GianlucaOrpello
  */
 enum Categories: String{    
-    case ThikerMessage = "Ticker Messages"
+    case TikerMessage = "Ticker Messages"
     case KeynoteViewer = "Content Viewer"
     case Timer = "Timer"
     case GlobalMessage = "Global Messages"
@@ -251,7 +251,7 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
-            return Categories.ThikerMessage.rawValue
+            return Categories.TikerMessage.rawValue
         case 1:
             return Categories.KeynoteViewer.rawValue
         case 2:
