@@ -35,24 +35,27 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
 
     @IBAction func nextBarButtonPressed(_ sender: Any) {
         let summary = SummaryViewController()
-        
-        #warning("Implement here segue, passing TV data")
+        summary.isCheckoutMode = true
+       
         summary.categories = category
         if (category == Categories.TickerMessage){
-            var propArray = [(message: String, tvName: String)]()
             
+            
+            var tvNames: String = ""
             for group in selectedGroups{
-                propArray.append((message: tickerMessage ?? "No message", tvName: group.rawValue as! String))
+                tvNames.append(group.rawValue)
+                tvNames.append(", ")
             }
+           var prop = (message: tickerMessage, tvName: tvNames,TVGroup:selectedGroups)
             
-            summary.prop = propArray
+            
+            summary.prop = prop
         }else if category == .KeynoteViewer.rawValue {
             var tvNames: String = ""
             for group in selectedGroups{
                 tvNames.append(contentsOf: group.rawValue)
             }
-            var prop = (keynote: keynote,tvName: tvNames)
-            
+            var prop = (keynote: keynote,tvName: tvNames,TVGroup:selectedGroups)
             summary.prop = prop
         }
         

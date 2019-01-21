@@ -107,7 +107,8 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
         self.title = "Summary"
         
         if isCheckoutMode {
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(pop))
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(pop))
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Post", style: .done, target: self, action: #selector(postProp))
         }
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dissmissController))
@@ -129,12 +130,41 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
      - Author: @GianlucaOrpello
      */
     private func getCurrentCategories(){
-        if let _ = prop as? (message: String, tvName: String){
+        if let _ = prop as? (message: String, tvName: String, TVGroup: [TVGroup]){
             self.categories = .TickerMessage
-        }else if let _ = prop as? (image: [UIImage]?, tvName: String){
+        }else if let _ = prop as? (image: [UIImage]?, tvName: String, TVGroup:  [TVGroup]){
             self.categories = .KeynoteViewer
         }else if let _ = prop as? GlobalMessage{
             self.categories = .GlobalMessage
+        }
+    }
+    
+    
+    @objc func postProp() {
+        switch categories {
+        case .TickerMessage:
+            let ticker = prop as! (message: String, tvName: String, TVGroup: [TVGroup])
+            ticker.TVGroup.forEach { (group) in
+                CKController.postTickerMessage(ticker.message, onTvGroup: group)
+            }
+            #warning("add alert")
+            self.navigationController?.dismiss(animated: true, completion: nil)
+        case .KeynoteViewer:
+            let keynote = prop as! (image: [UIImage]?, tvName: String, TVGroup:  [TVGroup])
+            keynote.TVGroup.forEach { (group) in
+                CKController.postKeynote(keynote.image, ofType: .PNG, onTVsOfGroup: group)
+            }
+            #warning("add alert")
+            self.navigationController?.dismiss(animated: true, completion: nil)
+        case .GlobalMessage:
+            let gm = prop as! GlobalMessage
+            CKController.postMessage(title: gm.title, subtitle: gm.subtitle, location: gm.location, date: gm.date, description: gm.description, URL: gm.url, timeToLive: 0)
+            
+            #warning("add alert")
+            self.navigationController?.dismiss(animated: true, completion: nil)
+            
+        default:
+            break
         }
     }
     
