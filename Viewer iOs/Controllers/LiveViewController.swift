@@ -18,7 +18,7 @@ import MessageUI
  */
 enum Categories: String{    
     case ThikerMessage = "Ticker Messages"
-    case KeynoteViewer = "Keynote Viewer"
+    case KeynoteViewer = "Content Viewer"
     case Timer = "Timer"
     case GlobalMessage = "Global Messages"
 }
@@ -196,7 +196,22 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
 
             let alert = UIAlertController(title: "Delete Prop", message: "The prop will be removed from all the screens. This cannot be undone.", preferredStyle: .alert)
             let cancel = UIAlertAction(title: "Cancel", style: .default, handler: nil)
-            let delete = UIAlertAction(title: "Delete", style: .cancel, handler: { (action) in
+            let delete = UIAlertAction(title: "Delete", style: .cancel, handler: { [weak self] (action) in
+
+                switch indexPath.section{
+                case 0:
+                    CKController.removeTickerMessage(fromTVNamed: (self?.thikerMessage![indexPath.row].tvName)!)
+                    break
+                case 1:
+                    CKController.removeKeynote(FromTV: (self?.keynote![indexPath.row].tvName)!)
+                    break
+                case 2:
+                    CKController.remove(globalMessage: (self?.globalMessages![indexPath.row])!)
+                    break
+                default:
+                    break
+                }
+                
                 tableView.reloadData()
             })
             
@@ -242,7 +257,34 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
         let nav = UINavigationController(rootViewController: destination)
         nav.navigationBar.prefersLargeTitles = true
         
+        destination.prop = getProp(from: indexPath)
+        
         self.present(nav, animated: true, completion: nil)
+    }
+    
+    /**
+     ## Get the prop of the table view cell with the indexPath.
+     
+     - Parameters:
+        - indexPath: The current indexPath of the TableView.
+     
+     - Return: The element that is inside the cell.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
+    private func getProp(from indexPath: IndexPath) -> Any?{
+        switch indexPath.section {
+        case 0:
+            return thikerMessage?[indexPath.row]
+        case 1:
+            return keynote?[indexPath.row]
+        case 2:
+            return globalMessages?[indexPath.row]
+        default:
+            return nil
+        }
     }
     
     // MARK: - UITableView Data Source
