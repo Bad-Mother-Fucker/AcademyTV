@@ -9,6 +9,19 @@
 import Foundation
 import AVFoundation
 
+
+/**
+ ## VideoManager - TVOS
+ 
+ - Note: Class for managing video download and play
+ 
+ - SeeAlso: VideoDownloader
+ 
+ - Version: 1.0
+ 
+ - Author: @Micheledes
+ */
+
 class VideoManager {
     
     init(onLayer parentLayer: CALayer, videos: [AVPlayerItem]) {
@@ -26,9 +39,41 @@ class VideoManager {
     
     private var playingVideos: [AVPlayerItem]
     
+    /**
+     ## currentPlayingVideo
+    
+     
+     - Return: AVPlayerItem?
+     
+     
+     - SeeAlso: videos
+     
+     - Note: gets the current playing video on the current TV
+     
+     - Version: 1.0
+     
+     - Author: @Micheledes
+     */
+    
     var currentPlayingVideo: AVPlayerItem? {
         return player.currentItem
     }
+    
+    /**
+     ## videos
+     
+     
+     - Return: AVPlayerItem?
+     
+     
+     - SeeAlso: currentPlayingVideo
+     
+     - Note: the set of videos used as background in the app
+     
+     - Version: 1.0
+     
+     - Author: @Micheledes
+     */
     
     var videos: [AVPlayerItem] {
         get { return playingVideos }
@@ -39,6 +84,16 @@ class VideoManager {
     func playVideo() {
         player.play()
     }
+    
+    /**
+     ## startFromBeginnig()
+     
+     - Note: Starts the player from the first video of the current set
+     
+     - Version: 1.0
+     
+     - Author: @Micheledes
+     */
     
     func startFromBeginnig() {
         player.replaceCurrentItem(with: videos.first!)
@@ -66,7 +121,36 @@ class VideoManager {
     
 }
 
+/**
+ ## VideoDownloader
+ 
+
+ - SeeAlso: VideoManager
+
+ - Note: Takes care of the videos been downloaded within the app
+ 
+ - Version: 1.0
+ 
+ - Author: @Micheledes
+ */
+
+
 class VideoDownloader {
+    
+    /**
+     ## downloadVideosFrom(URLs:)
+
+     
+     - SeeAlso: getVideos(from:)
+     
+     - Note: downloads the videos from dropbox storage
+     
+     - Version: 1.0
+     
+     - Author: @Micheledes
+     */
+    
+    
     static private func downloadVideosFrom(URLs:[URL]) {
         
         DispatchQueue.global(qos: .background).async {
@@ -89,9 +173,24 @@ class VideoDownloader {
         }
     }
     
+
+    /**
+     ## getVideos(from:)
+     
+     - Parameters:
+     - <#Parameter#>
+
+     
+     - Return: <#Return#>
+
+     
+     - Note: If there is any video stored in userdefaults it returns the urls of the user default folder where the videos are stored. Otherwise it starts downloading them, and in the meanwhile returns the dropbox video urls
+     
+     - Version: 1.0
+     
+     - Author: @Micheledes
+     */
     
-//    Al primo avvio ritorna le URL dei video su dropbox e in contemporanea li salva su userdefaults
-//    Dal secondo avvio ritorna i video salvati su userdefaults
     static func getVideos(from urls: [URL]) -> [URL] {
         if let videoData = UserDefaults.standard.value(forKey: "videoURLs") as? Data {
             if let urlsArray = NSKeyedUnarchiver.unarchiveObject(with: videoData) as? [URL] {

@@ -119,9 +119,6 @@ class CKController {
             TVModel.getTV(withName: name) { (tv, error) in
                 guard let _ = tv, error == nil else {print(error!.localizedDescription);return}
                 tv!.tickerMsg = text
-                let op = CKModifyRecordsOperation(recordsToSave: [tv!.record], recordIDsToDelete: nil)
-                op.savePolicy = .changedKeys
-                CKKeys.database.add(op)
             }
     }
     
@@ -150,14 +147,7 @@ class CKController {
             tvs!.forEach({ (tv) in
                 tv.tickerMsg = text
             })
-            
-            let records = tvs!.map({ (tv) -> CKRecord in
-                return tv.record
-            })
-            
-            let op = CKModifyRecordsOperation(recordsToSave: records, recordIDsToDelete: nil)
-            op.savePolicy = .changedKeys
-            CKKeys.database.add(op)
+
         }
     }
     
@@ -213,7 +203,7 @@ class CKController {
     static func removeTickerMessage(fromTVNamed name: String) {
         TVModel.getTV(withName: name) { (tv, error) in
             guard let _ = tv, error == nil else {print(error!.localizedDescription);return}
-            tv!.tickerMsg = ""
+            tv!.record.setValue(nil, forKey: TV.keys.ticker)
             let op = CKModifyRecordsOperation(recordsToSave: [tv!.record], recordIDsToDelete: nil)
             op.savePolicy = .changedKeys
             CKKeys.database.add(op)
@@ -236,7 +226,7 @@ class CKController {
      */
     
     static func isThereAMessage(onTV tv:TV)->Bool {
-        return tv.tickerMsg != ""
+        return tv.tickerMsg != "" 
     }
     
     
