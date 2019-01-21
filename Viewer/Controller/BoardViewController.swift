@@ -279,7 +279,7 @@ class BoardViewController: TVViewController {
         super.viewDidLoad()
         videoManager =  VideoManager(onLayer: self.view.layer, videos: videosURL)
         videoManager.playVideo()
-
+        globalMessageView.layoutView()
         NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: "serviceMessageSet"), object: nil, queue: .main) {[weak self] (_) in
             
             if self!.currentTV.tickerMsg.count > 0 {
@@ -302,13 +302,15 @@ class BoardViewController: TVViewController {
         NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: CKNotificationName.tvSet.rawValue), object: nil, queue: .main) { _ in
             self.currentTV = (UIApplication.shared.delegate as! AppDelegate).currentTV
             self.currentTV.viewDelegate = self
+           
+            
             if let keynote = self.currentTV.keynote {
-                
                 self.show(keynote: keynote)
             }else {
-                
                 self.hideKeynote()
             }
+            
+            
             do {
                 self.globalMessageView.globalMessages = try CKController.getAllGlobalMessages(completionHandler: {})
             } catch {
@@ -396,56 +398,6 @@ class BoardViewController: TVViewController {
         self.dateLabel.text = dateFormatter.string(from: date)
     }
     
-    private func setNormalFrame() {
-        UIView.animate(withDuration: 2) {
-           
-            self.globalMessageBlurEffect.removeFromSuperview()
-            self.view.addSubview(self.globalMessageBlurEffect)
-            
-            self.globalMessageBlurEffect.constraints.forEach({ (constraint) in
-                if constraint.identifier == "dimension"{
-                    debugPrint("removing dimension constraint")
-                    constraint.autoRemove()
-                }
-            })
-            
-            self.globalMessageBlurEffect.autoPinEdge(toSuperviewEdge: .left, withInset:30)
-            self.globalMessageBlurEffect.autoPinEdge(toSuperviewEdge: .top, withInset:60)
-            self.globalMessageBlurEffect.frame = CGRect(origin: self.globalMessageBlurEffect.frame.origin, size: CGSize(width: 897, height: 550))
-            self.globalMessageBlurEffect.autoSetDimensions(to: CGSize(width: 897, height: 550))
-            self.globalMessageView.setLayout(type: .normal)
-        }
-        
-    }
-
-    private func setKeynoteFrame() {
-        
-           UIView.animate(withDuration: 2) {
-
-    
-            self.globalMessageBlurEffect.removeFromSuperview()
-            self.view.addSubview(self.globalMessageBlurEffect)
-            
-            self.globalMessageBlurEffect.constraints.forEach({ (constraint) in
-                if constraint.identifier == "dimension"{
-                    debugPrint("removing dimension constraint")
-                    constraint.autoRemove()
-                }
-            })
-            
-            
-              self.globalMessageBlurEffect.frame = CGRect(origin: self.globalMessageBlurEffect.frame.origin, size: CGSize(width: 465, height: self.keynoteView.frame.height))
-            self.globalMessageBlurEffect.autoPinEdge(toSuperviewEdge: .left, withInset:30)
-            self.globalMessageBlurEffect.autoSetDimensions(to: CGSize(width: 465, height: 783))
-//            self.globalMessageBlurEffect.autoSetDimension(.height, toSize: 783)
-          
-            self.globalMessageBlurEffect.autoPinEdge(.top, to: .top, of: self.keynoteView)
-            self.globalMessageBlurEffect.autoPinEdge(.bottom, to: .bottom, of: self.keynoteView)
-            self.globalMessageBlurEffect.autoPinEdge(.right, to: .left, of: self.keynoteView, withOffset: -8)
-            self.globalMessageView.setLayout(type: .keynote)
-            
-        }
-    }    
 }
 
 extension BoardViewController: ATVViewDelegate {
@@ -463,7 +415,7 @@ extension BoardViewController: ATVViewDelegate {
     
     func show(keynote: [UIImage]) {
 //      Perform UI Keynote  Showing
-        setKeynoteFrame()
+        
         keynoteBlurView.fadeIn()
         keynoteView.isHidden = false
         keynoteView.alpha = 1
@@ -476,7 +428,7 @@ extension BoardViewController: ATVViewDelegate {
         
         keynoteBlurView.fadeOut()
         keynoteView.isHidden = true
-        setNormalFrame()
+       
         self.keynote = []
         
     }

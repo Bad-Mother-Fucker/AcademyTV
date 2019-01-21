@@ -204,6 +204,9 @@ class TV: CloudStored {
             record.setValue(newValue, forKey: TV.keys.ticker)
             let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
             op.savePolicy = .changedKeys
+            op.completionBlock = {
+                print("ticker message set")
+            }
             CKKeys.database.add(op)
         }
     }

@@ -221,7 +221,7 @@
                     <navigationItem key="navigationItem" title="Messages" id="rtu-m0-qiw">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="iHh-lM-H53">
                             <connections>
-                                <action selector="sendMessage:" destination="PcX-Yj-AkG" id="6V3-z2-YUl"/>
+                                <action selector="sendMessageButtonPressed:" destination="PcX-Yj-AkG" id="V9p-0h-gxT"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
