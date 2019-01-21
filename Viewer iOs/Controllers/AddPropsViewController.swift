@@ -82,7 +82,7 @@ class AddPropsViewController: UIViewController {
     
     
     
-    var selectedDateTime: String {
+    var selectedDateTime: String = "" {
         didSet {
           (tableView.cellForRow(at: IndexPath(row: 3, section: 3))?.viewWithTag(500) as! UILabel).text = selectedDateTime
         }
@@ -174,7 +174,8 @@ class AddPropsViewController: UIViewController {
      - Author: @GianlucaOrpello
      */
     @objc func dissmissController(){
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
+//        self.dismiss(animated: true, completion: nil)
     }
     
     /**
@@ -214,10 +215,16 @@ class AddPropsViewController: UIViewController {
                 location = nil
             }
 
-            let prop = GlobalMessage(title: title, subtitle: subtitle, location: location,date:(dateTime,nil) description: description, URL: url, timeToLive: 0)
+            let prop = GlobalMessage(title: title,
+                                     subtitle: subtitle,
+                                     location: location,
+                                     date: (dateTime,nil),
+                                     description: description,
+                                     URL: URL(string: url ?? ""),
+                                     timeToLive: 0)
       
             return prop
-        case Categories.TikerMessage.rawValue:
+        case Categories.TickerMessage.rawValue:
 
             let text = (tableView.cellForRow(at: IndexPath(row: 0, section: 2))?.viewWithTag(500) as! UITextField).text!
             return text
@@ -329,7 +336,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
             default:
                 return 0
             }
-        case Categories.TikerMessage.rawValue:
+        case Categories.TickerMessage.rawValue:
             switch indexPath.section{
             case 0:
                 return 235
@@ -374,7 +381,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
             default:
                 return nil
             }
-        case Categories.TikerMessage.rawValue:
+        case Categories.TickerMessage.rawValue:
             switch section{
             case 1:
                 return "Description"
@@ -426,7 +433,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
         switch props.title {
         case Categories.GlobalMessage.rawValue:
             return 4
-        case Categories.TikerMessage.rawValue:
+        case Categories.TickerMessage.rawValue:
             return 3
         case Categories.KeynoteViewer.rawValue:
             return 3
@@ -455,7 +462,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                 }else{
                     return 0
                 }
-            case Categories.TikerMessage.rawValue:
+            case Categories.TickerMessage.rawValue:
                 return 2
             case Categories.KeynoteViewer.rawValue:
                 return 2
@@ -485,7 +492,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
             case Categories.GlobalMessage.rawValue:
                 image = UIImage(named: "PreviewGlobalMessage")
                 break
-            case Categories.TikerMessage.rawValue:
+            case Categories.TickerMessage.rawValue:
                 image = UIImage(named: "PreviewTicker")
                 break
             case Categories.KeynoteViewer.rawValue:
@@ -651,7 +658,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                     return UITableViewCell()
                 }
                 
-            case Categories.TikerMessage.rawValue:
+            case Categories.TickerMessage.rawValue:
                 switch indexPath.section{
                     
                 case 1:
@@ -721,9 +728,9 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         button.setTitle("Select from Photos", for: .normal)
                         button.setTitleColor(UIColor(red: 0, green: 122/255, blue: 1, alpha: 1), for: .normal)
                         button.contentHorizontalAlignment = .left
-                        #warning("Add Target to this button")
-                        button.addTarget(self, action: #selector(chooseFoto), for: .touchUpInside)
-                        #warning("Remember to save the foto in keynoteFoto var to show in checkout VC")
+//                        #warning("Add Target to this button")
+//                        button.addTarget(self, action: #selector(chooseFoto), for: .touchUpInside)
+//                        #warning("Remember to save the foto in keynoteFoto var to show in checkout VC")
                         cell.contentView.addSubview(button)
                         return cell
                         

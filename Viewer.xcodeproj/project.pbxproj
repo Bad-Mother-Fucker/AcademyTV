@@ -54,6 +54,7 @@
 		99308B7721A6FAE500EA0F9C /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99308B7621A6FAE500EA0F9C /* ShareViewController.swift */; };
 		99308B7A21A6FAE500EA0F9C /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99308B7821A6FAE500EA0F9C /* MainInterface.storyboard */; };
 		99308B7E21A6FAE500EA0F9C /* ShareExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 99308B7421A6FAE500EA0F9C /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		9936D1BE21F6855600478244 /* AddPropsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B0DDF921F672E500E3FAAA /* AddPropsViewController.swift */; };
 		994CDB8621A06FBF005909BF /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 994CDB8521A06FBF005909BF /* CloudKit.framework */; };
 		995801D521E0BF6800A6BD49 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 995801D421E0BF6800A6BD49 /* README.md */; };
 		996353E82195E2E500AE8AAE /* GlobalMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996353E72195E2E500AE8AAE /* GlobalMessageView.swift */; };
@@ -710,6 +711,7 @@
 				99308B7721A6FAE500EA0F9C /* ShareViewController.swift in Sources */,
 				656887FA21C9450F00EBD49B /* SharePosterViewController.swift in Sources */,
 				656E2A1321F62CA400B9FD77 /* ImagePickerViewController.swift in Sources */,
+				9936D1BE21F6855600478244 /* AddPropsViewController.swift in Sources */,
 				656E2A1221F62CA000B9FD77 /* MessagesTableViewController.swift in Sources */,
 				656887F421C919F400EBD49B /* TvListViewController.swift in Sources */,
 				656887F821C91A4400EBD49B /* ImagePickerCollectionViewCell.swift in Sources */,
@@ -827,7 +829,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = D4L4S7MAUX;
+				DEVELOPMENT_TEAM = 5QJLL8HM6C;
 				INFOPLIST_FILE = ShareExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -835,7 +837,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.Rogue.Viewer.iOS.ShareExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.TeamRogue.Viewer.iOS.ShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -853,7 +855,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = D4L4S7MAUX;
+				DEVELOPMENT_TEAM = 5QJLL8HM6C;
 				INFOPLIST_FILE = ShareExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -861,7 +863,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.Rogue.Viewer.iOS.ShareExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.TeamRogue.Viewer.iOS.ShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -996,13 +998,13 @@
 				CODE_SIGN_ENTITLEMENTS = Viewer/Viewer.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = D4L4S7MAUX;
+				DEVELOPMENT_TEAM = 5QJLL8HM6C;
 				INFOPLIST_FILE = Viewer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.Rogue.Viewer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.TeamRogue.Viewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
@@ -1020,13 +1022,13 @@
 				CODE_SIGN_ENTITLEMENTS = Viewer/Viewer.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = D4L4S7MAUX;
+				DEVELOPMENT_TEAM = 5QJLL8HM6C;
 				INFOPLIST_FILE = Viewer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.Rogue.Viewer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.TeamRogue.Viewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
@@ -1044,14 +1046,14 @@
 				CODE_SIGN_ENTITLEMENTS = "Viewer iOs/Viewer iOs.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = D4L4S7MAUX;
+				DEVELOPMENT_TEAM = 5QJLL8HM6C;
 				INFOPLIST_FILE = "Viewer iOs/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.Rogue.Viewer.iOS;
+				PRODUCT_BUNDLE_IDENTIFIER = com.TeamRogue.Viewer.iOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_ENABLE_BATCH_MODE = NO;
@@ -1069,14 +1071,14 @@
 				CODE_SIGN_ENTITLEMENTS = "Viewer iOs/Viewer iOs.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = D4L4S7MAUX;
+				DEVELOPMENT_TEAM = 5QJLL8HM6C;
 				INFOPLIST_FILE = "Viewer iOs/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.Rogue.Viewer.iOS;
+				PRODUCT_BUNDLE_IDENTIFIER = com.TeamRogue.Viewer.iOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_ENABLE_BATCH_MODE = NO;
