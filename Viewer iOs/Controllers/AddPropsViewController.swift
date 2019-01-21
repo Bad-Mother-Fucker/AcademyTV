@@ -33,6 +33,8 @@ enum Locations: String, CaseIterable{
  - Author: @GianlucaOrpello
  */
 class AddPropsViewController: UIViewController {
+    
+    
 
     /**
      ## The selected props type.
@@ -62,7 +64,7 @@ class AddPropsViewController: UIViewController {
     var datePickerIsVisible: Bool = false
     
     /**
-     ## Selected location.
+     ## Selected location , Selected Date, Selected Time
      
      Used only for GlobalMessage Promp
      
@@ -77,6 +79,16 @@ class AddPropsViewController: UIViewController {
             }
         }
     }
+    
+    
+    
+    var selectedDateTime: String {
+        didSet {
+          (tableView.cellForRow(at: IndexPath(row: 3, section: 3))?.viewWithTag(500) as! UILabel).text = selectedDateTime
+        }
+        
+    }
+    
     
     /**
      ## Table View
@@ -188,15 +200,15 @@ class AddPropsViewController: UIViewController {
     }
     
     // Todo: Check this function...
-    func getProp() -> Any {
+    func getProp() -> Any? {
         switch props.title {
         case Categories.GlobalMessage.rawValue:
             let title = (tableView.cellForRow(at: IndexPath(row: 0, section: 2))?.viewWithTag(500) as! UITextField).text!
             let subtitle = (tableView.cellForRow(at: IndexPath(row: 1, section: 2))?.viewWithTag(500) as! UITextField).text!
             let description = (tableView.cellForRow(at: IndexPath(row: 2, section: 2))?.viewWithTag(500) as! UITextField).text
             let url = (tableView.cellForRow(at: IndexPath(row: 0, section: 3))?.viewWithTag(500) as! UITextField).text
-//            let location = (tableView.cellForRow(at: IndexPath(row: 1, section: 3))?.viewWithTag(500) as! UILabel).text
-//            let dateTime = (tableView.cellForRow(at: IndexPath(row: 2, section: 3))?.viewWithTag(500) as! UILabel).text
+            var location = (tableView.cellForRow(at: IndexPath(row: 1, section: 3))?.viewWithTag(500) as! UILabel).text
+            let dateTime = (tableView.cellForRow(at: IndexPath(row: 3, section: 3))?.viewWithTag(500) as! UILabel).text
 
             if location == "None" {
                 location = nil
@@ -208,9 +220,14 @@ class AddPropsViewController: UIViewController {
         case Categories.TikerMessage.rawValue:
 
             let text = (tableView.cellForRow(at: IndexPath(row: 0, section: 2))?.viewWithTag(500) as! UITextField).text!
+            return text
 
         case Categories.KeynoteViewer.rawValue:
-            return ""
+            
+            
+            return nil
+            
+            
         case Categories.Timer.rawValue:
             return "nil"
         default:
@@ -259,7 +276,7 @@ class AddPropsViewController: UIViewController {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .medium
-//        self.dateLabel.text = dateFormatter.string(from: sender.date)
+        selectedDateTime = dateFormatter.string(from: sender.date)
     }
     
 }
@@ -705,9 +722,12 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         button.setTitleColor(UIColor(red: 0, green: 122/255, blue: 1, alpha: 1), for: .normal)
                         button.contentHorizontalAlignment = .left
                         #warning("Add Target to this button")
+                        button.addTarget(self, action: #selector(chooseFoto), for: .touchUpInside)
                         #warning("Remember to save the foto in keynoteFoto var to show in checkout VC")
                         cell.contentView.addSubview(button)
                         return cell
+                        
+
                         
                     }else{
                         
