@@ -596,17 +596,52 @@ class CKController {
 
 // MARK: - Custom Types and Protocols
 
+/**
+ ## CloudStored
+ 
+ 
+ - Note: The protocol adopted by every data model stored in cloudkit
+ 
+ - Version: 1.0
+ 
+ - Author: @Micheledes
+ */
+
 protocol CloudStored {
     var record:CKRecord { get set }
     static var recordType: String { get }
     init(record: CKRecord)
 }
 
+/**
+ ## CKQueryException
+ 
+ - Parameters:
+ - connectionTimedOut: Thrown when a query takes too long to be executed
+ - recordNotFound: Thrown when a requested record is not found in the database
+ 
+ - Note: Enum containing the custom exceptions
+ 
+ - Version: 1.0
+ 
+ - Author: @Micheledes
+ */
+
 
 enum CKQueryException:Error {
     case connectionTimedOut(String)
     case recordNotFound(String)
 }
+
+/**
+ ## CKNotificationName
+ 
+ - Note: Enum containing the notification names used by the notification center
+ 
+ - Version: 1.0
+ 
+ - Author: @Micheledes
+ */
 
 enum CKNotificationName: String {
     case globalMessages = "global messages notification"
@@ -624,6 +659,16 @@ enum CKNotificationName: String {
         case update = "msgUpdated"
     }
 }
+
+/**
+ ## CKKeys
+ 
+ - Note: Enum containing the subscription keys for cloudkit
+ 
+ - Version: 1.0
+ 
+ - Author: @Micheledes
+ */
 
 enum CKKeys {
     
