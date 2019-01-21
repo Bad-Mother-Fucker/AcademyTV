@@ -195,23 +195,16 @@ class AddPropsViewController: UIViewController {
             let subtitle = (tableView.cellForRow(at: IndexPath(row: 1, section: 2))?.viewWithTag(500) as! UITextField).text!
             let description = (tableView.cellForRow(at: IndexPath(row: 2, section: 2))?.viewWithTag(500) as! UITextField).text
             let url = (tableView.cellForRow(at: IndexPath(row: 0, section: 3))?.viewWithTag(500) as! UITextField).text
-            let location = (tableView.cellForRow(at: IndexPath(row: 1, section: 3))?.viewWithTag(500) as! UILabel).text
-            let dateTime = (tableView.cellForRow(at: IndexPath(row: 2, section: 3))?.viewWithTag(500) as! UILabel).text
+//            let location = (tableView.cellForRow(at: IndexPath(row: 1, section: 3))?.viewWithTag(500) as! UILabel).text
+//            let dateTime = (tableView.cellForRow(at: IndexPath(row: 2, section: 3))?.viewWithTag(500) as! UILabel).text
 
-//            if location == "None" {
-//                location = nil
-//            }
-
-//            let prop = GlobalMessage(title: title, subtitle: subtitle, location: location,date:(dateTime,nil) description: description, URL: url, timeToLive: 0)
-
-            return ""
-            
             if location == "None" {
                 location = nil
             }
-            
-            let prop = GlobalMessage(title: title, subtitle: subtitle, location: location,date:(dateTime,nil), description: description, URL: url, timeToLive: 0)
-            
+
+            let prop = GlobalMessage(title: title, subtitle: subtitle, location: location,date:(dateTime,nil) description: description, URL: url, timeToLive: 0)
+      
+            return prop
         case Categories.TikerMessage.rawValue:
 
             let text = (tableView.cellForRow(at: IndexPath(row: 0, section: 2))?.viewWithTag(500) as! UITextField).text!
@@ -581,7 +574,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         let locationLabel = UILabel(frame: CGRect(x: self.view.frame.size.width - 157, y: 10, width: 157, height: 22))
                         locationLabel.text = selectedLocation.rawValue
                         locationLabel.textColor = .lightGray
-                        locationLabel.tag = 200
+                        locationLabel.tag = 500
                         
                         cell.contentView.addSubview(locationLabel)
                         cell.contentView.addSubview(label)
@@ -595,7 +588,6 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         picker.delegate = self
                         picker.dataSource = self
                         picker.isHidden = !locationPickerIsVisible
-                        
                         cell.contentView.addSubview(picker)
                         return cell
                     case 3:

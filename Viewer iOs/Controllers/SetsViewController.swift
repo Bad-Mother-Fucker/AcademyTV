@@ -119,7 +119,7 @@ class AddPropsViewController: UIViewController {
         switch Categories {
         case .GlobalMessage:
             
-            
+            break
         case .TickerMessage:
             
         case .KeynoteViewer:
