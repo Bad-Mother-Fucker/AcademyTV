@@ -46,7 +46,7 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
             }
             
             summary.prop = propArray
-        }else if category == .KeynoteViewer.rawValue {
+        }else if category == Categories.KeynoteViewer {
             var tvNames: String = ""
             for group in selectedGroups{
                 tvNames.append(contentsOf: group.rawValue)

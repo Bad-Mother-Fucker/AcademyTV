@@ -74,7 +74,7 @@ class AddPropsViewController: UIViewController {
      */
     var selectedLocation: Locations = .none{
         didSet{
-            if let label = self.view.viewWithTag(200) as? UILabel{
+            if let label = tableView.cellForRow(at: IndexPath(row: 1, section: 3))?.viewWithTag(500) as? UILabel{
                 label.text = selectedLocation.rawValue
             }
         }
@@ -164,9 +164,9 @@ class AddPropsViewController: UIViewController {
         tableView = UITableView(frame: self.view.frame)
         tableView.tableFooterView = UIView()
         
-        NotificationCenter.default.addObserver(forName: "GetAllSelectedPhotos", object: nil, queue: .main) { (notification) in
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "GetAllSelectedPhotos"), object: nil, queue: .main) { (notification) in
             if let images = notification.userInfo?["images"] as? [UIImage] {
-                keynotes = images
+                self.keynote = images
             }
         }
 
@@ -632,6 +632,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         picker.delegate = self
                         picker.dataSource = self
                         picker.isHidden = !locationPickerIsVisible
+                        
                         cell.contentView.addSubview(picker)
                         return cell
                     case 3:
@@ -828,6 +829,8 @@ extension AddPropsViewController: UITextFieldDelegate{
         }
     }
 }
+
+// MARK: - Extension for UIPickerController
 
 extension AddPropsViewController: UIPickerViewDelegate, UIPickerViewDataSource{
     
