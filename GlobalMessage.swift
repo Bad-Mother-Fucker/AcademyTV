@@ -28,8 +28,8 @@ class GlobalMessageModel {
         }
     }
     
-    static func postMessage(title: String,subtitle:String,location:String?,description:String?,URL:URL?,timeToLive: TimeInterval?, completionHandler: @escaping (CKRecord?,Error?)->Void) {
-        let msg = GlobalMessage(title: title, subtitle: subtitle, location: location, description: description, URL: URL,timeToLive: timeToLive)
+    static func postMessage(title: String,subtitle:String,location:String?,date:(day:String?,time:String?)?,description:String?,URL:URL?,timeToLive: TimeInterval?, completionHandler: @escaping (CKRecord?,Error?)->Void) {
+        let msg = GlobalMessage(title: title, subtitle: subtitle, location: location,date: date, description: description, URL: URL,timeToLive: timeToLive)
         CKKeys.database.save(msg.record) { (record, error) in
             completionHandler(record,error)
         }
@@ -58,9 +58,9 @@ class GlobalMessage: CloudStored {
     let formatter = DateFormatter()
     let timeFormatter = DateFormatter()
    
-    static let voidMessage = GlobalMessage(title: "🖥 AirPlay", subtitle: "", location: nil, description: "Wirelessly send what's on your iOS device or computer on this display using AirPlay. To learn more go to apple.com/airplay.", URL: URL(string:"apple.com/airplay"), timeToLive: nil)
+    static let voidMessage = GlobalMessage(title: "🖥 AirPlay", subtitle: "", location: nil,date:nil, description: "Wirelessly send what's on your iOS device or computer on this display using AirPlay. To learn more go to apple.com/airplay.", URL: URL(string:"apple.com/airplay"), timeToLive: nil)
 
-    init (title:String,subtitle:String,location:String?,description:String?,URL:URL?,timeToLive: TimeInterval?) {
+    init (title:String,subtitle:String,location:String?,date:(day:String?,time:String?)?,description:String?,URL:URL?,timeToLive: TimeInterval?) {
         
         self.record = CKRecord(recordType: GlobalMessage.recordType)
         record.setValue(title, forKey: GlobalMessage.keys.title)
@@ -177,6 +177,7 @@ class GlobalMessage: CloudStored {
             return (formatter.string(from: date),timeFormatter.string(from: date))
         }
         set{
+            
             guard let _ = newValue.day else {return}
             formatter.dateStyle = .short
             formatter.dateFormat = "dd/MM hh:mm"

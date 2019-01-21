@@ -428,8 +428,8 @@ class CKController {
      - Author: @Micheledes
      */
     
-   static func postMessage(title:String , subtitle: String, location: String?, description: String?, URL: URL?,timeToLive:TimeInterval ) {
-        GlobalMessageModel.postMessage(title:title , subtitle: subtitle, location: location, description: description, URL: URL,timeToLive: timeToLive) { (record, error) -> Void in
+    static func postMessage(title:String , subtitle: String, location: String?,date:(String?,String?), description: String?, URL: URL?,timeToLive:TimeInterval ) {
+    GlobalMessageModel.postMessage(title:title , subtitle: subtitle, location: location,date:date, description: description, URL: URL,timeToLive: timeToLive) { (record, error) -> Void in
             if let _ = error {
                 print(error!.localizedDescription)
             }

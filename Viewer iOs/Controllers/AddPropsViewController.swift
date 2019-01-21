@@ -131,10 +131,12 @@ class AddPropsViewController: UIViewController {
         case Categories.GlobalMessage.rawValue:
             let title = (tableView.cellForRow(at: IndexPath(row: 0, section: 2))?.viewWithTag(500) as! UITextField).text!
             let subtitle = (tableView.cellForRow(at: IndexPath(row: 1, section: 2))?.viewWithTag(500) as! UITextField).text!
-            let description = (tableView.cellForRow(at: IndexPath(row: 2, section: 2))?.viewWithTag(500) as! UITextField).text!
-            let url = (tableView.cellForRow(at: IndexPath(row: 3, section: 2))?.viewWithTag(500) as! UITextField).text!
+            let description = (tableView.cellForRow(at: IndexPath(row: 2, section: 2))?.viewWithTag(500) as! UITextField).text
+            let url = (tableView.cellForRow(at: IndexPath(row: 0, section: 3))?.viewWithTag(500) as! UITextField).text
+            let location = (tableView.cellForRow(at: IndexPath(row: 1, section: 3))?.viewWithTag(500) as! UILabel).text
+            let dateTime = (tableView.cellForRow(at: IndexPath(row: 2, section: 3))?.viewWithTag(500) as! UILabel).text
+            let prop = GlobalMessage(title: title, subtitle: subtitle, location: location, description: description, URL: url, timeToLive: 0)
             
-            let prop = GlobalMessage(title:  )
         case Categories.TikerMessage.rawValue:
             <#code#>
         case Categories.KeynoteViewer.rawValue:
@@ -427,10 +429,8 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         label.text = "Location"
                         
                         let locationLabel = UILabel(frame: CGRect(x: self.view.frame.size.width - 157, y: 10, width: 157, height: 22))
-                        button.setTitle("None", for: .normal)
-                        button.setTitleColor(.lightGray, for: .normal)
-                        #warning("Add Target to this button")
-                        #warning("Remember to store location (in string) in the GMLocation var to pass to checkout VC")
+                       
+                        locationLabel.tag = 500
                         cell.contentView.addSubview(button)
                         cell.contentView.addSubview(label)
                         return cell
@@ -448,9 +448,10 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
                         label.textColor = .lightGray
                         label.text = "Today, 10:41"
-                        
+                        label.tag = 500
                         let swi = UISwitch(frame: CGRect(x: self.view.frame.size.width - 65, y: 10, width: 55, height: 36))
                         swi.isOn = false
+                        
                         
                         cell.contentView.addSubview(swi)
                         cell.contentView.addSubview(label)
