@@ -41,6 +41,7 @@
 		656E2A1521F62CBF00B9FD77 /* MessagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996418892180C6DA005267E4 /* MessagesTableViewCell.swift */; };
 		656E2A1621F62CC600B9FD77 /* NoLivePrompView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E378FD21EA2ED0006380F7 /* NoLivePrompView.swift */; };
 		656E2A1721F62CCF00B9FD77 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99AC09682174E9C100CFCAD0 /* AppDelegate.swift */; };
+		656E2A1821F67F8B00B9FD77 /* AddPropsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B0DDF921F672E500E3FAAA /* AddPropsViewController.swift */; };
 		65D9BAC221C9612E000466BA /* ShareBackgroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D9BAC121C9612E000466BA /* ShareBackgroundViewController.swift */; };
 		65D9BAC421C9664A000466BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99AC096F2174E9C200CFCAD0 /* Assets.xcassets */; };
 		65F389AE21F5D7250084D5F5 /* TvGroups.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F389AD21F5D7250084D5F5 /* TvGroups.swift */; };
@@ -710,6 +711,7 @@
 				99308B7721A6FAE500EA0F9C /* ShareViewController.swift in Sources */,
 				656887FA21C9450F00EBD49B /* SharePosterViewController.swift in Sources */,
 				656E2A1321F62CA400B9FD77 /* ImagePickerViewController.swift in Sources */,
+				656E2A1821F67F8B00B9FD77 /* AddPropsViewController.swift in Sources */,
 				656E2A1221F62CA000B9FD77 /* MessagesTableViewController.swift in Sources */,
 				656887F421C919F400EBD49B /* TvListViewController.swift in Sources */,
 				656887F821C91A4400EBD49B /* ImagePickerCollectionViewCell.swift in Sources */,
