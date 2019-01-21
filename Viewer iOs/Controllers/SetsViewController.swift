@@ -8,23 +8,6 @@
 
 import UIKit
 
-enum Locations: String, CaseIterable{
-    case none = "None"
-    case seminar = "Main Classroom"
-    case kitchen = "Kitchen"
-    case br1 = "Boardroom 1"
-    case br2 = "Boardroom 2"
-    case br3 = "Boardroom 3"
-    case lab1 = "Lab 1"
-    case collab1 = "Collab-01"
-    case lab2 = "Lab 2"
-    case collab2 = "Collab-02"
-    case lab3 = "Lab 3"
-    case collab3 = "Collab-03"
-    case lab4 = "Lab 4"
-    case collab4 = "Collab-04"
-}
-
 /**
  ## UIViewController that allow you to add a new props.
  
@@ -42,41 +25,6 @@ class AddPropsViewController: UIViewController {
      - Author: @GianlucaOrpello
      */
     var props: (title: String, description: String)!
-    
-    /**
-     ## Is location Picker visible.
-     
-     - Version: 1.0
-     
-     - Author: @GianlucaOrpello
-     */
-    var locationPickerIsVisible: Bool = false
-    
-    /**
-     ## Is date Picker visible.
-     
-     - Version: 1.0
-     
-     - Author: @GianlucaOrpello
-     */
-    var datePickerIsVisible: Bool = false
-    
-    /**
-     ## Selected location.
-     
-     Used only for GlobalMessage Promp
-     
-     - Version: 1.0
-     
-     - Author: @GianlucaOrpello
-     */
-    var selectedLocation: Locations = .none{
-        didSet{
-            if let label = self.view.viewWithTag(200) as? UILabel{
-                label.text = selectedLocation.rawValue
-            }
-        }
-    }
     
     /**
      ## Table View
@@ -99,15 +47,7 @@ class AddPropsViewController: UIViewController {
      
      - Author: @GianlucaOrpello
      */
-    var numberOfChar = 70{
-        didSet{
-            if self.view != nil{
-                if let label = self.view.viewWithTag(150) as? UILabel{
-                    label.text = "\(numberOfChar) characters left"
-                }
-            }
-        }
-    }
+    var numberOfChar = 70
     
     /**
      ## UIViewController - init Methods
@@ -174,87 +114,11 @@ class AddPropsViewController: UIViewController {
      */
     @objc func checkSummary(){
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "someViewController")
+        let controller = storyboard.instantiateViewController(withIdentifier: "SetsViewController") as! TvListViewController
+        controller.category = Categories.TikerMessage
+        //controller.tickerMessage = 
+        navigationController?.pushViewController(controller, animated: true)
         #warning("Compleate methods.")
-        if props.title == Categories.GlobalMessage.rawValue {
-            let checkOutVC = SummaryViewController()
-            checkOutVC.categories = .GlobalMessage
-            checkOutVC.isCheckoutMode = true
-            checkOutVC.prop = getProp()
-            self.navigationController?.pushViewController(checkOutVC, animated: true)
-        }
-        
-    }
-    
-    func getProp() -> Any {
-        switch props.title {
-        case Categories.GlobalMessage.rawValue:
-            let title = (tableView.cellForRow(at: IndexPath(row: 0, section: 2))?.viewWithTag(500) as! UITextField).text!
-            let subtitle = (tableView.cellForRow(at: IndexPath(row: 1, section: 2))?.viewWithTag(500) as! UITextField).text!
-            let description = (tableView.cellForRow(at: IndexPath(row: 2, section: 2))?.viewWithTag(500) as! UITextField).text
-            let url = (tableView.cellForRow(at: IndexPath(row: 0, section: 3))?.viewWithTag(500) as! UITextField).text
-            let location = (tableView.cellForRow(at: IndexPath(row: 1, section: 3))?.viewWithTag(500) as! UILabel).text
-            let dateTime = (tableView.cellForRow(at: IndexPath(row: 2, section: 3))?.viewWithTag(500) as! UILabel).text
-            
-            if location == "None" {
-                location = nil
-            }
-            
-            let prop = GlobalMessage(title: title, subtitle: subtitle, location: location,date:(dateTime,nil) description: description, URL: url, timeToLive: 0)
-            
-        case Categories.TikerMessage.rawValue:
-            
-            let text = (tableView.cellForRow(at: IndexPath(row: 0, section: 2))?.viewWithTag(500) as! UITextField).text!
-            
-        case Categories.KeynoteViewer.rawValue:
-            break
-        case Categories.Timer.rawValue:
-            break
-        }
-    }
-    
-    /**
-     ## Action trigger when the switch value change.
-     
-     - Version: 1.0
-     
-     - Author: @GianlucaOrpello
-     */
-    @objc fileprivate func openOrCloseDatePicker(){
-        toggleShowDateDatepicker()
-    }
-    
-    /**
-     ## Open or close the row with the date picker
-     
-     - Version: 1.0
-     
-     - Author: @GianlucaOrpello
-     */
-    fileprivate func toggleShowDateDatepicker () {
-        datePickerIsVisible = !datePickerIsVisible
-        self.tableView.beginUpdates()
-        self.tableView.endUpdates()
-    }
-    
-    /**
-     ## Open or close the row with the location picker
-     
-     - Version: 1.0
-     
-     - Author: @GianlucaOrpello
-     */
-    fileprivate func toggleShowLocationDatepicker() {
-        locationPickerIsVisible = !locationPickerIsVisible
-        self.tableView.beginUpdates()
-        self.tableView.endUpdates()
-    }
-    
-    @objc func dateDidChange(sender: UIDatePicker){
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .medium
-//        self.dateLabel.text = dateFormatter.string(from: sender.date)
     }
     
 }
@@ -293,17 +157,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                     return 44
                 }
             case 3:
-                if locationPickerIsVisible && indexPath.row == 2{
-                    return 217
-                }else if !locationPickerIsVisible && indexPath.row == 2{
-                    return 0
-                }else if datePickerIsVisible && indexPath.row == 4{
-                    return 217
-                }else if !datePickerIsVisible && indexPath.row == 4{
-                    return 0
-                }else{
-                    return 50
-                }
+                return 50
             default:
                 return 0
             }
@@ -374,22 +228,6 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
             return nil
         }
     }
-    
-    /**
-     ## UITableView Delegate - didSelectRowAt Methods
-     
-     - Version: 1.0
-     
-     - Author: @GianlucaOrpello
-     */
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard props.title == Categories.GlobalMessage.rawValue,
-            indexPath.section == 3,
-            indexPath.row == 1 else { return }
-        
-        toggleShowLocationDatepicker()
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
 
     // MARK: - UITableView Data Source
 
@@ -429,7 +267,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                 if section == 2{
                     return 3
                 }else if section == 3{
-                    return 5
+                    return 4
                 }else{
                     return 0
                 }
@@ -503,10 +341,8 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         cell.selectionStyle = .none
                         
                         let textField = UITextField(frame: CGRect(x: 16, y: 10, width: self.view.frame.size.width - 32, height: 36))
-                        textField.delegate = self
                         textField.borderStyle = .none
                         textField.placeholder = "Title"
-                        textField.tag = 500
                         
                         cell.contentView.addSubview(textField)
                         return cell
@@ -514,12 +350,10 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         let cell = UITableViewCell()
                         cell.selectionStyle = .none
                         
-                        
                         let textField = UITextField(frame: CGRect(x: 16, y: 10, width: self.view.frame.size.width - 32, height: 36))
-                        textField.delegate = self
                         textField.borderStyle = .none
                         textField.placeholder = "Description"
-                        textField.tag = 500
+                        
                         cell.contentView.addSubview(textField)
                         return cell
                     case 2:
@@ -527,10 +361,8 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         cell.selectionStyle = .none
                         
                         let textField = UITextField(frame: CGRect(x: 16, y: 10, width: self.view.frame.size.width - 32, height: 105))
-                        textField.delegate = self
                         textField.borderStyle = .none
                         textField.placeholder = "Message"
-                        textField.tag = 500
                         
                         cell.contentView.addSubview(textField)
                         return cell
@@ -549,11 +381,10 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         label.text = "URL"
                         
                         let textField = UITextField(frame: CGRect(x: self.view.frame.size.width - 167, y: 10, width: 157, height: 22))
-                        textField.delegate = self
                         textField.borderStyle = .none
                         textField.textColor = .lightGray
                         textField.placeholder = "https://example.com"
-                        textField.tag = 500
+                        
                         cell.contentView.addSubview(textField)
                         cell.contentView.addSubview(label)
                         return cell
@@ -566,27 +397,16 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         let label = UILabel(frame: CGRect(x: 16, y: 10, width: 100, height: 22))
                         label.text = "Location"
                         
-                        let locationLabel = UILabel(frame: CGRect(x: self.view.frame.size.width - 157, y: 10, width: 157, height: 22))
-                        locationLabel.text = selectedLocation.rawValue
-                        locationLabel.textColor = .lightGray
-                        locationLabel.tag = 200
+                        let button = UIButton(frame: CGRect(x: self.view.frame.size.width - 157, y: 10, width: 157, height: 22))
+                        button.setTitle("None", for: .normal)
+                        button.setTitleColor(.lightGray, for: .normal)
+                        #warning("Add Target to this button")
                         
-                        cell.contentView.addSubview(locationLabel)
+                        cell.contentView.addSubview(button)
                         cell.contentView.addSubview(label)
                         return cell
                         
                     case 2:
-                        let cell = UITableViewCell()
-                        cell.selectionStyle = .none
-                        
-                        let picker = UIPickerView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 217))
-                        picker.delegate = self
-                        picker.dataSource = self
-                        picker.isHidden = !locationPickerIsVisible
-                        
-                        cell.contentView.addSubview(picker)
-                        return cell
-                    case 3:
                         
                         let cell = UITableViewCell()
                         cell.selectionStyle = .none
@@ -599,28 +419,22 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
                         label.textColor = .lightGray
                         label.text = "Today, 10:41"
-                        label.tag = 500
-                        let swi = UISwitch(frame: CGRect(x: self.view.frame.size.width - 65, y: 10, width: 55, height: 36))
-                        swi.isOn = datePickerIsVisible
-                        swi.addTarget(self, action: #selector(openOrCloseDatePicker), for: .valueChanged)
                         
+                        let swi = UISwitch(frame: CGRect(x: self.view.frame.size.width - 65, y: 10, width: 55, height: 36))
+                        swi.isOn = false
                         
                         cell.contentView.addSubview(swi)
                         cell.contentView.addSubview(label)
                         cell.contentView.addSubview(locationLabel)
                         return cell
                         
-                    case 4:
+                    case 3:
                         
                         let cell = UITableViewCell()
                         cell.selectionStyle = .none
                         
-                        let picker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 217))
-                        picker.datePickerMode = .dateAndTime
-                        picker.isHidden = !datePickerIsVisible
-                        picker.addTarget(self, action: #selector(dateDidChange(sender:)), for: .valueChanged)
                         
-                        cell.contentView.addSubview(picker)
+                        
                         return cell
                         
                     default:
@@ -651,11 +465,9 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         cell.selectionStyle = .none
                         
                         let textField = UITextField(frame: CGRect(x: 16, y: 10, width: self.view.frame.size.width - 32, height: 36))
-                        textField.delegate = self
-                        textField.tag = 100
                         textField.borderStyle = .none
                         textField.placeholder = "Message"
-                        textField.tag = 500
+                        
                         cell.contentView.addSubview(textField)
                         return cell
                     }else{
@@ -663,10 +475,10 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         cell.selectionStyle = .none
                         
                         let label = UILabel(frame: CGRect(x: 16, y: 10, width: self.view.frame.size.width - 32, height: 36))
-                        label.tag = 150
                         label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
                         label.textColor = .lightGray
-                        label.text = "\(numberOfChar) characters left"
+                        label.text = "70 characters left"
+                        #warning("Count the missing char.")
                         
                         cell.contentView.addSubview(label)
                         return cell
@@ -701,7 +513,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         button.setTitleColor(UIColor(red: 0, green: 122/255, blue: 1, alpha: 1), for: .normal)
                         button.contentHorizontalAlignment = .left
                         #warning("Add Target to this button")
-                        #warning("Remember to save the foto in keynoteFoto var to show in checkout VC")
+                        
                         cell.contentView.addSubview(button)
                         return cell
                         
@@ -740,85 +552,4 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
  */
 extension AddPropsViewController: UITextFieldDelegate{
     
-    /**
-     ## UITextFieldDelegate - textFieldShouldReturn Methods
-     
-     - Version: 1.0
-     
-     - Author: @GianlucaOrpello
-     */
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.endEditing(true)
-        return true
-    }
-    
-    /**
-     ## UITextFieldDelegate - shouldChangeCharactersIn Methods
-
-     - Version: 1.0
-     
-     - Author: @GianlucaOrpello
-     */
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        guard let text = textField.text, textField.tag == 100 else { return false }
-        let newLength = text.count + string.count - range.length
-        numberOfChar = 70 - newLength
-        
-        if numberOfChar > 0{
-            return true
-        }else{
-            return false
-        }
-    }
-}
-
-extension AddPropsViewController: UIPickerViewDelegate, UIPickerViewDataSource{
-    
-    // MARK: - UIPickerView Delegate
-    
-    /**
-     ## UIPickerViewDelegate - titleForRow Methods
-     
-     - Version: 1.0
-     
-     - Author: @GianlucaOrpello
-     */
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return Locations.allCases[row].rawValue
-    }
-    
-    /**
-     ## UIPickerViewDelegate - didSelectRow Methods
-     
-     - Version: 1.0
-     
-     - Author: @GianlucaOrpello
-     */
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectedLocation = Locations.allCases[row]
-    }
-    
-    // MARK: - UIPickerView Data Source
-    
-    /**
-     ## UIPickerViewDataSource - numberOfComponents Methods
-     
-     - Version: 1.0
-     
-     - Author: @GianlucaOrpello
-     */
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    /**
-     ## UIPickerViewDataSource - numberOfRowsInComponent Methods
-     
-     - Version: 1.0
-     
-     - Author: @GianlucaOrpello
-     */
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return Locations.allCases.count
-    }
 }

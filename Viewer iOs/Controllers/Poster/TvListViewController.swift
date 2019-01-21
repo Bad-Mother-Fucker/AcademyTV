@@ -17,6 +17,8 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
     var selectedGroup: TVGroups?
     var selectedGroups = [TVGroup]()
     var image: UIImage!
+    var category: Categories?
+    var tickerMessage: String?
     
     // MARK: CollectionView methods
     
@@ -28,35 +30,39 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
             
         }
     }
-    
-    
-    
-    @IBOutlet weak var clearBarButtonItem: UIBarButtonItem!{
-        didSet{
-                if selectedGroups.count != 0 {
-                    clearBarButtonItem.isEnabled = true
-                }
+    // MARK: NextBarButton
+    @IBOutlet weak var nextBarButtonItem: UIBarButtonItem!
+
+    @IBAction func nextBarButtonPressed(_ sender: Any) {
+        let summary = SummaryViewController()
+        
+        #warning("Implement here segue, passing TV data")
+        summary.categories = category
+        if (category == Categories.TikerMessage){
+            var propArray = [(message: String, tvName: String)]()
+            
+            for group in selectedGroups{
+                propArray.append((message: tickerMessage ?? "No message", tvName: group.rawValue as! String))
+            }
+            
+            summary.prop = propArray
         }
+        
+            
+        navigationController?.pushViewController(summary, animated: true)
+        
     }
+    // MARK: ViewDidLoad
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        nextBarButtonItem.isEnabled = false
         if (traitCollection.forceTouchCapability == .available){
         }
         
     }
     
-    @IBAction func clearKeynotes(_ sender: UIBarButtonItem) {
-        for group in selectedGroups{
-            CKController.removeKeynote(fromTVGroup: group)
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return groups.count + 1
-    }
-    
-    
+    // MARK: DelegateFlowLayout methods
     // setting correct spacing
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
@@ -82,6 +88,11 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
             height = 95
         }
         return CGSize(width: width, height: height)
+    }
+    
+    // MARK: CollectionView Delegate methods
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return groups.count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -120,11 +131,23 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
         if cell?.reuseIdentifier == "TVGroup"{
             cell!.isSelected = true
             selectedGroups.append(groups[indexPath.item - 1].name)
-            clearBarButtonItem.isEnabled = true
         }else{
-            for tvCell in collectionView.visibleCells{
-                tvCell.isSelected = true
+            for i in 1..<collectionView.numberOfItems(inSection: 0){
+                collectionView.selectItem(at: IndexPath(item: i, section: 0), animated: true, scrollPosition: .bottom)
             }
+            selectedGroups.removeAll()
+            for group in groups {
+                
+                selectedGroups.append(group.name)
+            }
+            
+            
+        }
+        
+        if selectedGroups.isEmpty {
+            nextBarButtonItem.isEnabled = false
+        } else {
+            nextBarButtonItem.isEnabled = true
         }
         
     }
@@ -134,18 +157,23 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
         let cell = collectionView.cellForItem(at: indexPath)
         if cell?.reuseIdentifier == "TVGroup"{
             cell!.isSelected = false
-        }else{
-            for tvCell in collectionView.visibleCells{
-                tvCell.isSelected = false
-                selectedGroups = selectedGroups.filter { (tvGroup) -> Bool in
-                    if tvGroup == groups[indexPath.item].name{
-                        clearBarButtonItem.isEnabled = false
-                        return false
-                    }else{
-                        return true
-                    }
+            selectedGroups = selectedGroups.filter { (tvGroup) -> Bool in
+                if tvGroup == groups[indexPath.item - 1].name{
+                    return false
+                }else{
+                    return true
                 }
             }
+        }else{
+            for i in 1..<collectionView.numberOfItems(inSection: 0){
+                collectionView.deselectItem(at: IndexPath(item: i, section: 0), animated: true)
+            }
+            selectedGroups.removeAll()
+        }
+        if selectedGroups.isEmpty {
+            nextBarButtonItem.isEnabled = false
+        } else {
+            nextBarButtonItem.isEnabled = true
         }
     }
     

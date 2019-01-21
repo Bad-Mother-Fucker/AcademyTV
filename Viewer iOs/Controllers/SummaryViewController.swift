@@ -21,6 +21,18 @@ import MessageUI
 class SummaryViewController: UIViewController, MFMailComposeViewControllerDelegate{
     
     /**
+     ## isCheckoutMode
+     
+     - Note: Indicates if the controller is used for checkout or not
+     
+     - Version: 1.0
+     
+     - Author: @Micheledes
+     */
+    
+    var isCheckoutMode: Bool = false
+    
+    /**
      ## The selected prop.
      
      - Version: 1.0
@@ -82,7 +94,7 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
      ## UIViewController - viewDidLoad Methods
      
      * Set the title of the Controller
-     * Add the UIBarButtonItem
+     * Add the UIBarButtonItems
      * Add the Table View
      
      - Version: 1.0
@@ -93,6 +105,10 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
         super.viewDidLoad()
         
         self.title = "Summary"
+        
+        if isCheckoutMode {
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(pop))
+        }
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dissmissController))
         
@@ -188,7 +204,22 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
             self.navigationController!.popViewController(animated: true)
         }
     }
+    
+    /**
+     ## Goes back to the previous view controller.
+     
+     - Version: 1.0
+     
+     - Author: @Micheledes
+     */
+    
+    
+    @objc func pop() {
+        navigationController?.popViewController(animated: true)
+    }
 }
+
+
 
 extension SummaryViewController: UITableViewDelegate, UITableViewDataSource{
     
@@ -275,9 +306,9 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch categories! {
         case .TikerMessage, .GlobalMessage:
-            return 6
+            return isCheckoutMode ? 4:6
         case .KeynoteViewer:
-            return 5
+            return isCheckoutMode ? 3:5
         case .Timer:
             return 0
         }
@@ -332,7 +363,7 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource{
             case .TikerMessage:
                 // Total of 6 rows
 
-                let thickerMessage = prop as! (message: String, tvName: String)
+                let thickerMessage = prop as! [(message: String, tvName: String)]
                 
                 switch indexPath.row{
                 case 1:
@@ -345,7 +376,7 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource{
                     label.text = "Text"
                     
                     let textLabel = UILabel(frame: CGRect(x: 72, y: 38, width: 287, height: 44))
-                    textLabel.text = thickerMessage.message
+                    textLabel.text = thickerMessage[0].message
                     textLabel.textColor = UIColor(red: 0, green: 119/255, blue: 1, alpha: 1)
                     
                     cell.contentView.addSubview(label)
@@ -364,7 +395,17 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource{
                     
                     let secondLabel = UILabel(frame: CGRect(x: 72, y: 37, width: 287, height: 44))
                     secondLabel.numberOfLines = 0
-                    secondLabel.text = thickerMessage.tvName
+                    
+                    var tvNamesString = String()
+                    for tm in thickerMessage{
+                        tvNamesString.append(contentsOf: tm.tvName)
+                        tvNamesString.append(contentsOf: ",")
+                    }
+                    
+                    tvNamesString.removeLast()
+                    
+                    secondLabel.text = tvNamesString
+                    
                     secondLabel.textColor = UIColor(red: 0, green: 119/255, blue: 1, alpha: 1)
                     
                     cell.contentView.addSubview(label)

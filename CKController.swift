@@ -428,8 +428,8 @@ class CKController {
      - Author: @Micheledes
      */
     
-   static func postMessage(title:String , subtitle: String, location: String?, description: String?, URL: URL?,timeToLive:TimeInterval ) {
-        GlobalMessageModel.postMessage(title:title , subtitle: subtitle, location: location, description: description, URL: URL,timeToLive: timeToLive) { (record, error) -> Void in
+    static func postMessage(title:String , subtitle: String, location: String?,date:(String?,String?), description: String?, URL: URL?,timeToLive:TimeInterval ) {
+    GlobalMessageModel.postMessage(title:title , subtitle: subtitle, location: location,date:date, description: description, URL: URL,timeToLive: timeToLive) { (record, error) -> Void in
             if let _ = error {
                 print(error!.localizedDescription)
             }
@@ -596,17 +596,52 @@ class CKController {
 
 // MARK: - Custom Types and Protocols
 
+/**
+ ## CloudStored
+ 
+ 
+ - Note: The protocol adopted by every data model stored in cloudkit
+ 
+ - Version: 1.0
+ 
+ - Author: @Micheledes
+ */
+
 protocol CloudStored {
     var record:CKRecord { get set }
     static var recordType: String { get }
     init(record: CKRecord)
 }
 
+/**
+ ## CKQueryException
+ 
+ - Parameters:
+ - connectionTimedOut: Thrown when a query takes too long to be executed
+ - recordNotFound: Thrown when a requested record is not found in the database
+ 
+ - Note: Enum containing the custom exceptions
+ 
+ - Version: 1.0
+ 
+ - Author: @Micheledes
+ */
+
 
 enum CKQueryException:Error {
     case connectionTimedOut(String)
     case recordNotFound(String)
 }
+
+/**
+ ## CKNotificationName
+ 
+ - Note: Enum containing the notification names used by the notification center
+ 
+ - Version: 1.0
+ 
+ - Author: @Micheledes
+ */
 
 enum CKNotificationName: String {
     case globalMessages = "global messages notification"
@@ -624,6 +659,16 @@ enum CKNotificationName: String {
         case update = "msgUpdated"
     }
 }
+
+/**
+ ## CKKeys
+ 
+ - Note: Enum containing the subscription keys for cloudkit
+ 
+ - Version: 1.0
+ 
+ - Author: @Micheledes
+ */
 
 enum CKKeys {
     

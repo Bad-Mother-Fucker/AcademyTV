@@ -96,6 +96,7 @@ class EditMessageViewController: UITableViewController, UITextFieldDelegate {
             CKController.postMessage(title: textFields[0].text!,
                                      subtitle: textFields[1].text!,
                                      location: textFields[3].text!,
+                                     date:(dateLabel.text,nil),
                                      description: descriptionTextView.text!,
                                      URL: URL(string: textFields[2].text!),
                                      timeToLive: 5)
