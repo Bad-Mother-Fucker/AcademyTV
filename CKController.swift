@@ -311,6 +311,10 @@ class CKController {
         return keynote
     }
     
+    static func isThereAKeynote(on tv:TV) -> Bool {
+        return tv.keynote != nil
+    }
+    
     
     /**
      ## remove(globalMessage:)
@@ -468,8 +472,53 @@ class CKController {
         }
     }
     
-
     
+    
+    /**
+     ## postKeynoteData(_:ofType:onTVNamed:)
+     
+     - Parameters:
+     - data: The images in Data format
+     - imageFileType: (JPG or PNG)
+     - tvName:  the name of the tv you want to show the keynote on
+    
+     - SeeAlso: postKeynoteData(_:ofType:onTVsOfGroup:)
+ 
+     - Requires: The images has to be in Data format
+     
+     - Note: This method is useful when we have to post images from the share extension, and they have to be in data format
+     
+     - Version: 1.0
+     
+     - Author: @Micheledes
+     */
+
+    static func postKeynoteData(_ data: [Data], ofType type: ImageFileType?, onTVNamed name: String) {
+        let keynote = data.map { (imgData) -> UIImage in
+            return UIImage(data: imgData) ?? UIImage()
+        }
+        
+        TVModel.getTV(withName: name) { (TV, error) -> Void in
+            guard let _ = TV else {return }
+            TV!.set(keynote: keynote, imageType: type ?? .PNG)
+        }
+    }
+    
+    
+    
+    static func postKeynoteData(_ data: [Data],ofType imageType:ImageFileType?, onTVsOfGroup group: TVGroup) {
+        let keynote = data.map { (imgData) -> UIImage in
+            return UIImage(data: imgData) ?? UIImage()
+        }
+        
+        TVModel.getTvs(ofGroup: group) { (tvs, error) in
+            guard let _ = tvs else {return}
+            for tv in tvs! {
+                tv.set(keynote: keynote, imageType: imageType ?? .PNG)
+            }
+        }
+        
+    }
     
 //    Post a keynote in Png or Jpg format on a given group of TV (iOS)
     
