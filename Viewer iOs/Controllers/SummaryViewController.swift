@@ -114,7 +114,7 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
      */
     private func getCurrentCategories(){
         if let _ = prop as? (message: String, tvName: String){
-            self.categories = .ThikerMessage
+            self.categories = .TikerMessage
         }else if let _ = prop as? (image: [UIImage]?, tvName: String){
             self.categories = .KeynoteViewer
         }else if let _ = prop as? GlobalMessage{
@@ -203,7 +203,7 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource{
      */
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch categories! {
-        case .ThikerMessage:
+        case .TikerMessage:
             // Total of 6 rows
             
             switch indexPath.row{
@@ -274,7 +274,7 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource{
      */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch categories! {
-        case .ThikerMessage, .GlobalMessage:
+        case .TikerMessage, .GlobalMessage:
             return 6
         case .KeynoteViewer:
             return 5
@@ -305,9 +305,9 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource{
             image.contentMode = .scaleAspectFit
             
             switch categories!{
-            case .ThikerMessage:
+            case .TikerMessage:
                 image.image = UIImage(named: "Ticker")
-                textLabel.text = Categories.ThikerMessage.rawValue
+                textLabel.text = Categories.TikerMessage.rawValue
                 break
             case .KeynoteViewer:
                 image.image = UIImage(named: "Keynote")
@@ -329,7 +329,7 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource{
         }else{
             
             switch categories!{
-            case .ThikerMessage:
+            case .TikerMessage:
                 // Total of 6 rows
 
                 let thickerMessage = prop as! (message: String, tvName: String)

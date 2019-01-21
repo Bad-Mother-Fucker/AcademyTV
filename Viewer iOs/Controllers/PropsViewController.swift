@@ -28,8 +28,8 @@ class PropsViewController: UITableViewController, UISearchResultsUpdating {
      */
     let props: [(title: String, description: String, image: UIImage?)] = [
         /*(title: "Booqable Availability", description: "Displays a list of names that are overdue, on hold and ready for pickup", image: UIImage(named: "Booquable")),*/
-        (title: "Global Message", description: "Displays a message with title, description, date & time, location and URL", image: UIImage(named: "GlobalMessage")),
-        (title: "Ticker Message", description: "Displays a short messager always visibile at the bottom of the screen", image: UIImage(named: "Ticker")),
+        (title: Categories.GlobalMessage.rawValue, description: "Displays a message with title, description, date & time, location and URL", image: UIImage(named: "GlobalMessage")),
+        (title: Categories.TikerMessage.rawValue, description: "Displays a short messager always visibile at the bottom of the screen", image: UIImage(named: "Ticker")),
         (title: "Content Viewer", description: "Dislays a keynote on selected area, airplay is not needed", image: UIImage(named: "Keynote"))
     ]
     
@@ -89,19 +89,7 @@ class PropsViewController: UITableViewController, UISearchResultsUpdating {
 //        self.tableView.addGestureRecognizer(tapAction)
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dissmissController))
-        
-        let userDefault = UserDefaults.standard
-        userDefault.addSuite(named: "com.Rogue.Viewer.ShareExt")
-        
-        if let dict = userDefault.value(forKey: "keynote") as? [String: Any]{
-            
-            let data = dict["imgData"] as! [Data]
-            let str = dict["name"] as! String
-            print(data, str)
-            userDefault.removeObject(forKey: "img")
-            userDefault.synchronize()
-            
-        }
+    
     }
     
     /**
@@ -204,35 +192,35 @@ class PropsViewController: UITableViewController, UISearchResultsUpdating {
      - Author: @GianlucaOrpello
      */
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        switch indexPath.row {
-        case 0:
-            let destination = storyboard.instantiateViewController(withIdentifier: "postGlobalMessage")
-            self.present(destination, animated: true, completion: nil)
-            
-            break
-        case 1:
-            let destination = storyboard.instantiateViewController(withIdentifier: "addThickerMessage")
-            self.present(destination, animated: true, completion: nil)
-            
-            break
-        case 2:
-            let destination = storyboard.instantiateViewController(withIdentifier: "addPostKeynote")
-            self.present(destination, animated: true, completion: nil)
-            
-            break
-        default:
-            break
-        }
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        switch indexPath.row {
+//        case 0:
+//            let destination = storyboard.instantiateViewController(withIdentifier: "postGlobalMessage")
+//            self.present(destination, animated: true, completion: nil)
+//
+//            break
+//        case 1:
+//            let destination = storyboard.instantiateViewController(withIdentifier: "addThickerMessage")
+//            self.present(destination, animated: true, completion: nil)
+//
+//            break
+//        case 2:
+//            let destination = storyboard.instantiateViewController(withIdentifier: "addPostKeynote")
+//            self.present(destination, animated: true, completion: nil)
+//
+//            break
+//        default:
+//            break
+//        }
         
-//        let destination = AddPropsViewController()
-//        let nav = UINavigationController(rootViewController: destination)
-//        nav.navigationBar.prefersLargeTitles = true
-//
-//        let prop = props[indexPath.row]
-//        destination.props = (title: prop.title, description: prop.description)
-//
-//        self.present(nav, animated: true, completion: nil)
+        let destination = AddPropsViewController()
+        let nav = UINavigationController(rootViewController: destination)
+        nav.navigationBar.prefersLargeTitles = true
+
+        let prop = props[indexPath.row]
+        destination.props = (title: prop.title, description: prop.description)
+
+        self.present(nav, animated: true, completion: nil)
     }
     
 }
