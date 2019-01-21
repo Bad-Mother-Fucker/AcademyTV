@@ -64,7 +64,7 @@ class AddPropsViewController: UIViewController {
     var datePickerIsVisible: Bool = false
     
     /**
-     ## Selected location , Selected Date, Selected Time
+     ## Selected location , Selected DateTime, Selected Keynote
      
      Used only for GlobalMessage Promp
      
@@ -88,6 +88,8 @@ class AddPropsViewController: UIViewController {
         }
         
     }
+    
+    var  keynote: [UIImage]? = []
     
     
     /**
@@ -161,6 +163,12 @@ class AddPropsViewController: UIViewController {
         
         tableView = UITableView(frame: self.view.frame)
         tableView.tableFooterView = UIView()
+        
+        NotificationCenter.default.addObserver(forName: "GetAllSelectedPhotos", object: nil, queue: .main) { (notification) in
+            if let images = notification.userInfo?["images"] as? [UIImage] {
+                keynotes = images
+            }
+        }
 
         self.view.addSubview(tableView)
         
@@ -195,7 +203,18 @@ class AddPropsViewController: UIViewController {
             checkOutVC.isCheckoutMode = true
             checkOutVC.prop = getProp()
             self.navigationController?.pushViewController(checkOutVC, animated: true)
+        }else if props.title == Categories.TickerMessage.rawValue {
+            let vc = TvListViewController()
+            vc.category = .TickerMessage
+            vc.tickerMessage = getProp() as! String
+            navigationController?.pushViewController(vc, animated: true)
+        }else if props.title == Categories.KeynoteViewer.rawValue {
+            let vc = TvListViewController()
+            vc.category = .KeynoteViewer
+            vc.keynote = getProp() as! [UIImage]?
+            navigationController?.pushViewController(vc, animated: true)
         }
+        
         
     }
     
@@ -220,12 +239,13 @@ class AddPropsViewController: UIViewController {
         case Categories.TikerMessage.rawValue:
 
             let text = (tableView.cellForRow(at: IndexPath(row: 0, section: 2))?.viewWithTag(500) as! UITextField).text!
+            
             return text
 
         case Categories.KeynoteViewer.rawValue:
             
             
-            return nil
+            return keynote
             
             
         case Categories.Timer.rawValue:
@@ -721,9 +741,9 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         button.setTitle("Select from Photos", for: .normal)
                         button.setTitleColor(UIColor(red: 0, green: 122/255, blue: 1, alpha: 1), for: .normal)
                         button.contentHorizontalAlignment = .left
-                        #warning("Add Target to this button")
-                        button.addTarget(self, action: #selector(chooseFoto), for: .touchUpInside)
-                        #warning("Remember to save the foto in keynoteFoto var to show in checkout VC")
+                       
+                        button.addTarget(self, action: #selector(getPhotos), for: .touchUpInside)
+                        
                         cell.contentView.addSubview(button)
                         return cell
                         
@@ -752,6 +772,12 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
             }
             
         }
+    }
+    
+    
+    @objc func getPhotos() {
+        let vc = ImagePickerViewController()
+        self.present(vc,animated: true)
     }
 }
 
