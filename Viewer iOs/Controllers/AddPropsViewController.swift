@@ -196,7 +196,7 @@ class AddPropsViewController: UIViewController {
     @objc func checkSummary(){
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "someViewController")
+        let controller = storyboard.instantiateViewController(withIdentifier: "SetsViewController") as! TvListViewController
         #warning("Compleate methods.")
         if props.title == Categories.GlobalMessage.rawValue {
             let checkOutVC = SummaryViewController()
@@ -205,15 +205,15 @@ class AddPropsViewController: UIViewController {
             checkOutVC.prop = getProp()
             self.navigationController?.pushViewController(checkOutVC, animated: true)
         }else if props.title == Categories.TickerMessage.rawValue {
-            let vc = TvListViewController()
-            vc.category = .TickerMessage
-            vc.tickerMessage = getProp() as! String
-            navigationController?.pushViewController(vc, animated: true)
+            
+            controller.category = .TickerMessage
+            controller.tickerMessage = getProp() as! String
+            navigationController?.pushViewController(controller, animated: true)
         }else if props.title == Categories.KeynoteViewer.rawValue {
-            let vc = TvListViewController()
-            vc.category = .KeynoteViewer
-            vc.keynote = getProp() as! [UIImage]?
-            navigationController?.pushViewController(vc, animated: true)
+            
+            controller.category = .KeynoteViewer
+            controller.keynote = getProp() as! [UIImage]?
+            navigationController?.pushViewController(controller, animated: true)
         }
         
         
@@ -260,6 +260,7 @@ class AddPropsViewController: UIViewController {
         default:
             return ""
         }
+        return ""
     }
     
     /**
@@ -818,7 +819,7 @@ extension AddPropsViewController: UITextFieldDelegate{
      - Author: @GianlucaOrpello
      */
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        guard let text = textField.text, textField.tag == 100 else { return false }
+        guard let text = textField.text, textField.tag == 500 else { return false }
         let newLength = text.count + string.count - range.length
         numberOfChar = 70 - newLength
         
