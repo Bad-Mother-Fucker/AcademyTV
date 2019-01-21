@@ -18,7 +18,7 @@ import MessageUI
  */
 enum Categories: String{    
     case ThikerMessage = "Ticker Messages"
-    case KeynoteViewer = "Keynote Viewer"
+    case KeynoteViewer = "Content Viewer"
     case Timer = "Timer"
     case GlobalMessage = "Global Messages"
 }
@@ -110,7 +110,7 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
         super.viewDidAppear(animated)
         
         if numberOfObject == 0{
-            let noLiveView = NoLivePrompView(frame: CGRect(x: 0, y: 0, width: 414, height: 896))
+            let noLiveView = NoLivePrompView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height))
             noLiveView.contactbutton.addTarget(self, action: #selector(sendEmail), for: .touchUpInside)
             self.view.addSubview(noLiveView)
         }else{
@@ -123,8 +123,24 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
             tableView.tableFooterView = UIView()
             tableView.tintColor = UIColor(red: 0, green: 119/255, blue: 1, alpha: 1)
 
+            tableView.reloadData()
             self.view.addSubview(tableView)
         }
+    }
+    
+    /**
+     ## Bar Button Item action for add new prop.
+
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
+    @IBAction func addNewProp(_ sender: UIBarButtonItem) {
+        let destination = PropsViewController()
+        let nav = UINavigationController(rootViewController: destination)
+        nav.navigationBar.prefersLargeTitles = true
+                
+        self.present(nav, animated: true, completion: nil)
     }
     
     /**
@@ -138,7 +154,7 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
         if MFMailComposeViewController.canSendMail() {
             let mail = MFMailComposeViewController()
             mail.mailComposeDelegate = self
-            mail.setToRecipients(["g.orpello@gmail.com"])
+            mail.setToRecipients(["theappteam@icloud.com"])
             mail.setSubject("Viewer: Problem on execution.")
             mail.setMessageBody("<p>There is an error inside Viewer app.</p>", isHTML: true)
             
@@ -171,9 +187,12 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
      - Author: @GianlucaOrpello
      */
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section != 5 {
+        switch indexPath.section {
+        case 0, 2:
             return 95
-        }else{
+        case 1:
+            return 73
+        default:
             return 60
         }
     }
@@ -191,8 +210,31 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
         let remove = UITableViewRowAction(style: .destructive, title: "Delete") {
             [weak self] (action, indexPath) in
 
-            tableView.reloadData()
+            let alert = UIAlertController(title: "Delete Prop", message: "The prop will be removed from all the screens. This cannot be undone.", preferredStyle: .alert)
+            let cancel = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+            let delete = UIAlertAction(title: "Delete", style: .cancel, handler: { [weak self] (action) in
+
+                switch indexPath.section{
+                case 0:
+                    CKController.removeTickerMessage(fromTVNamed: (self?.thikerMessage![indexPath.row].tvName)!)
+                    break
+                case 1:
+                    CKController.removeKeynote(FromTV: (self?.keynote![indexPath.row].tvName)!)
+                    break
+                case 2:
+                    CKController.remove(globalMessage: (self?.globalMessages![indexPath.row])!)
+                    break
+                default:
+                    break
+                }
+                
+                tableView.reloadData()
+            })
             
+            alert.addAction(cancel)
+            alert.addAction(delete)
+            
+            self?.present(alert, animated: true, completion: nil)
         }
         
         remove.backgroundColor = .red
@@ -227,7 +269,38 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
      - Author: @GianlucaOrpello
      */
     func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        self.present(SummaryTableViewController(), animated: true, completion: nil)
+        let destination = SummaryViewController()
+        let nav = UINavigationController(rootViewController: destination)
+        nav.navigationBar.prefersLargeTitles = true
+        
+        destination.prop = getProp(from: indexPath)
+        
+        self.present(nav, animated: true, completion: nil)
+    }
+    
+    /**
+     ## Get the prop of the table view cell with the indexPath.
+     
+     - Parameters:
+        - indexPath: The current indexPath of the TableView.
+     
+     - Return: The element that is inside the cell.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
+    private func getProp(from indexPath: IndexPath) -> Any?{
+        switch indexPath.section {
+        case 0:
+            return thikerMessage?[indexPath.row]
+        case 1:
+            return keynote?[indexPath.row]
+        case 2:
+            return globalMessages?[indexPath.row]
+        default:
+            return nil
+        }
     }
     
     // MARK: - UITableView Data Source
@@ -284,6 +357,7 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
             
             let cell = UITableViewCell()
             cell.accessoryType = .detailButton
+            cell.selectionStyle = .none
             
             let titleLabel = UILabel(frame: CGRect(x: 16, y: 16, width: 350, height: 44))
             
@@ -306,6 +380,7 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
             
             let cell = UITableViewCell()
             cell.accessoryType = .detailButton
+            cell.selectionStyle = .none
             
             let titleLabel = UILabel(frame: CGRect(x: 16, y: 16, width: 350, height: 22))
             
@@ -328,6 +403,7 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
             
             let cell = UITableViewCell()
             cell.accessoryType = .detailButton
+            cell.selectionStyle = .none
             
             let titleLabel = UILabel(frame: CGRect(x: 16, y: 16, width: 350, height: 22))
             
