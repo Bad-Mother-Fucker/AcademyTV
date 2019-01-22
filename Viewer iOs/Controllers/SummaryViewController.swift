@@ -48,7 +48,7 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
      
      - Author: @GianlucaOrpello
      */
-    var keynote: (image: [UIImage]?, tvName: String?, TVGroup:  [TVGroup]?)?
+    var keynote: (image: [UIImage]?, tvName: String?, TVGroup: [TVGroup]?)?
     
     /**
      ## The categories of the object passed to this view.
@@ -109,9 +109,9 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
         if isCheckoutMode {
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(pop))
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Post", style: .done, target: self, action: #selector(postProp))
+        }else{
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dissmissController))
         }
-        
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dissmissController))
         
         getCurrentCategories()
         
@@ -132,8 +132,10 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
     private func getCurrentCategories(){
         if let _ = prop as? (message: String, tvName: String?, TVGroup: [TVGroup]?){
             self.categories = .TickerMessage
-        }else if let _ = prop as? (image: [UIImage]?, tvName: String?, TVGroup:  [TVGroup]?){
+        }else if let key = prop as? (image: [UIImage]?, tvName: String?, TVGroup:  [TVGroup]?){
             self.categories = .KeynoteViewer
+            keynote = key
+            print(keynote)
         }else if let _ = prop as? GlobalMessage{
             self.categories = .GlobalMessage
         }
@@ -246,8 +248,6 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
      
      - Author: @Micheledes
      */
-    
-    
     @objc func pop() {
         navigationController?.popViewController(animated: true)
     }

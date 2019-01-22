@@ -15,7 +15,7 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
     var groups = globalGroups
     
     var selectedGroup: TVGroups?
-    var selectedGroups = [TVGroup]()
+    var selectedGroups: [TVGroup]?
     var keynote: [UIImage]?
     var category: Categories?
     var tickerMessage: String?
@@ -44,21 +44,22 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
             case Categories.TickerMessage:
                 
                 var tvNames: String = ""
-                for group in selectedGroups{
+                for group in selectedGroups!{
                     tvNames.append(group.rawValue)
                     tvNames.append(", ")
                 }
-                let prop = (message: tickerMessage, tvName: tvNames,TVGroup:selectedGroups)
+                let prop = (message: tickerMessage, tvName: tvNames, TVGroup:selectedGroups)
                 summary.prop = prop
                 
                 break
+                
             case Categories.KeynoteViewer:
                 
-                var tvNames: String = ""
-                for group in selectedGroups{
-                    tvNames.append(contentsOf: group.rawValue)
+                var tvNames: String? = ""
+                for group in selectedGroups!{
+                    tvNames!.append(contentsOf: group.rawValue)
                 }
-                let prop = (keynote: keynote,tvName: tvNames,TVGroup:selectedGroups)
+                let prop = (image: keynote, tvName: tvNames, TVGroup: selectedGroups)
                 summary.prop = prop
                 
                 break
@@ -75,10 +76,8 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        selectedGroups = []
         nextBarButtonItem.isEnabled = false
-        if (traitCollection.forceTouchCapability == .available){
-        }
-        
     }
     
     // MARK: DelegateFlowLayout methods
@@ -172,21 +171,21 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         if cell?.reuseIdentifier == "TVGroup"{
             cell!.isSelected = true
-            selectedGroups.append(groups[indexPath.item - 1].name)
+            selectedGroups!.append(groups[indexPath.item - 1].name)
         }else{
             for i in 1..<collectionView.numberOfItems(inSection: 0){
                 collectionView.selectItem(at: IndexPath(item: i, section: 0), animated: true, scrollPosition: .bottom)
             }
-            selectedGroups.removeAll()
+            selectedGroups!.removeAll()
             for group in groups {
                 
-                selectedGroups.append(group.name)
+                selectedGroups!.append(group.name)
             }
             
             
         }
         
-        if selectedGroups.isEmpty {
+        if selectedGroups!.isEmpty {
             nextBarButtonItem.isEnabled = false
         } else {
             nextBarButtonItem.isEnabled = true
@@ -199,7 +198,7 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
         let cell = collectionView.cellForItem(at: indexPath)
         if cell?.reuseIdentifier == "TVGroup"{
             cell!.isSelected = false
-            selectedGroups = selectedGroups.filter { (tvGroup) -> Bool in
+            selectedGroups = selectedGroups!.filter { (tvGroup) -> Bool in
                 if tvGroup == groups[indexPath.item - 1].name{
                     return false
                 }else{
@@ -210,9 +209,9 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
             for i in 1..<collectionView.numberOfItems(inSection: 0){
                 collectionView.deselectItem(at: IndexPath(item: i, section: 0), animated: true)
             }
-            selectedGroups.removeAll()
+            selectedGroups!.removeAll()
         }
-        if selectedGroups.isEmpty {
+        if selectedGroups!.isEmpty {
             nextBarButtonItem.isEnabled = false
         } else {
             nextBarButtonItem.isEnabled = true
@@ -223,7 +222,7 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
         switch segue.identifier {
         case "setTheTvSegue":
             
-            if selectedGroups.count == 0{
+            if selectedGroups!.count == 0{
                 let alert = UIAlertController(title: "Select at least one group.", message: nil, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
                 self.present(alert, animated: true, completion: nil)

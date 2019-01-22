@@ -382,7 +382,7 @@ class AddPropsViewController: UIViewController {
      - Author: @GianlucaOrpello
      */
     private func getDocumentPicker(){
-        let importMenu = UIDocumentPickerViewController(documentTypes: [String(kUTTypeImage), String(kUTTypePDF)], in: .import)
+        let importMenu = UIDocumentPickerViewController(documentTypes: [String(kUTTypeImage)], in: .import)
         importMenu.delegate = self
         importMenu.modalPresentationStyle = .formSheet
         self.present(importMenu, animated: true, completion: nil)
@@ -981,6 +981,7 @@ extension AddPropsViewController: UIDocumentPickerDelegate, UINavigationControll
             for url in urls{
                 let data = try! Data(contentsOf: url)
                 destination.keynote?.append(UIImage(data: data)!)
+                destination.category = .KeynoteViewer
                 self.navigationController?.pushViewController(destination, animated: true)
             }
         }
@@ -995,13 +996,13 @@ extension AddPropsViewController: UIDocumentPickerDelegate, UINavigationControll
 extension AddPropsViewController: UIImagePickerControllerDelegate{
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        print(info)
         picker.dismiss(animated: true, completion: nil)
         
         let story = UIStoryboard(name: "Main", bundle: nil)
         if let destination = story.instantiateViewController(withIdentifier: "SetsViewController") as? TvListViewController{
             if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
-                destination.keynote?.append(image)
+                destination.keynote = [image]
+                destination.category = .KeynoteViewer
             }
             self.navigationController?.pushViewController(destination, animated: true)
             
