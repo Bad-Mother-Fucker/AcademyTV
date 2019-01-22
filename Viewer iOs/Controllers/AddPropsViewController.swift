@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MobileCoreServices
 
 enum Locations: String, CaseIterable{
     case none = "None"
@@ -74,7 +75,7 @@ class AddPropsViewController: UIViewController {
      */
     var selectedLocation: Locations = .none{
         didSet{
-            if let label = self.view.viewWithTag(200) as? UILabel{
+            if let label = tableView.cellForRow(at: IndexPath(row: 1, section: 3))?.viewWithTag(500) as? UILabel{
                 label.text = selectedLocation.rawValue
             }
         }
@@ -164,9 +165,9 @@ class AddPropsViewController: UIViewController {
         tableView = UITableView(frame: self.view.frame)
         tableView.tableFooterView = UIView()
         
-        NotificationCenter.default.addObserver(forName: "GetAllSelectedPhotos", object: nil, queue: .main) { (notification) in
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "GetAllSelectedPhotos"), object: nil, queue: .main) { (notification) in
             if let images = notification.userInfo?["images"] as? [UIImage] {
-                keynotes = images
+                self.keynote = images
             }
         }
 
@@ -196,8 +197,8 @@ class AddPropsViewController: UIViewController {
     @objc func checkSummary(){
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "someViewController")
-        #warning("Compleate methods.")
+        let controller = storyboard.instantiateViewController(withIdentifier: "SetsViewController") as! TvListViewController
+//        #warning("Compleate methods.")
         if props.title == Categories.GlobalMessage.rawValue {
             let checkOutVC = SummaryViewController()
             checkOutVC.categories = .GlobalMessage
@@ -205,15 +206,15 @@ class AddPropsViewController: UIViewController {
             checkOutVC.prop = getProp()
             self.navigationController?.pushViewController(checkOutVC, animated: true)
         }else if props.title == Categories.TickerMessage.rawValue {
-            let vc = TvListViewController()
-            vc.category = .TickerMessage
-            vc.tickerMessage = getProp() as! String
-            navigationController?.pushViewController(vc, animated: true)
+            
+            controller.category = .TickerMessage
+            controller.tickerMessage = (getProp() as! String)
+            navigationController?.pushViewController(controller, animated: true)
         }else if props.title == Categories.KeynoteViewer.rawValue {
-            let vc = TvListViewController()
-            vc.category = .KeynoteViewer
-            vc.keynote = getProp() as! [UIImage]?
-            navigationController?.pushViewController(vc, animated: true)
+            
+            controller.category = .KeynoteViewer
+            controller.keynote = getProp() as! [UIImage]?
+            navigationController?.pushViewController(controller, animated: true)
         }
         
         
@@ -271,6 +272,7 @@ class AddPropsViewController: UIViewController {
      */
     @objc fileprivate func openOrCloseDatePicker(){
         toggleShowDateDatepicker()
+        tableView.deselectRow(at: IndexPath(row: 4, section: 3), animated: true)
     }
     
     /**
@@ -283,6 +285,7 @@ class AddPropsViewController: UIViewController {
     fileprivate func toggleShowDateDatepicker () {
         datePickerIsVisible = !datePickerIsVisible
         self.tableView.beginUpdates()
+        self.tableView.reloadRows(at: [IndexPath(row: 4, section: 3)], with: .automatic)
         self.tableView.endUpdates()
     }
     
@@ -296,6 +299,7 @@ class AddPropsViewController: UIViewController {
     fileprivate func toggleShowLocationDatepicker() {
         locationPickerIsVisible = !locationPickerIsVisible
         self.tableView.beginUpdates()
+        self.tableView.reloadRows(at: [IndexPath(row: 2, section: 3)], with: .automatic)
         self.tableView.endUpdates()
     }
     
@@ -306,6 +310,18 @@ class AddPropsViewController: UIViewController {
         selectedDateTime = dateFormatter.string(from: sender.date)
     }
     
+    @objc func getPhotos() {
+        let story = UIStoryboard(name: "Main", bundle: nil)
+        let vc = story.instantiateViewController(withIdentifier: "ImagePickerViewController")
+        self.present(vc, animated: true)
+    }
+    
+    @objc func getDocumentPicker(){
+        let importMenu = UIDocumentPickerViewController(documentTypes: [String(kUTTypeImage), String(kUTTypePDF)], in: .import)
+        importMenu.delegate = self
+        importMenu.modalPresentationStyle = .formSheet
+        self.present(importMenu, animated: true, completion: nil)
+    }
 }
 
 /**
@@ -529,6 +545,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
         }else{
             
             switch props.title {
+            // MARK: Global Message
             case Categories.GlobalMessage.rawValue:
                 
                 switch indexPath.section{
@@ -632,6 +649,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         picker.delegate = self
                         picker.dataSource = self
                         picker.isHidden = !locationPickerIsVisible
+                        
                         cell.contentView.addSubview(picker)
                         return cell
                     case 3:
@@ -678,6 +696,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                     return UITableViewCell()
                 }
                 
+            // MARK: Ticker Message
             case Categories.TickerMessage.rawValue:
                 switch indexPath.section{
                     
@@ -722,6 +741,8 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                 default:
                     return UITableViewCell()
                 }
+            
+            // MARK: Keynote Viewer
             case Categories.KeynoteViewer.rawValue:
                 switch indexPath.section{
                     
@@ -754,8 +775,6 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         cell.contentView.addSubview(button)
                         return cell
                         
-
-                        
                     }else{
                         
                         let cell = UITableViewCell()
@@ -765,7 +784,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         button.setTitle("Select from Files", for: .normal)
                         button.setTitleColor(UIColor(red: 0, green: 122/255, blue: 1, alpha: 1), for: .normal)
                         button.contentHorizontalAlignment = .left
-                        #warning("Add Target to this button")
+                        button.addTarget(self, action: #selector(getDocumentPicker), for: .touchUpInside)
                         
                         cell.contentView.addSubview(button)
                         return cell
@@ -779,12 +798,6 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
             }
             
         }
-    }
-    
-    
-    @objc func getPhotos() {
-        let vc = ImagePickerViewController()
-        self.present(vc,animated: true)
     }
 }
 
@@ -817,7 +830,7 @@ extension AddPropsViewController: UITextFieldDelegate{
      - Author: @GianlucaOrpello
      */
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        guard let text = textField.text, textField.tag == 100 else { return false }
+        guard let text = textField.text, textField.tag == 500 else { return false }
         let newLength = text.count + string.count - range.length
         numberOfChar = 70 - newLength
         
@@ -828,6 +841,8 @@ extension AddPropsViewController: UITextFieldDelegate{
         }
     }
 }
+
+// MARK: - Extension for UIPickerController
 
 extension AddPropsViewController: UIPickerViewDelegate, UIPickerViewDataSource{
     
@@ -877,5 +892,17 @@ extension AddPropsViewController: UIPickerViewDelegate, UIPickerViewDataSource{
      */
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return Locations.allCases.count
+    }
+}
+
+extension AddPropsViewController: UIDocumentPickerDelegate, UINavigationControllerDelegate{
+    
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        print(urls)
+    }
+    
+    
+    func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
+        self.navigationController?.popViewController(animated: true)
     }
 }
