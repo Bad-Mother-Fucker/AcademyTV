@@ -148,7 +148,7 @@ class TV: CloudStored {
     
     var isOn: Bool {
         get{
-            return record.value(forKey: TV.keys.isOn) as! Int  == 0 ? false : true
+            return record.value(forKey: TV.keys.isOn) as? Int ?? 0  == 0 ? false : true
         }
         set {
             newValue ? record.setValue(1, forKey: TV.keys.isOn) : record.setValue(0, forKey: TV.keys.isOn)
