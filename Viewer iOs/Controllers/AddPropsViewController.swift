@@ -918,7 +918,11 @@ extension AddPropsViewController: UITextFieldDelegate{
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .top, animated: true)
+        if self.title == Categories.GlobalMessage.rawValue{
+//            self.tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .top, animated: true)
+            tableView.setContentOffset(CGPoint(x: 0, y: textField.center.y + 250), animated: true)
+
+        }
     }
     
 }
