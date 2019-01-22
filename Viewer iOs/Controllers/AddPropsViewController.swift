@@ -917,8 +917,7 @@ extension AddPropsViewController: UITextFieldDelegate{
         }
     }
     
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .top, animated: true)
     }
     
