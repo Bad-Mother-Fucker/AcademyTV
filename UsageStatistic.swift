@@ -30,7 +30,7 @@ class UsageStatistics {
      
      - Author: @GianlucaOrpello
      */
-    var record: CKRecord!
+    var record = CKRecord(recordType: UsageStatistics.recordType)
     
     /**
      ## CloudKit Keys
