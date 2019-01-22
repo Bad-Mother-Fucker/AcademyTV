@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1915AD2221C15FB200CF0E2F /* VideoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1915AD2121C15FB200CF0E2F /* VideoManager.swift */; };
+		19261D2C21F74C9600647314 /* UsageStatistic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E3790121EBDF27006380F7 /* UsageStatistic.swift */; };
 		19C227CD21A3372400BB4BC3 /* TVViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C227CC21A3372400BB4BC3 /* TVViewController.swift */; };
 		19FA365D21A8202400E3B1C0 /* UIImage+CKAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FA365A21A8202300E3B1C0 /* UIImage+CKAsset.swift */; };
 		19FA365E21A8202400E3B1C0 /* UIImage+CKAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FA365A21A8202300E3B1C0 /* UIImage+CKAsset.swift */; };
@@ -41,7 +42,6 @@
 		656E2A1521F62CBF00B9FD77 /* MessagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996418892180C6DA005267E4 /* MessagesTableViewCell.swift */; };
 		656E2A1621F62CC600B9FD77 /* NoLivePrompView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E378FD21EA2ED0006380F7 /* NoLivePrompView.swift */; };
 		656E2A1721F62CCF00B9FD77 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99AC09682174E9C100CFCAD0 /* AppDelegate.swift */; };
-		656E2A1821F67F8B00B9FD77 /* AddPropsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B0DDF921F672E500E3FAAA /* AddPropsViewController.swift */; };
 		65D9BAC221C9612E000466BA /* ShareBackgroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D9BAC121C9612E000466BA /* ShareBackgroundViewController.swift */; };
 		65D9BAC421C9664A000466BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99AC096F2174E9C200CFCAD0 /* Assets.xcassets */; };
 		65F389AE21F5D7250084D5F5 /* TvGroups.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F389AD21F5D7250084D5F5 /* TvGroups.swift */; };
@@ -698,6 +698,7 @@
 				19FA366221A8202400E3B1C0 /* ServiceMessage.swift in Sources */,
 				656E2A1121F62C9E00B9FD77 /* EditMessageViewController.swift in Sources */,
 				656E2A0F21F62C9200B9FD77 /* PropsTableViewCell.swift in Sources */,
+				19261D2C21F74C9600647314 /* UsageStatistic.swift in Sources */,
 				19FA366A21A821A200E3B1C0 /* GlobalMessage.swift in Sources */,
 				656E2A1721F62CCF00B9FD77 /* AppDelegate.swift in Sources */,
 				19FA366521A8202400E3B1C0 /* TV.swift in Sources */,

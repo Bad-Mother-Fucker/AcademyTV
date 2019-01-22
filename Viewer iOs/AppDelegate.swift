@@ -13,11 +13,31 @@ import CloudKit
  class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    let database = CKContainer(identifier: "iCloud.com.KnightClub.Viewer").publicCloudDatabase
+    
     let query = CKQuery(recordType: "GlobalMessages", predicate: NSPredicate(value: true))
+    
+    
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        let recordQuery = CKQuery(recordType: UsageStatistics.recordType, predicate: NSPredicate(format: "recordCode == @", "com.Rogue.Viewer.UsageStats"))
+        CKKeys.database.perform(recordQuery, inZoneWith: nil) { (records, error) in
+            guard let _ = records else {
+                if let error = error {
+                    print(error.localizedDescription)
+                    return
+                }
+                
+                UsageStatistics.shared.record["recordCode"] = "com.Rogue.Viewer.UsageStats"
+                CKKeys.database.save(UsageStatistics.shared.record, completionHandler: { (record, error) in
+                    
+                })
+                
+                return
+            }
+            UsageStatistics.shared.record = records!.first!
+            
+        }
         return true
     }
 

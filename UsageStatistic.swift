@@ -279,7 +279,7 @@ class UsageStatisticsModel {
     static func addTickerMessage(length:Int) {
         UsageStatistics.shared.numberOfTickerMessage += 1
         UsageStatistics.shared.totalTickerChars += length
-        UsageStatistics.shared.averageTickerLength = UsageStatistics.shared.totalTickerChars/UsageStatistics.shared.numberOfTickerMessage
+        UsageStatistics.shared.averageTickerLength = Double(UsageStatistics.shared.totalTickerChars/UsageStatistics.shared.numberOfTickerMessage)
     }
     static func addGlobalMessage(length:Int,link:Bool,location:Bool,date:Bool) {
         UsageStatistics.shared.numberOfGlobalMessage += 1
@@ -300,7 +300,7 @@ class UsageStatisticsModel {
             UsageStatistics.shared.numberOfGlobalMessageComplete += 1
         }
         
-        UsageStatistics.shared.averageMessageLength = UsageStatistics.shared.totalMessageChars/UsageStatistics.shared.numberOfGlobalMessage
+        UsageStatistics.shared.averageMessageLength = Double(UsageStatistics.shared.totalMessageChars/UsageStatistics.shared.numberOfGlobalMessage)
         
         
     }
@@ -308,7 +308,7 @@ class UsageStatisticsModel {
     static func addKeynote(length: Int) {
         UsageStatistics.shared.numberOfKeynote += 1
         UsageStatistics.shared.totalNumberOfPhotos += length
-        UsageStatistics.shared.averageNumOfPhotos = UsageStatistics.shared.totalNumberOfPhotos/UsageStatistics.shared.numberOfKeynote
+        UsageStatistics.shared.averageNumOfPhotos = Double(UsageStatistics.shared.totalNumberOfPhotos/UsageStatistics.shared.numberOfKeynote)
     }
     
 }
