@@ -314,6 +314,13 @@ class AddPropsViewController: UIViewController {
         let vc = story.instantiateViewController(withIdentifier: "ImagePickerViewController")
         self.present(vc, animated: true)
     }
+    
+    @objc func getDocumentPicker(){
+        let importMenu = UIDocumentPickerViewController(documentTypes: ["jpeg", "png", "pdf"], in: .import)
+        importMenu.delegate = self
+        importMenu.modalPresentationStyle = .formSheet
+        self.present(importMenu, animated: true, completion: nil)
+    }
 }
 
 /**
@@ -767,8 +774,6 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         cell.contentView.addSubview(button)
                         return cell
                         
-
-                        
                     }else{
                         
                         let cell = UITableViewCell()
@@ -778,8 +783,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         button.setTitle("Select from Files", for: .normal)
                         button.setTitleColor(UIColor(red: 0, green: 122/255, blue: 1, alpha: 1), for: .normal)
                         button.contentHorizontalAlignment = .left
-                        button.isEnabled = false
-                        #warning("Add Target to this button")
+                        button.addTarget(self, action: #selector(getDocumentPicker), for: .touchUpInside)
                         
                         cell.contentView.addSubview(button)
                         return cell
@@ -887,5 +891,21 @@ extension AddPropsViewController: UIPickerViewDelegate, UIPickerViewDataSource{
      */
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return Locations.allCases.count
+    }
+}
+
+extension AddPropsViewController: UIDocumentPickerDelegate, UINavigationControllerDelegate{
+   
+    public func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
+        print("import result : \(url)")
+    }
+    
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        print(urls)
+    }
+    
+    
+    func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
+        self.navigationController?.popViewController(animated: true)
     }
 }
