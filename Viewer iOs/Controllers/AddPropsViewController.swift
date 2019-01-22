@@ -230,7 +230,7 @@ class AddPropsViewController: UIViewController {
             let description = (tableView.cellForRow(at: IndexPath(row: 2, section: 2))?.viewWithTag(500) as! UITextField).text
             let url = (tableView.cellForRow(at: IndexPath(row: 0, section: 3))?.viewWithTag(500) as! UITextField).text
             var location = (tableView.cellForRow(at: IndexPath(row: 1, section: 3))?.viewWithTag(500) as! UILabel).text
-            let dateTime = (tableView.cellForRow(at: IndexPath(row: 3, section: 3))?.viewWithTag(500) as! UILabel).text
+            let dateTime = (tableView.cellForRow(at: IndexPath(row: 3, section: 3))?.viewWithTag(500) as? UILabel)?.text
 
             if location == "None" {
                 location = nil
@@ -916,6 +916,15 @@ extension AddPropsViewController: UITextFieldDelegate{
             return false
         }
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if self.title == Categories.GlobalMessage.rawValue{
+//            self.tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .top, animated: true)
+            tableView.setContentOffset(CGPoint(x: 0, y: textField.center.y + 250), animated: true)
+
+        }
+    }
+    
 }
 
 // MARK: - Extension for UIPickerController
@@ -1000,7 +1009,7 @@ extension AddPropsViewController: UIImagePickerControllerDelegate{
         let story = UIStoryboard(name: "Main", bundle: nil)
         if let destination = story.instantiateViewController(withIdentifier: "SetsViewController") as? TvListViewController{
             if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
-                destination.keynote = [image]
+                destination.keynote = [image.byFixingOrientation()]
                 destination.category = .KeynoteViewer
             }
             self.navigationController?.pushViewController(destination, animated: true)

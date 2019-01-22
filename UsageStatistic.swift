@@ -22,6 +22,18 @@ class UsageStatistics {
     
     static var shared = UsageStatistics()
     
+    private init() {
+        numberOfKeynote = 0
+        numberOfGlobalMessage = 0
+        numberOfTickerMessage = 0
+        numberOfGlobalMessageComplete = 0
+        numberOfGlobalMessageWithDate = 0
+        numberOfGlobalMessageWithLink = 0
+        numberOfGlobalMessageWithLocation = 0
+        totalTickerChars = 0
+        totalMessageChars = 0
+        totalNumberOfPhotos = 0
+    }
     
     /**
      ## CloudKit Record
@@ -238,7 +250,7 @@ class UsageStatistics {
     
     var averageNumOfPhotos: Double {
         get {
-            return record.object(forKey: UsageStatistics.keys.avgNumPhotos) as! Double
+            return record.object(forKey: UsageStatistics.keys.avgNumPhotos) as? Double ?? 0
         }
         set {
             record.setValue(newValue, forKey: UsageStatistics.keys.avgNumPhotos)
@@ -250,7 +262,7 @@ class UsageStatistics {
     
     var averageTickerLength: Double {
         get {
-            return record.object(forKey: UsageStatistics.keys.avgTickerLength) as! Double
+            return record.object(forKey: UsageStatistics.keys.avgTickerLength) as? Double ?? 0
         }
         set {
             record.setValue(newValue, forKey: UsageStatistics.keys.avgTickerLength)
@@ -262,7 +274,7 @@ class UsageStatistics {
     
     var averageMessageLength: Double {
         get {
-            return record.object(forKey: UsageStatistics.keys.avgMessageLength) as! Double
+            return record.object(forKey: UsageStatistics.keys.avgMessageLength) as? Double ?? 0
         }
         set {
             record.setValue(newValue, forKey: UsageStatistics.keys.avgMessageLength)

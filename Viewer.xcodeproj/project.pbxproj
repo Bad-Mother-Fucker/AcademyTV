@@ -58,6 +58,9 @@
 		99308B7E21A6FAE500EA0F9C /* ShareExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 99308B7421A6FAE500EA0F9C /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		9936D1BE21F6855600478244 /* AddPropsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B0DDF921F672E500E3FAAA /* AddPropsViewController.swift */; };
 		9936D1BF21F76EF600478244 /* UsageStatistic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E3790121EBDF27006380F7 /* UsageStatistic.swift */; };
+		9936D1C021F7780500478244 /* SharePosterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656887F921C9450F00EBD49B /* SharePosterViewController.swift */; };
+		9936D1C121F77A1500478244 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99308B7621A6FAE500EA0F9C /* ShareViewController.swift */; };
+		9936D1C221F77A2E00478244 /* ShareBackgroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D9BAC121C9612E000466BA /* ShareBackgroundViewController.swift */; };
 		994CDB8621A06FBF005909BF /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 994CDB8521A06FBF005909BF /* CloudKit.framework */; };
 		995801D521E0BF6800A6BD49 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 995801D421E0BF6800A6BD49 /* README.md */; };
 		996353E82195E2E500AE8AAE /* GlobalMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996353E72195E2E500AE8AAE /* GlobalMessageView.swift */; };
@@ -770,6 +773,7 @@
 				99E378FC21EA274D006380F7 /* LiveViewController.swift in Sources */,
 				9964188A2180C6DA005267E4 /* MessagesTableViewCell.swift in Sources */,
 				99F6B24621A2F9DB00B3FA65 /* PropsViewController.swift in Sources */,
+				9936D1C121F77A1500478244 /* ShareViewController.swift in Sources */,
 				99F6B24321A2F82000B3FA65 /* MessagesTableViewController.swift in Sources */,
 				99AC09692174E9C100CFCAD0 /* AppDelegate.swift in Sources */,
 				991AB6B721A30D8300D0565E /* BorderCollectionViewCell.swift in Sources */,
@@ -778,7 +782,9 @@
 				9986D1C021EFA3A20051AD85 /* SummaryViewController.swift in Sources */,
 				19FA365E21A8202400E3B1C0 /* UIImage+CKAsset.swift in Sources */,
 				99DE995221AD5FA500D01FF5 /* PropsTableViewCell.swift in Sources */,
+				9936D1C021F7780500478244 /* SharePosterViewController.swift in Sources */,
 				99B66A6321C1613000135680 /* TickerViewController.swift in Sources */,
+				9936D1C221F77A2E00478244 /* ShareBackgroundViewController.swift in Sources */,
 				992C547221AD5C3300E05494 /* BooquableOrder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

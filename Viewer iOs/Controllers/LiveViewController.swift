@@ -127,6 +127,8 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
         }
     }
     
+
+    
     /**
      ## UIVIewController - ViewDidAppear Methods
      
@@ -277,18 +279,23 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
                 switch indexPath.section{
                 case 0:
                     CKController.removeTickerMessage(fromTVNamed: (self?.thikerMessage![indexPath.row].tvName)!)
-                    break
+                    self?.thikerMessage?.remove(at: indexPath.row)
+                    tableView.reloadData()
+                    
                 case 1:
                     CKController.removeKeynote(FromTV: (self?.keynote![indexPath.row].tvName)!)
-                    break
+                    self?.thikerMessage?.remove(at: indexPath.row)
+                    tableView.reloadData()
+                    
                 case 2:
                     CKController.remove(globalMessage: (self?.globalMessages![indexPath.row])!)
-                    break
+                    self?.thikerMessage?.remove(at: indexPath.row)
+                    tableView.reloadData()
+                    
                 default:
                     break
                 }
                 
-                tableView.reloadData()
             })
             
             alert.addAction(cancel)
