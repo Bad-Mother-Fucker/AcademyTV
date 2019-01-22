@@ -48,7 +48,7 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
      
      - Author: @GianlucaOrpello
      */
-    var keynote: (image: [UIImage]?, tvName: String)?
+    var keynote: (image: [UIImage]?, tvName: String?, TVGroup:  [TVGroup]?)?
     
     /**
      ## The categories of the object passed to this view.
@@ -130,9 +130,9 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
      - Author: @GianlucaOrpello
      */
     private func getCurrentCategories(){
-        if let _ = prop as? (message: String, tvName: String, TVGroup: [TVGroup]){
+        if let _ = prop as? (message: String, tvName: String?, TVGroup: [TVGroup]?){
             self.categories = .TickerMessage
-        }else if let _ = prop as? (image: [UIImage]?, tvName: String, TVGroup:  [TVGroup]){
+        }else if let _ = prop as? (image: [UIImage]?, tvName: String?, TVGroup:  [TVGroup]?){
             self.categories = .KeynoteViewer
         }else if let _ = prop as? GlobalMessage{
             self.categories = .GlobalMessage
@@ -397,7 +397,7 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource{
             case .TickerMessage:
                 // Total of 6 rows
 
-                let tickerMessage = prop as! [(message: String, tvName: String)]
+                let tickerMessage = prop as! (message: String, tvName: String?, TVGroup: [TVGroup]?)
                 
                 switch indexPath.row{
                 case 1:
@@ -410,7 +410,7 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource{
                     label.text = "Text"
                     
                     let textLabel = UILabel(frame: CGRect(x: 72, y: 38, width: 287, height: 44))
-                    textLabel.text = tickerMessage[0].message
+                    textLabel.text = tickerMessage.message
                     textLabel.textColor = UIColor(red: 0, green: 119/255, blue: 1, alpha: 1)
                     
                     cell.contentView.addSubview(label)
@@ -431,12 +431,16 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource{
                     secondLabel.numberOfLines = 0
                     
                     var tvNamesString = String()
-                    for tm in tickerMessage{
-                        tvNamesString.append(contentsOf: tm.tvName)
-                        tvNamesString.append(contentsOf: ",")
+                    
+                    if let groups = tickerMessage.TVGroup{
+                        for tm in groups{
+                            tvNamesString.append(contentsOf: tm.rawValue)
+                            tvNamesString.append(contentsOf: ",")
+                        }
+                        tvNamesString.removeLast()
                     }
                     
-                    tvNamesString.removeLast()
+                    
                     
                     secondLabel.text = tvNamesString
                     
@@ -501,7 +505,7 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource{
             case .KeynoteViewer:
                 // Total of 5 rows
 
-                keynote = prop as? (image: [UIImage]?, tvName: String)
+                keynote = prop as? (image: [UIImage]?, tvName: String?, TVGroup: [TVGroup]?)
                 
                 switch indexPath.row{
                     

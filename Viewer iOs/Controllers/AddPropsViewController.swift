@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MobileCoreServices
 
 enum Locations: String, CaseIterable{
     case none = "None"
@@ -316,7 +317,7 @@ class AddPropsViewController: UIViewController {
     }
     
     @objc func getDocumentPicker(){
-        let importMenu = UIDocumentPickerViewController(documentTypes: ["jpeg", "png", "pdf"], in: .import)
+        let importMenu = UIDocumentPickerViewController(documentTypes: [String(kUTTypeImage), String(kUTTypePDF)], in: .import)
         importMenu.delegate = self
         importMenu.modalPresentationStyle = .formSheet
         self.present(importMenu, animated: true, completion: nil)
@@ -895,10 +896,6 @@ extension AddPropsViewController: UIPickerViewDelegate, UIPickerViewDataSource{
 }
 
 extension AddPropsViewController: UIDocumentPickerDelegate, UINavigationControllerDelegate{
-   
-    public func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
-        print("import result : \(url)")
-    }
     
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         print(urls)
