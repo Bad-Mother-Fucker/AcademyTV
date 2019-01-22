@@ -109,9 +109,11 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
         if isCheckoutMode {
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(pop))
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Post", style: .done, target: self, action: #selector(postProp))
+        }else {
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dissmissController))
         }
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dissmissController))
+        
         
         getCurrentCategories()
         
@@ -141,6 +143,7 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
     
     
     @objc func postProp() {
+        debugPrint("PostProp")
         if let cat = categories{
             switch cat {
             case Categories.TickerMessage:

@@ -22,6 +22,18 @@ class UsageStatistics {
     
     static var shared = UsageStatistics()
     
+    private init() {
+        numberOfKeynote = 0
+        numberOfGlobalMessage = 0
+        numberOfTickerMessage = 0
+        numberOfGlobalMessageComplete = 0
+        numberOfGlobalMessageWithDate = 0
+        numberOfGlobalMessageWithLink = 0
+        numberOfGlobalMessageWithLocation = 0
+        totalTickerChars = 0
+        totalMessageChars = 0
+        totalNumberOfPhotos = 0
+    }
     
     /**
      ## CloudKit Record
@@ -72,7 +84,7 @@ class UsageStatistics {
      */
     var numberOfTickerMessage: Int {
         get{
-            return record.object(forKey: UsageStatistics.keys.numberTicker) as! Int
+            return record.object(forKey: UsageStatistics.keys.numberTicker) as? Int ?? 0
         }
         set{
             record.setValue(newValue, forKey: UsageStatistics.keys.numberTicker)
@@ -91,7 +103,7 @@ class UsageStatistics {
      */
     var numberOfKeynote: Int {
         get{
-            return record.object(forKey: UsageStatistics.keys.numberKeynote) as! Int
+            return record.object(forKey: UsageStatistics.keys.numberKeynote) as? Int ?? 0
         }
         set{
             record.setValue(newValue, forKey: UsageStatistics.keys.numberKeynote)
@@ -110,7 +122,7 @@ class UsageStatistics {
      */
     var numberOfGlobalMessage: Int {
         get{
-            return record.object(forKey: UsageStatistics.keys.numberGlobalMessage) as! Int
+            return record.object(forKey: UsageStatistics.keys.numberGlobalMessage) as? Int ?? 0
         }
         set{
             record.setValue(newValue, forKey: UsageStatistics.keys.numberGlobalMessage)
@@ -129,7 +141,7 @@ class UsageStatistics {
      */
     var numberOfGlobalMessageWithLink: Int {
         get{
-            return record.object(forKey: UsageStatistics.keys.numberGMLink) as! Int
+            return record.object(forKey: UsageStatistics.keys.numberGMLink) as? Int ?? 0
         }
         set{
             record.setValue(newValue, forKey: UsageStatistics.keys.numberGMLink)
@@ -148,7 +160,7 @@ class UsageStatistics {
      */
     var numberOfGlobalMessageWithLocation: Int {
         get{
-            return record.object(forKey: UsageStatistics.keys.numberGMlocation) as! Int
+            return record.object(forKey: UsageStatistics.keys.numberGMlocation) as? Int ?? 0
         }
         set{
             record.setValue(newValue, forKey: UsageStatistics.keys.numberGMlocation)
@@ -167,7 +179,7 @@ class UsageStatistics {
      */
     var numberOfGlobalMessageWithDate: Int {
         get{
-            return record.object(forKey: UsageStatistics.keys.numberGMDate) as! Int
+            return record.object(forKey: UsageStatistics.keys.numberGMDate) as? Int ?? 0
         }
         set{
             record.setValue(newValue, forKey: UsageStatistics.keys.numberGMDate)
@@ -186,7 +198,7 @@ class UsageStatistics {
      */
     var numberOfGlobalMessageComplete: Int {
         get{
-            return record.object(forKey: UsageStatistics.keys.numberGMcomplete) as! Int
+            return record.object(forKey: UsageStatistics.keys.numberGMcomplete) as? Int ?? 0
         }
         set{
             record.setValue(newValue, forKey: UsageStatistics.keys.numberGMcomplete)
@@ -202,7 +214,7 @@ class UsageStatistics {
     
     var totalNumberOfPhotos: Int {
         get {
-            return record.object(forKey: UsageStatistics.keys.numberOfPhotos) as! Int
+            return record.object(forKey: UsageStatistics.keys.numberOfPhotos) as? Int ?? 0
         }
         set {
             record.setValue(newValue, forKey: UsageStatistics.keys.numberOfPhotos)
@@ -214,7 +226,7 @@ class UsageStatistics {
     
     var totalTickerChars: Int {
         get {
-            return record.object(forKey: UsageStatistics.keys.tickerLength) as! Int
+            return record.object(forKey: UsageStatistics.keys.tickerLength) as? Int ?? 0
         }
         set {
             record.setValue(newValue, forKey: UsageStatistics.keys.tickerLength)
@@ -226,7 +238,7 @@ class UsageStatistics {
     
     var totalMessageChars: Int {
         get {
-            return record.object(forKey: UsageStatistics.keys.messageLength) as! Int
+            return record.object(forKey: UsageStatistics.keys.messageLength) as? Int ?? 0
         }
         set {
             record.setValue(newValue, forKey: UsageStatistics.keys.messageLength)
@@ -238,7 +250,7 @@ class UsageStatistics {
     
     var averageNumOfPhotos: Double {
         get {
-            return record.object(forKey: UsageStatistics.keys.avgNumPhotos) as! Double
+            return record.object(forKey: UsageStatistics.keys.avgNumPhotos) as? Double ?? 0
         }
         set {
             record.setValue(newValue, forKey: UsageStatistics.keys.avgNumPhotos)
@@ -250,7 +262,7 @@ class UsageStatistics {
     
     var averageTickerLength: Double {
         get {
-            return record.object(forKey: UsageStatistics.keys.avgTickerLength) as! Double
+            return record.object(forKey: UsageStatistics.keys.avgTickerLength) as? Double ?? 0
         }
         set {
             record.setValue(newValue, forKey: UsageStatistics.keys.avgTickerLength)
@@ -262,7 +274,7 @@ class UsageStatistics {
     
     var averageMessageLength: Double {
         get {
-            return record.object(forKey: UsageStatistics.keys.avgMessageLength) as! Double
+            return record.object(forKey: UsageStatistics.keys.avgMessageLength) as? Double ?? 0
         }
         set {
             record.setValue(newValue, forKey: UsageStatistics.keys.avgMessageLength)
