@@ -20,6 +20,9 @@ import CloudKit
  */
 class UsageStatistics {
     
+    static var shared = UsageStatistics()
+    
+    
     /**
      ## CloudKit Record
      
@@ -27,7 +30,7 @@ class UsageStatistics {
      
      - Author: @GianlucaOrpello
      */
-    var record: CKRecord!
+    var record = CKRecord(recordType: UsageStatistics.recordType)
     
     /**
      ## CloudKit Keys
@@ -42,7 +45,14 @@ class UsageStatistics {
                        numberGMLink: "numberGMLink",
                        numberGMDate: "numberGMDate",
                        numberGMlocation: "numberGMlocation",
-                       numberGMcomplete: "numberGMcomplete")
+                       numberGMcomplete: "numberGMcomplete",
+                       numberOfPhotos: "totNumPhotos",
+                       tickerLength: "totTickerLength",
+                       messageLength: "totMessageLength",
+                       avgNumPhotos: "avgNumPhotos",
+                       avgTickerLength: "avgTickerLength",
+                       avgMessageLength: "avgMessageLength"
+                       )
     
     /**
      ## CloudKit record name
@@ -65,8 +75,7 @@ class UsageStatistics {
             return record.object(forKey: UsageStatistics.keys.numberTicker) as! Int
         }
         set{
-            let currentValue = record.object(forKey: UsageStatistics.keys.numberTicker) as! Int
-            record.setValue(currentValue + newValue, forKey: UsageStatistics.keys.numberTicker)
+            record.setValue(newValue, forKey: UsageStatistics.keys.numberTicker)
             let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
             op.savePolicy = .changedKeys
             CKKeys.database.add(op)
@@ -85,8 +94,7 @@ class UsageStatistics {
             return record.object(forKey: UsageStatistics.keys.numberKeynote) as! Int
         }
         set{
-            let currentValue = record.object(forKey: UsageStatistics.keys.numberKeynote) as! Int
-            record.setValue(currentValue + newValue, forKey: UsageStatistics.keys.numberKeynote)
+            record.setValue(newValue, forKey: UsageStatistics.keys.numberKeynote)
             let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
             op.savePolicy = .changedKeys
             CKKeys.database.add(op)
@@ -105,8 +113,7 @@ class UsageStatistics {
             return record.object(forKey: UsageStatistics.keys.numberGlobalMessage) as! Int
         }
         set{
-            let currentValue = record.object(forKey: UsageStatistics.keys.numberGlobalMessage) as! Int
-            record.setValue(currentValue + newValue, forKey: UsageStatistics.keys.numberGlobalMessage)
+            record.setValue(newValue, forKey: UsageStatistics.keys.numberGlobalMessage)
             let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
             op.savePolicy = .changedKeys
             CKKeys.database.add(op)
@@ -125,8 +132,7 @@ class UsageStatistics {
             return record.object(forKey: UsageStatistics.keys.numberGMLink) as! Int
         }
         set{
-            let currentValue = record.object(forKey: UsageStatistics.keys.numberGMLink) as! Int
-            record.setValue(currentValue + newValue, forKey: UsageStatistics.keys.numberGMLink)
+            record.setValue(newValue, forKey: UsageStatistics.keys.numberGMLink)
             let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
             op.savePolicy = .changedKeys
             CKKeys.database.add(op)
@@ -145,8 +151,7 @@ class UsageStatistics {
             return record.object(forKey: UsageStatistics.keys.numberGMlocation) as! Int
         }
         set{
-            let currentValue = record.object(forKey: UsageStatistics.keys.numberGMlocation) as! Int
-            record.setValue(currentValue + newValue, forKey: UsageStatistics.keys.numberGMlocation)
+            record.setValue(newValue, forKey: UsageStatistics.keys.numberGMlocation)
             let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
             op.savePolicy = .changedKeys
             CKKeys.database.add(op)
@@ -165,8 +170,7 @@ class UsageStatistics {
             return record.object(forKey: UsageStatistics.keys.numberGMDate) as! Int
         }
         set{
-            let currentValue = record.object(forKey: UsageStatistics.keys.numberGMDate) as! Int
-            record.setValue(currentValue + newValue, forKey: UsageStatistics.keys.numberGMDate)
+            record.setValue(newValue, forKey: UsageStatistics.keys.numberGMDate)
             let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
             op.savePolicy = .changedKeys
             CKKeys.database.add(op)
@@ -185,11 +189,126 @@ class UsageStatistics {
             return record.object(forKey: UsageStatistics.keys.numberGMcomplete) as! Int
         }
         set{
-            let currentValue = record.object(forKey: UsageStatistics.keys.numberGMcomplete) as! Int
-            record.setValue(currentValue + newValue, forKey: UsageStatistics.keys.numberGMcomplete)
+            record.setValue(newValue, forKey: UsageStatistics.keys.numberGMcomplete)
             let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
             op.savePolicy = .changedKeys
             CKKeys.database.add(op)
         }
     }
+    
+    
+    
+    
+    
+    var totalNumberOfPhotos: Int {
+        get {
+            return record.object(forKey: UsageStatistics.keys.numberOfPhotos) as! Int
+        }
+        set {
+            record.setValue(newValue, forKey: UsageStatistics.keys.numberOfPhotos)
+            let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
+            op.savePolicy = .changedKeys
+            CKKeys.database.add(op)
+        }
+    }
+    
+    var totalTickerChars: Int {
+        get {
+            return record.object(forKey: UsageStatistics.keys.tickerLength) as! Int
+        }
+        set {
+            record.setValue(newValue, forKey: UsageStatistics.keys.tickerLength)
+            let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
+            op.savePolicy = .changedKeys
+            CKKeys.database.add(op)
+        }
+    }
+    
+    var totalMessageChars: Int {
+        get {
+            return record.object(forKey: UsageStatistics.keys.messageLength) as! Int
+        }
+        set {
+            record.setValue(newValue, forKey: UsageStatistics.keys.messageLength)
+            let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
+            op.savePolicy = .changedKeys
+            CKKeys.database.add(op)
+        }
+    }
+    
+    var averageNumOfPhotos: Double {
+        get {
+            return record.object(forKey: UsageStatistics.keys.avgNumPhotos) as! Double
+        }
+        set {
+            record.setValue(newValue, forKey: UsageStatistics.keys.avgNumPhotos)
+            let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
+            op.savePolicy = .changedKeys
+            CKKeys.database.add(op)
+        }
+    }
+    
+    var averageTickerLength: Double {
+        get {
+            return record.object(forKey: UsageStatistics.keys.avgTickerLength) as! Double
+        }
+        set {
+            record.setValue(newValue, forKey: UsageStatistics.keys.avgTickerLength)
+            let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
+            op.savePolicy = .changedKeys
+            CKKeys.database.add(op)
+        }
+    }
+    
+    var averageMessageLength: Double {
+        get {
+            return record.object(forKey: UsageStatistics.keys.avgMessageLength) as! Double
+        }
+        set {
+            record.setValue(newValue, forKey: UsageStatistics.keys.avgMessageLength)
+            let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
+            op.savePolicy = .changedKeys
+            CKKeys.database.add(op)
+        }
+    }
+    
+}
+
+
+class UsageStatisticsModel {
+    static func addTickerMessage(length:Int) {
+        UsageStatistics.shared.numberOfTickerMessage += 1
+        UsageStatistics.shared.totalTickerChars += length
+        UsageStatistics.shared.averageTickerLength = Double(UsageStatistics.shared.totalTickerChars/UsageStatistics.shared.numberOfTickerMessage)
+    }
+    static func addGlobalMessage(length:Int,link:Bool,location:Bool,date:Bool) {
+        UsageStatistics.shared.numberOfGlobalMessage += 1
+        UsageStatistics.shared.totalMessageChars += length
+        if link {
+            UsageStatistics.shared.numberOfGlobalMessageWithLink += 1
+        }
+        
+        if location {
+            UsageStatistics.shared.numberOfGlobalMessageWithLocation += 1
+        }
+        
+        if date {
+            UsageStatistics.shared.numberOfGlobalMessageWithDate += 1
+        }
+        
+        if link && location && date {
+            UsageStatistics.shared.numberOfGlobalMessageComplete += 1
+        }
+        
+        UsageStatistics.shared.averageMessageLength = Double(UsageStatistics.shared.totalMessageChars/UsageStatistics.shared.numberOfGlobalMessage)
+        
+        
+    }
+    
+    static func addKeynote(length: Int) {
+        UsageStatistics.shared.numberOfKeynote += 1
+        UsageStatistics.shared.totalNumberOfPhotos += length
+        UsageStatistics.shared.averageNumOfPhotos = Double(UsageStatistics.shared.totalNumberOfPhotos/UsageStatistics.shared.numberOfKeynote)
+    }
+    
 }

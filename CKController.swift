@@ -119,6 +119,7 @@ class CKController {
             TVModel.getTV(withName: name) { (tv, error) in
                 guard let _ = tv, error == nil else {print(error!.localizedDescription);return}
                 tv!.tickerMsg = text
+                UsageStatisticsModel.addTickerMessage(length: text.count)
             }
     }
     
@@ -147,6 +148,7 @@ class CKController {
             tvs!.forEach({ (tv) in
                 tv.tickerMsg = text
             })
+            UsageStatisticsModel.addTickerMessage(length: text.count)
 
         }
     }
@@ -434,6 +436,24 @@ class CKController {
                 print(error!.localizedDescription)
             }
         }
+        var link: Bool = false
+        var hasLocation: Bool = false
+        var hasDate: Bool = false
+        
+        
+        if let _ = URL {
+            link = true
+        }
+        
+        if let _ = location {
+            hasLocation = true
+        }
+        
+        if let _ = date.0 {
+            hasDate = true
+        }
+        
+        UsageStatisticsModel.addGlobalMessage(length: description?.count ?? 0, link: link , location: hasLocation, date: hasDate)
     }
     
 
@@ -460,6 +480,7 @@ class CKController {
             guard let _ = TV else {return }
             TV!.set(keynote: keynote, imageType: imageType ?? .PNG)
         }
+        UsageStatisticsModel.addKeynote(length: keynote.count)
     }
     
     
@@ -492,6 +513,7 @@ class CKController {
             guard let _ = TV else {return }
             TV!.set(keynote: keynote, imageType: type ?? .PNG)
         }
+        UsageStatisticsModel.addKeynote(length: data.count)
     }
     
     
@@ -507,7 +529,7 @@ class CKController {
                 tv.set(keynote: keynote, imageType: imageType ?? .PNG)
             }
         }
-        
+        UsageStatisticsModel.addKeynote(length: data.count)
     }
     
 //    Post a keynote in Png or Jpg format on a given group of TV (iOS)
@@ -535,7 +557,7 @@ class CKController {
                 tv.set(keynote: keynote, imageType: imageType ?? .PNG)
             }
         }
-    
+        UsageStatisticsModel.addKeynote(length: keynote.count)
     }
     
 
