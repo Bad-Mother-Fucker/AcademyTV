@@ -446,7 +446,7 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
             cell.selectionStyle = .none
             tableView.separatorStyle = .none
             
-            let button = UIButton(frame: CGRect(x: 0, y: 10, width: 414, height: 40))
+            let button = UIButton(frame: CGRect(x: 0, y: 10, width: self.view.frame.width, height: 40))
             
             button.setTitle("Something's wrong?", for: .normal)
             button.setTitleColor(UIColor(red: 0, green: 119/255, blue: 1, alpha: 1), for: .normal)

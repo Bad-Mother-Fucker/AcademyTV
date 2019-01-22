@@ -49,10 +49,13 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegate, UIC
     }
     
     @IBAction func saveImages(_ sender: UIBarButtonItem) {
-//        NotificationCenter.default.post(name: NSNotification.Name("GetAllSelectedPhotos"), object: nil, userInfo: ["images": selectedPhoto])
+        //        NotificationCenter.default.post(name: NSNotification.Name("GetAllSelectedPhotos"), object: nil, userInfo: ["images": selectedPhoto])
         let story = UIStoryboard(name: "Main", bundle: nil)
-        let destination = story.instantiateViewController(withIdentifier: "SetsViewController")
-        self.navigationController?.pushViewController(destination, animated: true)
+        if let destination = story.instantiateViewController(withIdentifier: "SetsViewController") as? TvListViewController{
+            destination.keynote = selectedPhoto
+            self.navigationController?.pushViewController(destination, animated: true)
+            
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

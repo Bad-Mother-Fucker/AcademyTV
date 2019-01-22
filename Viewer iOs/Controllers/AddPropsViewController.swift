@@ -961,8 +961,13 @@ extension AddPropsViewController: UIDocumentPickerDelegate, UINavigationControll
         print(urls)
         
         let story = UIStoryboard(name: "Main", bundle: nil)
-        let destination = story.instantiateViewController(withIdentifier: "SetsViewController")
-        self.navigationController?.pushViewController(destination, animated: true)
+        if let destination = story.instantiateViewController(withIdentifier: "SetsViewController") as? TvListViewController{
+            for url in urls{
+                let data = try! Data(contentsOf: url)
+                destination.keynote?.append(UIImage(data: data)!)
+                self.navigationController?.pushViewController(destination, animated: true)
+            }
+        }
     }
     
     
@@ -978,8 +983,13 @@ extension AddPropsViewController: UIImagePickerControllerDelegate{
         picker.dismiss(animated: true, completion: nil)
         
         let story = UIStoryboard(name: "Main", bundle: nil)
-        let destination = story.instantiateViewController(withIdentifier: "SetsViewController")
-        self.navigationController?.pushViewController(destination, animated: true)
+        if let destination = story.instantiateViewController(withIdentifier: "SetsViewController") as? TvListViewController{
+            if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
+                destination.keynote?.append(image)
+            }
+            self.navigationController?.pushViewController(destination, animated: true)
+            
+        }
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
