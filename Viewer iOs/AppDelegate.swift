@@ -20,21 +20,23 @@ import CloudKit
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        let recordQuery = CKQuery(recordType: UsageStatistics.recordType, predicate: NSPredicate(format: "recordCode == @", "com.Rogue.Viewer.UsageStats"))
+        let recordQuery = CKQuery(recordType: UsageStatistics.recordType, predicate: NSPredicate(format: "recordCode == %@", "com.Rogue.Viewer.UsageStats"))
         CKKeys.database.perform(recordQuery, inZoneWith: nil) { (records, error) in
             guard let _ = records else {
                 if let error = error {
                     print(error.localizedDescription)
-                    return
                 }
-                
-                UsageStatistics.shared.record["recordCode"] = "com.Rogue.Viewer.UsageStats"
+                return
+            }
+            guard records!.count > 0 else {
+                UsageStatistics.shared.record.setValue("com.Rogue.Viewer.UsageStats", forKey: "recordCode")
                 CKKeys.database.save(UsageStatistics.shared.record, completionHandler: { (record, error) in
                     
                 })
                 
                 return
             }
+            
             UsageStatistics.shared.record = records!.first!
             
         }
