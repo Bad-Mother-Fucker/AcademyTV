@@ -1000,7 +1000,7 @@ extension AddPropsViewController: UIImagePickerControllerDelegate{
         let story = UIStoryboard(name: "Main", bundle: nil)
         if let destination = story.instantiateViewController(withIdentifier: "SetsViewController") as? TvListViewController{
             if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
-                destination.keynote = [image]
+                destination.keynote = [image.byFixingOrientation()]
                 destination.category = .KeynoteViewer
             }
             self.navigationController?.pushViewController(destination, animated: true)
