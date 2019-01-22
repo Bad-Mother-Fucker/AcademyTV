@@ -90,9 +90,28 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
         keynote = []
         thikerMessage = []
         
+        var uniqueTickerMessages = Set<String>()
+        
         for tick in ticker{
-            thikerMessage?.append((message: tick.0, tvName: tick.1, TVGroup: nil))
+            // FIXME: Group tickers by message
+            uniqueTickerMessages.insert(tick.0)
         }
+        
+        for message in uniqueTickerMessages{
+            thikerMessage?.append((message: message, tvName: "", TVGroup: nil))
+            for tick in ticker {
+                if (tick.0 == message){
+                    let size = thikerMessage!.count
+                    thikerMessage![size - 1].tvName.append(tick.1 + ", ")
+                }
+                //Remove last two digits
+                let size = thikerMessage!.count
+                thikerMessage?[size - 1].tvName.removeLast(2)
+            }
+            
+        }
+        
+        
         
         for key in keynoteFiles{
             keynote?.append((image: key.image, tvName: key.tvName, TVGroup: nil))
@@ -130,6 +149,7 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
             for views in self.view.subviews{
                 views.removeFromSuperview()
             }
+            
             let tableView = UITableView(frame: self.view.frame)
             tableView.delegate = self
             tableView.dataSource = self
@@ -179,7 +199,36 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
             self.present(alert, animated: true, completion: nil)
         }
     }
+    
+    /**
+     ## Implememntation of the MailComposeViewController
+     
+     - Version: 1.0
+     
+     - Author: @Afandrefe
+     */
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        switch (result) {
+        case MFMailComposeResult.sent:
+            print("You sent the email.")
+        case MFMailComposeResult.saved:
+            print("You saved a draft of this email")
+        case MFMailComposeResult.cancelled:
+            print("You cancelled sending this email.")
+        case MFMailComposeResult.failed:
+            print("Mail failed:  An error occurred when trying to compose this email")
+        default:
+            print("An error occurred when trying to compose this email")
+        }
+        controller.dismiss(animated: true)
+    }
+    
 }
+
+
+
+
 
 /**
  ## LiveViewController - Inplement the Table View delegate and datasource.

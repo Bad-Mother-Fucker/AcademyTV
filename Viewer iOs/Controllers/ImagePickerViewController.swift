@@ -53,6 +53,7 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegate, UIC
         let story = UIStoryboard(name: "Main", bundle: nil)
         if let destination = story.instantiateViewController(withIdentifier: "SetsViewController") as? TvListViewController{
             destination.keynote = selectedPhoto
+            destination.category = .KeynoteViewer
             self.navigationController?.pushViewController(destination, animated: true)
             
         }

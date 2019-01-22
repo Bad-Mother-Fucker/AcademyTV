@@ -50,7 +50,7 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
      
      - Author: @GianlucaOrpello
      */
-    var keynote: (image: [UIImage]?, tvName: String?, TVGroup:  [TVGroup]?)?
+    var keynote: (image: [UIImage]?, tvName: String?, TVGroup: [TVGroup]?)?
     
     /**
      ## The categories of the object passed to this view.
@@ -137,8 +137,10 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
     private func getCurrentCategories(){
         if let _ = prop as? (message: String, tvName: String?, TVGroup: [TVGroup]?){
             self.categories = .TickerMessage
-        }else if let _ = prop as? (image: [UIImage]?, tvName: String?, TVGroup:  [TVGroup]?){
+        }else if let key = prop as? (image: [UIImage]?, tvName: String?, TVGroup:  [TVGroup]?){
             self.categories = .KeynoteViewer
+            keynote = key
+            print(keynote)
         }else if let _ = prop as? GlobalMessage{
             self.categories = .GlobalMessage
         }
@@ -289,8 +291,6 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
      
      - Author: @Micheledes
      */
-    
-    
     @objc func pop() {
         navigationController?.popViewController(animated: true)
     }
@@ -298,7 +298,7 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
 
 
 
-extension SummaryViewController: UITableViewDelegate, UITableViewDataSource{
+extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate{
     
     // MARK: - UITableViewDelegate
     
@@ -359,6 +359,16 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource{
             return 0
         }
     }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        return true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
     
     // MARK: - UITableViewDataSource
     
@@ -697,6 +707,10 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource{
                     let urlTextEdit = UITextField(frame: CGRect(x: 72, y: 35, width: 287, height: 44))
                     let dateTimeTextEdit = UITextField(frame: CGRect(x: 72, y: 105, width: 287, height: 44))
                     let locationTextEdit = UITextField(frame: CGRect(x: 72, y: 175, width: 287, height: 44))
+                    
+                    urlTextEdit.delegate = self
+                    dateTimeTextEdit.delegate = self
+                    locationTextEdit.delegate = self
                     
                     urlTextEdit.text = globalMessage.url?.absoluteString ?? "None"
                     dateTimeTextEdit.text = globalMessage.date.day ?? "None"

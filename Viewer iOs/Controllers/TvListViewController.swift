@@ -15,7 +15,7 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
     var groups = globalGroups
     
     var selectedGroup: TVGroups?
-    var selectedGroups = [TVGroup]()
+    var selectedGroups: [TVGroup]?
     var keynote: [UIImage]?
     var category: Categories?
     var tickerMessage: String?
@@ -44,21 +44,22 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
             case Categories.TickerMessage:
                 
                 var tvNames: String = ""
-                for group in selectedGroups{
+                for group in selectedGroups!{
                     tvNames.append(group.rawValue)
                     tvNames.append(", ")
                 }
-                let prop = (message: tickerMessage, tvName: tvNames,TVGroup:selectedGroups)
+                let prop = (message: tickerMessage, tvName: tvNames, TVGroup:selectedGroups)
                 summary.prop = prop
                 
                 break
+                
             case Categories.KeynoteViewer:
                 
-                var tvNames: String = ""
-                for group in selectedGroups{
-                    tvNames.append(contentsOf: group.rawValue)
+                var tvNames: String? = ""
+                for group in selectedGroups!{
+                    tvNames!.append(contentsOf: group.rawValue)
                 }
-                let prop = (keynote: keynote,tvName: tvNames,TVGroup:selectedGroups)
+                let prop = (image: keynote, tvName: tvNames, TVGroup: selectedGroups)
                 summary.prop = prop
                 
                 break
@@ -75,16 +76,14 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        selectedGroups = []
         nextBarButtonItem.isEnabled = false
-        if (traitCollection.forceTouchCapability == .available){
-        }
-        
     }
     
     // MARK: DelegateFlowLayout methods
     // setting correct spacing
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+        return UIEdgeInsets(top: 15, left: 20, bottom: 15, right: 20)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -92,20 +91,38 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 28
+        if (UIScreen.main.bounds.width < 414){
+            return 43
+        } else {
+            return 28
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width : CGFloat
         let height : CGFloat
-    
-        if indexPath.item < 1 {
-            width = 386
-            height = 45
-        } else {
-            width = 178
-            height = 95
+        
+        //iPhone 8, X, Xs
+        if (UIScreen.main.bounds.width < 414){
+            if indexPath.item < 1 {
+                width = 345
+                height = 45
+            } else {
+                width = 146
+                height = 95
+            }
+        } else { //Xr...
+            if indexPath.item < 1 {
+                width = 384
+                height = 45
+            } else {
+                width = 178
+                height = 95
+            }
         }
+    
+        
         return CGSize(width: width, height: height)
     }
     
@@ -136,7 +153,12 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
             
         }else{
             let borderCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddAllTVGroup", for: indexPath) as! BorderCollectionViewCell
-            borderCell.frame.size = CGSize(width: 386, height: 45)
+            if (UIScreen.main.bounds.width < 414){
+                borderCell.frame.size = CGSize(width: 335, height: 45)
+            } else {
+                borderCell.frame.size = CGSize(width: 384, height: 45)
+            }
+            
             borderCell.titleLabel.text = "Select All"
             return borderCell
         }
@@ -149,21 +171,21 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         if cell?.reuseIdentifier == "TVGroup"{
             cell!.isSelected = true
-            selectedGroups.append(groups[indexPath.item - 1].name)
+            selectedGroups!.append(groups[indexPath.item - 1].name)
         }else{
             for i in 1..<collectionView.numberOfItems(inSection: 0){
                 collectionView.selectItem(at: IndexPath(item: i, section: 0), animated: true, scrollPosition: .bottom)
             }
-            selectedGroups.removeAll()
+            selectedGroups!.removeAll()
             for group in groups {
                 
-                selectedGroups.append(group.name)
+                selectedGroups!.append(group.name)
             }
             
             
         }
         
-        if selectedGroups.isEmpty {
+        if selectedGroups!.isEmpty {
             nextBarButtonItem.isEnabled = false
         } else {
             nextBarButtonItem.isEnabled = true
@@ -176,7 +198,7 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
         let cell = collectionView.cellForItem(at: indexPath)
         if cell?.reuseIdentifier == "TVGroup"{
             cell!.isSelected = false
-            selectedGroups = selectedGroups.filter { (tvGroup) -> Bool in
+            selectedGroups = selectedGroups!.filter { (tvGroup) -> Bool in
                 if tvGroup == groups[indexPath.item - 1].name{
                     return false
                 }else{
@@ -187,9 +209,9 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
             for i in 1..<collectionView.numberOfItems(inSection: 0){
                 collectionView.deselectItem(at: IndexPath(item: i, section: 0), animated: true)
             }
-            selectedGroups.removeAll()
+            selectedGroups!.removeAll()
         }
-        if selectedGroups.isEmpty {
+        if selectedGroups!.isEmpty {
             nextBarButtonItem.isEnabled = false
         } else {
             nextBarButtonItem.isEnabled = true
@@ -200,7 +222,7 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
         switch segue.identifier {
         case "setTheTvSegue":
             
-            if selectedGroups.count == 0{
+            if selectedGroups!.count == 0{
                 let alert = UIAlertController(title: "Select at least one group.", message: nil, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
                 self.present(alert, animated: true, completion: nil)
