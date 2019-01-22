@@ -128,6 +128,7 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
             for views in self.view.subviews{
                 views.removeFromSuperview()
             }
+            
             let tableView = UITableView(frame: self.view.frame)
             tableView.delegate = self
             tableView.dataSource = self
