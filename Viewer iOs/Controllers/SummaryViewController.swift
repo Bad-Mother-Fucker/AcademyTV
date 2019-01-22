@@ -115,7 +115,7 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "edit", style:.done, target: self, action: #selector(editProp))
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "back", style:.plain, target: self, action: #selector(dissmissController))
         } else {
-             self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "back", style:.plain, target: self, action: #selector(dissmissController))
+             self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "back", style:.plain, target: self, action: #selector(dissmissController))
         }
         
         
