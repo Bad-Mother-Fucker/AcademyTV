@@ -916,6 +916,12 @@ extension AddPropsViewController: UITextFieldDelegate{
             return false
         }
     }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        
+        tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .top, animated: true)
+    }
+    
 }
 
 // MARK: - Extension for UIPickerController
