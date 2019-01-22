@@ -114,6 +114,8 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
         }else if categories?.rawValue == Categories.GlobalMessage.rawValue {
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "edit", style:.done, target: self, action: #selector(editProp))
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "back", style:.plain, target: self, action: #selector(dissmissController))
+        } else {
+             self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "back", style:.plain, target: self, action: #selector(dissmissController))
         }
         
         
