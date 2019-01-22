@@ -84,7 +84,7 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
     // MARK: DelegateFlowLayout methods
     // setting correct spacing
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+        return UIEdgeInsets(top: 15, left: 20, bottom: 15, right: 20)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -92,20 +92,38 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 28
+        if (UIScreen.main.bounds.width < 414){
+            return 43
+        } else {
+            return 28
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width : CGFloat
         let height : CGFloat
-    
-        if indexPath.item < 1 {
-            width = 386
-            height = 45
-        } else {
-            width = 178
-            height = 95
+        
+        //iPhone 8, X, Xs
+        if (UIScreen.main.bounds.width < 414){
+            if indexPath.item < 1 {
+                width = 345
+                height = 45
+            } else {
+                width = 146
+                height = 95
+            }
+        } else { //Xr...
+            if indexPath.item < 1 {
+                width = 384
+                height = 45
+            } else {
+                width = 178
+                height = 95
+            }
         }
+    
+        
         return CGSize(width: width, height: height)
     }
     
@@ -136,7 +154,12 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
             
         }else{
             let borderCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddAllTVGroup", for: indexPath) as! BorderCollectionViewCell
-            borderCell.frame.size = CGSize(width: 386, height: 45)
+            if (UIScreen.main.bounds.width < 414){
+                borderCell.frame.size = CGSize(width: 335, height: 45)
+            } else {
+                borderCell.frame.size = CGSize(width: 384, height: 45)
+            }
+            
             borderCell.titleLabel.text = "Select All"
             return borderCell
         }
