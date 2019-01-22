@@ -61,7 +61,7 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
      
      - Author: @GianlucaOrpello
      */
-    var thikerMessage: [(message: String, tvName: String)]? = nil
+    var thikerMessage: [(message: String, tvName: String, TVGroup: [TVGroup]?)]? = nil
     
     /**
      ## All the keynote airing.
@@ -72,7 +72,7 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
      
      - Author: @GianlucaOrpello
      */
-    var keynote: [(image: [UIImage]?, tvName: String)]? = nil
+    var keynote: [(image: [UIImage]?, tvName: String, TVGroup: [TVGroup]?)]? = nil
     
     /**
      ## UIVIewController - View did Load Methods
@@ -84,8 +84,19 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        thikerMessage = CKController.getAiringTickers(in: .all)
-        keynote = CKController.getAiringKeynote(in: .all)
+        let ticker = CKController.getAiringTickers(in: .all)
+        let keynoteFiles = CKController.getAiringKeynote(in: .all)
+        
+        keynote = []
+        thikerMessage = []
+        
+        for tick in ticker{
+            thikerMessage?.append((message: tick.0, tvName: tick.1, TVGroup: nil))
+        }
+        
+        for key in keynoteFiles{
+            keynote?.append((image: key.image, tvName: key.tvName, TVGroup: nil))
+        }
         
         do{
             globalMessages = try CKController.getAllGlobalMessages(completionHandler: {
