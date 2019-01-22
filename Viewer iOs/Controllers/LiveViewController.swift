@@ -166,7 +166,38 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
             self.present(alert, animated: true, completion: nil)
         }
     }
+    
+    /**
+     ## Implememntation of the MailComposeViewController
+     
+     - Version: 1.0
+     
+     - Author: @Afandrefe
+     */
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        switch (result) {
+        case MFMailComposeResult.sent:
+            print("You sent the email.")
+        case MFMailComposeResult.saved:
+            print("You saved a draft of this email")
+        case MFMailComposeResult.cancelled:
+            print("You cancelled sending this email.")
+        case MFMailComposeResult.failed:
+            print("Mail failed:  An error occurred when trying to compose this email")
+        default:
+            print("An error occurred when trying to compose this email")
+        }
+        controller.dismiss(animated: true)
+    }
+    
+    
+    
 }
+
+
+
+
 
 /**
  ## LiveViewController - Inplement the Table View delegate and datasource.
