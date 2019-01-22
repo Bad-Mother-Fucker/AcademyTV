@@ -148,25 +148,27 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
                 ticker.TVGroup.forEach { (group) in
                     CKController.postTickerMessage(ticker.message, onTvGroup: group)
                 }
-                #warning("add alert")
                 self.navigationController?.dismiss(animated: true, completion: nil)
             case Categories.KeynoteViewer:
                 let keynote = prop as! (image: [UIImage]?, tvName: String, TVGroup:  [TVGroup])
                 keynote.TVGroup.forEach { (group) in
                     CKController.postKeynote(keynote.image!, ofType: .PNG, onTVsOfGroup: group)
                 }
-                #warning("add alert")
                 self.navigationController?.dismiss(animated: true, completion: nil)
             case Categories.GlobalMessage:
                 let gm = prop as! GlobalMessage
                 CKController.postMessage(title: gm.title, subtitle: gm.subtitle, location: gm.location, date: gm.date, description: gm.description, URL: gm.url, timeToLive: 0)
                 
-                #warning("add alert")
                 self.navigationController?.dismiss(animated: true, completion: nil)
                 
             default:
                 break
             }
+            
+            let alert = UIAlertController(title: "Saved", message: "The prop will appaire in a few seconds", preferredStyle: .alert)
+            let action = UIAlertAction(title: "ok", style: .default, handler: nil)
+            alert.addAction(action)
+            self.present(alert, animated: true, completion: nil)
         }
     }
     

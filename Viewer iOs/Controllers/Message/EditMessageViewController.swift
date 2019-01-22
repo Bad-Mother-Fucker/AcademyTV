@@ -50,7 +50,7 @@ class EditMessageViewController: UITableViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let message = self.message {
+        if let _ = self.message {
             self.title = "Edit Message"
         }else {
             self.title = "New Message"
@@ -88,7 +88,7 @@ class EditMessageViewController: UITableViewController, UITextFieldDelegate {
         record["date"] = dateLabel.text! as CKRecordValue
         record["description"] = descriptionTextView.text! as CKRecordValue
         
-        if let message = self.message {
+        if let _ = self.message {
             let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
             op.savePolicy = .changedKeys
             CKKeys.database.add(op)

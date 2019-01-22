@@ -197,7 +197,7 @@ class AddPropsViewController: UIViewController {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "SetsViewController") as! TvListViewController
-        #warning("Compleate methods.")
+//        #warning("Compleate methods.")
         if props.title == Categories.GlobalMessage.rawValue {
             let checkOutVC = SummaryViewController()
             checkOutVC.categories = .GlobalMessage
@@ -207,7 +207,7 @@ class AddPropsViewController: UIViewController {
         }else if props.title == Categories.TickerMessage.rawValue {
             
             controller.category = .TickerMessage
-            controller.tickerMessage = getProp() as! String
+            controller.tickerMessage = (getProp() as! String)
             navigationController?.pushViewController(controller, animated: true)
         }else if props.title == Categories.KeynoteViewer.rawValue {
             
@@ -260,7 +260,6 @@ class AddPropsViewController: UIViewController {
         default:
             return ""
         }
-        return ""
     }
     
     /**
@@ -310,6 +309,11 @@ class AddPropsViewController: UIViewController {
         selectedDateTime = dateFormatter.string(from: sender.date)
     }
     
+    @objc func getPhotos() {
+        let story = UIStoryboard(name: "Main", bundle: nil)
+        let vc = story.instantiateViewController(withIdentifier: "ImagePickerViewController")
+        self.present(vc, animated: true)
+    }
 }
 
 /**
@@ -774,6 +778,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         button.setTitle("Select from Files", for: .normal)
                         button.setTitleColor(UIColor(red: 0, green: 122/255, blue: 1, alpha: 1), for: .normal)
                         button.contentHorizontalAlignment = .left
+                        button.isEnabled = false
                         #warning("Add Target to this button")
                         
                         cell.contentView.addSubview(button)
@@ -788,12 +793,6 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
             }
             
         }
-    }
-    
-    
-    @objc func getPhotos() {
-        let vc = ImagePickerViewController()
-        self.present(vc,animated: true)
     }
 }
 
