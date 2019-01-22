@@ -222,8 +222,6 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
         controller.dismiss(animated: true)
     }
     
-    
-    
 }
 
 

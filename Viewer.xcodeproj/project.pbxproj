@@ -56,6 +56,7 @@
 		99308B7A21A6FAE500EA0F9C /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99308B7821A6FAE500EA0F9C /* MainInterface.storyboard */; };
 		99308B7E21A6FAE500EA0F9C /* ShareExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 99308B7421A6FAE500EA0F9C /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		9936D1BE21F6855600478244 /* AddPropsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B0DDF921F672E500E3FAAA /* AddPropsViewController.swift */; };
+		9936D1BF21F76EF600478244 /* UsageStatistic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E3790121EBDF27006380F7 /* UsageStatistic.swift */; };
 		994CDB8621A06FBF005909BF /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 994CDB8521A06FBF005909BF /* CloudKit.framework */; };
 		995801D521E0BF6800A6BD49 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 995801D421E0BF6800A6BD49 /* README.md */; };
 		996353E82195E2E500AE8AAE /* GlobalMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996353E72195E2E500AE8AAE /* GlobalMessageView.swift */; };
@@ -737,6 +738,7 @@
 				99FA31B421A4637900A31F02 /* BooquableOrder.swift in Sources */,
 				9904CA6B217DDBAD00210884 /* GlobalMessage.swift in Sources */,
 				99AC09542174E6B100CFCAD0 /* AppDelegate.swift in Sources */,
+				9936D1BF21F76EF600478244 /* UsageStatistic.swift in Sources */,
 				99FA31B221A45A1B00A31F02 /* BooquableManager.swift in Sources */,
 				19FA365D21A8202400E3B1C0 /* UIImage+CKAsset.swift in Sources */,
 				9904CA5F217BDCED00210884 /* BoardViewController.swift in Sources */,

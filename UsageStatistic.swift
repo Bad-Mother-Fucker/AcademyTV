@@ -274,7 +274,6 @@ class UsageStatistics {
     
 }
 
-
 class UsageStatisticsModel {
     static func addTickerMessage(length:Int) {
         UsageStatistics.shared.numberOfTickerMessage += 1
