@@ -8,7 +8,7 @@
 
 import UIKit
 import MessageUI
-
+import CloudKit
 /**
  ## Summary View Controller with the goal of manage all the information of each props.
  
@@ -19,6 +19,8 @@ import MessageUI
  - Author: @GianlucaOrpello
  */
 class SummaryViewController: UIViewController, MFMailComposeViewControllerDelegate{
+    
+    var tableView: UITableView!
     
     /**
      ## isCheckoutMode
@@ -109,15 +111,16 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
         if isCheckoutMode {
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(pop))
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Post", style: .done, target: self, action: #selector(postProp))
-        }else {
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dissmissController))
+        }else if categories?.rawValue == Categories.GlobalMessage.rawValue {
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "edit", style:.done, target: self, action: #selector(editProp))
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "back", style:.plain, target: self, action: #selector(dissmissController))
         }
         
         
         
         getCurrentCategories()
         
-        let tableView = UITableView(frame: self.view.frame)
+        tableView = UITableView(frame: self.view.frame)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
@@ -174,6 +177,43 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
             self.present(alert, animated: true, completion: nil)
         }
     }
+    
+    
+    @objc func editProp() {
+        if let cat = categories{
+            switch cat {
+            case Categories.TickerMessage:
+               
+                break
+            case Categories.KeynoteViewer:
+             
+                break
+            case Categories.GlobalMessage:
+                let gm = prop as! GlobalMessage
+                gm.title = (tableView.cellForRow(at: IndexPath(row: 0, section: 0))?.viewWithTag(500) as? UILabel)?.text ?? ""
+                gm.subtitle = (tableView.cellForRow(at: IndexPath(row: 0, section: 0))?.viewWithTag(501) as? UILabel)?.text ?? ""
+                gm.location = (tableView.cellForRow(at: IndexPath(row: 1, section: 0))?.viewWithTag(505) as? UILabel)?.text ?? ""
+                gm.date.0 = (tableView.cellForRow(at: IndexPath(row: 1, section: 0))?.viewWithTag(504) as? UITextField)?.text ?? ""
+                gm.description = (tableView.cellForRow(at: IndexPath(row: 0, section: 0))?.viewWithTag(502) as? UITextField)?.text ?? ""
+                gm.url = URL(string: (tableView.cellForRow(at: IndexPath(row: 1, section: 0))?.viewWithTag(503) as? UITextField)?.text ?? "")
+                
+                let operation = CKModifyRecordsOperation(recordsToSave: [gm.record], recordIDsToDelete: nil)
+                CKKeys.database.add(operation)
+                self.navigationController?.dismiss(animated: true, completion: nil)
+                
+            default:
+                break
+            }
+            
+            let alert = UIAlertController(title: "Saved", message: "The prop will appaire in a few seconds", preferredStyle: .alert)
+            let action = UIAlertAction(title: "ok", style: .default, handler: nil)
+            alert.addAction(action)
+            self.present(alert, animated: true, completion: nil)
+        }
+
+        
+    }
+    
     
     /**
      ## Send an email for report a problem
@@ -619,6 +659,9 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource{
                     subtitleLabel.text = globalMessage.subtitle
                     textLabel.text = globalMessage.description
                     
+                    titleLabel.tag = 500
+                    subtitleLabel.tag = 501
+                    textLabel.tag = 502
                     textLabel.numberOfLines = 0
                     
                     let color = UIColor(red: 0, green: 119/255, blue: 1, alpha: 1)
@@ -658,6 +701,10 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource{
                     urlTextEdit.text = globalMessage.url?.absoluteString ?? "None"
                     dateTimeTextEdit.text = globalMessage.date.day ?? "None"
                     locationTextEdit.text = globalMessage.location ?? "None"
+                    
+                    urlTextEdit.tag = 503
+                    dateTimeTextEdit.tag = 504
+                    locationTextEdit.tag = 505
                     
                     let color = UIColor(red: 0, green: 119/255, blue: 1, alpha: 1)
                     

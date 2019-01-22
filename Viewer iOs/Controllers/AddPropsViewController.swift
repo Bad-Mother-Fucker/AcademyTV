@@ -228,7 +228,7 @@ class AddPropsViewController: UIViewController {
             let description = (tableView.cellForRow(at: IndexPath(row: 2, section: 2))?.viewWithTag(500) as! UITextField).text
             let url = (tableView.cellForRow(at: IndexPath(row: 0, section: 3))?.viewWithTag(500) as! UITextField).text
             var location = (tableView.cellForRow(at: IndexPath(row: 1, section: 3))?.viewWithTag(500) as! UILabel).text
-            let dateTime = (tableView.cellForRow(at: IndexPath(row: 3, section: 3))?.viewWithTag(500) as! UILabel).text
+            let dateTime = (tableView.cellForRow(at: IndexPath(row: 3, section: 3))?.viewWithTag(500) as? UILabel)?.text
 
             if location == "None" {
                 location = nil
