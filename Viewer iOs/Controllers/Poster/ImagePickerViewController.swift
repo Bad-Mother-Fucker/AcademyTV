@@ -25,10 +25,16 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegate, UIC
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(dissmissController))
+        
         let allPhotoOption = PHFetchOptions()
         allPhotoOption.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
         
         allPhotos = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: allPhotoOption)
+    }
+    
+    @objc func dissmissController(){
+        self.dismiss(animated: true, completion: nil)
     }
     
     func getAssetThumbnail(asset: PHAsset) -> UIImage? {
@@ -43,8 +49,10 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegate, UIC
     }
     
     @IBAction func saveImages(_ sender: UIBarButtonItem) {
-        NotificationCenter.default.post(name: NSNotification.Name("GetAllSelectedPhotos"), object: nil, userInfo: ["images": selectedPhoto])
-        self.dismiss(animated: true, completion: nil)
+//        NotificationCenter.default.post(name: NSNotification.Name("GetAllSelectedPhotos"), object: nil, userInfo: ["images": selectedPhoto])
+        let story = UIStoryboard(name: "Main", bundle: nil)
+        let destination = story.instantiateViewController(withIdentifier: "SetsViewController")
+        self.navigationController?.pushViewController(destination, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

@@ -211,7 +211,6 @@ class AddPropsViewController: UIViewController {
             controller.tickerMessage = (getProp() as! String)
             navigationController?.pushViewController(controller, animated: true)
         }else if props.title == Categories.KeynoteViewer.rawValue {
-            
             controller.category = .KeynoteViewer
             controller.keynote = getProp() as! [UIImage]?
             navigationController?.pushViewController(controller, animated: true)
@@ -310,13 +309,76 @@ class AddPropsViewController: UIViewController {
         selectedDateTime = dateFormatter.string(from: sender.date)
     }
     
-    @objc func getPhotos() {
+    /**
+     ## Present the Action sheet.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
+    @objc fileprivate func getContentViewer(){
+        let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let camera = UIAlertAction(title: "Take Photo", style: .default) { (action) in
+            self.getCamera()
+        }
+        
+        let library = UIAlertAction(title: "Photo Library", style: .default) { (action) in
+            self.getPhotos()
+        }
+        
+        let document = UIAlertAction(title: "Browse Files", style: .default) { (action) in
+            self.getDocumentPicker()
+        }
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        sheet.addAction(camera)
+        sheet.addAction(library)
+        sheet.addAction(document)
+        sheet.addAction(cancel)
+        
+        self.present(sheet, animated: true, completion: nil)
+    }
+    
+    /**
+     ## Present the camera Controller.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
+    private func getCamera() {
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = .camera
+            imagePicker.allowsEditing = false
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+    }
+    
+    /**
+     ## Present the Image gallery.
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
+    private func getPhotos() {
         let story = UIStoryboard(name: "Main", bundle: nil)
         let vc = story.instantiateViewController(withIdentifier: "ImagePickerViewController")
         self.present(vc, animated: true)
     }
     
-    @objc func getDocumentPicker(){
+    /**
+     ## Present the Document View Controller
+     
+     - Version: 1.0
+     
+     - Author: @GianlucaOrpello
+     */
+    private func getDocumentPicker(){
         let importMenu = UIDocumentPickerViewController(documentTypes: [String(kUTTypeImage), String(kUTTypePDF)], in: .import)
         importMenu.delegate = self
         importMenu.modalPresentationStyle = .formSheet
@@ -501,7 +563,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
             case Categories.TickerMessage.rawValue:
                 return 2
             case Categories.KeynoteViewer.rawValue:
-                return 2
+                return 1
             default:
                 return 0
             }
@@ -760,35 +822,33 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                     return cell
                 case 2:
                     
-                    if indexPath.row == 0{
-                    
                         let cell = UITableViewCell()
                         cell.selectionStyle = .none
                         
                         let button = UIButton(frame: CGRect(x: 16, y: 10, width: self.view.frame.size.width - 26, height: 22))
-                        button.setTitle("Select from Photos", for: .normal)
+                        button.setTitle("Select Content", for: .normal)
                         button.setTitleColor(UIColor(red: 0, green: 122/255, blue: 1, alpha: 1), for: .normal)
                         button.contentHorizontalAlignment = .left
                        
-                        button.addTarget(self, action: #selector(getPhotos), for: .touchUpInside)
+                        button.addTarget(self, action: #selector(getContentViewer), for: .touchUpInside)
                         
                         cell.contentView.addSubview(button)
                         return cell
                         
-                    }else{
-                        
-                        let cell = UITableViewCell()
-                        cell.selectionStyle = .none
-                        
-                        let button = UIButton(frame: CGRect(x: 16, y: 10, width: self.view.frame.size.width - 26, height: 22))
-                        button.setTitle("Select from Files", for: .normal)
-                        button.setTitleColor(UIColor(red: 0, green: 122/255, blue: 1, alpha: 1), for: .normal)
-                        button.contentHorizontalAlignment = .left
-                        button.addTarget(self, action: #selector(getDocumentPicker), for: .touchUpInside)
-                        
-                        cell.contentView.addSubview(button)
-                        return cell
-                    }
+//                    }else{
+//
+//                        let cell = UITableViewCell()
+//                        cell.selectionStyle = .none
+//
+//                        let button = UIButton(frame: CGRect(x: 16, y: 10, width: self.view.frame.size.width - 26, height: 22))
+//                        button.setTitle("Select from Files", for: .normal)
+//                        button.setTitleColor(UIColor(red: 0, green: 122/255, blue: 1, alpha: 1), for: .normal)
+//                        button.contentHorizontalAlignment = .left
+//                        button.addTarget(self, action: #selector(getDocumentPicker), for: .touchUpInside)
+//
+//                        cell.contentView.addSubview(button)
+//                        return cell
+//                    }
                     
                 default:
                     return UITableViewCell()
@@ -899,10 +959,31 @@ extension AddPropsViewController: UIDocumentPickerDelegate, UINavigationControll
     
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         print(urls)
+        
+        let story = UIStoryboard(name: "Main", bundle: nil)
+        let destination = story.instantiateViewController(withIdentifier: "SetsViewController")
+        self.navigationController?.pushViewController(destination, animated: true)
     }
     
     
     func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
         self.navigationController?.popViewController(animated: true)
     }
+}
+
+extension AddPropsViewController: UIImagePickerControllerDelegate{
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        print(info)
+        picker.dismiss(animated: true, completion: nil)
+        
+        let story = UIStoryboard(name: "Main", bundle: nil)
+        let destination = story.instantiateViewController(withIdentifier: "SetsViewController")
+        self.navigationController?.pushViewController(destination, animated: true)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
 }
