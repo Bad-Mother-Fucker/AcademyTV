@@ -162,6 +162,8 @@ class AddPropsViewController: UIViewController {
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(checkSummary))
         
+        self.navigationItem.rightBarButtonItem?.isEnabled = false
+        
         tableView = UITableView(frame: self.view.frame)
         tableView.tableFooterView = UIView()
         
@@ -314,6 +316,7 @@ class AddPropsViewController: UIViewController {
         let story = UIStoryboard(name: "Main", bundle: nil)
         let vc = story.instantiateViewController(withIdentifier: "ImagePickerViewController")
         self.present(vc, animated: true)
+        self.navigationItem.rightBarButtonItem?.isEnabled = true
     }
     
     @objc func getDocumentPicker(){
@@ -830,8 +833,21 @@ extension AddPropsViewController: UITextFieldDelegate{
      - Author: @GianlucaOrpello
      */
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        guard let text = textField.text, textField.tag == 500 else { return false }
+        
+        
+        guard let text = textField.text, textField.tag == 500 else {
+            self.navigationItem.rightBarButtonItem?.isEnabled = true
+            return false
+
+        }
         let newLength = text.count + string.count - range.length
+        
+        if (newLength == 0){
+            self.navigationItem.rightBarButtonItem?.isEnabled = false
+        } else {
+            self.navigationItem.rightBarButtonItem?.isEnabled = true
+        }
+        
         numberOfChar = 70 - newLength
         
         if numberOfChar > 0{

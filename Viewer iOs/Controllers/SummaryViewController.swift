@@ -255,7 +255,7 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
 
 
 
-extension SummaryViewController: UITableViewDelegate, UITableViewDataSource{
+extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate{
     
     // MARK: - UITableViewDelegate
     
@@ -316,6 +316,16 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource{
             return 0
         }
     }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        return true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
     
     // MARK: - UITableViewDataSource
     
@@ -651,6 +661,10 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource{
                     let urlTextEdit = UITextField(frame: CGRect(x: 72, y: 35, width: 287, height: 44))
                     let dateTimeTextEdit = UITextField(frame: CGRect(x: 72, y: 105, width: 287, height: 44))
                     let locationTextEdit = UITextField(frame: CGRect(x: 72, y: 175, width: 287, height: 44))
+                    
+                    urlTextEdit.delegate = self
+                    dateTimeTextEdit.delegate = self
+                    locationTextEdit.delegate = self
                     
                     urlTextEdit.text = globalMessage.url?.absoluteString ?? "None"
                     dateTimeTextEdit.text = globalMessage.date.day ?? "None"

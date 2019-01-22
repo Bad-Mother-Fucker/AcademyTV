@@ -90,9 +90,28 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
         keynote = []
         thikerMessage = []
         
+        var uniqueTickerMessages = Set<String>()
+        
         for tick in ticker{
-            thikerMessage?.append((message: tick.0, tvName: tick.1, TVGroup: nil))
+            // FIXME: Group tickers by message
+            uniqueTickerMessages.insert(tick.0)
         }
+        
+        for message in uniqueTickerMessages{
+            thikerMessage?.append((message: message, tvName: "", TVGroup: nil))
+            for tick in ticker {
+                if (tick.0 == message){
+                    let size = thikerMessage!.count
+                    thikerMessage![size - 1].tvName.append(tick.1 + ", ")
+                }
+                //Remove last two digits
+                let size = thikerMessage!.count
+                thikerMessage?[size - 1].tvName.removeLast(2)
+            }
+            
+        }
+        
+        
         
         for key in keynoteFiles{
             keynote?.append((image: key.image, tvName: key.tvName, TVGroup: nil))
