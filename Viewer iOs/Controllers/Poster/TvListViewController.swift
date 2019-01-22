@@ -36,30 +36,38 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
     @IBAction func nextBarButtonPressed(_ sender: Any) {
         let summary = SummaryViewController()
         summary.isCheckoutMode = true
-       
         summary.categories = category
-        if (category == Categories.TickerMessage){
+        
+        if let cat = category{
             
-            
-            var tvNames: String = ""
-            for group in selectedGroups{
-                tvNames.append(group.rawValue)
-                tvNames.append(", ")
+            switch cat{
+            case Categories.TickerMessage:
+                
+                var tvNames: String = ""
+                for group in selectedGroups{
+                    tvNames.append(group.rawValue)
+                    tvNames.append(", ")
+                }
+                let prop = (message: tickerMessage, tvName: tvNames,TVGroup:selectedGroups)
+                summary.prop = prop
+                
+                break
+            case Categories.KeynoteViewer:
+                
+                var tvNames: String = ""
+                for group in selectedGroups{
+                    tvNames.append(contentsOf: group.rawValue)
+                }
+                let prop = (keynote: keynote,tvName: tvNames,TVGroup:selectedGroups)
+                summary.prop = prop
+                
+                break
+            default:
+                break
             }
-           var prop = (message: tickerMessage, tvName: tvNames,TVGroup:selectedGroups)
-            
-            
-            summary.prop = prop
-        }else if category == .KeynoteViewer.rawValue {
-            var tvNames: String = ""
-            for group in selectedGroups{
-                tvNames.append(contentsOf: group.rawValue)
-            }
-            var prop = (keynote: keynote,tvName: tvNames,TVGroup:selectedGroups)
-            summary.prop = prop
+
         }
         
-            
         navigationController?.pushViewController(summary, animated: true)
         
     }

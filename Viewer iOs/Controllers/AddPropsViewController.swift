@@ -272,6 +272,7 @@ class AddPropsViewController: UIViewController {
      */
     @objc fileprivate func openOrCloseDatePicker(){
         toggleShowDateDatepicker()
+        tableView.deselectRow(at: IndexPath(row: 4, section: 3), animated: true)
     }
     
     /**
@@ -284,6 +285,7 @@ class AddPropsViewController: UIViewController {
     fileprivate func toggleShowDateDatepicker () {
         datePickerIsVisible = !datePickerIsVisible
         self.tableView.beginUpdates()
+        self.tableView.reloadRows(at: [IndexPath(row: 4, section: 3)], with: .automatic)
         self.tableView.endUpdates()
     }
     
@@ -297,6 +299,7 @@ class AddPropsViewController: UIViewController {
     fileprivate func toggleShowLocationDatepicker() {
         locationPickerIsVisible = !locationPickerIsVisible
         self.tableView.beginUpdates()
+        self.tableView.reloadRows(at: [IndexPath(row: 2, section: 3)], with: .automatic)
         self.tableView.endUpdates()
     }
     
@@ -530,6 +533,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
         }else{
             
             switch props.title {
+            // MARK: Global Message
             case Categories.GlobalMessage.rawValue:
                 
                 switch indexPath.section{
@@ -680,6 +684,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                     return UITableViewCell()
                 }
                 
+            // MARK: Ticker Message
             case Categories.TickerMessage.rawValue:
                 switch indexPath.section{
                     
@@ -724,6 +729,8 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                 default:
                     return UITableViewCell()
                 }
+            
+            // MARK: Keynote Viewer
             case Categories.KeynoteViewer.rawValue:
                 switch indexPath.section{
                     
