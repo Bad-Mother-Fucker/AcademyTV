@@ -113,7 +113,7 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Post", style: .done, target: self, action: #selector(postProp))
         }else if categories?.rawValue == Categories.GlobalMessage.rawValue {
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "edit", style:.done, target: self, action: #selector(editProp))
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "back", style:.plain, target: self, action: #selector(dissmissController))
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "back", style:.plain, target: self, action: #selector(dissmissController))
         } else {
              self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "back", style:.plain, target: self, action: #selector(dissmissController))
         }
@@ -191,12 +191,12 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
                 break
             case Categories.GlobalMessage:
                 let gm = prop as! GlobalMessage
-                gm.title = (tableView.cellForRow(at: IndexPath(row: 0, section: 0))?.viewWithTag(500) as? UILabel)?.text ?? ""
-                gm.subtitle = (tableView.cellForRow(at: IndexPath(row: 0, section: 0))?.viewWithTag(501) as? UILabel)?.text ?? ""
-                gm.location = (tableView.cellForRow(at: IndexPath(row: 1, section: 0))?.viewWithTag(505) as? UILabel)?.text ?? ""
-                gm.date.0 = (tableView.cellForRow(at: IndexPath(row: 1, section: 0))?.viewWithTag(504) as? UITextField)?.text ?? ""
-                gm.description = (tableView.cellForRow(at: IndexPath(row: 0, section: 0))?.viewWithTag(502) as? UITextField)?.text ?? ""
-                gm.url = URL(string: (tableView.cellForRow(at: IndexPath(row: 1, section: 0))?.viewWithTag(503) as? UITextField)?.text ?? "")
+                gm.title = (tableView.cellForRow(at: IndexPath(row: 1, section: 0))?.viewWithTag(500) as? UITextField)?.text ?? ""
+                gm.subtitle = (tableView.cellForRow(at: IndexPath(row: 1, section: 0))?.viewWithTag(501) as? UITextField)?.text ?? ""
+                gm.location = (tableView.cellForRow(at: IndexPath(row: 2, section: 0))?.viewWithTag(505) as? UITextField)?.text ?? ""
+                gm.date.0 = (tableView.cellForRow(at: IndexPath(row: 2, section: 0))?.viewWithTag(504) as? UITextField)?.text ?? ""
+                gm.description = (tableView.cellForRow(at: IndexPath(row: 1, section: 0))?.viewWithTag(502) as? UITextView)?.text ?? ""
+                gm.url = URL(string: (tableView.cellForRow(at: IndexPath(row: 2, section: 0))?.viewWithTag(503) as? UITextField)?.text ?? "")
                 
                 let operation = CKModifyRecordsOperation(recordsToSave: [gm.record], recordIDsToDelete: nil)
                 CKKeys.database.add(operation)
@@ -660,9 +660,9 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
                     subtitle.text = "Subtitle"
                     text.text = "Text"
                     
-                    let titleLabel = UILabel(frame: CGRect(x: 72, y: 32, width: 287, height: 44))
-                    let subtitleLabel = UILabel(frame: CGRect(x: 72, y: 105, width: 287, height: 44))
-                    let textLabel = UILabel(frame: CGRect(x: 72, y: 175, width: 287, height: 44))
+                    let titleLabel = UITextField(frame: CGRect(x: 72, y: 32, width: 287, height: 44))
+                    let subtitleLabel = UITextField(frame: CGRect(x: 72, y: 105, width: 287, height: 44))
+                    let textLabel = UITextView(frame: CGRect(x: 72, y: 175, width: 287, height: 44))
                     
                     titleLabel.text = globalMessage.title
                     subtitleLabel.text = globalMessage.subtitle
@@ -671,7 +671,18 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
                     titleLabel.tag = 500
                     subtitleLabel.tag = 501
                     textLabel.tag = 502
-                    textLabel.numberOfLines = 0
+//                    textLabel.numberOfLines = 0
+                    
+                    textLabel.showsVerticalScrollIndicator = false
+                    textLabel.showsHorizontalScrollIndicator = false
+                    
+                    if isCheckoutMode {
+                        textLabel.isEditable = false
+                        textLabel.isSelectable = false
+                    }else {
+                        textLabel.isEditable = true
+                        textLabel.isSelectable = true
+                    }
                     
                     let color = UIColor(red: 0, green: 119/255, blue: 1, alpha: 1)
                     

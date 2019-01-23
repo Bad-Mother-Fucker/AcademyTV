@@ -98,17 +98,18 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
         }
         
         for message in uniqueTickerMessages{
-            thikerMessage?.append((message: message, tvName: "", TVGroup: nil))
+            thikerMessage!.append((message: message, tvName: "", TVGroup: nil))
             for tick in ticker {
                 if (tick.0 == message){
                     let size = thikerMessage!.count
-                    thikerMessage![size - 1].tvName.append(tick.1 + ", ")
+                    thikerMessage![size-1].tvName.append(contentsOf: "\(tick.1), ")
                 }
-                //Remove last two digits
-                let size = thikerMessage!.count
-                thikerMessage?[size - 1].tvName.removeLast(2)
+                
             }
-            
+            //Remove last two digits
+            let size = thikerMessage!.count
+//            guard thikerMessage![size - 1].tvName.count > 2 else {return}
+            thikerMessage?[size - 1].tvName.removeLast(2)
         }
         
         
