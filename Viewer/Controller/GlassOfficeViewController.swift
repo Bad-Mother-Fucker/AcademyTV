@@ -20,8 +20,8 @@ import UIKit
  
  - Author: @GianlucaOrpello, @Micheledes
  */
-extension UITableViewCell{
-    override open var canBecomeFocused: Bool{
+extension UITableViewCell {
+    override open var canBecomeFocused: Bool {
         return false
     }
 }
@@ -68,9 +68,9 @@ class GlassOfficeViewController: TVViewController, UITableViewDelegate {
      
      - Author: @GianlucaOrpello
      */
-    var orders = [BooquableOrder](){
-        didSet{
-            if booquableTableView != nil{
+    var orders = [BooquableOrder]() {
+        didSet {
+            if booquableTableView != nil {
                 orders = orders.filter { (order) -> Bool in
                     let date = String(order.stopsAt.prefix(10))
                     let returnDate = get(date, with: formatter) ?? Date()
@@ -93,7 +93,7 @@ class GlassOfficeViewController: TVViewController, UITableViewDelegate {
      
      - Author: @GianlucaOrpello
      */
-    @IBOutlet weak var keynoteImageView: UIImageView!
+    @IBOutlet private weak var keynoteImageView: UIImageView!
     
     /**
      ## Order Table View
@@ -104,8 +104,8 @@ class GlassOfficeViewController: TVViewController, UITableViewDelegate {
      
      - Author: @GianlucaOrpello
      */
-    @IBOutlet weak var booquableTableView: UITableView!{
-        didSet{
+    @IBOutlet private weak var booquableTableView: UITableView! {
+        didSet {
             booquableTableView.delegate = self
             booquableTableView.dataSource = self
         }
@@ -120,10 +120,10 @@ class GlassOfficeViewController: TVViewController, UITableViewDelegate {
      
      - Author: @GianlucaOrpello
      */
-    @IBOutlet weak var dateLabel: UILabel!{
-        didSet{
+    @IBOutlet private weak var dateLabel: UILabel! {
+        didSet {
             setDate()
-            Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { [weak self] (timer) in
+            Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { [weak self] _ in
                 self?.setDate()
             }
         }
@@ -138,8 +138,8 @@ class GlassOfficeViewController: TVViewController, UITableViewDelegate {
      
      - Author: @GianlucaOrpello
      */
-    @IBOutlet weak var blurEffect: UIVisualEffectView!{
-        didSet{
+    @IBOutlet private weak var blurEffect: UIVisualEffectView! {
+        didSet {
             blurEffect.layer.cornerRadius = 20
             blurEffect.contentView.layer.cornerRadius = 20
             blurEffect.clipsToBounds = true
@@ -167,7 +167,7 @@ class GlassOfficeViewController: TVViewController, UITableViewDelegate {
         
         BooquableManager.shared.getOrders(with: .started)
         
-        Timer.scheduledTimer(withTimeInterval: 60*60, repeats: true) { (timer) in
+        Timer.scheduledTimer(withTimeInterval: 60 * 60, repeats: true) { _ in
             BooquableManager.shared.getOrders(with: .started)
         }
         
@@ -175,8 +175,8 @@ class GlassOfficeViewController: TVViewController, UITableViewDelegate {
         
         NotificationCenter.default.addObserver(self, selector: #selector(getAllOrders), name: NSNotification.Name("GetAllOrders"), object: nil)
         
-        NotificationCenter.default.addObserver(forName: Notification.Name(CKNotificationName.tvSet.rawValue), object: nil, queue: .main) { (notification) in
-            self.currentTV = (UIApplication.shared.delegate as? AppDelegate).currentTV
+        NotificationCenter.default.addObserver(forName: Notification.Name(CKNotificationName.tvSet.rawValue), object: nil, queue: .main) { _ in
+            self.currentTV = (UIApplication.shared.delegate as? AppDelegate)?.currentTV
             self.currentTV.viewDelegate = self
         }
 
@@ -196,7 +196,7 @@ class GlassOfficeViewController: TVViewController, UITableViewDelegate {
      
      - Author: @GianlucaOrpello
      */
-    @objc private func addOrder(notification: NSNotification){
+    @objc private func addOrder(notification: NSNotification) {
         if let order = notification.userInfo?["order"] as? BooquableOrder {
             orders.append(order)
         }
@@ -213,7 +213,7 @@ class GlassOfficeViewController: TVViewController, UITableViewDelegate {
      
      - Author: @GianlucaOrpello
      */
-    @objc private func getAllOrders(){
+    @objc private func getAllOrders() {
         orders = []
         BooquableManager.shared.ids.forEach { (id) in
             BooquableManager.shared.getOrder(from: id)
@@ -231,7 +231,7 @@ class GlassOfficeViewController: TVViewController, UITableViewDelegate {
      
      - Author: @GianlucaOrpello
      */
-    private func setDate(){
+    private func setDate() {
         let date = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM dd, HH:mm"
@@ -256,7 +256,7 @@ class GlassOfficeViewController: TVViewController, UITableViewDelegate {
      
      - Author: @GianlucaOrpello
      */
-    fileprivate func get(_ date: String, with formatter: String) -> Date?{
+    fileprivate func get(_ date: String, with formatter: String) -> Date? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = formatter
         guard let returnDate = dateFormatter.date(from: date) else {
@@ -281,7 +281,7 @@ class GlassOfficeViewController: TVViewController, UITableViewDelegate {
      
      - Author: @GianlucaOrpello
      */
-    fileprivate func getDifference(from start: Date, and end: Date) -> Int?{
+    fileprivate func getDifference(from start: Date, and end: Date) -> Int? {
         let calendar = Calendar.current
         
         // Replace the hour (time) of both dates with 00:00
@@ -304,24 +304,28 @@ class GlassOfficeViewController: TVViewController, UITableViewDelegate {
  
  - Author: @GianlucaOrpello
  */
-extension GlassOfficeViewController: UITableViewDataSource{
+extension GlassOfficeViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return orders.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "booquableTableViewCell", for: indexPath) as? GlassOfficeTableViewCell
-        cell.userNameLabel.text = orders[indexPath.row].customerName()
-        let deviceInfo = orders[indexPath.row].getDevice()
-        cell.deviceNameLabel.text = deviceInfo.name
-        cell.deviceImage.image = UIImage(named: deviceInfo.glyph.rawValue)
-        
-        let time = get(String(orders[indexPath.row].stopsAt.prefix(10)), with: formatter)
-        let days = getDifference(from: time!, and: Date())
-        cell.timingInformationLabel.text = String(days!)
-        
-        return cell
+
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "booquableTableViewCell", for: indexPath) as? GlassOfficeTableViewCell {
+            cell.userNameLabel.text = orders[indexPath.row].customerName()
+            let deviceInfo = orders[indexPath.row].getDevice()
+            cell.deviceNameLabel.text = deviceInfo.name
+            cell.deviceImage.image = UIImage(named: deviceInfo.glyph.rawValue)
+
+            let time = get(String(orders[indexPath.row].stopsAt.prefix(10)), with: formatter)
+            let days = getDifference(from: time!, and: Date())
+            cell.timingInformationLabel.text = String(days!)
+
+            return cell
+        } else {
+            return UITableViewCell()
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

@@ -125,26 +125,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
         print("notification recieved")
         let notificationName: CKNotificationName
-        let ckqn = CKQueryNotification(fromRemoteNotificationDictionary: userInfo as? [String:Any])
-    
-        switch ckqn.subscriptionID {
-        case CKKeys.tvSubscriptionKey:
-            notificationName = .tv
-        case CKKeys.messageSubscriptionKey:
-            notificationName = .globalMessages
-        case CKKeys.serviceSubscriptionKey:
-            notificationName = .serviceMessage
-        default:
-            notificationName = .null
+        if let info = userInfo as? [String: Any] {
+
+            let ckqn = CKQueryNotification(fromRemoteNotificationDictionary: info)
+
+            switch ckqn.subscriptionID {
+            case CKKeys.tvSubscriptionKey:
+                notificationName = .tv
+            case CKKeys.messageSubscriptionKey:
+                notificationName = .globalMessages
+            case CKKeys.serviceSubscriptionKey:
+                notificationName = .serviceMessage
+            default:
+                notificationName = .null
+            }
+            let notification = Notification(name: Notification.Name(rawValue: notificationName.rawValue),
+                                            object: self,
+                                            userInfo: [CKNotificationName.notification.rawValue: ckqn])
+            NotificationCenter.default.post(notification)
         }
-        
-        
-        
-        let notification = Notification(name: Notification.Name(rawValue: notificationName.rawValue),
-                                        object: self,
-                                        userInfo: [CKNotificationName.notification.rawValue:ckqn])
-        NotificationCenter.default.post(notification)
-        
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {

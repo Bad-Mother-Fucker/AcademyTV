@@ -9,6 +9,7 @@ disabled_rules:
 - mark
 - large_tuple
 - line_length
+- discarded_notification_center_observer
 
 excluded:
 - Pods
