@@ -14,7 +14,7 @@
     <a title="CKController Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">Viewer Docs</a> (16% documented)</p>
+        <p><a href="../index.html">Viewer Docs</a> (33% documented)</p>
         <p class="header-right"><a href="https://github.com/Bad-Mother-Fucker/AcademyTV"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -70,9 +70,6 @@
                 <a href="../Classes/GlobalMessageView.html">GlobalMessageView</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/GlobalMessageView/TVLayoutType.html">– TVLayoutType</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Classes/TV.html">TV</a>
               </li>
               <li class="nav-group-task">
@@ -80,6 +77,12 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/TVViewController.html">TVViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/UsageStatistics.html">UsageStatistics</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/UsageStatisticsModel.html">UsageStatisticsModel</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/VideoDownloader.html">VideoDownloader</a>
@@ -237,9 +240,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6Viewer12CKControllerC13removeMessage11fromTVNamedySS_tFZ"></a>
-                    <a name="//apple_ref/swift/Method/removeMessage(fromTVNamed:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6Viewer12CKControllerC13removeMessage11fromTVNamedySS_tFZ">removeMessage(fromTVNamed:)</a>
+                    <a name="/s:6Viewer12CKControllerC17postTickerMessage_9onTvNamedySS_SStFZ"></a>
+                    <a name="//apple_ref/swift/Method/postTickerMessage(_:onTvNamed:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Viewer12CKControllerC17postTickerMessage_9onTvNamedySS_SStFZ">postTickerMessage(_:onTvNamed:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -247,14 +250,35 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <h2 id='posttickermessage-_-ontvnamed' class='heading'>postTickerMessage(_:onTvNamed:)</h2>
+<li><p>text, tvName</p></li>
+<div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <p>postTickerMessage(_:onTvGroup:),removeTickerMessage(fromTvsIn:),removeTickerMessage(fromTVNamed:)</p>
+
+</div>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>Use this method to post a ticker message on a single TV with name equals to the parameter TvName</p>
+
+</div>
+<div class="aside aside-version">
+    <p class="aside-title">Version</p>
+    <p>1.0</p>
+
+</div>
+<div class="aside aside-author">
+    <p class="aside-title">Author</p>
+    <p>@Micheledes</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">removeMessage</span><span class="p">(</span><span class="n">fromTVNamed</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">postTickerMessage</span><span class="p">(</span><span class="n">_</span> <span class="nv">text</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">onTvNamed</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -264,9 +288,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6Viewer12CKControllerC18postServiceMessage_9onTvNamedySS_SStFZ"></a>
-                    <a name="//apple_ref/swift/Method/postServiceMessage(_:onTvNamed:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6Viewer12CKControllerC18postServiceMessage_9onTvNamedySS_SStFZ">postServiceMessage(_:onTvNamed:)</a>
+                    <a name="/s:6Viewer12CKControllerC17postTickerMessage_9onTvGroupySS_AA7TVGroupOtFZ"></a>
+                    <a name="//apple_ref/swift/Method/postTickerMessage(_:onTvGroup:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Viewer12CKControllerC17postTickerMessage_9onTvGroupySS_AA7TVGroupOtFZ">postTickerMessage(_:onTvGroup:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -274,14 +298,35 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <h2 id='posttickermessage-_-ontvgroup' class='heading'>postTickerMessage(_:onTvGroup:)</h2>
+<li><p>text, tvGroup</p></li>
+<div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <p>postTickerMessage(_:onTvNamed:),removeTickerMessage(fromTvsIn:),removeTickerMessage(fromTVNamed:)</p>
+
+</div>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>Use this method to post a ticker message on a group of tvs with name equals to the parameter TvName</p>
+
+</div>
+<div class="aside aside-version">
+    <p class="aside-title">Version</p>
+    <p>1.0</p>
+
+</div>
+<div class="aside aside-author">
+    <p class="aside-title">Author</p>
+    <p>@Micheledes</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">postServiceMessage</span><span class="p">(</span><span class="n">_</span> <span class="nv">text</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">onTvNamed</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">postTickerMessage</span><span class="p">(</span><span class="n">_</span> <span class="nv">text</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">onTvGroup</span> <span class="nv">group</span><span class="p">:</span> <span class="kt"><a href="../Enums/TVGroup.html">TVGroup</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -291,9 +336,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6Viewer12CKControllerC18postServiceMessage_9onTvGroupySS_AA7TVGroupOtFZ"></a>
-                    <a name="//apple_ref/swift/Method/postServiceMessage(_:onTvGroup:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6Viewer12CKControllerC18postServiceMessage_9onTvGroupySS_AA7TVGroupOtFZ">postServiceMessage(_:onTvGroup:)</a>
+                    <a name="/s:6Viewer12CKControllerC19removeTickerMessage9fromTvsInyAA7TVGroupO_tFZ"></a>
+                    <a name="//apple_ref/swift/Method/removeTickerMessage(fromTvsIn:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Viewer12CKControllerC19removeTickerMessage9fromTvsInyAA7TVGroupO_tFZ">removeTickerMessage(fromTvsIn:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -301,14 +346,35 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <h2 id='removetickermessage-fromtvsin' class='heading'>removeTickerMessage(fromTvsIn:)</h2>
+<li><p>tvGroup</p></li>
+<div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <p>removeTickerMessage(fromTVNamed:), postTickerMessage(<em>:onTvGroup:), postTickerMessage(</em>:onTvNamed:)</p>
+
+</div>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>removes any ticker message from all the tvs in the given tv group</p>
+
+</div>
+<div class="aside aside-version">
+    <p class="aside-title">Version</p>
+    <p>1.0</p>
+
+</div>
+<div class="aside aside-author">
+    <p class="aside-title">Author</p>
+    <p>@Micheledes</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">postServiceMessage</span><span class="p">(</span><span class="n">_</span> <span class="nv">text</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">onTvGroup</span> <span class="nv">group</span><span class="p">:</span> <span class="kt"><a href="../Enums/TVGroup.html">TVGroup</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">removeTickerMessage</span><span class="p">(</span><span class="n">fromTvsIn</span> <span class="nv">tvGroup</span><span class="p">:</span> <span class="kt"><a href="../Enums/TVGroup.html">TVGroup</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -318,9 +384,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6Viewer12CKControllerC20removeServiceMessage4fromyAA7TVGroupO_tFZ"></a>
-                    <a name="//apple_ref/swift/Method/removeServiceMessage(from:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6Viewer12CKControllerC20removeServiceMessage4fromyAA7TVGroupO_tFZ">removeServiceMessage(from:)</a>
+                    <a name="/s:6Viewer12CKControllerC19removeTickerMessage11fromTVNamedySS_tFZ"></a>
+                    <a name="//apple_ref/swift/Method/removeTickerMessage(fromTVNamed:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Viewer12CKControllerC19removeTickerMessage11fromTVNamedySS_tFZ">removeTickerMessage(fromTVNamed:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -328,14 +394,35 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <h2 id='removetickermessage-fromtvnamed' class='heading'>removeTickerMessage(fromTVNamed:)</h2>
+<li><p>tvGroup</p></li>
+<div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <p>removeTickerMessage(fromTvsIn:), postTickerMessage(<em>:onTvGroup:), postTickerMessage(</em>:onTvNamed:)</p>
+
+</div>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>removes any ticker message from all the tvs in the given tv group</p>
+
+</div>
+<div class="aside aside-version">
+    <p class="aside-title">Version</p>
+    <p>1.0</p>
+
+</div>
+<div class="aside aside-author">
+    <p class="aside-title">Author</p>
+    <p>@Micheledes</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">removeServiceMessage</span><span class="p">(</span><span class="n">from</span> <span class="nv">group</span><span class="p">:</span> <span class="kt"><a href="../Enums/TVGroup.html">TVGroup</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">removeTickerMessage</span><span class="p">(</span><span class="n">fromTVNamed</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -355,7 +442,24 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <h2 id='isthereamessage-ontv' class='heading'>isThereAMessage(onTV:)</h2>
+<li><p>tv</p></li>
+<li><p>Return: Bool</p></li>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>Used to check if there is or not a ticker message currently airing on the given tv</p>
+
+</div>
+<div class="aside aside-version">
+    <p class="aside-title">Version</p>
+    <p>1.0</p>
+
+</div>
+<div class="aside aside-author">
+    <p class="aside-title">Author</p>
+    <p>@Micheledes</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
@@ -363,6 +467,139 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">isThereAMessage</span><span class="p">(</span><span class="n">onTV</span> <span class="nv">tv</span><span class="p">:</span> <span class="kt"><a href="../Classes/TV.html">TV</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Viewer12CKControllerC16getAiringTickers2inSaySS_SStGAA7TVGroupO_tFZ"></a>
+                    <a name="//apple_ref/swift/Method/getAiringTickers(in:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Viewer12CKControllerC16getAiringTickers2inSaySS_SStGAA7TVGroupO_tFZ">getAiringTickers(in:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <h2 id='getairingtickers-in' class='heading'>getAiringTickers(in:)</h2>
+<li><p>TV group</p></li>
+<li><p>Return: [(String,String)]</p></li>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>This method gives all the currently airing ticker messages and their respective tvs.</p>
+
+</div>
+<div class="aside aside-version">
+    <p class="aside-title">Version</p>
+    <p>1.0</p>
+
+</div>
+<div class="aside aside-author">
+    <p class="aside-title">Author</p>
+    <p>@Micheledes</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">getAiringTickers</span><span class="p">(</span><span class="k">in</span> <span class="nv">group</span><span class="p">:</span> <span class="kt"><a href="../Enums/TVGroup.html">TVGroup</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[(</span><span class="kt">String</span><span class="p">,</span> <span class="kt">String</span><span class="p">)]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Viewer12CKControllerC16getAiringKeynote2inSaySaySo7UIImageCGSg5image_SS6tvNametGAA7TVGroupO_tFZ"></a>
+                    <a name="//apple_ref/swift/Method/getAiringKeynote(in:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Viewer12CKControllerC16getAiringKeynote2inSaySaySo7UIImageCGSg5image_SS6tvNametGAA7TVGroupO_tFZ">getAiringKeynote(in:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <h2 id='check-if-there-is-a-keynote-on-that-screen' class='heading'>Check if there is a keynote on that screen.</h2>
+<li><p>Return: Return the arrey with the images, if there are some.</p></li>
+<div class="aside aside-todo">
+    <p class="aside-title">Todo</p>
+    <p>Check with @Micheledes</p>
+
+</div>
+<div class="aside aside-version">
+    <p class="aside-title">Version</p>
+    <p>1.0</p>
+
+</div>
+<div class="aside aside-author">
+    <p class="aside-title">Author</p>
+    <p>@GianlucaOrpello</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">getAiringKeynote</span><span class="p">(</span><span class="k">in</span> <span class="nv">group</span><span class="p">:</span> <span class="kt"><a href="../Enums/TVGroup.html">TVGroup</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[(</span><span class="nv">image</span><span class="p">:</span> <span class="p">[</span><span class="kt">UIImage</span><span class="p">]?,</span> <span class="nv">tvName</span><span class="p">:</span> <span class="kt">String</span><span class="p">)]</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>group</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The tv group that we have to check.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Viewer12CKControllerC15isThereAKeynote2onSbAA2TVC_tFZ"></a>
+                    <a name="//apple_ref/swift/Method/isThereAKeynote(on:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Viewer12CKControllerC15isThereAKeynote2onSbAA2TVC_tFZ">isThereAKeynote(on:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">isThereAKeynote</span><span class="p">(</span><span class="n">on</span> <span class="nv">tv</span><span class="p">:</span> <span class="kt"><a href="../Classes/TV.html">TV</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
@@ -382,7 +619,28 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <h2 id='remove-globalmessage' class='heading'>remove(globalMessage:)</h2>
+<li><p>Global Message</p></li>
+<div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <p>postMessage(title:, subtitle:, location:, description:, URL:,timeToLive:), getAllGlobalMessages(completionHandler:)</p>
+
+</div>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>Use this method to remove the given global message from the currently airing ones</p>
+
+</div>
+<div class="aside aside-version">
+    <p class="aside-title">Version</p>
+    <p>1.0</p>
+
+</div>
+<div class="aside aside-author">
+    <p class="aside-title">Author</p>
+    <p>@Micheledes</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
@@ -409,7 +667,34 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <h2 id='getallglobalmessages-completionhandler' class='heading'>getAllGlobalMessages(completionHandler:)</h2>
+<li><p>completion Handler</p></li>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    <p>CKQueryException.ConnectionTimedOut</p>
+
+</div>
+<li><p>Return: [GlobalMessage]</p></li>
+<div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <p>postMessage(title:, subtitle:, location:, description:, URL:,timeToLive:), remove(globalMessage:)</p>
+
+</div>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>Returns all currently airing global messages</p>
+
+</div>
+<div class="aside aside-version">
+    <p class="aside-title">Version</p>
+    <p>1.0</p>
+
+</div>
+<div class="aside aside-author">
+    <p class="aside-title">Author</p>
+    <p>@Micheledes</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
@@ -436,7 +721,29 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <h2 id='getalltvs-from' class='heading'>getAllTVs(from:)</h2>
+<li><p>tvGroup</p></li>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    <p>CKQueryException.connectionTimedOut</p>
+
+</div>
+<li><p>Return: [TV]</p></li>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>returns all tvs contained in the given group</p>
+
+</div>
+<div class="aside aside-version">
+    <p class="aside-title">Version</p>
+    <p>1.0</p>
+
+</div>
+<div class="aside aside-author">
+    <p class="aside-title">Author</p>
+    <p>@Micheledes</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
@@ -453,9 +760,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6Viewer12CKControllerC11postMessage5title8subtitle8location11description3URL10timeToLiveySS_S2SSgAK10FoundationAIVSgSdtFZ"></a>
-                    <a name="//apple_ref/swift/Method/postMessage(title:subtitle:location:description:URL:timeToLive:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6Viewer12CKControllerC11postMessage5title8subtitle8location11description3URL10timeToLiveySS_S2SSgAK10FoundationAIVSgSdtFZ">postMessage(title:subtitle:location:description:URL:timeToLive:)</a>
+                    <a name="/s:6Viewer12CKControllerC11postMessage5title8subtitle8location4date11description3URL10timeToLiveySS_S2SSgAL_ALtAL10FoundationAJVSgSdtFZ"></a>
+                    <a name="//apple_ref/swift/Method/postMessage(title:subtitle:location:date:description:URL:timeToLive:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Viewer12CKControllerC11postMessage5title8subtitle8location4date11description3URL10timeToLiveySS_S2SSgAL_ALtAL10FoundationAJVSgSdtFZ">postMessage(title:subtitle:location:date:description:URL:timeToLive:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -463,14 +770,35 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <h2 id='postmessage-title-subtitle-location-description-url-timetolive' class='heading'>postMessage(title: subtitle: location: description: URL: timeToLive:)</h2>
+<li><p>title, subtitle, location, description, URL, timeToLive</p></li>
+<div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <p>remove(message:)</p>
+
+</div>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>Airs a new global message with the given parameters</p>
+
+</div>
+<div class="aside aside-version">
+    <p class="aside-title">Version</p>
+    <p>1.0</p>
+
+</div>
+<div class="aside aside-author">
+    <p class="aside-title">Author</p>
+    <p>@Micheledes</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">postMessage</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">subtitle</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">location</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="kt">URL</span><span class="p">:</span> <span class="kt">URL</span><span class="p">?,</span> <span class="nv">timeToLive</span><span class="p">:</span> <span class="kt">TimeInterval</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">postMessage</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">subtitle</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">location</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">date</span><span class="p">:</span> <span class="p">(</span><span class="kt">String</span><span class="p">?,</span> <span class="kt">String</span><span class="p">?),</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="kt">URL</span><span class="p">:</span> <span class="kt">URL</span><span class="p">?,</span> <span class="nv">timeToLive</span><span class="p">:</span> <span class="kt">TimeInterval</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -490,7 +818,28 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <h2 id='postkeynote-_-oftype-ontvnamed' class='heading'>postKeynote(_:ofType:onTVNamed:)</h2>
+<li><p>keyonte, image file type, tv name</p></li>
+<div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <p>postKeynote(_:ofType:onTVsOfGroup:), removeKeynote(FromTV:)</p>
+
+</div>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>This method allows you to post an array of images as a keynote on the tv with the given tv name</p>
+
+</div>
+<div class="aside aside-version">
+    <p class="aside-title">Version</p>
+    <p>1.0</p>
+
+</div>
+<div class="aside aside-author">
+    <p class="aside-title">Author</p>
+    <p>@Micheledes</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
@@ -517,7 +866,35 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <h2 id='postkeynotedata-_-oftype-ontvnamed' class='heading'>postKeynoteData(_:ofType:onTVNamed:)</h2>
+<li>data: The images in Data format</li>
+<li>imageFileType: (JPG or PNG)</li>
+<li><p>tvName:  the name of the tv you want to show the keynote on</p></li>
+<div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <p>postKeynoteData(_:ofType:onTVsOfGroup:)</p>
+
+</div>
+<div class="aside aside-requires">
+    <p class="aside-title">Requires</p>
+    <p>The images has to be in Data format</p>
+
+</div>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>This method is useful when we have to post images from the share extension, and they have to be in data format</p>
+
+</div>
+<div class="aside aside-version">
+    <p class="aside-title">Version</p>
+    <p>1.0</p>
+
+</div>
+<div class="aside aside-author">
+    <p class="aside-title">Author</p>
+    <p>@Micheledes</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
@@ -525,33 +902,6 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">postKeynoteData</span><span class="p">(</span><span class="n">_</span> <span class="nv">data</span><span class="p">:</span> <span class="p">[</span><span class="kt">Data</span><span class="p">],</span> <span class="n">ofType</span> <span class="nv">type</span><span class="p">:</span> <span class="kt"><a href="../Enums/ImageFileType.html">ImageFileType</a></span><span class="p">?,</span> <span class="n">onTVNamed</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:6Viewer12CKControllerC11postKeynote_6ofType12onTVsOfGroupySaySo7UIImageCG_AA09ImageFileF0OSgAA7TVGroupOtFZ"></a>
-                    <a name="//apple_ref/swift/Method/postKeynote(_:ofType:onTVsOfGroup:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6Viewer12CKControllerC11postKeynote_6ofType12onTVsOfGroupySaySo7UIImageCG_AA09ImageFileF0OSgAA7TVGroupOtFZ">postKeynote(_:ofType:onTVsOfGroup:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">postKeynote</span><span class="p">(</span><span class="n">_</span> <span class="nv">keynote</span><span class="p">:</span> <span class="p">[</span><span class="kt">UIImage</span><span class="p">],</span> <span class="n">ofType</span> <span class="nv">imageType</span><span class="p">:</span> <span class="kt"><a href="../Enums/ImageFileType.html">ImageFileType</a></span><span class="p">?,</span> <span class="n">onTVsOfGroup</span> <span class="nv">group</span><span class="p">:</span> <span class="kt"><a href="../Enums/TVGroup.html">TVGroup</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -578,7 +928,55 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">postKeynoteData</span><span class="p">(</span><span class="n">_</span> <span class="nv">data</span><span class="p">:</span> <span class="p">[</span><span class="kt">Data</span><span class="p">],</span> <span class="n">ofType</span> <span class="nv">type</span><span class="p">:</span> <span class="kt"><a href="../Enums/ImageFileType.html">ImageFileType</a></span><span class="p">?,</span> <span class="n">onTVsOfGroup</span> <span class="nv">group</span><span class="p">:</span> <span class="kt"><a href="../Enums/TVGroup.html">TVGroup</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">postKeynoteData</span><span class="p">(</span><span class="n">_</span> <span class="nv">data</span><span class="p">:</span> <span class="p">[</span><span class="kt">Data</span><span class="p">],</span> <span class="n">ofType</span> <span class="nv">imageType</span><span class="p">:</span> <span class="kt"><a href="../Enums/ImageFileType.html">ImageFileType</a></span><span class="p">?,</span> <span class="n">onTVsOfGroup</span> <span class="nv">group</span><span class="p">:</span> <span class="kt"><a href="../Enums/TVGroup.html">TVGroup</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Viewer12CKControllerC11postKeynote_6ofType12onTVsOfGroupySaySo7UIImageCG_AA09ImageFileF0OSgAA7TVGroupOtFZ"></a>
+                    <a name="//apple_ref/swift/Method/postKeynote(_:ofType:onTVsOfGroup:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Viewer12CKControllerC11postKeynote_6ofType12onTVsOfGroupySaySo7UIImageCG_AA09ImageFileF0OSgAA7TVGroupOtFZ">postKeynote(_:ofType:onTVsOfGroup:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <h2 id='postkeynote-_-oftype-ontvsofgroup' class='heading'>postKeynote(_:ofType:onTVsOfGroup:)</h2>
+<li><p>keyonte, image file type, tv name</p></li>
+<div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <p>postKeynote(_:ofType:onTVNamed:), removeKeynote(FromTV:)</p>
+
+</div>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>This method allows you to post an array of images as a keynote on the tvs contained in the given group</p>
+
+</div>
+<div class="aside aside-version">
+    <p class="aside-title">Version</p>
+    <p>1.0</p>
+
+</div>
+<div class="aside aside-author">
+    <p class="aside-title">Author</p>
+    <p>@Micheledes</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">postKeynote</span><span class="p">(</span><span class="n">_</span> <span class="nv">keynote</span><span class="p">:</span> <span class="p">[</span><span class="kt">UIImage</span><span class="p">],</span> <span class="n">ofType</span> <span class="nv">imageType</span><span class="p">:</span> <span class="kt"><a href="../Enums/ImageFileType.html">ImageFileType</a></span><span class="p">?,</span> <span class="n">onTVsOfGroup</span> <span class="nv">group</span><span class="p">:</span> <span class="kt"><a href="../Enums/TVGroup.html">TVGroup</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -598,7 +996,28 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <h2 id='removekeynote-fromtv' class='heading'>removeKeynote(FromTV:)</h2>
+<li><p>tv name</p></li>
+<div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <p>postKeynote(<em>:ofType:onTVNamed:),postKeynote(</em>:ofType:onTVsOfGroup:)</p>
+
+</div>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>remove the images posted as keynote from the tv with the given name</p>
+
+</div>
+<div class="aside aside-version">
+    <p class="aside-title">Version</p>
+    <p>1.0</p>
+
+</div>
+<div class="aside aside-author">
+    <p class="aside-title">Author</p>
+    <p>@Micheledes</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
@@ -625,7 +1044,28 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <h2 id='removekeynote-fromtvgroup' class='heading'>removeKeynote(FromTVGroup:)</h2>
+<li><p>tv group</p></li>
+<div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <p>postKeynote(<em>:ofType:onTVNamed:),postKeynote(</em>:ofType:onTVsOfGroup:),removeKeynote(FromTV:)</p>
+
+</div>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>remove the images posted as keynote from the all the tvs contained in the given group</p>
+
+</div>
+<div class="aside aside-version">
+    <p class="aside-title">Version</p>
+    <p>1.0</p>
+
+</div>
+<div class="aside aside-author">
+    <p class="aside-title">Author</p>
+    <p>@Micheledes</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
@@ -644,7 +1084,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="" target="_blank" rel="external">Team Rogue</a>. All rights reserved. (Last updated: 2019-01-05)</p>
+          <p>&copy; 2019 <a class="link" href="" target="_blank" rel="external">Team Rogue</a>. All rights reserved. (Last updated: 2019-01-23)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
