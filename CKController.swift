@@ -328,7 +328,6 @@ class CKController {
     }
     
     
-    
 //    Fetches all global messages from the CK database
     
     

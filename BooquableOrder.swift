@@ -85,8 +85,8 @@ class BooquableOrder{
      
      - Author: @GianlucaOrpello
      */
-    func customerName() -> String{
-        let name = customer.value(forKey: "name") as! String
+    func customerName() -> String {
+        guard let name = customer.value(forKey: "name") as? String else {return ""}
         return name
     }
     
@@ -99,8 +99,8 @@ class BooquableOrder{
      
      - Author: @GianlucaOrpello
      */
-    func getDevice() -> (name: String, glyph: GliphName){
-        let deviceName = lines.value(forKey: "title") as! String
+    func getDevice() -> (name: String, glyph: GliphName) {
+        guard let deviceName = lines.value(forKey: "title") as? String else {return(name:"",glyph:GliphName.iphoneX)}
         let glyph = getGliph(from: deviceName)
         return (name: deviceName, glyph: glyph)
     }
@@ -121,8 +121,8 @@ class BooquableOrder{
      
      - Author: @GianlucaOrpello
      */
-    private func getGliph(from name: String) -> GliphName{
-        if name.range(of: GliphName.appleWatch.rawValue) != nil{
+    private func getGliph(from name: String) -> GliphName {
+        if name.range(of: GliphName.appleWatch.rawValue) != nil {
             return .appleWatch
         }else if name.range(of: GliphName.applePencil.rawValue) != nil {
             return .applePencil
@@ -136,7 +136,7 @@ class BooquableOrder{
             return .macMini
         }else if name.range(of: GliphName.iphoneX.rawValue) != nil {
             return .iphoneX
-        }else{
+        }else {
             return .iphone8
         }
     }

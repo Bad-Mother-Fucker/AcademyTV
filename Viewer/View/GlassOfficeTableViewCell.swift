@@ -10,8 +10,8 @@ import UIKit
 
 class GlassOfficeTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var blurEffect: UIVisualEffectView!{
-        didSet{
+    @IBOutlet weak var blurEffect: UIVisualEffectView! {
+        didSet {
             blurEffect.layer.cornerRadius = 20
             blurEffect.contentView.layer.cornerRadius = 20
             blurEffect.clipsToBounds = true

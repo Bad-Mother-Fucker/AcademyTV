@@ -17,21 +17,21 @@ class TVViewController: UIViewController {
         }
     }
 
-    let appDelegate  = UIApplication.shared.delegate as! AppDelegate
+    let appDelegate = UIApplication.shared.delegate as? AppDelegate
     
-    var currentTV:TV!
+    var currentTV: TV!
     
     var videosURL: [AVPlayerItem] {
-        var videos:[URL?] = [URL(string: "https://dl.dropboxusercontent.com/s/jiygs4mqvfmube2/Elmo180.m4v?dl=0"),
+        var videos: [URL?] = [URL(string: "https://dl.dropboxusercontent.com/s/jiygs4mqvfmube2/Elmo180.m4v?dl=0"),
                              URL(string: "https://dl.dropboxusercontent.com/s/0s48rm38u8awzve/Floridiana180.m4v?dl=0"),
                              URL(string: "https://dl.dropboxusercontent.com/s/pikrsmippuu59qq/Lungomare180.m4v?dl=0" ),
                              URL(string: "https://dl.dropboxusercontent.com/s/n0aczqi5irkhzcb/Uovo180.m4v?dl=0")
-                            ]
+                             ]
         
         videos.forEach { (URL) in
             guard let _ = URL else {
-                videos.remove(at: videos.index(of:URL)!)
-                print("failed to get video at index: \(videos.index(of:URL)!)")
+                videos.remove(at: videos.index(of: URL)!)
+                print("failed to get video at index: \(videos.index(of: URL)!)")
                 return
             }
             return
@@ -40,23 +40,24 @@ class TVViewController: UIViewController {
 //      comment to use videos directly from Dropbox
 //        videos = VideoDownloader.getVideos(from: videos as! [URL])
         
-        
         let items = videos.map { (url) -> AVPlayerItem in
             return AVPlayerItem(url: url!)
         }
         return items
     }
     
-    var videoManager:VideoManager!
+    var videoManager: VideoManager!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
-        NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: CKNotificationName.globalMessages.rawValue), object: nil, queue: OperationQueue.main) { (notification) in
+        
+        NotificationCenter.default.addObserver(forName: Notification.Name(rawValue:
+            CKNotificationName.globalMessages.rawValue), object: nil, queue: OperationQueue.main) { (notification) in
             if let ckqn = notification.userInfo?[CKNotificationName.notification.rawValue] as? CKQueryNotification {
                 self.handleCKNotification(ckqn)
             }
-            debugPrint(self.globalMessages)
+            return
+           
         }
         
         NotificationCenter.default.addObserver(forName: Notification.Name(CKNotificationName.tv.rawValue), object: nil, queue: .main) { (notification) in
@@ -73,10 +74,7 @@ class TVViewController: UIViewController {
             debugPrint("service message uploaded")
         }
         
-      
         
-       
-       
         
     }
     

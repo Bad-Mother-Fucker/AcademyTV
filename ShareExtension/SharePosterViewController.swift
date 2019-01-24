@@ -90,7 +90,7 @@ class SharePosterViewController: UIViewController, UICollectionViewDelegate, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "galleryImageCell", for: indexPath) as! ImagePickerCollectionViewCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "galleryImageCell", for: indexPath) as? ImagePickerCollectionViewCell {return UITableViewCell()}
         
         cell.imageView.image = keynotes[indexPath.item]
         cell.checkerView.isHidden = true
@@ -127,7 +127,7 @@ class SharePosterViewController: UIViewController, UICollectionViewDelegate, UIC
                         } else if let data = item as? NSData {
                             imgData = data as Data
                         } else if let url = item as? NSURL {
-                            imgData = try! Data(contentsOf: url as URL)
+                            imgData = try? Data(contentsOf: url as URL)
                         }
                         
                         

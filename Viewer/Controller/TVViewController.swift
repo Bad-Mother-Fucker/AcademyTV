@@ -17,7 +17,7 @@ class TVViewController: UIViewController {
         }
     }
 
-    let appDelegate  = UIApplication.shared.delegate as! AppDelegate
+    let appDelegate  = UIApplication.shared.delegate as? AppDelegate
     
     var currentTV:TV!
     
@@ -147,17 +147,17 @@ class TVViewController: UIViewController {
             CKKeys.database.fetch(withRecordID: recordID) { (record, error) in
                 guard let _ = record, error == nil else {return}
                 DispatchQueue.main.async {
-                    self.appDelegate.currentTV.record = record!
-                    if let keynote = self.appDelegate.currentTV.keynote {
-                        self.appDelegate.currentTV.viewDelegate?.show(keynote: keynote)
+                    self.appDelegate?.currentTV.record = record!
+                    if let keynote = self.appDelegate?.currentTV.keynote {
+                        self.appDelegate?.currentTV.viewDelegate?.show(keynote: keynote)
                     } else {
-                        self.appDelegate.currentTV.viewDelegate?.hideKeynote()
+                        self.appDelegate?.currentTV.viewDelegate?.hideKeynote()
                     }
                     
-                    if self.appDelegate.currentTV.tickerMsg.count > 0 {
-                        self.appDelegate.currentTV.viewDelegate?.show(ticker:self.appDelegate.currentTV.tickerMsg)
+                    if (self.appDelegate?.currentTV.tickerMsg.count)! > 0 {
+                        self.appDelegate?.currentTV.viewDelegate?.show(ticker: self.appDelegate!.currentTV.tickerMsg)
                     } else {
-                        self.appDelegate.currentTV.viewDelegate?.hideTicker()
+                        self.appDelegate?.currentTV.viewDelegate?.hideTicker()
                     }
                     
                 }

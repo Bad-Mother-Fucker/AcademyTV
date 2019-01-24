@@ -32,7 +32,7 @@ enum Quality: CGFloat {
 }
 
 enum ImageError: Error {
-    case UnableToConvertImageToData
+    case unableToConvertImageToData
 }
 
 extension CKAsset {
@@ -63,7 +63,7 @@ extension UIImage {
             imageData = self.pngData()
         }
         guard let data = imageData else {
-            throw ImageError.UnableToConvertImageToData
+            throw ImageError.unableToConvertImageToData
         }
         
         let filename = ProcessInfo.processInfo.globallyUniqueString + fileType.fileExtension
