@@ -62,7 +62,7 @@ class BoardViewController: TVViewController {
      
      - Author: @GianlucaOrpello
      */
-    @IBOutlet weak var keynoteBlurView: UIVisualEffectView! {
+    @IBOutlet private weak var keynoteBlurView: UIVisualEffectView! {
         didSet {
             keynoteBlurView.isHidden = true
             keynoteBlurView.layer.cornerRadius = 15
@@ -79,15 +79,15 @@ class BoardViewController: TVViewController {
      
      - Author: @GianlucaOrpello
      */
-    @IBOutlet weak var globalMessageBlurEffect: UIVisualEffectView!{
+    @IBOutlet private weak var globalMessageBlurEffect: UIVisualEffectView!{
         didSet{
             globalMessageBlurEffect.layer.cornerRadius = 15
             globalMessageBlurEffect.contentView.layer.cornerRadius = 15
             globalMessageBlurEffect.clipsToBounds = true
             globalMessageBlurEffect.contentView.clipsToBounds = true
             globalMessageBlurEffect.alpha = 0.8
-            globalMessageBlurEffect.autoPinEdge(toSuperviewEdge: .left, withInset:35)
-            globalMessageBlurEffect.autoPinEdge(toSuperviewEdge: .top, withInset:30)
+            globalMessageBlurEffect.autoPinEdge(toSuperviewEdge: .left, withInset: 35)
+            globalMessageBlurEffect.autoPinEdge(toSuperviewEdge: .top, withInset: 30)
         }
     }
     
@@ -100,7 +100,7 @@ class BoardViewController: TVViewController {
      
      - Author: @GianlucaOrpello
      */
-    @IBOutlet weak var dateBlurEffect: UIVisualEffectView!
+    @IBOutlet private weak var dateBlurEffect: UIVisualEffectView!
     
     /**
      ## Visual Effect View TvName
@@ -111,7 +111,7 @@ class BoardViewController: TVViewController {
      
      - Author: @GianlucaOrpello
      */
-    @IBOutlet weak var tvNameBlurEffect: UIVisualEffectView!
+    @IBOutlet private weak var tvNameBlurEffect: UIVisualEffectView!
     
     /**
      ## Keynote Image View Container
@@ -122,7 +122,7 @@ class BoardViewController: TVViewController {
      
      - Author: @GianlucaOrpello
      */
-    @IBOutlet weak var keynoteView: UIImageView! {
+    @IBOutlet private weak var keynoteView: UIImageView! {
         didSet{
             keynoteView.isHidden = true
             keynoteView.layer.cornerRadius = 15
@@ -142,7 +142,7 @@ class BoardViewController: TVViewController {
      
      - Author: @GianlucaOrpello
      */
-    @IBOutlet weak var tvNameLabel: UILabel!{
+    @IBOutlet private weak var tvNameLabel: UILabel!{
         didSet{
             tvNameLabel.text = UIDevice.current.name
             
@@ -165,13 +165,13 @@ class BoardViewController: TVViewController {
      
      - Author: @GianlucaOrpello
      */
-    @IBOutlet weak var globalMessageView: GlobalMessageView! {
+    @IBOutlet private weak var globalMessageView: GlobalMessageView! {
         didSet {
             do {
                 globalMessageView.globalMessages = try CKController.getAllGlobalMessages {}
-            }catch {
+            } catch {
                 let alert = UIAlertController(title: "Unable to get messages", message: "It seems that there's no internet connection.Check it and try again", preferredStyle: .alert)
-                let ok = UIAlertAction(title: "Ok", style: .default) { (action) in
+                let ok = UIAlertAction(title: "Ok", style: .default) { _ in
                     // TODO: Insert code to try again
                     self.dismiss(animated: true, completion: nil)
                 }
@@ -190,10 +190,10 @@ class BoardViewController: TVViewController {
      
      - Author: @GianlucaOrpello
      */
-    @IBOutlet weak var dateLabel: UILabel!{
+    @IBOutlet private weak var dateLabel: UILabel!{
         didSet{
             setDate()
-            Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { [weak self] (timer) in
+            Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { [weak self] _ in
                 self?.setDate()
             }
             
@@ -216,7 +216,7 @@ class BoardViewController: TVViewController {
      
      - Author: @GianlucaOrpello
      */
-    @IBOutlet weak var serviceMessageLabel: UILabel! {
+    @IBOutlet private weak var serviceMessageLabel: UILabel! {
         didSet {
             serviceMessageLabel.isHidden = true
             serviceMessageLabel.textColor = .white
@@ -235,7 +235,7 @@ class BoardViewController: TVViewController {
      
      - Author: @GianlucaOrpello
      */
-    @IBOutlet weak var serviceMessageBlurView: UIVisualEffectView! {
+    @IBOutlet private weak var serviceMessageBlurView: UIVisualEffectView! {
         didSet {
             serviceMessageBlurView.isHidden = true
             serviceMessageBlurView.layer.cornerRadius = 15
@@ -277,20 +277,20 @@ class BoardViewController: TVViewController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        videoManager =  VideoManager(onLayer: self.view.layer, videos: videosURL)
+        videoManager = VideoManager(onLayer: self.view.layer, videos: videosURL)
         videoManager.playVideo()
         globalMessageView.layoutView()
         NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: "serviceMessageSet"), object: nil, queue: .main) {[weak self] (_) in
             
             if self!.currentTV.tickerMsg.count > 0 {
                self?.currentTV.viewDelegate?.show(ticker: self!.currentTV.tickerMsg)
-            }else {
+            } else {
                 self?.currentTV.viewDelegate?.hideTicker()
             }
     
         }
         
-        keynoteTimer = Timer.init(timeInterval: 10, repeats: true, block: { (timer) in
+        keynoteTimer = Timer.init(timeInterval: 10, repeats: true, block: { _ in
             if self.keynote.count > 1 {
                  self.keynoteView.image = self.keynote[self.nextPage(of: self.keynote)]
             }
@@ -306,7 +306,7 @@ class BoardViewController: TVViewController {
             
             if let keynote = self.currentTV.keynote {
                 self.show(keynote: keynote)
-            }else {
+            } else {
                 self.hideKeynote()
             }
             
@@ -325,14 +325,14 @@ class BoardViewController: TVViewController {
         }
         
         NotificationCenter.default.addObserver(forName: Notification.Name(CKNotificationName.MessageNotification.create.rawValue), object: nil, queue: .main) { (notification) in
-            let userinfo = notification.userInfo as? [String:GlobalMessage]
+            let userinfo = notification.userInfo as? [String: GlobalMessage]
             if let msg = userinfo?["newMsg"] {
                 self.globalMessageView.globalMessages.append(msg)
             }
         }
         
         NotificationCenter.default.addObserver(forName: Notification.Name(CKNotificationName.MessageNotification.delete.rawValue), object: nil, queue: .main) { (notification) in
-            let userinfo = notification.userInfo as? [String:CKRecord.ID]
+            let userinfo = notification.userInfo as? [String: CKRecord.ID]
             if let recordID = userinfo?["recordID"] {
                 self.globalMessageView.globalMessages = self.globalMessageView.globalMessages.filter({ (msg) -> Bool in
                     return msg.record.recordID != recordID
@@ -342,7 +342,7 @@ class BoardViewController: TVViewController {
         
         
         NotificationCenter.default.addObserver(forName: Notification.Name(CKNotificationName.MessageNotification.update.rawValue), object: nil, queue: .main) { (notification) in
-            let userinfo = notification.userInfo as? [String:GlobalMessage]
+            let userinfo = notification.userInfo as? [String: GlobalMessage]
             if let newMsg = userinfo?["modifiedMsg"] {
                 self.globalMessageView.globalMessages = self.globalMessageView.globalMessages.map({ (msg) -> GlobalMessage in
                     if msg.record.recordID == newMsg.record.recordID {
@@ -438,11 +438,11 @@ extension BoardViewController: ATVViewDelegate {
     
     
     private func nextPage(of array: [UIImage]) -> Int {
-        guard let image = keynoteView.image else {return 0}
-        guard var currentIndex = keynote.index(of: image) else {return 0}
+        guard let image = keynoteView.image else { return 0 }
+        guard var currentIndex = keynote.index(of: image) else { return 0 }
         if currentIndex >= 0 && currentIndex < keynote.count - 1  {
             return currentIndex + 1
-        }else {
+        } else {
             currentIndex = 0
             return currentIndex
         }
@@ -466,6 +466,3 @@ extension UIView {
         }
     }
 }
-
-
-
