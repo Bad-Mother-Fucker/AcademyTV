@@ -35,7 +35,7 @@ class GlobalMessageModel {
         }
     }
     
-    static func delete(record:CKRecord) {
+    static func delete(record: CKRecord) {
         CKKeys.database.delete(withRecordID: record.recordID) { (id, error) in
             if let _ = error {
                 print (error!.localizedDescription)

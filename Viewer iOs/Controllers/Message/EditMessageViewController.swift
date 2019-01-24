@@ -69,14 +69,14 @@ class EditMessageViewController: UITableViewController, UITextFieldDelegate {
     }
     
     // MARK: - Private implementation
-    @IBAction func sendMessageButtonPressed(_ sender: Any) {
+    @IBAction private func sendMessageButtonPressed(_ sender: Any) {
         sendMessage()
     }
     
     @objc func sendMessage() {
         if let message = self.message {
             record = message.record
-        }else {
+        } else {
             record = CKRecord(recordType: GlobalMessage.recordType)
         }
         
@@ -88,15 +88,15 @@ class EditMessageViewController: UITableViewController, UITextFieldDelegate {
         record["date"] = dateLabel.text! as CKRecordValue
         record["description"] = descriptionTextView.text! as CKRecordValue
         
-        if let _ = self.message {
+        if self.message != nil {
             let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
             op.savePolicy = .changedKeys
             CKKeys.database.add(op)
-        }else {
+        } else {
             CKController.postMessage(title: textFields[0].text!,
                                      subtitle: textFields[1].text!,
                                      location: textFields[3].text!,
-                                     date:(dateLabel.text,nil),
+                                     date: (dateLabel.text, nil),
                                      description: descriptionTextView.text!,
                                      URL: URL(string: textFields[2].text!),
                                      timeToLive: 5)
@@ -106,10 +106,10 @@ class EditMessageViewController: UITableViewController, UITextFieldDelegate {
         
         
         
-        let alert: UIAlertController = UIAlertController(title: "Success",
+        let alert = UIAlertController(title: "Success",
                                                          message: "Message saved correctly",
                                                          preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Confirm", style: .cancel, handler: { (alert) in
+        alert.addAction(UIAlertAction(title: "Confirm", style: .cancel, handler: { _ in
             self.navigationController?.popViewController(animated: true)
         }))
         self.present(alert, animated: true, completion: nil)
@@ -134,9 +134,9 @@ class EditMessageViewController: UITableViewController, UITextFieldDelegate {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 2{
             return 3
-        }else if section == 0 || section == 1{
+        } else if section == 0 || section == 1{
             return 2
-        }else{
+        } else{
             return 0
         }
     }

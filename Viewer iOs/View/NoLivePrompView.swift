@@ -65,7 +65,7 @@ class NoLivePrompView: UIView {
         subTitleLabel.textAlignment = .center
         
         contactbutton.setTitle("Something's wrong?", for: .normal)
-        contactbutton.setTitleColor(UIColor(red: 0, green: 119/255, blue: 1, alpha: 1), for: .normal)
+        contactbutton.setTitleColor(UIColor(red: 0, green: 119 / 255, blue: 1, alpha: 1), for: .normal)
     }
     
     /**
