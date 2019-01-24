@@ -83,14 +83,14 @@ class UsageStatistics {
      - Author: @GianlucaOrpello
      */
     var numberOfTickerMessage: Int {
-        get{
+        get {
             return record.object(forKey: UsageStatistics.keys.numberTicker) as? Int ?? 0
         }
-        set{
+        set {
             record.setValue(newValue, forKey: UsageStatistics.keys.numberTicker)
-            let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
-            op.savePolicy = .changedKeys
-            CKKeys.database.add(op)
+            let operation = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
+            operation.savePolicy = .changedKeys
+            CKKeys.database.add(operation)
         }
     }
     
@@ -315,11 +315,11 @@ class UsageStatisticsModel {
         
         
     }
-    
+
     static func addKeynote(length: Int) {
         UsageStatistics.shared.numberOfKeynote += 1
         UsageStatistics.shared.totalNumberOfPhotos += length
         UsageStatistics.shared.averageNumOfPhotos = Double(UsageStatistics.shared.totalNumberOfPhotos/UsageStatistics.shared.numberOfKeynote)
     }
-    
+
 }
