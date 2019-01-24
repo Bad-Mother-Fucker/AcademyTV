@@ -10,6 +10,7 @@ disabled_rules:
 - large_tuple
 - line_length
 - discarded_notification_center_observer
+- discouraged_optional_collection
 
 excluded:
 - Pods
@@ -60,5 +61,5 @@ identifier_name:
   - y
 
 function_body_length:
-- 100 # warning
-- 200 # error
+- 200 # warning
+- 300 # error
