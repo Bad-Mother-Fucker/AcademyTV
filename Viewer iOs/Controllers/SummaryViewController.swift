@@ -111,11 +111,11 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
         if isCheckoutMode {
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(pop))
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Post", style: .done, target: self, action: #selector(postProp))
-        }else if categories?.rawValue == Categories.GlobalMessage.rawValue {
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "edit", style:.done, target: self, action: #selector(editProp))
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "back", style:.plain, target: self, action: #selector(dissmissController))
+        } else if categories?.rawValue == Categories.GlobalMessage.rawValue {
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "edit", style: .done, target: self, action: #selector(editProp))
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(dissmissController))
         } else {
-             self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "back", style:.plain, target: self, action: #selector(dissmissController))
+             self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(dissmissController))
         }
         
         
@@ -137,13 +137,15 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
      - Author: @GianlucaOrpello
      */
     private func getCurrentCategories(){
+        // swiftlint:disable unused_optional_binding
         if let _ = prop as? (message: String, tvName: String?, TVGroup: [TVGroup]?){
             self.categories = .TickerMessage
-        }else if let key = prop as? (image: [UIImage]?, tvName: String?, TVGroup:  [TVGroup]?){
+        } else if let key = prop as? (image: [UIImage]?, tvName: String?, TVGroup: [TVGroup]?){
             self.categories = .KeynoteViewer
             keynote = key
             print(keynote)
-        }else if let _ = prop as? GlobalMessage{
+            // swiftlint:disable unused_optional_binding
+        } else if let _ = prop as? GlobalMessage{
             self.categories = .GlobalMessage
         }
     }
@@ -159,7 +161,7 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
                     CKController.postTickerMessage((ticker?.message)!, onTvGroup: group)
                 }
             case Categories.KeynoteViewer:
-                let keynote = prop as? (image: [UIImage]?, tvName: String, TVGroup:  [TVGroup])
+                let keynote = prop as? (image: [UIImage]?, tvName: String, TVGroup: [TVGroup])
                 keynote?.TVGroup.forEach { (group) in
                     CKController.postKeynote(keynote?.image! ?? [UIImage()], ofType: .PNG, onTVsOfGroup: group)
                 }
@@ -171,7 +173,7 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
             }
             
             let alert = UIAlertController(title: "Saved", message: "The prop will appaire in a few seconds", preferredStyle: .alert)
-            let action = UIAlertAction(title: "Ok", style: .default) { (action) in
+            let action = UIAlertAction(title: "Ok", style: .default) { _ in
                 self.navigationController?.dismiss(animated: true, completion: nil)
             }
             alert.addAction(action)
@@ -251,13 +253,13 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
         
         let alert = UIAlertController(title: "Delete Prop", message: "The prop will be removed from all the screens. This cannot be undone.", preferredStyle: .alert)
         let cancel = UIAlertAction(title: "Cancel", style: .default, handler: nil)
-        let delete = UIAlertAction(title: "Delete", style: .cancel, handler: { [weak self] (action) in
+        let delete = UIAlertAction(title: "Delete", style: .cancel, handler: { [weak self] _ in
             
             if let ticker = self?.prop as? (message: String, tvName: String){
                 CKController.removeTickerMessage(fromTVNamed: ticker.tvName)
-            }else if let keynote = self?.prop as? (image: [UIImage]?, tvName: String){
+            } else if let keynote = self?.prop as? (image: [UIImage]?, tvName: String){
                 CKController.removeKeynote(FromTV: keynote.tvName)
-            }else if let globalMessage = self?.prop as? GlobalMessage{
+            } else if let globalMessage = self?.prop as? GlobalMessage{
                 CKController.remove(globalMessage: globalMessage)
             }
             
@@ -425,15 +427,12 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
             case .TickerMessage:
                 image.image = UIImage(named: "Ticker")
                 textLabel.text = Categories.TickerMessage.rawValue
-                break
             case .KeynoteViewer:
                 image.image = UIImage(named: "Keynote")
                 textLabel.text = Categories.KeynoteViewer.rawValue
-                break
             case .GlobalMessage:
                 image.image = UIImage(named: "GlobalMessage")
                 textLabel.text = Categories.GlobalMessage.rawValue
-                break
             case .Timer:
                 break
             }
@@ -443,7 +442,7 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
             
             return cell
             
-        }else{
+        } else {
             
             switch categories!{
             case .TickerMessage:
@@ -808,7 +807,7 @@ extension SummaryViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let keynote = keynote{
             return keynote.image!.count
-        }else{
+        } else {
             return 0
         }
     }
@@ -838,7 +837,7 @@ extension SummaryViewController: UICollectionViewDataSource{
             cell.contentView.addSubview(imageView)
             return cell
             
-        }else{
+        } else {
             return UICollectionViewCell()
         }
     }

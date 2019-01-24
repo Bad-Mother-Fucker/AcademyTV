@@ -22,7 +22,7 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     // MARK: CollectionView methods
     
-    @IBOutlet weak var collectionView: UICollectionView!{
+    @IBOutlet private weak var collectionView: UICollectionView!{
         didSet{
             collectionView.delegate = self
             collectionView.dataSource = self
@@ -31,9 +31,9 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
         }
     }
     // MARK: NextBarButton
-    @IBOutlet weak var nextBarButtonItem: UIBarButtonItem!
+    @IBOutlet private weak var nextBarButtonItem: UIBarButtonItem!
 
-    @IBAction func nextBarButtonPressed(_ sender: Any) {
+    @IBAction private func nextBarButtonPressed(_ sender: Any) {
         let summary = SummaryViewController()
         summary.isCheckoutMode = true
         summary.categories = category
@@ -48,17 +48,16 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
                     tvNames.append(group.rawValue)
                     tvNames.append(", ")
                 }
-                let prop = (message: tickerMessage, tvName: tvNames,TVGroup:selectedGroups)
+                let prop = (message: tickerMessage, tvName: tvNames, TVGroup: selectedGroups)
                 summary.prop = prop
                 
-                break
-            case Categories.KeynoteViewer:
+            case Categories.keynoteViewer:
                 
                 var tvNames: String = ""
                 for group in selectedGroups {
                     tvNames.append(contentsOf: group.rawValue)
                 }
-                let prop = (keynote: keynote,tvName: tvNames,TVGroup:selectedGroups)
+                let prop = (keynote: keynote, tvName: tvNames, TVGroup:selectedGroups)
                 summary.prop = prop
                 
             default:

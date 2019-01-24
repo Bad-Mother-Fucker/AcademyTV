@@ -31,7 +31,7 @@ class BooquableTableViewController: UITableViewController {
 
         BooquableManager.shared.getOrders(with: .started)
         
-        Timer.scheduledTimer(withTimeInterval: 60*60, repeats: true) { (timer) in
+        Timer.scheduledTimer(withTimeInterval: 60 * 60, repeats: true) { _ in
             BooquableManager.shared.getOrders(with: .started)
         }
         
