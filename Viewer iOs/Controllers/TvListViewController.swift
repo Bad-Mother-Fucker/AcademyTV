@@ -41,7 +41,7 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
         if let cat = category{
             
             switch cat{
-            case Categories.TickerMessage:
+            case Categories.tickerMessage:
                 
                 var tvNames: String = ""
                 for group in selectedGroups!{
@@ -51,7 +51,7 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
                 let prop = (message: tickerMessage, tvName: tvNames, TVGroup:selectedGroups)
                 summary.prop = prop
                                 
-            case Categories.KeynoteViewer:
+            case Categories.keynoteViewer:
                 
                 var tvNames: String? = ""
                 for group in selectedGroups!{

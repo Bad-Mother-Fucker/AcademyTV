@@ -28,8 +28,8 @@ class PropsViewController: UITableViewController, UISearchResultsUpdating {
      */
     let props: [(title: String, description: String, image: UIImage?)] = [
         /*(title: "Booqable Availability", description: "Displays a list of names that are overdue, on hold and ready for pickup", image: UIImage(named: "Booquable")),*/
-        (title: Categories.GlobalMessage.rawValue, description: "Displays a message with title, description, date & time, location and URL", image: UIImage(named: "GlobalMessage")),
-        (title: Categories.TickerMessage.rawValue, description: "Displays a short messager always visibile at the bottom of the screen", image: UIImage(named: "Ticker")),
+        (title: Categories.globalMessage.rawValue, description: "Displays a message with title, description, date & time, location and URL", image: UIImage(named: "GlobalMessage")),
+        (title: Categories.tickerMessage.rawValue, description: "Displays a short messager always visibile at the bottom of the screen", image: UIImage(named: "Ticker")),
         (title: "Content Viewer", description: "Dislays a keynote on selected area, airplay is not needed", image: UIImage(named: "Keynote"))
     ]
     

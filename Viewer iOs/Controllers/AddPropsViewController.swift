@@ -200,19 +200,19 @@ class AddPropsViewController: UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "SetsViewController") as? TvListViewController
 //        #warning("Compleate methods.")
-        if props.title == Categories.GlobalMessage.rawValue {
+        if props.title == Categories.globalMessage.rawValue {
             let checkOutVC = SummaryViewController()
-            checkOutVC.categories = .GlobalMessage
+            checkOutVC.categories = .globalMessage
             checkOutVC.isCheckoutMode = true
             checkOutVC.prop = getProp()
             self.navigationController?.pushViewController(checkOutVC, animated: true)
-        } else if props.title == Categories.TickerMessage.rawValue {
+        } else if props.title == Categories.tickerMessage.rawValue {
             
-            controller?.category = .TickerMessage
+            controller?.category = .tickerMessage
             controller?.tickerMessage = (getProp() as? String)
             navigationController?.pushViewController(controller ?? SummaryViewController(), animated: true)
-        } else if props.title == Categories.KeynoteViewer.rawValue {
-            controller?.category = .KeynoteViewer
+        } else if props.title == Categories.keynoteViewer.rawValue {
+            controller?.category = .keynoteViewer
             controller?.keynote = getProp() as? [UIImage]? ?? [UIImage]()
             navigationController?.pushViewController(controller ?? SummaryViewController(), animated: true)
         }
@@ -223,7 +223,7 @@ class AddPropsViewController: UIViewController {
     // Todo: Check this function...
     func getProp() -> Any? {
         switch props.title {
-        case Categories.GlobalMessage.rawValue:
+        case Categories.globalMessage.rawValue:
             let title = (tableView.cellForRow(at: IndexPath(row: 0, section: 2))?.viewWithTag(500) as? UITextField)?.text!
             let subtitle = (tableView.cellForRow(at: IndexPath(row: 1, section: 2))?.viewWithTag(500) as? UITextField)?.text!
             let description = (tableView.cellForRow(at: IndexPath(row: 2, section: 2))?.viewWithTag(500) as? UITextField)?.text
@@ -244,19 +244,19 @@ class AddPropsViewController: UIViewController {
                                      timeToLive: 0)
       
             return prop
-        case Categories.TickerMessage.rawValue:
+        case Categories.tickerMessage.rawValue:
 
             let text = (tableView.cellForRow(at: IndexPath(row: 0, section: 2))?.viewWithTag(500) as? UITextField)?.text!
             
             return text
 
-        case Categories.KeynoteViewer.rawValue:
+        case Categories.keynoteViewer.rawValue:
             
             
             return keynote
             
             
-        case Categories.Timer.rawValue:
+        case Categories.timer.rawValue:
             return "nil"
         default:
             return ""
@@ -409,7 +409,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         switch props.title {
-        case Categories.GlobalMessage.rawValue:
+        case Categories.globalMessage.rawValue:
             switch indexPath.section {
             case 0:
                 return 235
@@ -436,7 +436,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
             default:
                 return 0
             }
-        case Categories.TickerMessage.rawValue:
+        case Categories.tickerMessage.rawValue:
             switch indexPath.section {
             case 0:
                 return 235
@@ -445,7 +445,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
             default:
                 return 0
             }
-        case Categories.KeynoteViewer.rawValue:
+        case Categories.keynoteViewer.rawValue:
             switch indexPath.section {
             case 0:
                 return 235
@@ -470,7 +470,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
      */
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch props.title {
-        case Categories.GlobalMessage.rawValue:
+        case Categories.globalMessage.rawValue:
             switch section {
             case 1:
                 return "Description"
@@ -481,7 +481,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
             default:
                 return nil
             }
-        case Categories.TickerMessage.rawValue:
+        case Categories.tickerMessage.rawValue:
             switch section {
             case 1:
                 return "Description"
@@ -490,7 +490,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
             default:
                 return nil
             }
-        case Categories.KeynoteViewer.rawValue:
+        case Categories.keynoteViewer.rawValue:
             switch section {
             case 1:
                 return "Description"
@@ -512,7 +512,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
      - Author: @GianlucaOrpello
      */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard props.title == Categories.GlobalMessage.rawValue,
+        guard props.title == Categories.globalMessage.rawValue,
             indexPath.section == 3,
             indexPath.row == 1 else { return }
         
@@ -531,11 +531,11 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
      */
     func numberOfSections(in tableView: UITableView) -> Int {
         switch props.title {
-        case Categories.GlobalMessage.rawValue:
+        case Categories.globalMessage.rawValue:
             return 4
-        case Categories.TickerMessage.rawValue:
+        case Categories.tickerMessage.rawValue:
             return 3
-        case Categories.KeynoteViewer.rawValue:
+        case Categories.keynoteViewer.rawValue:
             return 3
         default:
             return 0
@@ -554,7 +554,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
             return 1
         } else {
             switch props.title {
-            case Categories.GlobalMessage.rawValue:
+            case Categories.globalMessage.rawValue:
                 if section == 2 {
                     return 3
                 } else if section == 3 {
@@ -562,9 +562,9 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
                 } else {
                     return 0
                 }
-            case Categories.TickerMessage.rawValue:
+            case Categories.tickerMessage.rawValue:
                 return 2
-            case Categories.KeynoteViewer.rawValue:
+            case Categories.keynoteViewer.rawValue:
                 return 1
             default:
                 return 0
@@ -589,11 +589,11 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
 
             let image: UIImage?
             switch props.title {
-            case Categories.GlobalMessage.rawValue:
+            case Categories.globalMessage.rawValue:
                 image = UIImage(named: "PreviewGlobalMessage")
-            case Categories.TickerMessage.rawValue:
+            case Categories.tickerMessage.rawValue:
                 image = UIImage(named: "PreviewTicker")
-            case Categories.KeynoteViewer.rawValue:
+            case Categories.keynoteViewer.rawValue:
                 image = UIImage(named: "PreviewContentViewer")
             default:
                 image = nil
@@ -606,7 +606,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
             
             switch props.title {
             // MARK: Global Message
-            case Categories.GlobalMessage.rawValue:
+            case Categories.globalMessage.rawValue:
                 
                 switch indexPath.section {
                     
@@ -757,7 +757,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
                 }
                 
             // MARK: Ticker Message
-            case Categories.TickerMessage.rawValue:
+            case Categories.tickerMessage.rawValue:
                 switch indexPath.section {
                     
                 case 1:
@@ -803,7 +803,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
                 }
             
             // MARK: Keynote Viewer
-            case Categories.KeynoteViewer.rawValue:
+            case Categories.keynoteViewer.rawValue:
                 switch indexPath.section {
                     
                 case 1:
@@ -913,7 +913,7 @@ extension AddPropsViewController: UITextFieldDelegate {
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        if self.title == Categories.GlobalMessage.rawValue {
+        if self.title == Categories.globalMessage.rawValue {
 //            self.tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .top, animated: true)
             tableView.setContentOffset(CGPoint(x: 0, y: textField.center.y + 250), animated: true)
 
@@ -984,10 +984,10 @@ extension AddPropsViewController: UIDocumentPickerDelegate, UINavigationControll
         if let destination = story.instantiateViewController(withIdentifier: "SetsViewController") as? TvListViewController {
             for url in urls {
                 do {
-                let data = try? Data(contentsOf: url)
-                destination.keynote?.append(UIImage(data: data)!)
-                destination.category = .KeynoteViewer
-                self.navigationController?.pushViewController(destination, animated: true)
+                    let data = try? Data(contentsOf: url)
+                    destination.keynote?.append(UIImage(data: data!)!)
+                    destination.category = .keynoteViewer
+                    self.navigationController?.pushViewController(destination, animated: true)
                 } catch {
                     NSLog("Error on getting data - AddPropsViewController: didPickDocumentsAt")
                 }
@@ -1009,7 +1009,7 @@ extension AddPropsViewController: UIImagePickerControllerDelegate {
         if let destination = story.instantiateViewController(withIdentifier: "SetsViewController") as? TvListViewController {
             if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
                 destination.keynote = [image.byFixingOrientation()]
-                destination.category = .KeynoteViewer
+                destination.category = .keynoteViewer
             }
             self.navigationController?.pushViewController(destination, animated: true)
             

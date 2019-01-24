@@ -25,7 +25,7 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
     var shareExtensionContext: NSExtensionContext?
     
     @IBAction private func cancelShare(_ sender: Any) {
-        self.ShareExtensionContext!.completeRequest(returningItems: [], completionHandler: nil)
+        self.shareExtensionContext!.completeRequest(returningItems: [], completionHandler: nil)
     }
     
     // MARK: CollectionView methods
@@ -85,7 +85,7 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.ShareExtensionContext = ExtensionContextContainer.shared.context
+        self.shareExtensionContext = ExtensionContextContainer.shared.context
         loadImagesFromAttachments()
         
         
@@ -293,7 +293,7 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
         alert.addAction(action)
         self.present(alert, animated: true, completion: nil)
         // FIXME: This completeRequest dismisses the view, i don't know whether this will work after or during the display of the alert view. It needs to be handled properly.
-        self.ShareExtensionContext!.completeRequest(returningItems: [], completionHandler: nil)
+        self.shareExtensionContext!.completeRequest(returningItems: [], completionHandler: nil)
         
     }
     
@@ -303,7 +303,7 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
         
         var keynoteData: [Data] = []
         
-        if let content = self.ShareExtensionContext?.inputItems[0] as? NSExtensionItem {
+        if let content = self.shareExtensionContext?.inputItems[0] as? NSExtensionItem {
             print("Found \(content.attachments?.count) attachments")
             for element in content.attachments! {
                 let itemProvider = element

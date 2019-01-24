@@ -111,7 +111,7 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
         if isCheckoutMode {
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(pop))
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Post", style: .done, target: self, action: #selector(postProp))
-        } else if categories?.rawValue == Categories.GlobalMessage.rawValue {
+        } else if categories?.rawValue == Categories.globalMessage.rawValue {
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "edit", style: .done, target: self, action: #selector(editProp))
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(dissmissController))
         } else {
@@ -139,14 +139,14 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
     private func getCurrentCategories(){
         // swiftlint:disable unused_optional_binding
         if let _ = prop as? (message: String, tvName: String?, TVGroup: [TVGroup]?){
-            self.categories = .TickerMessage
+            self.categories = .tickerMessage
         } else if let key = prop as? (image: [UIImage]?, tvName: String?, TVGroup: [TVGroup]?){
-            self.categories = .KeynoteViewer
+            self.categories = .keynoteViewer
             keynote = key
             print(keynote)
             // swiftlint:disable unused_optional_binding
         } else if let _ = prop as? GlobalMessage{
-            self.categories = .GlobalMessage
+            self.categories = .globalMessage
         }
     }
     
@@ -155,17 +155,17 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
         debugPrint("PostProp")
         if let cat = categories{
             switch cat {
-            case Categories.TickerMessage:
+            case Categories.tickerMessage:
                 let ticker = prop as? (message: String, tvName: String, TVGroup: [TVGroup])
                 ticker?.TVGroup.forEach { (group) in
                     CKController.postTickerMessage((ticker?.message)!, onTvGroup: group)
                 }
-            case Categories.KeynoteViewer:
+            case Categories.keynoteViewer:
                 let keynote = prop as? (image: [UIImage]?, tvName: String, TVGroup: [TVGroup])
                 keynote?.TVGroup.forEach { (group) in
                     CKController.postKeynote(keynote?.image! ?? [UIImage()], ofType: .PNG, onTVsOfGroup: group)
                 }
-            case Categories.GlobalMessage:
+            case Categories.globalMessage:
                 let gm = prop as? GlobalMessage
                 CKController.postMessage(title: gm?.title ?? "", subtitle: (gm?.subtitle)!, location: gm?.location, date: (gm?.date)!, description: gm?.description, URL: gm?.url, timeToLive: 0)
             default:
@@ -185,13 +185,13 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
     @objc func editProp() {
         if let cat = categories{
             switch cat {
-            case Categories.TickerMessage:
+            case Categories.tickerMessage:
                
                 break
-            case Categories.KeynoteViewer:
+            case Categories.keynoteViewer:
              
                 break
-            case Categories.GlobalMessage:
+            case Categories.globalMessage:
                 let gm = prop as? GlobalMessage
                 gm?.title = (tableView.cellForRow(at: IndexPath(row: 0, section: 0))?.viewWithTag(500) as? UILabel)?.text ?? ""
                 gm?.subtitle = (tableView.cellForRow(at: IndexPath(row: 0, section: 0))?.viewWithTag(501) as? UILabel)?.text ?? ""
@@ -312,7 +312,7 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
      */
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch categories! {
-        case .TickerMessage:
+        case .tickerMessage:
             // Total of 6 rows
             
             switch indexPath.row{
@@ -326,7 +326,7 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
                 return 0
             }
             
-        case .GlobalMessage:
+        case .globalMessage:
             // Total of 6 rows
             
             switch indexPath.row{
@@ -342,7 +342,7 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
                 return 0
             }
            
-        case .KeynoteViewer:
+        case .keynoteViewer:
             // Total of 5 rows
 
             switch indexPath.row{
@@ -356,7 +356,7 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
                 return 0
             }
 
-        case .Timer:
+        case .timer:
             return 0
         }
     }
@@ -393,11 +393,11 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
      */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch categories! {
-        case .TickerMessage, .GlobalMessage:
+        case .tickerMessage, .globalMessage:
             return isCheckoutMode ? 4:6
-        case .KeynoteViewer:
+        case .keynoteViewer:
             return isCheckoutMode ? 3:5
-        case .Timer:
+        case .timer:
             return 0
         }
     }
@@ -424,16 +424,16 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
             image.contentMode = .scaleAspectFit
             
             switch categories!{
-            case .TickerMessage:
+            case .tickerMessage:
                 image.image = UIImage(named: "Ticker")
-                textLabel.text = Categories.TickerMessage.rawValue
-            case .KeynoteViewer:
+                textLabel.text = Categories.tickerMessage.rawValue
+            case .keynoteViewer:
                 image.image = UIImage(named: "Keynote")
-                textLabel.text = Categories.KeynoteViewer.rawValue
-            case .GlobalMessage:
+                textLabel.text = Categories.keynoteViewer.rawValue
+            case .globalMessage:
                 image.image = UIImage(named: "GlobalMessage")
-                textLabel.text = Categories.GlobalMessage.rawValue
-            case .Timer:
+                textLabel.text = Categories.globalMessage.rawValue
+            case .timer:
                 break
             }
             
@@ -445,7 +445,7 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
         } else {
             
             switch categories!{
-            case .TickerMessage:
+            case .tickerMessage:
                 // Total of 6 rows
 
                 let tickerMessage = prop as? (message: String, tvName: String?, TVGroup: [TVGroup]?)
@@ -553,7 +553,7 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
                     return UITableViewCell()
                 }
                 
-            case .KeynoteViewer:
+            case .keynoteViewer:
                 // Total of 5 rows
 
                 keynote = prop as? (image: [UIImage]?, tvName: String?, TVGroup: [TVGroup]?)
@@ -638,7 +638,7 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
                 default:
                     return UITableViewCell()
                 }
-            case .GlobalMessage:
+            case .globalMessage:
                 // Total of 6 rows
 
                 let globalMessage = prop as? GlobalMessage
@@ -785,7 +785,7 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
                     return UITableViewCell()
                 }
                 
-            case .Timer:
+            case .timer:
                 return UITableViewCell()
             }
             

@@ -30,7 +30,7 @@ import CloudKit
             }
             guard records!.count > 0 else {
                 UsageStatistics.shared.record.setValue("com.Rogue.Viewer.UsageStats", forKey: "recordCode")
-                CKKeys.database.save(UsageStatistics.shared.record, completionHandler: { _ in
+                CKKeys.database.save(UsageStatistics.shared.record, completionHandler: { _,_  in
                     
                 })
                 

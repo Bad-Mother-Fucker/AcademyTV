@@ -41,12 +41,12 @@ class ShareViewController: UIViewController, UICollectionViewDataSource, UIColle
     
 
     @IBAction private func cancelShare(_ sender: Any) {
-        self.ShareExtensionContext!.completeRequest(returningItems: [], completionHandler: nil)
+        self.shareExtensionContext!.completeRequest(returningItems: [], completionHandler: nil)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.ShareExtensionContext = ExtensionContextContainer.shared.context
+        self.shareExtensionContext = ExtensionContextContainer.shared.context
         
         if traitCollection.forceTouchCapability == .available {
         }
@@ -141,7 +141,7 @@ class ShareViewController: UIViewController, UICollectionViewDataSource, UIColle
             
             if let destination = segue.destination as? SharePosterViewController {
                 destination.tvGroups = selectedGroups
-                destination.ShareExtensionContext = self.ShareExtensionContext
+                destination.shareExtensionContext = self.shareExtensionContext
             }
             
         default:
@@ -154,7 +154,7 @@ func shareContent(_ sender: Any) {
         // This is called after the user selects Post. Do the upload of contentText and/or NSExtensionContext attachments.
         
         let UTI = kUTTypeImage as String
-        if let item = self.ShareExtensionContext?.inputItems[0] as? NSExtensionItem {
+    if let item = self.shareExtensionContext?.inputItems[0] as? NSExtensionItem {
             var keynoteData: [Data] = []
             for element in item.attachments! {
                 let itemProvider = element
