@@ -170,427 +170,308 @@
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 22,
+      "line": 24,
       "symbol": "CKController.saveSubscription(for:ID:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 69,
+      "line": 74,
       "symbol": "CKController.removeSubscriptions()",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 115,
-      "symbol": "CKController.removeMessage(fromTVNamed:)",
+      "line": 306,
+      "symbol": "CKController.isThereAKeynote(on:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 125,
-      "symbol": "CKController.postServiceMessage(_:onTvNamed:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 135,
-      "symbol": "CKController.postServiceMessage(_:onTvGroup:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 154,
-      "symbol": "CKController.removeServiceMessage(from:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 174,
-      "symbol": "CKController.isThereAMessage(onTV:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 178,
-      "symbol": "CKController.remove(globalMessage:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 186,
-      "symbol": "CKController.getAllGlobalMessages(completionHandler:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 207,
-      "symbol": "CKController.getAllTVs(from:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 231,
-      "symbol": "CKController.postMessage(title:subtitle:location:description:URL:timeToLive:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 242,
-      "symbol": "CKController.postKeynote(_:ofType:onTVNamed:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 249,
-      "symbol": "CKController.postKeynoteData(_:ofType:onTVNamed:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 259,
-      "symbol": "CKController.postKeynote(_:ofType:onTVsOfGroup:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 270,
+      "line": 521,
       "symbol": "CKController.postKeynoteData(_:ofType:onTVsOfGroup:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 281,
-      "symbol": "CKController.removeKeynote(FromTV:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 289,
-      "symbol": "CKController.removeKeynote(fromTVGroup:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 304,
-      "symbol": "CloudStored",
-      "symbol_kind": "source.lang.swift.decl.protocol",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 305,
+      "line": 633,
       "symbol": "CloudStored.record",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 306,
+      "line": 634,
       "symbol": "CloudStored.recordType",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 307,
+      "line": 635,
       "symbol": "CloudStored.init(record:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 311,
-      "symbol": "CKQueryException",
-      "symbol_kind": "source.lang.swift.decl.enum",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 312,
+      "line": 654,
       "symbol": "CKQueryException.connectionTimedOut(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 313,
+      "line": 655,
       "symbol": "CKQueryException.recordNotFound(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 316,
-      "symbol": "CKNotificationName",
-      "symbol_kind": "source.lang.swift.decl.enum",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 317,
+      "line": 669,
       "symbol": "CKNotificationName.globalMessages",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 318,
+      "line": 670,
       "symbol": "CKNotificationName.tv",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 319,
+      "line": 671,
       "symbol": "CKNotificationName.serviceMessage",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 320,
+      "line": 672,
       "symbol": "CKNotificationName.null",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 321,
+      "line": 673,
       "symbol": "CKNotificationName.notification",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 322,
+      "line": 674,
       "symbol": "CKNotificationName.tvSet",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 323,
+      "line": 675,
       "symbol": "CKNotificationName.serviceMessageSet",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 326,
+      "line": 678,
       "symbol": "CKNotificationName.MessageNotification",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 327,
+      "line": 679,
       "symbol": "CKNotificationName.MessageNotification.create",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 328,
+      "line": 680,
       "symbol": "CKNotificationName.MessageNotification.delete",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 329,
+      "line": 681,
       "symbol": "CKNotificationName.MessageNotification.update",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 333,
-      "symbol": "CKKeys",
-      "symbol_kind": "source.lang.swift.decl.enum",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 335,
+      "line": 697,
       "symbol": "CKKeys.database",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 336,
+      "line": 698,
       "symbol": "CKKeys.messageSubscriptionKey",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 337,
+      "line": 699,
       "symbol": "CKKeys.tvSubscriptionKey",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 338,
+      "line": 700,
       "symbol": "CKKeys.serviceSubscriptionKey",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 343,
+      "line": 705,
       "symbol": "ATVViewDelegate",
       "symbol_kind": "source.lang.swift.decl.protocol",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 344,
+      "line": 706,
       "symbol": "ATVViewDelegate.show(keynote:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 345,
+      "line": 707,
       "symbol": "ATVViewDelegate.hideKeynote()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 346,
+      "line": 708,
       "symbol": "ATVViewDelegate.show(ticker:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 347,
+      "line": 709,
       "symbol": "ATVViewDelegate.hideTicker()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 350,
+      "line": 712,
       "symbol": "TVGroup",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 351,
+      "line": 713,
       "symbol": "TVGroup.lab1",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 352,
+      "line": 714,
       "symbol": "TVGroup.lab2",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 353,
+      "line": 715,
       "symbol": "TVGroup.lab3",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 354,
+      "line": 716,
       "symbol": "TVGroup.lab4",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 355,
+      "line": 717,
       "symbol": "TVGroup.collab1",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 356,
+      "line": 718,
       "symbol": "TVGroup.collab2",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 357,
+      "line": 719,
       "symbol": "TVGroup.collab3",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 358,
+      "line": 720,
       "symbol": "TVGroup.collab4",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 359,
+      "line": 721,
       "symbol": "TVGroup.br1",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 360,
+      "line": 722,
       "symbol": "TVGroup.br2",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 361,
+      "line": 723,
       "symbol": "TVGroup.br3",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 362,
+      "line": 724,
       "symbol": "TVGroup.kitchen",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 363,
+      "line": 725,
       "symbol": "TVGroup.seminar",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/CKController.swift",
-      "line": 364,
+      "line": 726,
       "symbol": "TVGroup.all",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
@@ -612,7 +493,7 @@
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/GlobalMessage.swift",
       "line": 31,
-      "symbol": "GlobalMessageModel.postMessage(title:subtitle:location:description:URL:timeToLive:completionHandler:)",
+      "symbol": "GlobalMessageModel.postMessage(title:subtitle:location:date:description:URL:timeToLive:completionHandler:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
@@ -682,7 +563,7 @@
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/GlobalMessage.swift",
       "line": 63,
-      "symbol": "GlobalMessage.init(title:subtitle:location:description:URL:timeToLive:)",
+      "symbol": "GlobalMessage.init(title:subtitle:location:date:description:URL:timeToLive:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
@@ -835,63 +716,63 @@
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/TV.swift",
-      "line": 134,
+      "line": 135,
       "symbol": "TV.keynote",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/TV.swift",
-      "line": 148,
+      "line": 149,
       "symbol": "TV.isOn",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/TV.swift",
-      "line": 160,
+      "line": 161,
       "symbol": "TV.name",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/TV.swift",
-      "line": 172,
+      "line": 173,
       "symbol": "TV.uuid",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/TV.swift",
-      "line": 184,
+      "line": 185,
       "symbol": "TV.tvGroup",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/TV.swift",
-      "line": 197,
+      "line": 198,
       "symbol": "TV.tickerMsg",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/TV.swift",
-      "line": 211,
+      "line": 215,
       "symbol": "TV.set(keynote:imageType:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/TV.swift",
-      "line": 230,
+      "line": 234,
       "symbol": "TV.setKeynoteData(_:ofType:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/TV.swift",
-      "line": 248,
+      "line": 252,
       "symbol": "TV.removeKeynote()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -1002,94 +883,129 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/VideoManager.swift",
-      "line": 12,
-      "symbol": "VideoManager",
+      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/UsageStatistic.swift",
+      "line": 23,
+      "symbol": "UsageStatistics.shared",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/UsageStatistic.swift",
+      "line": 25,
+      "symbol": "UsageStatistics.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/UsageStatistic.swift",
+      "line": 215,
+      "symbol": "UsageStatistics.totalNumberOfPhotos",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/UsageStatistic.swift",
+      "line": 227,
+      "symbol": "UsageStatistics.totalTickerChars",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/UsageStatistic.swift",
+      "line": 239,
+      "symbol": "UsageStatistics.totalMessageChars",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/UsageStatistic.swift",
+      "line": 251,
+      "symbol": "UsageStatistics.averageNumOfPhotos",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/UsageStatistic.swift",
+      "line": 263,
+      "symbol": "UsageStatistics.averageTickerLength",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/UsageStatistic.swift",
+      "line": 275,
+      "symbol": "UsageStatistics.averageMessageLength",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/UsageStatistic.swift",
+      "line": 289,
+      "symbol": "UsageStatisticsModel",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
+      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/UsageStatistic.swift",
+      "line": 290,
+      "symbol": "UsageStatisticsModel.addTickerMessage(length:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/UsageStatistic.swift",
+      "line": 295,
+      "symbol": "UsageStatisticsModel.addGlobalMessage(length:link:location:date:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/UsageStatistic.swift",
+      "line": 319,
+      "symbol": "UsageStatisticsModel.addKeynote(length:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/VideoManager.swift",
-      "line": 14,
+      "line": 27,
       "symbol": "VideoManager.init(onLayer:videos:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/VideoManager.swift",
-      "line": 27,
+      "line": 40,
       "symbol": "VideoManager.playingVideos",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/VideoManager.swift",
-      "line": 29,
-      "symbol": "VideoManager.currentPlayingVideo",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/VideoManager.swift",
-      "line": 33,
-      "symbol": "VideoManager.videos",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/VideoManager.swift",
-      "line": 37,
+      "line": 82,
       "symbol": "VideoManager.player",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/VideoManager.swift",
-      "line": 39,
+      "line": 84,
       "symbol": "VideoManager.playVideo()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/VideoManager.swift",
-      "line": 43,
-      "symbol": "VideoManager.startFromBeginnig()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/VideoManager.swift",
-      "line": 49,
+      "line": 104,
       "symbol": "VideoManager.nextVideo()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/VideoManager.swift",
-      "line": 55,
+      "line": 110,
       "symbol": "VideoManager.nextVideoIndex()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/VideoManager.swift",
-      "line": 69,
-      "symbol": "VideoDownloader",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/VideoManager.swift",
-      "line": 70,
-      "symbol": "VideoDownloader.downloadVideosFrom(URLs:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/VideoManager.swift",
-      "line": 95,
-      "symbol": "VideoDownloader.getVideos(from:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
@@ -1192,63 +1108,49 @@
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/Controller/BoardViewController.swift",
-      "line": 399,
-      "symbol": "BoardViewController.setNormalFrame()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/Controller/BoardViewController.swift",
-      "line": 421,
-      "symbol": "BoardViewController.setKeynoteFrame()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/Controller/BoardViewController.swift",
-      "line": 453,
+      "line": 405,
       "symbol": "BoardViewController.show(ticker:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/Controller/BoardViewController.swift",
-      "line": 459,
+      "line": 411,
       "symbol": "BoardViewController.hideTicker()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/Controller/BoardViewController.swift",
-      "line": 464,
+      "line": 416,
       "symbol": "BoardViewController.show(keynote:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/Controller/BoardViewController.swift",
-      "line": 474,
+      "line": 426,
       "symbol": "BoardViewController.hideKeynote()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/Controller/BoardViewController.swift",
-      "line": 485,
+      "line": 437,
       "symbol": "BoardViewController.nextPage(of:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/Controller/BoardViewController.swift",
-      "line": 500,
+      "line": 452,
       "symbol": "UIView.fadeIn()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/Controller/BoardViewController.swift",
-      "line": 508,
+      "line": 460,
       "symbol": "UIView.fadeOut()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -1367,21 +1269,21 @@
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/Controller/TVViewController.swift",
-      "line": 95,
+      "line": 94,
       "symbol": "TVViewController.handleServiceMessageNotification(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/Controller/TVViewController.swift",
-      "line": 100,
+      "line": 99,
       "symbol": "TVViewController.handleMsgNotification(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/Controller/TVViewController.swift",
-      "line": 137,
+      "line": 136,
       "symbol": "TVViewController.handleTVNotification(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -1451,175 +1353,35 @@
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/View/GlobalMessageView.swift",
-      "line": 12,
-      "symbol": "GlobalMessageView",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/View/GlobalMessageView.swift",
-      "line": 14,
-      "symbol": "GlobalMessageView.titleLabel",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/View/GlobalMessageView.swift",
-      "line": 15,
-      "symbol": "GlobalMessageView.subTitleLabel",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/View/GlobalMessageView.swift",
-      "line": 16,
-      "symbol": "GlobalMessageView.descriptionLabel",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/View/GlobalMessageView.swift",
-      "line": 17,
-      "symbol": "GlobalMessageView.timeLabel",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/View/GlobalMessageView.swift",
-      "line": 18,
-      "symbol": "GlobalMessageView.locationLabel",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/View/GlobalMessageView.swift",
-      "line": 19,
-      "symbol": "GlobalMessageView.dateLabel",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/View/GlobalMessageView.swift",
-      "line": 20,
-      "symbol": "GlobalMessageView.whenLabel",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/View/GlobalMessageView.swift",
-      "line": 21,
-      "symbol": "GlobalMessageView.whereLabel",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/View/GlobalMessageView.swift",
-      "line": 22,
-      "symbol": "GlobalMessageView.nextMsg",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/View/GlobalMessageView.swift",
-      "line": 25,
-      "symbol": "GlobalMessageView.qrCodeImage",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/View/GlobalMessageView.swift",
-      "line": 27,
-      "symbol": "GlobalMessageView.globalMessages",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/View/GlobalMessageView.swift",
-      "line": 38,
-      "symbol": "GlobalMessageView.init(frame:)",
+      "line": 223,
+      "symbol": "GlobalMessageView.layoutView()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/View/GlobalMessageView.swift",
-      "line": 58,
-      "symbol": "GlobalMessageView.init(coder:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/View/GlobalMessageView.swift",
-      "line": 115,
-      "symbol": "GlobalMessageView.originalLayout()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/View/GlobalMessageView.swift",
-      "line": 181,
-      "symbol": "GlobalMessageView.keynoteLayout()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/View/GlobalMessageView.swift",
-      "line": 251,
-      "symbol": "GlobalMessageView.setLayout(type:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/View/GlobalMessageView.swift",
-      "line": 260,
-      "symbol": "GlobalMessageView.TVLayoutType",
-      "symbol_kind": "source.lang.swift.decl.enum",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/View/GlobalMessageView.swift",
-      "line": 261,
-      "symbol": "GlobalMessageView.TVLayoutType.normal",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/View/GlobalMessageView.swift",
-      "line": 262,
-      "symbol": "GlobalMessageView.TVLayoutType.keynote",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/View/GlobalMessageView.swift",
-      "line": 266,
+      "line": 275,
       "symbol": "GlobalMessageView.generateQRCode(from:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/View/GlobalMessageView.swift",
-      "line": 289,
-      "symbol": "GlobalMessageView.set(message:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/View/GlobalMessageView.swift",
-      "line": 320,
+      "line": 372,
       "symbol": "GlobalMessageView.nextIndex()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/View/GlobalMessageView.swift",
-      "line": 335,
+      "line": 387,
       "symbol": "GlobalMessageView.textExceedBoundsOf(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gianluca/Documents/Developer/Apple Project/Viewer/Viewer/View/GlobalMessageView.swift",
-      "line": 341,
+      "line": 393,
       "symbol": "GlobalMessageView.scrollTextIfNeeded(in:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
