@@ -21,7 +21,7 @@ class CKController {
 
     
     
-   static func saveSubscription(for type: String, ID:String) {
+   static func saveSubscription(for type: String, ID: String) {
         
         var predicate = NSPredicate(value: true)
         var options: CKQuerySubscription.Options = []
@@ -34,7 +34,7 @@ class CKController {
 //        This subscribes just to updates on the current TV record
         case CKKeys.tvSubscriptionKey:
             options = [.firesOnRecordUpdate]
-            predicate = NSPredicate(format: "name == %@ ",UIDevice.current.name)
+            predicate = NSPredicate(format: "name == %@ ", UIDevice.current.name)
         case CKKeys.serviceSubscriptionKey:
             options = [.firesOnRecordUpdate]
             
@@ -53,7 +53,7 @@ class CKController {
     
 
         CKKeys.database.save(subscription) { (subscription, error) in
-            guard let _ = subscription, error == nil else {
+            guard subscription != nil, error == nil else {
                 print(error!.localizedDescription)
                 let err = error as? CKError
                 if err?.code ==  CKError.Code.serverRejectedRequest {
@@ -73,7 +73,7 @@ class CKController {
     
     static func removeSubscriptions() {
         
-        CKKeys.database.delete(withSubscriptionID: CKKeys.messageSubscriptionKey) { (subscriptionID, error) in
+        CKKeys.database.delete(withSubscriptionID: CKKeys.messageSubscriptionKey) { (_, error) in
             guard error == nil else {
                 debugPrint(error!.localizedDescription)
                 return
@@ -81,14 +81,14 @@ class CKController {
             
         }
         
-        CKKeys.database.delete(withSubscriptionID: CKKeys.tvSubscriptionKey) { (subscriptionID, error) in
+        CKKeys.database.delete(withSubscriptionID: CKKeys.tvSubscriptionKey) { (_, error) in
             guard error == nil else {
                 debugPrint(error!.localizedDescription)
                 return
             }
         }
         
-        CKKeys.database.delete(withSubscriptionID: CKKeys.serviceSubscriptionKey) { (subscriptionID, error) in
+        CKKeys.database.delete(withSubscriptionID: CKKeys.serviceSubscriptionKey) { (_, error) in
             guard error == nil else {
                 debugPrint(error!.localizedDescription)
                 return
@@ -115,12 +115,15 @@ class CKController {
      */
    
     
-    static func postTickerMessage(_ text:String,onTvNamed name: String) {
-            TVModel.getTV(withName: name) { (tv, error) in
-                guard let _ = tv, error == nil else {print(error!.localizedDescription);return}
-                tv!.tickerMsg = text
-                UsageStatisticsModel.addTickerMessage(length: text.count)
+    static func postTickerMessage(_ text: String, onTvNamed name: String) {
+        TVModel.getTV(withName: name) { (tv, error) in
+            guard tv != nil, error == nil else {
+                print(error!.localizedDescription)
+                return
             }
+            tv!.tickerMsg = text
+            UsageStatisticsModel.addTickerMessage(length: text.count)
+        }
     }
     
     
@@ -142,14 +145,16 @@ class CKController {
     
     
     
-    static func postTickerMessage(_ text:String,onTvGroup group: TVGroup) {
+    static func postTickerMessage(_ text: String, onTvGroup group: TVGroup) {
         TVModel.getTvs(ofGroup: group) { (tvs, error) in
-            guard let _ = tvs, error == nil else {print(error!.localizedDescription);return}
+            guard tvs != nil, error == nil else {
+                print(error!.localizedDescription)
+                return
+            }
             tvs!.forEach({ (tv) in
                 tv.tickerMsg = text
             })
             UsageStatisticsModel.addTickerMessage(length: text.count)
-
         }
     }
     
@@ -171,7 +176,10 @@ class CKController {
     
     static func removeTickerMessage(fromTvsIn tvGroup: TVGroup) {
         TVModel.getTvs(ofGroup: tvGroup) { (tvs, error) in
-            guard let _ = tvs, error == nil else {print(error!.localizedDescription);return}
+            guard tvs != nil, error == nil else {
+                print(error!.localizedDescription)
+                return
+            }
             
             let records = tvs!.map({ (tv) -> CKRecord in
                 tv.record.setValue(nil, forKey: TV.keys.ticker)
@@ -204,7 +212,10 @@ class CKController {
 
     static func removeTickerMessage(fromTVNamed name: String) {
         TVModel.getTV(withName: name) { (tv, error) in
-            guard let _ = tv, error == nil else {print(error!.localizedDescription);return}
+            guard tv != nil, error == nil else {
+                print(error!.localizedDescription)
+                return
+            }
             tv!.record.setValue(nil, forKey: TV.keys.ticker)
             let op = CKModifyRecordsOperation(recordsToSave: [tv!.record], recordIDsToDelete: nil)
             op.savePolicy = .changedKeys
@@ -227,7 +238,7 @@ class CKController {
      - Author: @Micheledes
      */
     
-    static func isThereAMessage(onTV tv:TV)->Bool {
+    static func isThereAMessage(onTV tv: TV) -> Bool {
         return tv.tickerMsg != "" 
     }
     
@@ -249,11 +260,14 @@ class CKController {
      - Author: @Micheledes
      */
 
-    static func getAiringTickers(in group: TVGroup) -> [(String,String)] {
+    static func getAiringTickers(in group: TVGroup) -> [(String, String)] {
         let sem = DispatchSemaphore(value: 0)
         var tickers: [(message: String, tvName: String)] = []
         TVModel.getTvs(ofGroup: group) {(tvs, error) in
-            guard let _ = tvs, error == nil else {print(error!.localizedDescription);return}
+            guard tvs != nil, error == nil else {
+                print(error!.localizedDescription)
+                return
+            }
             
             tvs?.forEach({ (tv) in
                 if isThereAMessage(onTV: tv) {
@@ -287,7 +301,10 @@ class CKController {
         let sem = DispatchSemaphore(value: 0)
         var keynote: [(image: [UIImage]?, tvName: String)] = []
         TVModel.getTvs(ofGroup: group) {(tvs, error) in
-            guard let _ = tvs, error == nil else {print(error!.localizedDescription);return}
+            guard tvs != nil, error == nil else {
+                print(error!.localizedDescription)
+                return
+            }
             
             tvs?.forEach({ (tv) in
                 if isThereAKeynote(on: tv) {
@@ -303,7 +320,7 @@ class CKController {
         return keynote
     }
     
-    static func isThereAKeynote(on tv:TV) -> Bool {
+    static func isThereAKeynote(on tv: TV) -> Bool {
         return tv.keynote != nil
     }
     
@@ -351,11 +368,11 @@ class CKController {
      - Author: @Micheledes
      */
     
-    static func getAllGlobalMessages(completionHandler: @escaping ()->Void) throws -> [GlobalMessage]  {
+    static func getAllGlobalMessages(completionHandler: @escaping () -> Void) throws -> [GlobalMessage] {
         var mess: [GlobalMessage] = []
         let sem = DispatchSemaphore(value: 0)
         GlobalMessageModel.getAllMessages { (messages, error) in
-            guard let _ = messages, error == nil else {
+            guard messages != nil, error == nil else {
                 debugPrint(error!.localizedDescription)
                 return
             }
@@ -390,12 +407,12 @@ class CKController {
      - Author: @Micheledes
      */
     
-    static func getAllTVs(from group :TVGroup) throws -> [TV] {
+    static func getAllTVs(from group: TVGroup) throws -> [TV] {
         var tvVector: [TV] = []
         let sem = DispatchSemaphore(value: 0)
         
         TVModel.getTvs(ofGroup: group) { (tvs, error) in
-            guard let _ = tvs, error == nil else {
+            guard tvs != nil, error == nil else {
                 debugPrint(error!.localizedDescription)
                 return
             }
@@ -406,7 +423,6 @@ class CKController {
         if sem.wait(timeout: .distantFuture) == .timedOut {
             throw CKQueryException.connectionTimedOut("Request Timed Out, check your internet connection")
         }
-        
         return tvVector
     }
     
@@ -430,9 +446,9 @@ class CKController {
      - Author: @Micheledes
      */
     
-    static func postMessage(title:String , subtitle: String, location: String?,date:(String?,String?), description: String?, URL: URL?,timeToLive:TimeInterval ) {
-    GlobalMessageModel.postMessage(title:title , subtitle: subtitle, location: location,date:date, description: description, URL: URL,timeToLive: timeToLive) { (record, error) -> Void in
-            if let _ = error {
+    static func postMessage(title: String, subtitle: String, location: String?, date: (String?, String?), description: String?, URL: URL?, timeToLive: TimeInterval) {
+    GlobalMessageModel.postMessage(title: title, subtitle: subtitle, location: location, date: date, description: description, URL: URL, timeToLive: timeToLive) { (_, error) -> Void in
+            if error != nil {
                 print(error!.localizedDescription)
             }
         }
@@ -441,19 +457,19 @@ class CKController {
         var hasDate: Bool = false
         
         
-        if let _ = URL {
+        if URL != nil {
             link = true
         }
         
-        if let _ = location {
+        if location != nil {
             hasLocation = true
         }
         
-        if let _ = date.0 {
+        if date.0 != nil {
             hasDate = true
         }
         
-        UsageStatisticsModel.addGlobalMessage(length: description?.count ?? 0, link: link , location: hasLocation, date: hasDate)
+        UsageStatisticsModel.addGlobalMessage(length: description?.count ?? 0, link: link, location: hasLocation, date: hasDate)
     }
     
 
@@ -475,9 +491,9 @@ class CKController {
      */
     
     
-   static func postKeynote(_ keynote:[UIImage],ofType imageType: ImageFileType?,onTVNamed name: String) {
-        TVModel.getTV(withName: name) { (TV, error) -> Void in
-            guard let _ = TV else {return }
+   static func postKeynote(_ keynote: [UIImage], ofType imageType: ImageFileType?, onTVNamed name: String) {
+        TVModel.getTV(withName: name) { (TV, _) -> Void in
+            guard TV != nil else { return }
             TV!.set(keynote: keynote, imageType: imageType ?? .PNG)
         }
         UsageStatisticsModel.addKeynote(length: keynote.count)
@@ -509,8 +525,8 @@ class CKController {
             return UIImage(data: imgData) ?? UIImage()
         }
         
-        TVModel.getTV(withName: name) { (TV, error) -> Void in
-            guard let _ = TV else {return }
+        TVModel.getTV(withName: name) { (TV, _) -> Void in
+            guard TV != nil else { return }
             TV!.set(keynote: keynote, imageType: type ?? .PNG)
         }
         UsageStatisticsModel.addKeynote(length: data.count)
@@ -518,13 +534,13 @@ class CKController {
     
     
     
-    static func postKeynoteData(_ data: [Data],ofType imageType:ImageFileType?, onTVsOfGroup group: TVGroup) {
+    static func postKeynoteData(_ data: [Data], ofType imageType: ImageFileType?, onTVsOfGroup group: TVGroup) {
         let keynote = data.map { (imgData) -> UIImage in
             return UIImage(data: imgData) ?? UIImage()
         }
         
-        TVModel.getTvs(ofGroup: group) { (tvs, error) in
-            guard let _ = tvs else {return}
+        TVModel.getTvs(ofGroup: group) { (tvs, _) in
+            guard tvs != nil else { return }
             for tv in tvs! {
                 tv.set(keynote: keynote, imageType: imageType ?? .PNG)
             }
@@ -548,11 +564,9 @@ class CKController {
      
      - Author: @Micheledes
      */
-    
-    
-   static func postKeynote(_ keynote: [UIImage],ofType imageType:ImageFileType?, onTVsOfGroup group: TVGroup) {
-        TVModel.getTvs(ofGroup: group) { (tvs, error) in
-            guard let _ = tvs else {return}
+   static func postKeynote(_ keynote: [UIImage], ofType imageType: ImageFileType?, onTVsOfGroup group: TVGroup) {
+        TVModel.getTvs(ofGroup: group) { (tvs, _) in
+            guard tvs != nil else { return }
             for tv in tvs! {
                 tv.set(keynote: keynote, imageType: imageType ?? .PNG)
             }
@@ -579,9 +593,9 @@ class CKController {
      - Author: @Micheledes
      */
     
-   static func removeKeynote(FromTV name:String) {
-        TVModel.getTV(withName: name) { (tv, error) in
-            guard let tv = tv else {return} //TODO: Add error handling
+   static func removeKeynote(FromTV name: String) {
+        TVModel.getTV(withName: name) { (tv, _) in
+            guard let tv = tv else { return } //TODO: Add error handling
             tv.removeKeynote()
         }
     }
@@ -604,8 +618,8 @@ class CKController {
      */
     
    static func removeKeynote(fromTVGroup g: TVGroup) {
-        TVModel.getTvs(ofGroup: g) { (tvs, error) in
-            guard let tvs = tvs else {return}
+        TVModel.getTvs(ofGroup: g) { (tvs, _) in
+            guard let tvs = tvs else { return }
             for tv in tvs {
                 print("removing keynote from \(tv.name)")
                 tv.removeKeynote() //Add error handling
@@ -630,7 +644,7 @@ class CKController {
  */
 
 protocol CloudStored {
-    var record:CKRecord { get set }
+    var record: CKRecord { get set }
     static var recordType: String { get }
     init(record: CKRecord)
 }
@@ -650,7 +664,7 @@ protocol CloudStored {
  */
 
 
-enum CKQueryException:Error {
+enum CKQueryException: Error {
     case connectionTimedOut(String)
     case recordNotFound(String)
 }
@@ -698,14 +712,12 @@ enum CKKeys {
     static let messageSubscriptionKey = "CKMessageSubscription"
     static let tvSubscriptionKey = "CKTVSubscription"
     static let serviceSubscriptionKey = "CKServiceMessageSubscription"
-    
-    
 }
 
 protocol ATVViewDelegate {
-    func show(keynote:[UIImage])
+    func show(keynote: [UIImage])
     func hideKeynote()
-    func show(ticker:String)
+    func show(ticker: String)
     func hideTicker()
 }
 
@@ -725,5 +737,3 @@ enum TVGroup: String{
     case seminar = "seminar"
     case all = "all"
 }
-
-

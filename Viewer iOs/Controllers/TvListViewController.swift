@@ -22,7 +22,7 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     // MARK: CollectionView methods
     
-    @IBOutlet weak var collectionView: UICollectionView!{
+    @IBOutlet private weak var collectionView: UICollectionView!{
         didSet{
             collectionView.delegate = self
             collectionView.dataSource = self
@@ -31,9 +31,9 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
         }
     }
     // MARK: NextBarButton
-    @IBOutlet weak var nextBarButtonItem: UIBarButtonItem!
+    @IBOutlet private weak var nextBarButtonItem: UIBarButtonItem!
 
-    @IBAction func nextBarButtonPressed(_ sender: Any) {
+    @IBAction private func nextBarButtonPressed(_ sender: Any) {
         let summary = SummaryViewController()
         summary.isCheckoutMode = true
         summary.categories = category
@@ -50,9 +50,7 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
                 }
                 let prop = (message: tickerMessage, tvName: tvNames, TVGroup:selectedGroups)
                 summary.prop = prop
-                
-                break
-                
+                                
             case Categories.KeynoteViewer:
                 
                 var tvNames: String? = ""
@@ -61,8 +59,6 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
                 }
                 let prop = (image: keynote, tvName: tvNames, TVGroup: selectedGroups)
                 summary.prop = prop
-                
-                break
             default:
                 break
             }
@@ -84,7 +80,7 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
     // setting correct spacing
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         
-        if (UIScreen.main.bounds.width < 414){
+        if UIScreen.main.bounds.width < 414 {
             return UIEdgeInsets(top: 15, left: 20, bottom: 15, right: 20)
         } else {
             return UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
@@ -96,7 +92,7 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        if (UIScreen.main.bounds.width < 414){
+        if UIScreen.main.bounds.width < 414{
             return 43
         } else {
             return 28
@@ -105,11 +101,11 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width : CGFloat
-        let height : CGFloat
+        let width: CGFloat
+        let height: CGFloat
         
         //iPhone 8, X, Xs
-        if (UIScreen.main.bounds.width < 414){
+        if UIScreen.main.bounds.width < 414{
             if indexPath.item < 1 {
                 width = 345
                 height = 45
@@ -156,9 +152,9 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
 
             return cell ?? GroupsCollectionViewCell()
             
-        }else{
+        } else {
             let borderCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddAllTVGroup", for: indexPath) as? BorderCollectionViewCell
-            if (UIScreen.main.bounds.width < 414){
+            if UIScreen.main.bounds.width < 414{
                 borderCell?.frame.size = CGSize(width: 335, height: 45)
             } else {
                 borderCell?.frame.size = CGSize(width: 384, height: 45)
@@ -177,7 +173,7 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
         if cell?.reuseIdentifier == "TVGroup"{
             cell!.isSelected = true
             selectedGroups!.append(groups[indexPath.item - 1].name)
-        }else{
+        } else {
             for i in 1..<collectionView.numberOfItems(inSection: 0){
                 collectionView.selectItem(at: IndexPath(item: i, section: 0), animated: true, scrollPosition: .bottom)
             }
@@ -206,11 +202,11 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
             selectedGroups = selectedGroups!.filter { (tvGroup) -> Bool in
                 if tvGroup == groups[indexPath.item - 1].name{
                     return false
-                }else{
+                } else {
                     return true
                 }
             }
-        }else{
+        } else {
             for i in 1..<collectionView.numberOfItems(inSection: 0){
                 collectionView.deselectItem(at: IndexPath(item: i, section: 0), animated: true)
             }
@@ -243,4 +239,3 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
         }
     }
 }
-

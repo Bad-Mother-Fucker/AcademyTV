@@ -12,7 +12,7 @@ import CloudKit
 class MessagesTableViewController: UITableViewController {
     
     // MARK: Variables
-    let delegate = (UIApplication.shared.delegate as? AppDelegate)
+    weak var delegate = (UIApplication.shared.delegate as? AppDelegate)
 
     var globalMessages = [GlobalMessage](){
         didSet{
@@ -77,7 +77,7 @@ class MessagesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let remove = UITableViewRowAction(style: .destructive, title: "Delete") { [weak self] (action, indexPath) in
+        let remove = UITableViewRowAction(style: .destructive, title: "Delete") { [weak self] (_, indexPath) in
             
             CKController.remove(globalMessage: (self?.globalMessages[indexPath.row])!)
             self?.globalMessages.remove(at: indexPath.row)
@@ -100,7 +100,7 @@ class MessagesTableViewController: UITableViewController {
             self.globalMessages = try CKController.getAllGlobalMessages(completionHandler: {
                 debugPrint("Have all messages")
             })
-        }catch {
+        } catch {
             print(error.localizedDescription) //Handle connection timed out error
         }
         
@@ -113,11 +113,8 @@ class MessagesTableViewController: UITableViewController {
             if let destination = segue.destination as? EditMessageViewController{
                 destination.message = (sender as? GlobalMessage)
             }
-            
-            break
         default:
             break
         }
     }
 }
-

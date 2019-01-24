@@ -22,7 +22,7 @@ import CloudKit
         // Override point for customization after application launch.
         let recordQuery = CKQuery(recordType: UsageStatistics.recordType, predicate: NSPredicate(format: "recordCode == %@", "com.Rogue.Viewer.UsageStats"))
         CKKeys.database.perform(recordQuery, inZoneWith: nil) { (records, error) in
-            guard let _ = records else {
+            guard records != nil else {
                 if let error = error {
                     print(error.localizedDescription)
                 }
@@ -30,7 +30,7 @@ import CloudKit
             }
             guard records!.count > 0 else {
                 UsageStatistics.shared.record.setValue("com.Rogue.Viewer.UsageStats", forKey: "recordCode")
-                CKKeys.database.save(UsageStatistics.shared.record, completionHandler: { (record, error) in
+                CKKeys.database.save(UsageStatistics.shared.record, completionHandler: { _ in
                     
                 })
                 
@@ -65,4 +65,3 @@ import CloudKit
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 }
-

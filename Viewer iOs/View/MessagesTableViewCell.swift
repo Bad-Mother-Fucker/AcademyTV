@@ -10,7 +10,7 @@ import UIKit
 
 /// This class are used for rappresent the Message Cell
 class MessagesTableViewCell: UITableViewCell {
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var locationLabel: UILabel!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var descriptionLabel: UILabel!
+    @IBOutlet private weak var locationLabel: UILabel!
 }
