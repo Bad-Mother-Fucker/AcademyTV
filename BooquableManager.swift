@@ -75,7 +75,7 @@ class BooquableManager {
             DispatchQueue.main.sync {
                 if let orders = json.value(forKey: "orders") as? [NSDictionary]{
                     orders.forEach { (order) in
-                        self.ids.append(order.value(forKey: "id") as! String)
+                        self.ids.append((order.value(forKey: "id") as? String)!)
                     }
                     NotificationCenter.default.post(name: NSNotification.Name("GetAllOrders"), object: nil)
                 }
@@ -115,7 +115,7 @@ class BooquableManager {
                                                         startAt: startAt as String,
                                                         stopsAt: stopAt as String,
                                                     customer: customer,
-                                                    lines: lines[0] as! NSDictionary)
+                                                    lines: (lines[0] as? NSDictionary)!)
                     
                     NotificationCenter.default.post(name: NSNotification.Name("NewOrder"), object: nil, userInfo: ["order": booquableOrder])
                 }

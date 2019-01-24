@@ -12,7 +12,7 @@ import CloudKit
 class MessagesTableViewController: UITableViewController {
     
     // MARK: Variables
-    let delegate = (UIApplication.shared.delegate as! AppDelegate)
+    let delegate = (UIApplication.shared.delegate as? AppDelegate)
 
     var globalMessages = [GlobalMessage](){
         didSet{
@@ -26,7 +26,7 @@ class MessagesTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        getAllMessages(with: delegate.query)
+        getAllMessages(with: (delegate?.query)!)
         
         refreshControl = UIRefreshControl()
         
@@ -48,7 +48,7 @@ class MessagesTableViewController: UITableViewController {
     
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
         
-        self.getAllMessages(with: delegate.query)
+        self.getAllMessages(with: (delegate?.query)!)
         
         self.tableView.reloadData()
         refreshControl.endRefreshing()
@@ -111,7 +111,7 @@ class MessagesTableViewController: UITableViewController {
         switch segue.identifier {
         case "EditMessageSegue":
             if let destination = segue.destination as? EditMessageViewController{
-                destination.message = (sender as! GlobalMessage)
+                destination.message = (sender as? GlobalMessage)
             }
             
             break

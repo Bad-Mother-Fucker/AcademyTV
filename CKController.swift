@@ -55,8 +55,8 @@ class CKController {
         CKKeys.database.save(subscription) { (subscription, error) in
             guard let _ = subscription, error == nil else {
                 print(error!.localizedDescription)
-                let err = error as! CKError
-                if err.code ==  CKError.Code.serverRejectedRequest {
+                let err = error as? CKError
+                if err?.code ==  CKError.Code.serverRejectedRequest {
                     print("subscription already extists")
                 }
                 return

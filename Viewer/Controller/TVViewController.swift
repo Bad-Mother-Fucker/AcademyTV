@@ -17,7 +17,7 @@ class TVViewController: UIViewController {
         }
     }
 
-    let appDelegate  = UIApplication.shared.delegate as! AppDelegate
+    let appDelegate  = UIApplication.shared.delegate as? AppDelegate
     
     var currentTV:TV!
     
@@ -39,7 +39,7 @@ class TVViewController: UIViewController {
         
 //      comment to use videos directly from Dropbox
 
-//        videos = VideoDownloader.getVideos(from: videos as! [URL])
+//        videos = VideoDownloader.getVideos(from: videos as? [URL])
 
         
         

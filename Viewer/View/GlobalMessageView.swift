@@ -210,7 +210,9 @@ class GlobalMessageView: UIView {
                 self.set(message: self.globalMessages[index])
 //                self.scrollTextIfNeeded(in: self.descriptionLabel)
                 
-                // TODO: Everytime the message changes you need to calculate the expected descriptionLabel height, create the constraints and set the height to the expected value, so that the superview can end 30 pts later and you can simply use an UIView.animate on the layoutIfNeeded() method to adjust that. THIS METHOD SHOULD BE APPLIED ALSO TO SOLVE THE FIXME WRITTEN ABOVE.
+                /* TODO: Everytime the message changes you need to calculate the expected descriptionLabel height,
+                 create the constraints and set the height to the expected valueso that the superview can end 30 pts later and you can simply use an
+                 UIView.animate on the layoutIfNeeded() method to adjust that. THIS METHOD SHOULD BE APPLIED ALSO TO SOLVE THE FIXME WRITTEN ABOVE. */
                 
             }
         }

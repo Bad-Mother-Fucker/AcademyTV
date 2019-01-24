@@ -125,7 +125,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
         print("notification recieved")
         let notificationName: CKNotificationName
-        let ckqn = CKQueryNotification(fromRemoteNotificationDictionary: userInfo as! [String:Any])
+        let ckqn = CKQueryNotification(fromRemoteNotificationDictionary: userInfo as? [String:Any])
     
         switch ckqn.subscriptionID {
         case CKKeys.tvSubscriptionKey:

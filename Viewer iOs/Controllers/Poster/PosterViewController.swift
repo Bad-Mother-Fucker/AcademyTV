@@ -89,20 +89,21 @@ class PosterViewController: UIViewController, UICollectionViewDelegate, UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "galleryImageCell", for: indexPath) as! ImagePickerCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "galleryImageCell", for: indexPath) as? ImagePickerCollectionViewCell
         
-        cell.imageView.image = keynotes[indexPath.item]
-        cell.checkerView.isHidden = true
+        cell?.imageView.image = keynotes[indexPath.item]
+        cell?.checkerView.isHidden = true
         
-        return cell
+        return cell ?? ImagePickerCollectionViewCell()
+        
     }
     
     //MARK: - Image picker Delegates
     
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        let chosenImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
-        keynotes.append(chosenImage)
+        let chosenImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+        keynotes.append(chosenImage ?? UIImage())
         DispatchQueue.main.async {
             self.collectionView.reloadData()
             if self.keynotes.count != 0{

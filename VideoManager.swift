@@ -184,7 +184,8 @@ class VideoDownloader {
      - Return: <#Return#>
 
      
-     - Note: If there is any video stored in userdefaults it returns the urls of the user default folder where the videos are stored. Otherwise it starts downloading them, and in the meanwhile returns the dropbox video urls
+     - Note: If there is any video stored in userdefaults it returns the urls of the user default folder where the videos are stored.
+     Otherwise it starts downloading them, and in the meanwhile returns the dropbox video urls
      
      - Version: 1.0
      

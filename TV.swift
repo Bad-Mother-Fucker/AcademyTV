@@ -160,7 +160,7 @@ class TV: CloudStored {
     
     var name: String {
         get{
-            return record.value(forKey: TV.keys.name) as! String
+            return record.value(forKey: TV.keys.name) as? String ?? ""
         }
         set{
             record.setValue(newValue, forKey: TV.keys.name)
@@ -172,7 +172,7 @@ class TV: CloudStored {
     
     var uuid: String  {
         get{
-            return record.value(forKey: TV.keys.uuid) as! String
+            return record.value(forKey: TV.keys.uuid) as? String ?? ""
         }
         set{
             record.setValue(newValue, forKey: TV.keys.uuid)
@@ -184,7 +184,7 @@ class TV: CloudStored {
     
     var tvGroup: TVGroup {
         get {
-            return TVGroup(rawValue: record.value(forKey: TV.keys.tvGroup) as! String) ?? .all
+            return TVGroup(rawValue: record.value(forKey: TV.keys.tvGroup) as? String ?? "") ?? .all
         }
         set{
             record.setValue(newValue.rawValue, forKey: TV.keys.tvGroup)

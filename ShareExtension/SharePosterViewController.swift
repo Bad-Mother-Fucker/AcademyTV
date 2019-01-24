@@ -90,12 +90,12 @@ class SharePosterViewController: UIViewController, UICollectionViewDelegate, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "galleryImageCell", for: indexPath) as! ImagePickerCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "galleryImageCell", for: indexPath) as? ImagePickerCollectionViewCell
         
-        cell.imageView.image = keynotes[indexPath.item]
-        cell.checkerView.isHidden = true
+        cell?.imageView.image = keynotes[indexPath.item]
+        cell?.checkerView.isHidden = true
         
-        return cell
+        return cell ?? ImagePickerCollectionViewCell()
     }
     
     func loadImagesFromAttachments(){

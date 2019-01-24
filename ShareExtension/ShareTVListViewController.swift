@@ -164,11 +164,11 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if indexPath.item > 0{
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TVGroup", for: indexPath) as! GroupsCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TVGroup", for: indexPath) as? GroupsCollectionViewCell
             
             let group = groups[indexPath.item - 1]
             
-            cell.setGradientBackground(form: UIColor(red: CGFloat(group.startingColor.red/255),
+            cell?.setGradientBackground(form: UIColor(red: CGFloat(group.startingColor.red/255),
                                                      green: CGFloat(group.startingColor.green/255),
                                                      blue: CGFloat(group.startingColor.blue/255),
                                                      alpha: 1),
@@ -177,20 +177,20 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
                                                    blue: CGFloat(group.endingColor.blue/255),
                                                    alpha: 1))
             
-            cell.groupNameLabel.text = group.name.rawValue
+            cell?.groupNameLabel.text = group.name.rawValue
             
-            return cell
+            return cell ?? GroupsCollectionViewCell()
             
         }else{
-            let borderCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddAllTVGroup", for: indexPath) as! BorderCollectionViewCell
+            let borderCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddAllTVGroup", for: indexPath) as? BorderCollectionViewCell
             if (UIScreen.main.bounds.width < 414){
-                borderCell.frame.size = CGSize(width: 335, height: 45)
+                borderCell?.frame.size = CGSize(width: 335, height: 45)
             } else {
-                borderCell.frame.size = CGSize(width: 384, height: 45)
+                borderCell?.frame.size = CGSize(width: 384, height: 45)
             }
             
-            borderCell.titleLabel.text = "Select All"
-            return borderCell
+            borderCell?.titleLabel.text = "Select All"
+            return borderCell ?? BorderCollectionViewCell()
         }
         
     }
@@ -220,6 +220,8 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
         } else {
             postBarButtonItem.isEnabled = true
         }
+
+        print(selectedGroups)
         
     }
     
@@ -236,8 +238,8 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
                 }
             }
         }else{
-            for i in 1..<collectionView.numberOfItems(inSection: 0){
-                collectionView.deselectItem(at: IndexPath(item: i, section: 0), animated: true)
+            for index in 1..<collectionView.numberOfItems(inSection: 0){
+                collectionView.deselectItem(at: IndexPath(item: index, section: 0), animated: true)
             }
             selectedGroups!.removeAll()
         }
@@ -279,17 +281,21 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
             return
         }
         
-        let keynoteToPost = (image: keynote, tvName: "", TVGroup: groups)
-        keynoteToPost.TVGroup.forEach { (group) in
-            CKController.postKeynote(keynoteToPost.image, ofType: .PNG, onTVsOfGroup: group.name)
+        let keynoteToPost = (image: keynote, tvName: "", TVGroup: selectedGroups)
+        keynoteToPost.TVGroup?.forEach { (group) in
+
+            print("\(keynote.count) images")
+            CKController.removeKeynote(fromTVGroup: group)
+            CKController.postKeynote(keynoteToPost.image, ofType: .PNG, onTVsOfGroup: group)
             print("Posted")
         }
         
         let alert = UIAlertController(title: "Saved", message: "In a moment it will be displayed on selected tv", preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .default, handler: nil)
         alert.addAction(action)
-        self.present(alert, animated: true, completion: {self.ShareExtensionContext!.completeRequest(returningItems: [], completionHandler: nil)})
+        self.present(alert, animated: true, completion: nil)
         // FIXME: This completeRequest dismisses the view, i don't know whether this will work after or during the display of the alert view. It needs to be handled properly.
+        self.ShareExtensionContext!.completeRequest(returningItems: [], completionHandler: nil)
         
     }
     

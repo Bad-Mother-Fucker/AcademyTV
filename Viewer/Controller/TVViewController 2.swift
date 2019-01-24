@@ -17,7 +17,7 @@ class TVViewController: UIViewController {
         }
     }
 
-    let appDelegate  = UIApplication.shared.delegate as! AppDelegate
+    let appDelegate  = UIApplication.shared.delegate as? AppDelegate
     
     var currentTV:TV!
     

@@ -139,11 +139,11 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if indexPath.item > 0{
-             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TVGroup", for: indexPath) as! GroupsCollectionViewCell
+             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TVGroup", for: indexPath) as? GroupsCollectionViewCell
             
             let group = groups[indexPath.item - 1]
     
-            cell.setGradientBackground(form: UIColor(red: CGFloat(group.startingColor.red/255),
+            cell?.setGradientBackground(form: UIColor(red: CGFloat(group.startingColor.red/255),
                                                      green: CGFloat(group.startingColor.green/255),
                                                      blue: CGFloat(group.startingColor.blue/255),
                                                      alpha: 1),
@@ -152,20 +152,20 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
                                                    blue: CGFloat(group.endingColor.blue/255),
                                                    alpha: 1))
             
-            cell.groupNameLabel.text = group.name.rawValue
+            cell?.groupNameLabel.text = group.name.rawValue
 
-            return cell
+            return cell ?? GroupsCollectionViewCell()
             
         }else{
-            let borderCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddAllTVGroup", for: indexPath) as! BorderCollectionViewCell
+            let borderCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddAllTVGroup", for: indexPath) as? BorderCollectionViewCell
             if (UIScreen.main.bounds.width < 414){
-                borderCell.frame.size = CGSize(width: 335, height: 45)
+                borderCell?.frame.size = CGSize(width: 335, height: 45)
             } else {
-                borderCell.frame.size = CGSize(width: 384, height: 45)
+                borderCell?.frame.size = CGSize(width: 384, height: 45)
             }
             
-            borderCell.titleLabel.text = "Select All"
-            return borderCell
+            borderCell?.titleLabel.text = "Select All"
+            return borderCell ?? BorderCollectionViewCell()
         }
 
     }

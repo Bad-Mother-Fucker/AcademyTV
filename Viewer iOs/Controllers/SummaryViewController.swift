@@ -154,18 +154,18 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
         if let cat = categories{
             switch cat {
             case Categories.TickerMessage:
-                let ticker = prop as! (message: String, tvName: String, TVGroup: [TVGroup])
-                ticker.TVGroup.forEach { (group) in
-                    CKController.postTickerMessage(ticker.message, onTvGroup: group)
+                let ticker = prop as? (message: String, tvName: String, TVGroup: [TVGroup])
+                ticker?.TVGroup.forEach { (group) in
+                    CKController.postTickerMessage((ticker?.message)!, onTvGroup: group)
                 }
             case Categories.KeynoteViewer:
-                let keynote = prop as! (image: [UIImage]?, tvName: String, TVGroup:  [TVGroup])
-                keynote.TVGroup.forEach { (group) in
-                    CKController.postKeynote(keynote.image!, ofType: .PNG, onTVsOfGroup: group)
+                let keynote = prop as? (image: [UIImage]?, tvName: String, TVGroup:  [TVGroup])
+                keynote?.TVGroup.forEach { (group) in
+                    CKController.postKeynote(keynote?.image! ?? [UIImage()], ofType: .PNG, onTVsOfGroup: group)
                 }
             case Categories.GlobalMessage:
-                let gm = prop as! GlobalMessage
-                CKController.postMessage(title: gm.title, subtitle: gm.subtitle, location: gm.location, date: gm.date, description: gm.description, URL: gm.url, timeToLive: 0)
+                let gm = prop as? GlobalMessage
+                CKController.postMessage(title: gm?.title ?? "", subtitle: (gm?.subtitle)!, location: gm?.location, date: (gm?.date)!, description: gm?.description, URL: gm?.url, timeToLive: 0)
             default:
                 break
             }
@@ -190,15 +190,15 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
              
                 break
             case Categories.GlobalMessage:
-                let gm = prop as! GlobalMessage
-                gm.title = (tableView.cellForRow(at: IndexPath(row: 0, section: 0))?.viewWithTag(500) as? UILabel)?.text ?? ""
-                gm.subtitle = (tableView.cellForRow(at: IndexPath(row: 0, section: 0))?.viewWithTag(501) as? UILabel)?.text ?? ""
-                gm.location = (tableView.cellForRow(at: IndexPath(row: 1, section: 0))?.viewWithTag(505) as? UILabel)?.text ?? ""
-                gm.date.0 = (tableView.cellForRow(at: IndexPath(row: 1, section: 0))?.viewWithTag(504) as? UITextField)?.text ?? ""
-                gm.description = (tableView.cellForRow(at: IndexPath(row: 0, section: 0))?.viewWithTag(502) as? UITextField)?.text ?? ""
-                gm.url = URL(string: (tableView.cellForRow(at: IndexPath(row: 1, section: 0))?.viewWithTag(503) as? UITextField)?.text ?? "")
+                let gm = prop as? GlobalMessage
+                gm?.title = (tableView.cellForRow(at: IndexPath(row: 0, section: 0))?.viewWithTag(500) as? UILabel)?.text ?? ""
+                gm?.subtitle = (tableView.cellForRow(at: IndexPath(row: 0, section: 0))?.viewWithTag(501) as? UILabel)?.text ?? ""
+                gm?.location = (tableView.cellForRow(at: IndexPath(row: 1, section: 0))?.viewWithTag(505) as? UILabel)?.text ?? ""
+                gm?.date.0 = (tableView.cellForRow(at: IndexPath(row: 1, section: 0))?.viewWithTag(504) as? UITextField)?.text ?? ""
+                gm?.description = (tableView.cellForRow(at: IndexPath(row: 0, section: 0))?.viewWithTag(502) as? UITextField)?.text ?? ""
+                gm?.url = URL(string: (tableView.cellForRow(at: IndexPath(row: 1, section: 0))?.viewWithTag(503) as? UITextField)?.text ?? "")
                 
-                let operation = CKModifyRecordsOperation(recordsToSave: [gm.record], recordIDsToDelete: nil)
+                let operation = CKModifyRecordsOperation(recordsToSave: [(gm?.record)!], recordIDsToDelete: nil)
                 CKKeys.database.add(operation)
                 self.navigationController?.dismiss(animated: true, completion: nil)
                 
@@ -449,7 +449,7 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
             case .TickerMessage:
                 // Total of 6 rows
 
-                let tickerMessage = prop as! (message: String, tvName: String?, TVGroup: [TVGroup]?)
+                let tickerMessage = prop as? (message: String, tvName: String?, TVGroup: [TVGroup]?)
                 
                 switch indexPath.row{
                 case 1:
@@ -462,7 +462,7 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
                     label.text = "Text"
                     
                     let textLabel = UILabel(frame: CGRect(x: 72, y: 38, width: 287, height: 44))
-                    textLabel.text = tickerMessage.message
+                    textLabel.text = tickerMessage?.message
                     textLabel.textColor = UIColor(red: 0, green: 119/255, blue: 1, alpha: 1)
                     
                     cell.contentView.addSubview(label)
@@ -484,7 +484,7 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
                     
                     var tvNamesString = String()
                     
-                    if let groups = tickerMessage.TVGroup{
+                    if let groups = tickerMessage?.TVGroup{
                         for tm in groups{
                             tvNamesString.append(contentsOf: tm.rawValue)
                             tvNamesString.append(contentsOf: ",")
@@ -642,7 +642,7 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
             case .GlobalMessage:
                 // Total of 6 rows
 
-                let globalMessage = prop as! GlobalMessage
+                let globalMessage = prop as? GlobalMessage
                 
                 switch indexPath.row{
                     
@@ -664,9 +664,9 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
                     let subtitleLabel = UILabel(frame: CGRect(x: 72, y: 105, width: 287, height: 44))
                     let textLabel = UILabel(frame: CGRect(x: 72, y: 175, width: 287, height: 44))
                     
-                    titleLabel.text = globalMessage.title
-                    subtitleLabel.text = globalMessage.subtitle
-                    textLabel.text = globalMessage.description
+                    titleLabel.text = globalMessage?.title
+                    subtitleLabel.text = globalMessage?.subtitle
+                    textLabel.text = globalMessage?.description
                     
                     titleLabel.tag = 500
                     subtitleLabel.tag = 501
@@ -711,9 +711,9 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
                     dateTimeTextEdit.delegate = self
                     locationTextEdit.delegate = self
                     
-                    urlTextEdit.text = globalMessage.url?.absoluteString ?? "None"
-                    dateTimeTextEdit.text = globalMessage.date.day ?? "None"
-                    locationTextEdit.text = globalMessage.location ?? "None"
+                    urlTextEdit.text = globalMessage?.url?.absoluteString ?? "None"
+                    dateTimeTextEdit.text = globalMessage?.date.day ?? "None"
+                    locationTextEdit.text = globalMessage?.location ?? "None"
                     
                     urlTextEdit.tag = 503
                     dateTimeTextEdit.tag = 504

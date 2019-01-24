@@ -162,7 +162,7 @@ class GlassOfficeViewController: TVViewController, UITableViewDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-       // self.currentTV = (UIApplication.shared.delegate as! AppDelegate).currentTV
+       // self.currentTV = (UIApplication.shared.delegate as? AppDelegate).currentTV
         //self.currentTV.keynoteDelegate = self
         
         BooquableManager.shared.getOrders(with: .started)
@@ -176,7 +176,7 @@ class GlassOfficeViewController: TVViewController, UITableViewDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(getAllOrders), name: NSNotification.Name("GetAllOrders"), object: nil)
         
         NotificationCenter.default.addObserver(forName: Notification.Name(CKNotificationName.tvSet.rawValue), object: nil, queue: .main) { (notification) in
-            self.currentTV = (UIApplication.shared.delegate as! AppDelegate).currentTV
+            self.currentTV = (UIApplication.shared.delegate as? AppDelegate).currentTV
             self.currentTV.viewDelegate = self
         }
 
@@ -311,7 +311,7 @@ extension GlassOfficeViewController: UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "booquableTableViewCell", for: indexPath) as! GlassOfficeTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "booquableTableViewCell", for: indexPath) as? GlassOfficeTableViewCell
         cell.userNameLabel.text = orders[indexPath.row].customerName()
         let deviceInfo = orders[indexPath.row].getDevice()
         cell.deviceNameLabel.text = deviceInfo.name

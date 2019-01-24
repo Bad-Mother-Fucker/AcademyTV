@@ -85,7 +85,7 @@ class AddPropsViewController: UIViewController {
     
     var selectedDateTime: String = "" {
         didSet {
-          (tableView.cellForRow(at: IndexPath(row: 3, section: 3))?.viewWithTag(500) as! UILabel).text = selectedDateTime
+            (tableView.cellForRow(at: IndexPath(row: 3, section: 3))?.viewWithTag(500) as? UILabel)?.text = selectedDateTime
         }
         
     }
@@ -199,7 +199,7 @@ class AddPropsViewController: UIViewController {
     @objc func checkSummary(){
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "SetsViewController") as! TvListViewController
+        let controller = storyboard.instantiateViewController(withIdentifier: "SetsViewController") as? TvListViewController
 //        #warning("Compleate methods.")
         if props.title == Categories.GlobalMessage.rawValue {
             let checkOutVC = SummaryViewController()
@@ -209,13 +209,13 @@ class AddPropsViewController: UIViewController {
             self.navigationController?.pushViewController(checkOutVC, animated: true)
         }else if props.title == Categories.TickerMessage.rawValue {
             
-            controller.category = .TickerMessage
-            controller.tickerMessage = (getProp() as! String)
-            navigationController?.pushViewController(controller, animated: true)
+            controller?.category = .TickerMessage
+            controller?.tickerMessage = (getProp() as? String)
+            navigationController?.pushViewController(controller ?? SummaryViewController(), animated: true)
         }else if props.title == Categories.KeynoteViewer.rawValue {
-            controller.category = .KeynoteViewer
-            controller.keynote = getProp() as! [UIImage]?
-            navigationController?.pushViewController(controller, animated: true)
+            controller?.category = .KeynoteViewer
+            controller?.keynote = getProp() as? [UIImage]? ?? [UIImage]()
+            navigationController?.pushViewController(controller ?? SummaryViewController(), animated: true)
         }
         
         
@@ -225,19 +225,19 @@ class AddPropsViewController: UIViewController {
     func getProp() -> Any? {
         switch props.title {
         case Categories.GlobalMessage.rawValue:
-            let title = (tableView.cellForRow(at: IndexPath(row: 0, section: 2))?.viewWithTag(500) as! UITextField).text!
-            let subtitle = (tableView.cellForRow(at: IndexPath(row: 1, section: 2))?.viewWithTag(500) as! UITextField).text!
-            let description = (tableView.cellForRow(at: IndexPath(row: 2, section: 2))?.viewWithTag(500) as! UITextField).text
-            let url = (tableView.cellForRow(at: IndexPath(row: 0, section: 3))?.viewWithTag(500) as! UITextField).text
-            var location = (tableView.cellForRow(at: IndexPath(row: 1, section: 3))?.viewWithTag(500) as! UILabel).text
+            let title = (tableView.cellForRow(at: IndexPath(row: 0, section: 2))?.viewWithTag(500) as? UITextField)?.text!
+            let subtitle = (tableView.cellForRow(at: IndexPath(row: 1, section: 2))?.viewWithTag(500) as? UITextField)?.text!
+            let description = (tableView.cellForRow(at: IndexPath(row: 2, section: 2))?.viewWithTag(500) as? UITextField)?.text
+            let url = (tableView.cellForRow(at: IndexPath(row: 0, section: 3))?.viewWithTag(500) as? UITextField)?.text
+            var location = (tableView.cellForRow(at: IndexPath(row: 1, section: 3))?.viewWithTag(500) as? UILabel)?.text
             let dateTime = (tableView.cellForRow(at: IndexPath(row: 3, section: 3))?.viewWithTag(500) as? UILabel)?.text
 
             if location == "None" {
                 location = nil
             }
 
-            let prop = GlobalMessage(title: title,
-                                     subtitle: subtitle,
+            let prop = GlobalMessage(title: title ?? " ",
+                                     subtitle: subtitle ?? " ",
                                      location: location,
                                      date: (dateTime,nil),
                                      description: description,
@@ -247,7 +247,7 @@ class AddPropsViewController: UIViewController {
             return prop
         case Categories.TickerMessage.rawValue:
 
-            let text = (tableView.cellForRow(at: IndexPath(row: 0, section: 2))?.viewWithTag(500) as! UITextField).text!
+            let text = (tableView.cellForRow(at: IndexPath(row: 0, section: 2))?.viewWithTag(500) as? UITextField)?.text!
             
             return text
 

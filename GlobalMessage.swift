@@ -100,7 +100,7 @@ class GlobalMessage: CloudStored {
     
     var title: String {
         get{
-            return record.object(forKey: GlobalMessage.keys.title) as! String
+            return record.object(forKey: GlobalMessage.keys.title) as? String ?? ""
         }
         set{
             
@@ -113,7 +113,7 @@ class GlobalMessage: CloudStored {
     
     var subtitle: String {
         get{
-            return record.object(forKey: GlobalMessage.keys.subtitle) as! String
+            return record.object(forKey: GlobalMessage.keys.subtitle) as? String ?? ""
         }
         set{
             record.setValue(newValue, forKey: GlobalMessage.keys.subtitle)
@@ -151,7 +151,7 @@ class GlobalMessage: CloudStored {
     
     var creationDate: Date {
         get{
-            return record.object(forKey: "createdAt") as! Date
+            return record.object(forKey: "createdAt") as? Date ?? Date()
         }
     }
     
