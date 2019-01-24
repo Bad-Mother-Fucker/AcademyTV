@@ -300,7 +300,7 @@ class BoardViewController: TVViewController {
         
         
         NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: CKNotificationName.tvSet.rawValue), object: nil, queue: .main) { _ in
-            self.currentTV = (UIApplication.shared.delegate as? AppDelegate).currentTV
+            self.currentTV = (UIApplication.shared.delegate as? AppDelegate)?.currentTV
             self.currentTV.viewDelegate = self
            
             
@@ -326,28 +326,31 @@ class BoardViewController: TVViewController {
         
         NotificationCenter.default.addObserver(forName: Notification.Name(CKNotificationName.MessageNotification.create.rawValue), object: nil, queue: .main) { (notification) in
             let userinfo = notification.userInfo as? [String:GlobalMessage]
-            let msg = userinfo["newMsg"]!
-            self.globalMessageView.globalMessages.append(msg)
+            if let msg = userinfo?["newMsg"] {
+                self.globalMessageView.globalMessages.append(msg)
+            }
         }
         
         NotificationCenter.default.addObserver(forName: Notification.Name(CKNotificationName.MessageNotification.delete.rawValue), object: nil, queue: .main) { (notification) in
             let userinfo = notification.userInfo as? [String:CKRecord.ID]
-            let recordID = userinfo["recordID"]!
-            self.globalMessageView.globalMessages = self.globalMessageView.globalMessages.filter({ (msg) -> Bool in
-                return msg.record.recordID != recordID
-            })
+            if let recordID = userinfo?["recordID"] {
+                self.globalMessageView.globalMessages = self.globalMessageView.globalMessages.filter({ (msg) -> Bool in
+                    return msg.record.recordID != recordID
+                })
+            }
         }
         
         
         NotificationCenter.default.addObserver(forName: Notification.Name(CKNotificationName.MessageNotification.update.rawValue), object: nil, queue: .main) { (notification) in
             let userinfo = notification.userInfo as? [String:GlobalMessage]
-            let newMsg = userinfo["modifiedMsg"]!
-            self.globalMessageView.globalMessages = self.globalMessageView.globalMessages.map({ (msg) -> GlobalMessage in
-                if msg.record.recordID == newMsg.record.recordID {
-                    return newMsg
-                }
-                return msg
-            })
+            if let newMsg = userinfo?["modifiedMsg"] {
+                self.globalMessageView.globalMessages = self.globalMessageView.globalMessages.map({ (msg) -> GlobalMessage in
+                    if msg.record.recordID == newMsg.record.recordID {
+                        return newMsg
+                    }
+                    return msg
+                })
+            }
         }
         
     }
