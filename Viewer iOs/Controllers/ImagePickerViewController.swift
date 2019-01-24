@@ -67,7 +67,7 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegate, UIC
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImgeCollectionViewCell", for: indexPath) as? ImagePickerCollectionViewCell
         
-        cell?.image = getAssetThumbnail(asset: allPhotos[indexPath.item])
+        cell?.currentImage = getAssetThumbnail(asset: allPhotos[indexPath.item])
         cell?.isSelected = false
         
         return cell ?? ImagePickerCollectionViewCell()
@@ -76,7 +76,7 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegate, UIC
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as? ImagePickerCollectionViewCell
         cell?.isSelected = true
-        selectedPhoto.append((cell?.imageView.image!)!)
+        selectedPhoto.append((cell?.currentImage)!)
     }
 
 }

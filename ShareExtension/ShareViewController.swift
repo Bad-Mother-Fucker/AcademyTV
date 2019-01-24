@@ -79,7 +79,7 @@ class ShareViewController: UIViewController, UICollectionViewDataSource, UIColle
                                                    blue: CGFloat(group.endingColor.blue / 255),
                                                    alpha: 1))
             
-            cell?.groupNameLabel.text = group.name.rawValue
+            cell?.groupName = group.name.rawValue
             
             return cell ?? GroupsCollectionViewCell()
         } else {

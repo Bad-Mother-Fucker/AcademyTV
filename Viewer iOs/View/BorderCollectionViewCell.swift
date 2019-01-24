@@ -10,6 +10,12 @@ import UIKit
 
 /// This class are used for rappresent the Border Cell
 class BorderCollectionViewCell: UICollectionViewCell {
+
+    var titleText: String?{
+        didSet{
+            titleLabel.text = titleText
+        }
+    }
     
     /**
      The outlat linked to the title of the cell.

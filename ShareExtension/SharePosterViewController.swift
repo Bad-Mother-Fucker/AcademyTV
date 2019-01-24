@@ -90,8 +90,8 @@ class SharePosterViewController: UIViewController, UICollectionViewDelegate, UIC
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "galleryImageCell", for: indexPath) as? ImagePickerCollectionViewCell
         
-        cell?.imageView.image = keynotes[indexPath.item]
-        cell?.checkerView.isHidden = true
+        cell?.currentImage = keynotes[indexPath.item]
+        cell?.isCheked = true
         
         return cell ?? ImagePickerCollectionViewCell()
     }
@@ -103,10 +103,9 @@ class SharePosterViewController: UIViewController, UICollectionViewDelegate, UIC
         var keynoteData: [Data] = []
         
         if let content = self.shareExtensionContext?.inputItems[0] as? NSExtensionItem {
-            print("Found \(content.attachments?.count) attachments")
+            print("Found \(String(describing: content.attachments?.count)) attachments")
             for element in content.attachments! {
                 let itemProvider = element
-                itemProvider
                 if itemProvider.hasItemConformingToTypeIdentifier(UTI) {
                     itemProvider.loadItem(forTypeIdentifier: UTI, options: nil, completionHandler: { (item, error) in
                         
@@ -116,9 +115,7 @@ class SharePosterViewController: UIViewController, UICollectionViewDelegate, UIC
                         
                         var imgData: Data!
                         var img: UIImage?
-                        
-                        
-                        
+
                         if let img = item as? UIImage {
                             imgData = img.byFixingOrientation().jpegData(compressionQuality: 1)
                         } else if let data = item as? NSData {

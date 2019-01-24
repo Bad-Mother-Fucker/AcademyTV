@@ -10,7 +10,15 @@ import UIKit
 
 /// This class are used for rappresent the TV Groups Collection View Cell
 class GroupsCollectionViewCell: UICollectionViewCell {
-    
+
+    // MARK: - Public API
+
+    var groupName: String?{
+        didSet{
+            groupNameLabel.text = groupName
+        }
+    }
+
     // MARK: - Outlets
     
     /**

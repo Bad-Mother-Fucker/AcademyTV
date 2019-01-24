@@ -177,7 +177,7 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
                                                    blue: CGFloat(group.endingColor.blue / 255),
                                                    alpha: 1))
             
-            cell?.groupNameLabel.text = group.name.rawValue
+            cell?.groupName = group.name.rawValue
             
             return cell ?? GroupsCollectionViewCell()
             
@@ -189,7 +189,7 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
                 borderCell?.frame.size = CGSize(width: 384, height: 45)
             }
             
-            borderCell?.titleLabel.text = "Select All"
+            borderCell?.titleText = "Select All"
             return borderCell ?? BorderCollectionViewCell()
         }
         

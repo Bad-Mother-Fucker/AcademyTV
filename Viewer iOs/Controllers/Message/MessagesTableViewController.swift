@@ -62,9 +62,9 @@ class MessagesTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "MessageTableViewCell", for: indexPath) as? MessagesTableViewCell{
-            cell.titleLabel.text = globalMessages[indexPath.row].title
-            cell.descriptionLabel.text = globalMessages[indexPath.row].description
-            cell.locationLabel.text = globalMessages[indexPath.row].location
+            cell.titleText = globalMessages[indexPath.row].title
+            cell.descriptionText = globalMessages[indexPath.row].description
+            cell.location = globalMessages[indexPath.row].location
             return cell
         }
         print("Error")

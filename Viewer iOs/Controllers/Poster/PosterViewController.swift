@@ -91,8 +91,8 @@ class PosterViewController: UIViewController, UICollectionViewDelegate, UICollec
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "galleryImageCell", for: indexPath) as? ImagePickerCollectionViewCell
         
-        cell?.imageView.image = keynotes[indexPath.item]
-        cell?.checkerView.isHidden = true
+        cell?.currentImage = keynotes[indexPath.item]
+        cell?.isCheked = true
         
         return cell ?? ImagePickerCollectionViewCell()
         
