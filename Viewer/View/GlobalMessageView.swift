@@ -164,7 +164,7 @@ class GlobalMessageView: UIView {
         
         titleLabel.font = UIFont.systemFont(ofSize: 41, weight: .medium)
         titleLabel.textColor = .white
-        subTitleLabel.font = UIFont.systemFont(ofSize: 20,weight: .medium)
+        subTitleLabel.font = UIFont.systemFont(ofSize: 20, weight: .medium)
         subTitleLabel.textColor = .white
         subTitleLabel.alpha = 0.5
         descriptionLabel.font = UIFont.systemFont(ofSize: 20, weight: .medium)
@@ -204,7 +204,7 @@ class GlobalMessageView: UIView {
         }
         
         
-        Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { (timer) in
+        Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { _ in
             if self.globalMessages.count > 0 {
                 let index = self.nextIndex()
                 self.set(message: self.globalMessages[index])
@@ -241,26 +241,26 @@ class GlobalMessageView: UIView {
         
         qrCodeImage.autoSetDimensions(to: CGSize(width: 144, height: 144))
         qrCodeImage.autoPinEdge(toSuperviewEdge: .left, withInset: 30)
-        qrCodeImage.autoPinEdge(.top, to: .bottom, of: titleLabel,withOffset: 20)
+        qrCodeImage.autoPinEdge(.top, to: .bottom, of: titleLabel, withOffset: 20)
 
         //Date and time layout
-        dateLabel.autoPinEdge(.left, to: .right, of: qrCodeImage,withOffset: 30)
+        dateLabel.autoPinEdge(.left, to: .right, of: qrCodeImage, withOffset: 30)
         dateLabel.autoPinEdge(.top, to: .top, of: qrCodeImage)
         dateLabel.autoSetDimension(.height, toSize: 60)
 
-        timeLabel.autoPinEdge(.left, to: .right, of: dateLabel,withOffset: 8)
+        timeLabel.autoPinEdge(.left, to: .right, of: dateLabel, withOffset: 8)
         timeLabel.autoPinEdge(.top, to: .top, of: dateLabel)
         timeLabel.autoPinEdge(.bottom, to: .bottom, of: dateLabel)
 
         locationLabel.autoPinEdge(.left, to: .left, of: dateLabel)
-        locationLabel.autoPinEdge(.top,to: .bottom, of: dateLabel)
+        locationLabel.autoPinEdge(.top, to: .bottom, of: dateLabel)
         locationLabel.autoSetDimension(.height, toSize: 60)
         locationLabel.autoPinEdge(.right, to: .right, of: timeLabel)
         
         //Description Layout
         descriptionLabel.autoPinEdge(toSuperviewEdge: .left, withInset: 30)
         descriptionLabel.autoPinEdge(toSuperviewEdge: .right, withInset: 30)
-        descriptionLabel.autoPinEdge(.top, to: .bottom, of: qrCodeImage,withOffset: 30)
+        descriptionLabel.autoPinEdge(.top, to: .bottom, of: qrCodeImage, withOffset: 30)
         
         // FIXME: I don't think this fixed height is good!
         
@@ -276,7 +276,7 @@ class GlobalMessageView: UIView {
     
     func generateQRCode(from string: String) -> UIImage? {
         let data = string.data(using: String.Encoding.ascii)
-        if string == "" {return nil}
+        if string == "" { return nil }
         
         if let filter = CIFilter(name: "CIQRCodeGenerator") {
             guard let colorFilter = CIFilter(name: "CIFalseColor") else { return nil }
@@ -296,35 +296,7 @@ class GlobalMessageView: UIView {
         }
         return nil
     }
-    
-    /**
-     ## <#Title#>
-     
-     - Parameters:
-     - <#Parameter#>
-     
-     - Warning: <#Warning#>
-     
-     - Throws: <#Throws#>
-     
-     - Return: <#Return#>
-     
-     - Remark: <#Remark#>
-     
-     - SeeAlso: <#SeeAlso#>
-     
-     - Precondition: <#Precondition#>
-     
-     - Requires: <#Requires#>
-     
-     - Todo: <#Todo#>
-     
-     - Note: <#Note#>
-     
-     - Version: 1.0
-     
-     - Author: @GianlucaOrpello
-     */
+
     func set(message: GlobalMessage) {
         self.titleLabel.text = message.title
         self.subTitleLabel.text = message.subtitle.uppercased()
@@ -340,27 +312,27 @@ class GlobalMessageView: UIView {
 
             dateLabel.autoPinEdge(toSuperviewEdge: .left, withInset: 30)
             dateLabel.autoSetDimension(.height, toSize: 60)
-            dateLabel.autoPinEdge(.top, to: .bottom, of: titleLabel,withOffset: 30)
-            timeLabel.autoPinEdge(.left, to: .right, of: dateLabel,withOffset: 8)
+            dateLabel.autoPinEdge(.top, to: .bottom, of: titleLabel, withOffset: 30)
+            timeLabel.autoPinEdge(.left, to: .right, of: dateLabel, withOffset: 8)
             timeLabel.autoPinEdge(.top, to: .top, of: dateLabel)
             timeLabel.autoPinEdge(.bottom, to: .bottom, of: dateLabel)
             
             locationLabel.autoPinEdge(.left, to: .left, of: dateLabel)
-            locationLabel.autoPinEdge(.top,to: .bottom, of: dateLabel)
+            locationLabel.autoPinEdge(.top, to: .bottom, of: dateLabel)
             locationLabel.autoSetDimension(.height, toSize: 60)
             locationLabel.autoPinEdge(.right, to: .right, of: timeLabel)
-        }else {
+        } else {
             dateLabel.removeFromSuperview()
             addSubview(dateLabel)
-            dateLabel.autoPinEdge(.left, to: .right, of: qrCodeImage,withOffset: 30)
+            dateLabel.autoPinEdge(.left, to: .right, of: qrCodeImage, withOffset: 30)
             dateLabel.autoPinEdge(.top, to: .top, of: qrCodeImage)
             dateLabel.autoSetDimension(.height, toSize: 60)
-            timeLabel.autoPinEdge(.left, to: .right, of: dateLabel,withOffset: 8)
+            timeLabel.autoPinEdge(.left, to: .right, of: dateLabel, withOffset: 8)
             timeLabel.autoPinEdge(.top, to: .top, of: dateLabel)
             timeLabel.autoPinEdge(.bottom, to: .bottom, of: dateLabel)
             
             locationLabel.autoPinEdge(.left, to: .left, of: dateLabel)
-            locationLabel.autoPinEdge(.top,to: .bottom, of: dateLabel)
+            locationLabel.autoPinEdge(.top, to: .bottom, of: dateLabel)
             locationLabel.autoSetDimension(.height, toSize: 60)
             locationLabel.autoPinEdge(.right, to: .right, of: timeLabel)
 
@@ -375,9 +347,9 @@ class GlobalMessageView: UIView {
             let index: Int
             if nextMsg >= 0 && nextMsg < globalMessages.count {
                 index = nextMsg
-                nextMsg = nextMsg + 1
+                nextMsg += 1
                 return index
-            }else {
+            } else {
                 nextMsg = 0
                 return nextIndex()
             }
@@ -393,7 +365,7 @@ class GlobalMessageView: UIView {
     
         
         func scrollTextIfNeeded(in textView: UITextView) {
-            guard textExceedBoundsOf(textView) else {return}
+            guard textExceedBoundsOf(textView) else { return }
             textView.scrollRangeToVisible(NSRange(location: 0, length: 0))
             var lastRange = NSRange(location: 0, length: 250)
             Timer.scheduledTimer(withTimeInterval: 6, repeats: true) { (timer) in
@@ -406,8 +378,4 @@ class GlobalMessageView: UIView {
                 lastRange = newRange
             }
         }
-        
-
-    
-
 }
