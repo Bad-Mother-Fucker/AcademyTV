@@ -76,7 +76,7 @@ class VideoManager {
      */
     
     var videos: [AVPlayerItem] {
-        get { return playingVideos }
+        return playingVideos
     }
     
     private var player: AVPlayer!
@@ -112,7 +112,7 @@ class VideoManager {
         var currentIndex = videos.index(of: currentVideo)!
         if currentIndex >= 0 && currentIndex < (videos.count - 1) {
             return currentIndex + 1
-        }else {
+        } else {
             currentIndex = 0
             return currentIndex
         }
@@ -151,14 +151,14 @@ class VideoDownloader {
      */
     
     
-    static private func downloadVideosFrom(URLs:[URL]) {
+    static private func downloadVideosFrom(URLs: [URL]) {
         
         DispatchQueue.global(qos: .background).async {
             var localURLs: [URL] = []
             URLs.forEach({ (url) in
                 if let urlData = NSData(contentsOf: url) {
-                    let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0];
-                    let filePath="\(documentsPath)/video\(URLs.index(of:url)!).mp4"
+                    let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+                    let filePath = "\(documentsPath)/video\(URLs.index(of: url)!).mp4"
                     
                     urlData.write(toFile: filePath, atomically: true)
                     localURLs.append(URL(fileURLWithPath: filePath))
@@ -196,7 +196,7 @@ class VideoDownloader {
         if let videoData = UserDefaults.standard.value(forKey: "videoURLs") as? Data {
             if let urlsArray = NSKeyedUnarchiver.unarchiveObject(with: videoData) as? [URL] {
                 return urlsArray
-            }else {
+            } else {
                 print("Error unarchiving video files, donwloading from dropbox")
                 VideoDownloader.downloadVideosFrom(URLs: urls)
                 return urls
@@ -207,6 +207,3 @@ class VideoDownloader {
         }
     }
 }
-
-
-

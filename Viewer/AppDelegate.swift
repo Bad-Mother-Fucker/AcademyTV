@@ -11,7 +11,7 @@ import CloudKit
 import UserNotifications
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     
     var window: UIWindow?
     var currentTV: TV!
@@ -37,8 +37,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
                 DispatchQueue.main.async {
                      application.registerForRemoteNotifications()
                     UNUserNotificationCenter.current().delegate = self
-                    CKController.saveSubscription(for: GlobalMessage.recordType,ID:CKKeys.messageSubscriptionKey)
-                    CKController.saveSubscription(for: TV.recordType,ID:CKKeys.tvSubscriptionKey)
+                    CKController.saveSubscription(for: GlobalMessage.recordType, ID: CKKeys.messageSubscriptionKey)
+                    CKController.saveSubscription(for: TV.recordType, ID: CKKeys.tvSubscriptionKey)
                 
                 }
             }
@@ -87,7 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
                 
             } else {
                 
-                TVModel.getTV(withName: UIDevice.current.name, completionHandler: { (TV, Error) in
+                TVModel.getTV(withName: UIDevice.current.name, completionHandler: { (TV, error) in
                     
                     guard let _ = TV, error == nil else {
                         print(error!.localizedDescription)
@@ -122,7 +122,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         print(error.localizedDescription)
     }
     
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
         print("notification recieved")
         let notificationName: CKNotificationName
         if let info = userInfo as? [String: Any] {
@@ -161,7 +161,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
 
     // MARK: Private function
     
-    private func playVideo(){
+    private func playVideo() {
         if let boardViewController = window?.rootViewController as? BoardViewController {
             boardViewController.videoManager.playVideo()
         }

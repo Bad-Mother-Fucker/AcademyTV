@@ -19,22 +19,19 @@ class ShareViewController: UIViewController, UICollectionViewDataSource, UIColle
     var selectedGroups = [TVGroup]()
     var image: UIImage!
     
-    var ShareExtensionContext: NSExtensionContext?
-    
-    
-    
-    
-    @IBOutlet weak var collectionView: UICollectionView!{
-        didSet{
+    var shareExtensionContext: NSExtensionContext?
+
+    @IBOutlet private weak var collectionView: UICollectionView! {
+        didSet {
             collectionView.delegate = self
             collectionView.dataSource = self
             collectionView.allowsMultipleSelection = true
         }
     }
     
-    @IBOutlet weak var clearBarButtonItem: UIBarButtonItem!{
-        didSet{
-            if selectedGroups != nil{
+    @IBOutlet private weak var clearBarButtonItem: UIBarButtonItem! {
+        didSet {
+            if selectedGroups != nil {
                 if selectedGroups.count != 0 {
                     clearBarButtonItem.isEnabled = true
                 }
@@ -43,7 +40,7 @@ class ShareViewController: UIViewController, UICollectionViewDataSource, UIColle
     }
     
 
-    @IBAction func cancelShare(_ sender: Any) {
+    @IBAction private func cancelShare(_ sender: Any) {
         self.ShareExtensionContext!.completeRequest(returningItems: [], completionHandler: nil)
     }
     
@@ -51,13 +48,13 @@ class ShareViewController: UIViewController, UICollectionViewDataSource, UIColle
         super.viewDidLoad()
         self.ShareExtensionContext = ExtensionContextContainer.shared.context
         
-        if (traitCollection.forceTouchCapability == .available){
+        if traitCollection.forceTouchCapability == .available {
         }
         
     }
     
-    @IBAction func clearKeynotes(_ sender: UIBarButtonItem) {
-        for group in selectedGroups{
+    @IBAction private func clearKeynotes(_ sender: UIBarButtonItem) {
+        for group in selectedGroups {
             CKController.removeKeynote(fromTVGroup: group)
         }
     }
@@ -68,24 +65,24 @@ class ShareViewController: UIViewController, UICollectionViewDataSource, UIColle
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        if indexPath.item < groups.count{
+        if indexPath.item < groups.count {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TVGroup", for: indexPath) as? GroupsCollectionViewCell
             
             let group = groups[indexPath.item]
             
-            cell?.setGradientBackground(form: UIColor(red: CGFloat(group.startingColor.red/255),
-                                                     green: CGFloat(group.startingColor.green/255),
-                                                     blue: CGFloat(group.startingColor.blue/255),
+            cell?.setGradientBackground(form: UIColor(red: CGFloat(group.startingColor.red / 255),
+                                                     green: CGFloat(group.startingColor.green / 255),
+                                                     blue: CGFloat(group.startingColor.blue / 255),
                                                      alpha: 1),
-                                       to: UIColor(red: CGFloat(group.endingColor.red/255),
-                                                   green: CGFloat(group.endingColor.green/255),
-                                                   blue: CGFloat(group.endingColor.blue/255),
+                                       to: UIColor(red: CGFloat(group.endingColor.red / 255),
+                                                   green: CGFloat(group.endingColor.green / 255),
+                                                   blue: CGFloat(group.endingColor.blue / 255),
                                                    alpha: 1))
             
             cell?.groupNameLabel.text = group.name.rawValue
             
             return cell ?? GroupsCollectionViewCell()
-        }else{
+        } else {
             let borderCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddAllTVGroup", for: indexPath) as? GroupsCollectionViewCell
             borderCell?.frame.size = CGSize(width: 343, height: 43)
             //borderCell?.titleLabel.text = "Select All"
@@ -102,8 +99,8 @@ class ShareViewController: UIViewController, UICollectionViewDataSource, UIColle
             cell!.isSelected = true
             selectedGroups.append(groups[indexPath.item].name)
             clearBarButtonItem.isEnabled = true
-        }else{
-            for tvCell in collectionView.visibleCells{
+        } else {
+            for tvCell in collectionView.visibleCells {
                 tvCell.isSelected = true
             }
             collectionView.reloadData()
@@ -116,14 +113,14 @@ class ShareViewController: UIViewController, UICollectionViewDataSource, UIColle
         let cell = collectionView.cellForItem(at: indexPath)
         if cell?.reuseIdentifier == "TVGroup"{
             cell!.isSelected = false
-        }else{
-            for tvCell in collectionView.visibleCells{
+        } else {
+            for tvCell in collectionView.visibleCells {
                 tvCell.isSelected = false
                 selectedGroups = selectedGroups.filter { (tvGroup) -> Bool in
-                    if tvGroup == groups[indexPath.item].name{
+                    if tvGroup == groups[indexPath.item].name {
                         clearBarButtonItem.isEnabled = false
                         return false
-                    }else{
+                    } else {
                         return true
                     }
                 }
@@ -135,14 +132,14 @@ class ShareViewController: UIViewController, UICollectionViewDataSource, UIColle
         switch segue.identifier {
         case "setTheTvSegue":
             
-            if selectedGroups.count == 0{
+            if selectedGroups.count == 0 {
                 let alert = UIAlertController(title: "Select at least one group.", message: nil, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
                 self.present(alert, animated: true, completion: nil)
                 return
             }
             
-            if let destination = segue.destination as? SharePosterViewController{
+            if let destination = segue.destination as? SharePosterViewController {
                 destination.tvGroups = selectedGroups
                 destination.ShareExtensionContext = self.ShareExtensionContext
             }
@@ -157,24 +154,27 @@ func shareContent(_ sender: Any) {
         // This is called after the user selects Post. Do the upload of contentText and/or NSExtensionContext attachments.
         
         let UTI = kUTTypeImage as String
-        if let item = self.ShareExtensionContext?.inputItems[0] as? NSExtensionItem{
+        if let item = self.ShareExtensionContext?.inputItems[0] as? NSExtensionItem {
             var keynoteData: [Data] = []
-            for element in item.attachments!{
+            for element in item.attachments! {
                 let itemProvider = element
                 
-                if itemProvider.hasItemConformingToTypeIdentifier(UTI){
+                if itemProvider.hasItemConformingToTypeIdentifier(UTI) {
                     
                     //                    NSLog("itemprovider: %@", itemProvider)
                     itemProvider.loadItem(forTypeIdentifier: UTI, options: nil, completionHandler: { (item, error) in
                         
-                        if let _ = error {
-                            
-                            print("there was an error",error!.localizedDescription)
+                        if error != nil {
+                            print("there was an error", error!.localizedDescription)
                         }
                         
                         var imgData: Data!
                         if let url = item as? URL {
-                            imgData = try! Data(contentsOf: url)
+                            do {
+                                imgData = try? Data(contentsOf: url)
+                            } catch {
+                                NSLog("Error getting imgData - ShareViewController: shareContent")
+                            }
                         }
                         
                         if let img = item as? UIImage {
@@ -189,19 +189,21 @@ func shareContent(_ sender: Any) {
                         keynoteData.append(imgData)
                         
                     })
-                }else if itemProvider.hasItemConformingToTypeIdentifier("public.png"){
+                } else if itemProvider.hasItemConformingToTypeIdentifier("public.png") {
                     //                    NSLog("itemprovider: %@", itemProvider)
                     itemProvider.loadItem(forTypeIdentifier: "public.png", options: nil, completionHandler: { (item, error) in
                         
-                        if let _ = error {
-                            print("there was an error",error!.localizedDescription)
+                        if error != nil {
+                            print("there was an error", error!.localizedDescription)
                         }
-                        
-                        
-                        
+
                         var imgData: Data!
                         if let url = item as? URL {
-                            imgData = try! Data(contentsOf: url)
+                            do {
+                                imgData = try? Data(contentsOf: url)
+                            } catch {
+                                NSLog("Error getting imgData - ShareViewController: shareContent")
+                            }
                         }
                         
                         if let img = item as? UIImage {
@@ -221,9 +223,6 @@ func shareContent(_ sender: Any) {
             
             CKController.postKeynoteData(keynoteData, ofType: .JPG(compressionQuality: .hight), onTVsOfGroup: .all)
         }
-        
-        
-        
         
         // Inform the host that we're done, so it un-blocks its UI. Note: Alternatively you could call super's -didSelectPost, which will similarly complete the extension context.
         self.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)

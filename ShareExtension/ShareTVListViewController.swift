@@ -22,16 +22,16 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
     var category: Categories?
     var tickerMessage: String?
     
-    var ShareExtensionContext: NSExtensionContext?
+    var shareExtensionContext: NSExtensionContext?
     
-    @IBAction func cancelShare(_ sender: Any) {
+    @IBAction private func cancelShare(_ sender: Any) {
         self.ShareExtensionContext!.completeRequest(returningItems: [], completionHandler: nil)
     }
     
     // MARK: CollectionView methods
     
-    @IBOutlet weak var collectionView: UICollectionView!{
-        didSet{
+    @IBOutlet private weak var collectionView: UICollectionView! {
+        didSet {
             collectionView.delegate = self
             collectionView.dataSource = self
             collectionView.allowsMultipleSelection = true
@@ -39,9 +39,9 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
         }
     }
     // MARK: NextBarButton
-    @IBOutlet weak var postBarButtonItem: UIBarButtonItem!
+    @IBOutlet private weak var postBarButtonItem: UIBarButtonItem!
     
-    @IBAction func postBarButtonPressed(_ sender: Any) {
+    @IBAction private func postBarButtonPressed(_ sender: Any) {
 //        let summary = SummaryViewController()
 //        summary.isCheckoutMode = true
 //        summary.categories = category
@@ -98,7 +98,7 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
         
     }
     
-    @objc func getPhotosFromGallery(_ notification: NSNotification){
+    @objc func getPhotosFromGallery(_ notification: NSNotification) {
         if let images = notification.userInfo?["images"] as? [UIImage] {
             keynote = images
             self.collectionView.reloadData()
@@ -109,7 +109,7 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
     // setting correct spacing
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         
-        if (UIScreen.main.bounds.width < 414){
+        if  UIScreen.main.bounds.width < 414 {
             return UIEdgeInsets(top: 15, left: 20, bottom: 15, right: 20)
         } else {
             return UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
@@ -121,7 +121,7 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        if (UIScreen.main.bounds.width < 414){
+        if UIScreen.main.bounds.width < 414 {
             return 43
         } else {
             return 28
@@ -130,11 +130,11 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width : CGFloat
-        let height : CGFloat
+        let width: CGFloat
+        let height: CGFloat
         
         //iPhone 8, X, Xs
-        if (UIScreen.main.bounds.width < 414){
+        if UIScreen.main.bounds.width < 414 {
             if indexPath.item < 1 {
                 width = 345
                 height = 45
@@ -163,27 +163,27 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        if indexPath.item > 0{
+        if indexPath.item > 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TVGroup", for: indexPath) as? GroupsCollectionViewCell
             
             let group = groups[indexPath.item - 1]
             
-            cell?.setGradientBackground(form: UIColor(red: CGFloat(group.startingColor.red/255),
-                                                     green: CGFloat(group.startingColor.green/255),
-                                                     blue: CGFloat(group.startingColor.blue/255),
+            cell?.setGradientBackground(form: UIColor(red: CGFloat(group.startingColor.red / 255),
+                                                     green: CGFloat(group.startingColor.green / 255),
+                                                     blue: CGFloat(group.startingColor.blue / 255),
                                                      alpha: 1),
-                                       to: UIColor(red: CGFloat(group.endingColor.red/255),
-                                                   green: CGFloat(group.endingColor.green/255),
-                                                   blue: CGFloat(group.endingColor.blue/255),
+                                       to: UIColor(red: CGFloat(group.endingColor.red / 255),
+                                                   green: CGFloat(group.endingColor.green / 255),
+                                                   blue: CGFloat(group.endingColor.blue / 255),
                                                    alpha: 1))
             
             cell?.groupNameLabel.text = group.name.rawValue
             
             return cell ?? GroupsCollectionViewCell()
             
-        }else{
+        } else {
             let borderCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddAllTVGroup", for: indexPath) as? BorderCollectionViewCell
-            if (UIScreen.main.bounds.width < 414){
+            if UIScreen.main.bounds.width < 414 {
                 borderCell?.frame.size = CGSize(width: 335, height: 45)
             } else {
                 borderCell?.frame.size = CGSize(width: 384, height: 45)
@@ -202,8 +202,8 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
         if cell?.reuseIdentifier == "TVGroup"{
             cell!.isSelected = true
             selectedGroups!.append(groups[indexPath.item - 1].name)
-        }else{
-            for i in 1..<collectionView.numberOfItems(inSection: 0){
+        } else {
+            for i in 1 ..< collectionView.numberOfItems(inSection: 0) {
                 collectionView.selectItem(at: IndexPath(item: i, section: 0), animated: true, scrollPosition: .bottom)
             }
             selectedGroups!.removeAll()
@@ -211,8 +211,6 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
                 
                 selectedGroups!.append(group.name)
             }
-            
-            
         }
         
         if selectedGroups!.isEmpty {
@@ -231,14 +229,14 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
         if cell?.reuseIdentifier == "TVGroup"{
             cell!.isSelected = false
             selectedGroups = selectedGroups!.filter { (tvGroup) -> Bool in
-                if tvGroup == groups[indexPath.item - 1].name{
+                if tvGroup == groups[indexPath.item - 1].name {
                     return false
-                }else{
+                } else {
                     return true
                 }
             }
-        }else{
-            for index in 1..<collectionView.numberOfItems(inSection: 0){
+        } else {
+            for index in 1..<collectionView.numberOfItems(inSection: 0) {
                 collectionView.deselectItem(at: IndexPath(item: index, section: 0), animated: true)
             }
             selectedGroups!.removeAll()
@@ -254,14 +252,14 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
         switch segue.identifier {
         case "setTheTvSegue":
             
-            if selectedGroups!.count == 0{
+            if selectedGroups!.count == 0 {
                 let alert = UIAlertController(title: "Select at least one group.", message: nil, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
                 self.present(alert, animated: true, completion: nil)
                 return
             }
             
-            if let destination = segue.destination as? PosterViewController{
+            if let destination = segue.destination as? PosterViewController {
                 destination.tvGroups = selectedGroups
             }
             
@@ -273,7 +271,7 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
     func shareContent(_ sender: Any) {
         // This is called after the user selects Post. Do the upload of contentText and/or NSExtensionContext attachments.
         
-        guard keynote.count != 0 else{
+        guard keynote.count != 0 else {
             let alert = UIAlertController(title: "Error", message: "Add at least one image", preferredStyle: .alert)
             let action = UIAlertAction(title: "OK", style: .default, handler: nil)
             alert.addAction(action)
@@ -299,23 +297,22 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
         
     }
     
-    func loadImagesFromAttachments(){
+    func loadImagesFromAttachments() {
         
         let UTI = kUTTypeImage as String
         
         var keynoteData: [Data] = []
         
-        if let content = self.ShareExtensionContext?.inputItems[0] as? NSExtensionItem{
+        if let content = self.ShareExtensionContext?.inputItems[0] as? NSExtensionItem {
             print("Found \(content.attachments?.count) attachments")
-            for element in content.attachments!{
+            for element in content.attachments! {
                 let itemProvider = element
                 itemProvider
-                if itemProvider.hasItemConformingToTypeIdentifier(UTI){
+                if itemProvider.hasItemConformingToTypeIdentifier(UTI) {
                     itemProvider.loadItem(forTypeIdentifier: UTI, options: nil, completionHandler: { (item, error) in
                         
-                        if let _ = error {
-                            
-                            print("there was an error",error!.localizedDescription)
+                        if error != nil {
+                            print("there was an error", error!.localizedDescription)
                         }
                         
                         var imgData: Data!
@@ -328,7 +325,11 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
                         } else if let data = item as? NSData {
                             imgData = data as Data
                         } else if let url = item as? NSURL {
-                            imgData = try! Data(contentsOf: url as URL)
+                            do {
+                                imgData = try? Data(contentsOf: url as URL)
+                            } catch {
+                                NSLog("Error getting imgData - ShareTvListViewController: shareContent")
+                            }
                         }
                         
                         
@@ -339,12 +340,12 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
                             self.collectionView.reloadData()
                         }
                     })
-                }else if itemProvider.hasItemConformingToTypeIdentifier("public.png"){
+                } else if itemProvider.hasItemConformingToTypeIdentifier("public.png") {
                     
                     itemProvider.loadItem(forTypeIdentifier: "public.png", options: nil, completionHandler: { (item, error) in
                         
-                        if let _ = error {
-                            print("there was an error",error!.localizedDescription)
+                        if error != nil {
+                            print("there was an error", error!.localizedDescription)
                         }
                         
                         var imgData: Data!
@@ -354,10 +355,13 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
                         } else if let data = item as? NSData {
                             imgData = data as Data
                         } else if let url = item as? NSURL {
-                            imgData = try! Data(contentsOf: url as URL)
+                            do {
+                                imgData = try? Data(contentsOf: url as URL)
+                            } catch {
+                                NSLog("Error Get imgData - ShareTvListViewController: shareContent")
+                            }
                         }
-                        
-                        
+
                         keynoteData.append(imgData)
                         let a = UIImage(data: imgData, scale: UIScreen.main.scale)
                         self.keynote.append(a!)
@@ -365,19 +369,13 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
                         DispatchQueue.main.async {
                             self.collectionView.reloadData()
                         }
-                        
                     })
                 } else {
                     print(itemProvider.registeredTypeIdentifiers.count)
                 }
-                
             }
-            
-            
         } else {
             print("No content found")
         }
     }
-
 }
-

@@ -102,10 +102,10 @@ class UsageStatistics {
      - Author: @GianlucaOrpello
      */
     var numberOfKeynote: Int {
-        get{
+        get {
             return record.object(forKey: UsageStatistics.keys.numberKeynote) as? Int ?? 0
         }
-        set{
+        set {
             record.setValue(newValue, forKey: UsageStatistics.keys.numberKeynote)
             let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
             op.savePolicy = .changedKeys
@@ -121,10 +121,10 @@ class UsageStatistics {
      - Author: @GianlucaOrpello
      */
     var numberOfGlobalMessage: Int {
-        get{
+        get {
             return record.object(forKey: UsageStatistics.keys.numberGlobalMessage) as? Int ?? 0
         }
-        set{
+        set {
             record.setValue(newValue, forKey: UsageStatistics.keys.numberGlobalMessage)
             let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
             op.savePolicy = .changedKeys
@@ -140,10 +140,10 @@ class UsageStatistics {
      - Author: @GianlucaOrpello
      */
     var numberOfGlobalMessageWithLink: Int {
-        get{
+        get {
             return record.object(forKey: UsageStatistics.keys.numberGMLink) as? Int ?? 0
         }
-        set{
+        set {
             record.setValue(newValue, forKey: UsageStatistics.keys.numberGMLink)
             let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
             op.savePolicy = .changedKeys
@@ -178,10 +178,10 @@ class UsageStatistics {
      - Author: @GianlucaOrpello
      */
     var numberOfGlobalMessageWithDate: Int {
-        get{
+        get {
             return record.object(forKey: UsageStatistics.keys.numberGMDate) as? Int ?? 0
         }
-        set{
+        set {
             record.setValue(newValue, forKey: UsageStatistics.keys.numberGMDate)
             let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
             op.savePolicy = .changedKeys
@@ -197,10 +197,10 @@ class UsageStatistics {
      - Author: @GianlucaOrpello
      */
     var numberOfGlobalMessageComplete: Int {
-        get{
+        get {
             return record.object(forKey: UsageStatistics.keys.numberGMcomplete) as? Int ?? 0
         }
-        set{
+        set {
             record.setValue(newValue, forKey: UsageStatistics.keys.numberGMcomplete)
             let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
             op.savePolicy = .changedKeys
@@ -287,12 +287,14 @@ class UsageStatistics {
 }
 
 class UsageStatisticsModel {
-    static func addTickerMessage(length:Int) {
+
+    static func addTickerMessage(length: Int) {
         UsageStatistics.shared.numberOfTickerMessage += 1
         UsageStatistics.shared.totalTickerChars += length
-        UsageStatistics.shared.averageTickerLength = Double(UsageStatistics.shared.totalTickerChars/UsageStatistics.shared.numberOfTickerMessage)
+        UsageStatistics.shared.averageTickerLength = Double(UsageStatistics.shared.totalTickerChars / UsageStatistics.shared.numberOfTickerMessage)
     }
-    static func addGlobalMessage(length:Int,link:Bool,location:Bool,date:Bool) {
+
+    static func addGlobalMessage(length: Int, link: Bool, location: Bool, date: Bool) {
         UsageStatistics.shared.numberOfGlobalMessage += 1
         UsageStatistics.shared.totalMessageChars += length
         if link {
@@ -311,7 +313,7 @@ class UsageStatisticsModel {
             UsageStatistics.shared.numberOfGlobalMessageComplete += 1
         }
         
-        UsageStatistics.shared.averageMessageLength = Double(UsageStatistics.shared.totalMessageChars/UsageStatistics.shared.numberOfGlobalMessage)
+        UsageStatistics.shared.averageMessageLength = Double(UsageStatistics.shared.totalMessageChars / UsageStatistics.shared.numberOfGlobalMessage)
         
         
     }
@@ -319,7 +321,6 @@ class UsageStatisticsModel {
     static func addKeynote(length: Int) {
         UsageStatistics.shared.numberOfKeynote += 1
         UsageStatistics.shared.totalNumberOfPhotos += length
-        UsageStatistics.shared.averageNumOfPhotos = Double(UsageStatistics.shared.totalNumberOfPhotos/UsageStatistics.shared.numberOfKeynote)
+        UsageStatistics.shared.averageNumOfPhotos = Double(UsageStatistics.shared.totalNumberOfPhotos / UsageStatistics.shared.numberOfKeynote)
     }
-
 }
