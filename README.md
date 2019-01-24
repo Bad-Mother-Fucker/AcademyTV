@@ -1,6 +1,9 @@
 # Project Viewer
 A different way to signage
 
+![projectviewer](https://i.imgur.com/5mygQpe.gif)
+
+
 ## Overview
 
 Project Viewer is an tvOS application for the Apple TV that allows a user to instatnly control the view of a signage display using their iPhone. 
