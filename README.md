@@ -1,28 +1,48 @@
 # Project Viewer
-
-subtitle:
-Documentation
-Working in progress...
+A different way to signage
 
 ## Overview
 
-One way to build compelling AR experiences is to recognize features of the user's environment and use them to trigger the appearance of virtual content. For example, a museum app might add interactive 3D visualizations when the user points their device at a displayed sculpture or artifact. 
+Project Viewer is an tvOS application for the Apple TV that allows a user to instatnly control the view of a signage display using their iPhone. 
+Using Cloudkit as the backend, the user is able to seemlessly direct the scene on an unlimited amount of apple tv instances 
 
-In iOS 12, you can create such AR experiences by enabling *object detection* in ARKit: Your app provides *reference objects*, which encode three-dimensional spatial features of known real-world objects, and ARKit tells your app when and where it detects the corresponding real-world objects during an AR session.
-
-This sample code project provides multiple ways to make use of object detection:
-
-- Run the app to scan a real-world object and export a reference object file, which you can use in your own apps to detect that object.
-- Use the [`ARObjectScanningConfiguration`][00] and [`ARReferenceObject`][01] classes as demonstrated in this sample app to record reference objects as part of your own asset production pipeline.
-- Use [`detectionObjects`][02] in a world-tracking AR session to recognize a reference object and create AR interactions.
-
-[00]:https://developer.apple.com/documentation/arkit/arobjectscanningconfiguration
-[01]:https://developer.apple.com/documentation/arkit/arreferenceobject
-[02]:https://developer.apple.com/documentation/arkit/arworldtrackingconfiguration/2968177-detectionobjects
 
 ## Getting Started
 
-Requires Xcode 10.0, iOS 12.0 and an iOS device with an A9 or later processor. ARKit is not supported in iOS Simulator.
+Requires Xcode 10.0, iOS 12.0 an iOS device,  tvOS device, and an active developer account for cloudkit access
+
+## Running on Apple TV
+When running the applicaiton for the first time on the apple tv, there will be a prompt by tvOS to allow notifications. Using the apple tv remote, select "Allow" 
+
+## Running on iOS Device
+Loading the 
+
+## Use In Education
+
+
+Project Viewer includes many props aimed for use of 
+
+## Use In Retail Environments
+
+## Use In Advertising 
+
+
+## Terminology
+
+1. **Props:** Listed bellow are self organied containers for posted data. These containers allow for an organized and consistent onscreen style of the posted information. A prop can be scheduled to post and expire at a specified time. 
+2. **Location** Depending on the ammount of devices in use, and the groupings of your space. Props can be directed to only show in specific locations. Groupings of locations and the device are organized based on the name of the apple tv.
+2. **Global Messages.** Is a prop that allows for a loop of data to show on the display. Global Messages are text fields that are organized by "Title","Subtitle","Date","Time","QR Code", and "Message". The Separation of these text fields allow for automatic formating when displayed. When a location on the screen is chosen using the iOS applicaiton, the Title and subtitle will be formated to allow "......" When data is filled into the QR Code field, it will automaticly be converted into a QR code on the screen, allowing for another user to scan and recieve data inwhich you intend. Weblinks, Contact Information, Wifi Connection, ect.
+3. **Content Viewer.**
+4. **Timer.**
+5. **Ticker Message.**
+
+
+
+
+
+
+
+
 
 ## Scan Real-World Objects with an iOS App
 
