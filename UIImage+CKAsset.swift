@@ -14,7 +14,7 @@ enum ImageFileType {
     
     var fileExtension: String {
         switch self {
-        case .JPG(_):
+        case .JPG:
             return ".jpg"
         case .PNG:
             return ".png"
@@ -41,7 +41,7 @@ extension CKAsset {
         self.init(fileURL: url)
     }
     
-    convenience init(fromData data:Data, ofType fileType:ImageFileType) throws {
+    convenience init(fromData data: Data, ofType fileType: ImageFileType) throws {
         let url = try data.saveToTempLocationWithFileType(fileType)
         self.init(fileURL: url)
     }

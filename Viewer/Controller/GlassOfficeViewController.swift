@@ -313,14 +313,14 @@ extension GlassOfficeViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         if let cell = tableView.dequeueReusableCell(withIdentifier: "booquableTableViewCell", for: indexPath) as? GlassOfficeTableViewCell {
-            cell.userNameLabel.text = orders[indexPath.row].customerName()
+            cell.userName = orders[indexPath.row].customerName()
             let deviceInfo = orders[indexPath.row].getDevice()
-            cell.deviceNameLabel.text = deviceInfo.name
-            cell.deviceImage.image = UIImage(named: deviceInfo.glyph.rawValue)
+            cell.deviceName = deviceInfo.name
+            cell.device = UIImage(named: deviceInfo.glyph.rawValue)
 
             let time = get(String(orders[indexPath.row].stopsAt.prefix(10)), with: formatter)
             let days = getDifference(from: time!, and: Date())
-            cell.timingInformationLabel.text = String(days!)
+            cell.timingInformation = String(days!)
 
             return cell
         } else {

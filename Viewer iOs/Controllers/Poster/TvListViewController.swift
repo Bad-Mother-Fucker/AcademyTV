@@ -189,7 +189,7 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
                 }
             }
         } else {
-            for i in 1..<collectionView.numberOfItems(inSection: 0){
+            for i in 1 ..< collectionView.numberOfItems(inSection: 0) {
                 collectionView.deselectItem(at: IndexPath(item: i, section: 0), animated: true)
             }
             selectedGroups.removeAll()

@@ -73,10 +73,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         TVModel.doesExist { (exists, error) in
             debugPrint("tv \(exists)")
             
-            if !exists{
+            if !exists {
                 
                 TVModel.addTV(withName: UIDevice.current.name, completionHandler: { (record, error) in
-                    guard let _ = record,error == nil else {
+                    guard record != nil, error == nil else {
                         print(error!.localizedDescription)
                         return
                     }
@@ -89,7 +89,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 
                 TVModel.getTV(withName: UIDevice.current.name, completionHandler: { (TV, error) in
                     
-                    guard let _ = TV, error == nil else {
+                    guard TV != nil, error == nil else {
                         print(error!.localizedDescription)
                         return
                     }

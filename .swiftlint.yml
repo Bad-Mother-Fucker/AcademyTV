@@ -11,6 +11,8 @@ disabled_rules:
 - line_length
 - discarded_notification_center_observer
 - discouraged_optional_collection
+- redundant_string_enum_value
+- opening_brace
 
 excluded:
 - Pods

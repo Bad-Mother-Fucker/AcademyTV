@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ExtensionContextContainer{
+class ExtensionContextContainer {
     var context: NSExtensionContext?
     
     static let shared = ExtensionContextContainer()
@@ -20,7 +20,7 @@ class ShareBackgroundViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        if let content = self.extensionContext?.inputItems[0] as? NSExtensionItem{
+        if let content = self.extensionContext?.inputItems[0] as? NSExtensionItem {
             ExtensionContextContainer.shared.context = self.extensionContext
             print(content.attachments?.count)
         }
@@ -44,4 +44,3 @@ class ShareBackgroundViewController: UIViewController {
     */
 
 }
-

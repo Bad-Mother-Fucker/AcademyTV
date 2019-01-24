@@ -17,10 +17,10 @@ class SharePosterViewController: UIViewController, UICollectionViewDelegate, UIC
     
     var shareExtensionContext: NSExtensionContext?
 
-    @IBOutlet weak var barButtonItem: UIBarButtonItem!
+    @IBOutlet private weak var barButtonItem: UIBarButtonItem!
     
     
-    @IBOutlet weak var collectionView: UICollectionView! {
+    @IBOutlet private weak var collectionView: UICollectionView! {
         didSet {
             collectionView.delegate = self
             collectionView.dataSource = self
@@ -36,7 +36,7 @@ class SharePosterViewController: UIViewController, UICollectionViewDelegate, UIC
         
         
         
-        if keynotes.count != 0{
+        if keynotes.count != 0 {
             barButtonItem.title = "Save"
             barButtonItem.action = #selector(saveKeynote)
         }
@@ -46,7 +46,7 @@ class SharePosterViewController: UIViewController, UICollectionViewDelegate, UIC
     
 
     @IBAction private func saveKeynote(_ sender: UIBarButtonItem) {
-        guard keynotes.count != 0 else{
+        guard keynotes.count != 0 else {
             let alert = UIAlertController(title: "Error", message: "Add at least one image", preferredStyle: .alert)
             let action = UIAlertAction(title: "OK", style: .default, handler: nil)
             alert.addAction(action)
@@ -54,7 +54,7 @@ class SharePosterViewController: UIViewController, UICollectionViewDelegate, UIC
             return
         }
         
-        for group in tvGroups{
+        for group in tvGroups {
             CKController.removeKeynote(fromTVGroup: group)
             CKController.postKeynote(keynotes, ofType: ImageFileType.PNG, onTVsOfGroup: group)
         }
@@ -68,7 +68,7 @@ class SharePosterViewController: UIViewController, UICollectionViewDelegate, UIC
         
     }
     
-    @objc func getPhotosFromGallery(_ notification: NSNotification){
+    @objc func getPhotosFromGallery(_ notification: NSNotification) {
         if let image = notification.userInfo?["images"] as? [UIImage] {
             keynotes = image
             self.collectionView.reloadData()
@@ -210,8 +210,7 @@ extension UIImage {
         if orientation == .upMirrored || orientation == .downMirrored {
             transform = transform.translatedBy(x: size.width, y: 0)
             transform = transform.scaledBy(x: -1, y: 1)
-        }
-        else if orientation == .leftMirrored || orientation == .rightMirrored {
+        } else if orientation == .leftMirrored || orientation == .rightMirrored {
             transform = transform.translatedBy(x: size.height, y: 0)
             transform = transform.scaledBy(x: -1, y: 1)
         }

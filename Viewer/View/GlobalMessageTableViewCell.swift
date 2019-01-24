@@ -9,6 +9,6 @@
 import UIKit
 
 class GlobalMessageTableViewCell: UITableViewCell {
-    @IBOutlet weak var titleMessageLabel: UILabel!
-    @IBOutlet weak var subtitleMessageLabel: UILabel!
+    @IBOutlet private weak var titleMessageLabel: UILabel!
+    @IBOutlet private weak var subtitleMessageLabel: UILabel!
 }

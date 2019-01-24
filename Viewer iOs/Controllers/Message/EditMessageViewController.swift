@@ -12,8 +12,8 @@ import CloudKit
 class EditMessageViewController: UITableViewController, UITextFieldDelegate {
     
     var record: CKRecord!
-    var message: GlobalMessage?{
-        didSet{
+    var message: GlobalMessage? {
+        didSet {
             if let someMessage = message{
                 if self.tableView != nil{
                     textFields[0].text = someMessage.title
@@ -29,17 +29,17 @@ class EditMessageViewController: UITableViewController, UITextFieldDelegate {
     var datePickerIsVisible = false
     
     // MARK: - Outlet
-    @IBOutlet var textFields: [UITextField]!{
-        didSet{
+    @IBOutlet private var textFields: [UITextField]! {
+        didSet {
             textFields.forEach { (textField) in
                 textField.delegate = self
                 textField.autocapitalizationType = .sentences
             }
         }
     }
-    @IBOutlet weak var descriptionTextView: UITextView!
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var datePicker: UIDatePicker!{
+    @IBOutlet private weak var descriptionTextView: UITextView!
+    @IBOutlet private weak var dateLabel: UILabel!
+    @IBOutlet private weak var datePicker: UIDatePicker!{
         didSet{
             datePicker.datePickerMode = .dateAndTime
             datePicker.addTarget(self, action: #selector(dateDidChange(sender:)), for: .valueChanged)
@@ -50,9 +50,9 @@ class EditMessageViewController: UITableViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let _ = self.message {
+        if self.message != nil {
             self.title = "Edit Message"
-        }else {
+        } else {
             self.title = "New Message"
         }
         

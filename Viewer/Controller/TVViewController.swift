@@ -12,27 +12,27 @@ import AVFoundation
 
 class TVViewController: UIViewController {
 
-    var globalMessages = [GlobalMessage](){
-        didSet{
+    var globalMessages = [GlobalMessage]() {
+        didSet {
             print(globalMessages)
         }
     }
 
-    let appDelegate  = UIApplication.shared.delegate as? AppDelegate
+    weak var appDelegate = UIApplication.shared.delegate as? AppDelegate
     
-    var currentTV:TV!
+    var currentTV: TV!
     
     var videosURL: [AVPlayerItem] {
-        var videos:[URL?] = [URL(string: "https://dl.dropboxusercontent.com/s/jiygs4mqvfmube2/Elmo180.m4v?dl=0"),
+        var videos: [URL?] = [URL(string: "https://dl.dropboxusercontent.com/s/jiygs4mqvfmube2/Elmo180.m4v?dl=0"),
                              URL(string: "https://dl.dropboxusercontent.com/s/0s48rm38u8awzve/Floridiana180.m4v?dl=0"),
                              URL(string: "https://dl.dropboxusercontent.com/s/pikrsmippuu59qq/Lungomare180.m4v?dl=0" ),
                              URL(string: "https://dl.dropboxusercontent.com/s/n0aczqi5irkhzcb/Uovo180.m4v?dl=0")
                             ]
         
         videos.forEach { (URL) in
-            guard let _ = URL else {
-                videos.remove(at: videos.index(of:URL)!)
-                print("failed to get video at index: \(videos.index(of:URL)!)")
+            guard URL != nil else {
+                videos.remove(at: videos.index(of: URL)!)
+                print("failed to get video at index: \(videos.index(of: URL)!)")
                 return
             }
             return
@@ -42,15 +42,14 @@ class TVViewController: UIViewController {
 
 //        videos = VideoDownloader.getVideos(from: videos as? [URL])
 
-        
-        
         let items = videos.map { (url) -> AVPlayerItem in
             return AVPlayerItem(url: url!)
         }
+
         return items
     }
     
-    var videoManager:VideoManager!
+    var videoManager: VideoManager!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,12 +97,12 @@ class TVViewController: UIViewController {
     }
     
     private func handleMsgNotification(_ ckqn: CKQueryNotification) {
-        guard let recordID = ckqn.recordID else {return}
+        guard let recordID = ckqn.recordID else { return }
         
         switch ckqn.queryNotificationReason {
         case .recordCreated:
             CKKeys.database.fetch(withRecordID: recordID) { (record, error) in
-                guard let _ = record, error == nil else {
+                guard record != nil, error == nil else {
                     if let ckError = error as? CKError {
                         let errorCode = ckError.errorCode
                         print(CKError.Code(rawValue: errorCode).debugDescription)
@@ -113,21 +112,21 @@ class TVViewController: UIViewController {
                 }
                 let msg = GlobalMessage(record: record!)
                 DispatchQueue.main.async {
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: CKNotificationName.MessageNotification.create.rawValue), object: self, userInfo: ["newMsg":msg])
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: CKNotificationName.MessageNotification.create.rawValue), object: self, userInfo: ["newMsg": msg])
                 }
                 
             }
         case .recordDeleted:
             
-            NotificationCenter.default.post(name: Notification.Name(rawValue: CKNotificationName.MessageNotification.delete.rawValue), object: self, userInfo: ["recordID":recordID])
+            NotificationCenter.default.post(name: Notification.Name(rawValue: CKNotificationName.MessageNotification.delete.rawValue), object: self, userInfo: ["recordID": recordID])
             
         case .recordUpdated:
             CKKeys.database.fetch(withRecordID: recordID) { (record, error) in
-                guard let _ = record, error == nil else {return}
+                guard record != nil, error == nil else { return }
                 let msg = GlobalMessage(record: record!)
                 DispatchQueue.main.async {
                     
-                    NotificationCenter.default.post(name: Notification.Name(rawValue: CKNotificationName.MessageNotification.update.rawValue), object: self, userInfo: ["modifiedMsg":msg])
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: CKNotificationName.MessageNotification.update.rawValue), object: self, userInfo: ["modifiedMsg": msg])
                 }
             }
         }
@@ -135,7 +134,7 @@ class TVViewController: UIViewController {
     }
     
     private func handleTVNotification(_ ckqn: CKQueryNotification) {
-        guard let recordID = ckqn.recordID else {return}
+        guard let recordID = ckqn.recordID else { return }
         
         switch ckqn.queryNotificationReason {
         case .recordCreated:
@@ -146,9 +145,9 @@ class TVViewController: UIViewController {
         case .recordUpdated:
             
             CKKeys.database.fetch(withRecordID: recordID) { (record, error) in
-                guard let _ = record, error == nil else {return}
+                guard record != nil, error == nil else { return }
                 DispatchQueue.main.async {
-                    if let delegate = self.appDelegate{
+                    if let delegate = self.appDelegate {
                         delegate.currentTV.record = record!
                         if let keynote = delegate.currentTV.keynote {
                             delegate.currentTV.viewDelegate?.show(keynote: keynote)
