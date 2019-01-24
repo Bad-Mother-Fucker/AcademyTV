@@ -279,17 +279,18 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
             return
         }
         
-        for group in groups{
-            CKController.removeKeynote(fromTVGroup: group.name)
-            CKController.postKeynote(keynote, ofType: ImageFileType.PNG, onTVsOfGroup: group.name)
+        let keynoteToPost = (image: keynote, tvName: "", TVGroup: groups)
+        keynoteToPost.TVGroup.forEach { (group) in
+            CKController.postKeynote(keynoteToPost.image, ofType: .PNG, onTVsOfGroup: group.name)
+            print("Posted")
         }
         
         let alert = UIAlertController(title: "Saved", message: "In a moment it will be displayed on selected tv", preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .default, handler: nil)
         alert.addAction(action)
-        self.present(alert, animated: true, completion: nil)
+        self.present(alert, animated: true, completion: {self.ShareExtensionContext!.completeRequest(returningItems: [], completionHandler: nil)})
         // FIXME: This completeRequest dismisses the view, i don't know whether this will work after or during the display of the alert view. It needs to be handled properly.
-        self.ShareExtensionContext!.completeRequest(returningItems: [], completionHandler: nil)
+        
     }
     
     func loadImagesFromAttachments(){
