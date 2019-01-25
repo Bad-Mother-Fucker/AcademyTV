@@ -30,8 +30,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "99AC09652174E9C100CFCAD0"
-               BuildableName = "Viewer iOs.app"
-               BlueprintName = "Viewer iOs"
+               BuildableName = "Viewer.iOS.app"
+               BlueprintName = "Viewer.iOS"
                ReferencedContainer = "container:Viewer.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -72,8 +72,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "99AC09652174E9C100CFCAD0"
-            BuildableName = "Viewer iOs.app"
-            BlueprintName = "Viewer iOs"
+            BuildableName = "Viewer.iOS.app"
+            BlueprintName = "Viewer.iOS"
             ReferencedContainer = "container:Viewer.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -92,8 +92,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "99AC09652174E9C100CFCAD0"
-            BuildableName = "Viewer iOs.app"
-            BlueprintName = "Viewer iOs"
+            BuildableName = "Viewer.iOS.app"
+            BlueprintName = "Viewer.iOS"
             ReferencedContainer = "container:Viewer.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
