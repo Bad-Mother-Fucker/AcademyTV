@@ -10,11 +10,17 @@ import UIKit
 
 /// This class are used for rappresent the Border Cell
 class BorderCollectionViewCell: UICollectionViewCell {
+
+    var titleText: String?{
+        didSet{
+            titleLabel.text = titleText
+        }
+    }
     
     /**
      The outlat linked to the title of the cell.
      */
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet private weak var titleLabel: UILabel!
     
     /**
      Override the basic isSelected variables for customise the behavior when change.
@@ -25,7 +31,7 @@ class BorderCollectionViewCell: UICollectionViewCell {
         didSet{
             if isSelected{
                 self.titleLabel.text = "Deselect All"
-            }else{
+            } else {
                 self.titleLabel.text = "Select All"
             }
         }

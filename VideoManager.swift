@@ -76,7 +76,7 @@ class VideoManager {
      */
     
     var videos: [AVPlayerItem] {
-        get { return playingVideos }
+        return playingVideos
     }
     
     private var player: AVPlayer!
@@ -112,7 +112,7 @@ class VideoManager {
         var currentIndex = videos.index(of: currentVideo)!
         if currentIndex >= 0 && currentIndex < (videos.count - 1) {
             return currentIndex + 1
-        }else {
+        } else {
             currentIndex = 0
             return currentIndex
         }
@@ -158,7 +158,7 @@ class VideoDownloader {
             URLs.forEach({ (url) in
                 if let urlData = NSData(contentsOf: url) {
                     let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-                    let filePath="\(documentsPath)/video\(URLs.index(of: url)!).mp4"
+                    let filePath = "\(documentsPath)/video\(URLs.index(of: url)!).mp4"
                     
                     urlData.write(toFile: filePath, atomically: true)
                     localURLs.append(URL(fileURLWithPath: filePath))
@@ -184,7 +184,8 @@ class VideoDownloader {
      - Return: <#Return#>
 
      
-     - Note: If there is any video stored in userdefaults it returns the urls of the user default folder where the videos are stored. Otherwise it starts downloading them, and in the meanwhile returns the dropbox video urls
+     - Note: If there is any video stored in userdefaults it returns the urls of the user default folder where the videos are stored.
+     Otherwise it starts downloading them, and in the meanwhile returns the dropbox video urls
      
      - Version: 1.0
      

@@ -17,7 +17,7 @@ import Foundation
  
  - Author: @GianlucaOrpello
  */
-enum GliphName: String{
+enum GliphName: String {
     case appleWatch = "Apple Watch"
     case applePencil = "Apple Pencil"
     case appleTV = "Apple TV"
@@ -39,7 +39,7 @@ enum GliphName: String{
  
  - Author: @GianlucaOrpello
  */
-class BooquableOrder{
+class BooquableOrder {
     
     // MARK: - Public API
     var id: String!
@@ -124,19 +124,19 @@ class BooquableOrder{
     private func getGliph(from name: String) -> GliphName {
         if name.range(of: GliphName.appleWatch.rawValue) != nil {
             return .appleWatch
-        }else if name.range(of: GliphName.applePencil.rawValue) != nil {
+        } else if name.range(of: GliphName.applePencil.rawValue) != nil {
             return .applePencil
-        }else if name.range(of: GliphName.appleTV.rawValue) != nil {
+        } else if name.range(of: GliphName.appleTV.rawValue) != nil {
             return .appleTV
-        }else if name.range(of: GliphName.ipadMini.rawValue) != nil {
+        } else if name.range(of: GliphName.ipadMini.rawValue) != nil {
             return .ipadMini
-        }else if name.range(of: GliphName.ipadPro.rawValue) != nil {
+        } else if name.range(of: GliphName.ipadPro.rawValue) != nil {
             return .ipadPro
-        }else if name.range(of: GliphName.macMini.rawValue) != nil {
+        } else if name.range(of: GliphName.macMini.rawValue) != nil {
             return .macMini
-        }else if name.range(of: GliphName.iphoneX.rawValue) != nil {
+        } else if name.range(of: GliphName.iphoneX.rawValue) != nil {
             return .iphoneX
-        }else {
+        } else {
             return .iphone8
         }
     }

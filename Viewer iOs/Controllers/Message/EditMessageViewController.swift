@@ -12,8 +12,8 @@ import CloudKit
 class EditMessageViewController: UITableViewController, UITextFieldDelegate {
     
     var record: CKRecord!
-    var message: GlobalMessage?{
-        didSet{
+    var message: GlobalMessage? {
+        didSet {
             if let someMessage = message{
                 if self.tableView != nil{
                     textFields[0].text = someMessage.title
@@ -29,17 +29,17 @@ class EditMessageViewController: UITableViewController, UITextFieldDelegate {
     var datePickerIsVisible = false
     
     // MARK: - Outlet
-    @IBOutlet var textFields: [UITextField]!{
-        didSet{
+    @IBOutlet private var textFields: [UITextField]! {
+        didSet {
             textFields.forEach { (textField) in
                 textField.delegate = self
                 textField.autocapitalizationType = .sentences
             }
         }
     }
-    @IBOutlet weak var descriptionTextView: UITextView!
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var datePicker: UIDatePicker!{
+    @IBOutlet private weak var descriptionTextView: UITextView!
+    @IBOutlet private weak var dateLabel: UILabel!
+    @IBOutlet private weak var datePicker: UIDatePicker!{
         didSet{
             datePicker.datePickerMode = .dateAndTime
             datePicker.addTarget(self, action: #selector(dateDidChange(sender:)), for: .valueChanged)
@@ -50,9 +50,9 @@ class EditMessageViewController: UITableViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let _ = self.message {
+        if self.message != nil {
             self.title = "Edit Message"
-        }else {
+        } else {
             self.title = "New Message"
         }
         
@@ -69,14 +69,14 @@ class EditMessageViewController: UITableViewController, UITextFieldDelegate {
     }
     
     // MARK: - Private implementation
-    @IBAction func sendMessageButtonPressed(_ sender: Any) {
+    @IBAction private func sendMessageButtonPressed(_ sender: Any) {
         sendMessage()
     }
     
     @objc func sendMessage() {
         if let message = self.message {
             record = message.record
-        }else {
+        } else {
             record = CKRecord(recordType: GlobalMessage.recordType)
         }
         
@@ -88,15 +88,15 @@ class EditMessageViewController: UITableViewController, UITextFieldDelegate {
         record["date"] = dateLabel.text! as CKRecordValue
         record["description"] = descriptionTextView.text! as CKRecordValue
         
-        if let _ = self.message {
+        if self.message != nil {
             let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
             op.savePolicy = .changedKeys
             CKKeys.database.add(op)
-        }else {
+        } else {
             CKController.postMessage(title: textFields[0].text!,
                                      subtitle: textFields[1].text!,
                                      location: textFields[3].text!,
-                                     date:(dateLabel.text,nil),
+                                     date: (dateLabel.text, nil),
                                      description: descriptionTextView.text!,
                                      URL: URL(string: textFields[2].text!),
                                      timeToLive: 5)
@@ -106,10 +106,10 @@ class EditMessageViewController: UITableViewController, UITextFieldDelegate {
         
         
         
-        let alert: UIAlertController = UIAlertController(title: "Success",
+        let alert = UIAlertController(title: "Success",
                                                          message: "Message saved correctly",
                                                          preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Confirm", style: .cancel, handler: { (alert) in
+        alert.addAction(UIAlertAction(title: "Confirm", style: .cancel, handler: { _ in
             self.navigationController?.popViewController(animated: true)
         }))
         self.present(alert, animated: true, completion: nil)
@@ -134,9 +134,9 @@ class EditMessageViewController: UITableViewController, UITextFieldDelegate {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 2{
             return 3
-        }else if section == 0 || section == 1{
+        } else if section == 0 || section == 1{
             return 2
-        }else{
+        } else{
             return 0
         }
     }

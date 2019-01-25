@@ -10,24 +10,32 @@ import UIKit
 
 /// This class are used for rappresent the TV Groups Collection View Cell
 class GroupsCollectionViewCell: UICollectionViewCell {
-    
+
+    // MARK: - Public API
+
+    var groupName: String?{
+        didSet{
+            groupNameLabel.text = groupName
+        }
+    }
+
     // MARK: - Outlets
     
     /**
      UIView - The outlet linked to the title of the cell.
      */
    
-    @IBOutlet weak var gradientView: UIView!
+    @IBOutlet private weak var gradientView: UIView!
     
     /**
      UIButton - The outlet linked to the option button.
      
      - Attention: We have to finish to implement this for select inividual tvs
      */
-    @IBOutlet weak var optionButton: UIButton!{
+    @IBOutlet private weak var optionButton: UIButton!{
         didSet{
             optionButton.backgroundColor = UIColor.black.withAlphaComponent(0.2)
-            optionButton.layer.cornerRadius = optionButton.frame.width/2
+            optionButton.layer.cornerRadius = optionButton.frame.width / 2
             optionButton.clipsToBounds = true
         }
     }
@@ -35,12 +43,12 @@ class GroupsCollectionViewCell: UICollectionViewCell {
     /**
      UIImageView - The outlet linked to the "check" image.
      */
-    @IBOutlet weak var checkMarkImageView: UIImageView!
+    @IBOutlet private weak var checkMarkImageView: UIImageView!
     
     /**
      UILabel - The outlet linked to the title of the group name cell.
      */
-    @IBOutlet weak var groupNameLabel: UILabel!
+    @IBOutlet private weak var groupNameLabel: UILabel!
     
     /**
      Bool - Control the selection state of the cell.
@@ -49,7 +57,7 @@ class GroupsCollectionViewCell: UICollectionViewCell {
         didSet{
             if isSelected{
                 checkMarkImageView.image = UIImage(named: "Checked")
-            }else{
+            } else {
                 checkMarkImageView.image = nil
             }
         }

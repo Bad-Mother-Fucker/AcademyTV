@@ -16,14 +16,12 @@ class SharePosterViewController: UIViewController, UICollectionViewDelegate, UIC
     var keynotes: [UIImage]! = [UIImage]()
     
     var shareExtensionContext: NSExtensionContext?
+
+    @IBOutlet private weak var barButtonItem: UIBarButtonItem!
     
     
-    
-    @IBOutlet weak var barButtonItem: UIBarButtonItem!
-    
-    
-    @IBOutlet weak var collectionView: UICollectionView!{
-        didSet{
+    @IBOutlet private weak var collectionView: UICollectionView! {
+        didSet {
             collectionView.delegate = self
             collectionView.dataSource = self
         }
@@ -34,11 +32,11 @@ class SharePosterViewController: UIViewController, UICollectionViewDelegate, UIC
         loadImagesFromAttachments()
         print(tvGroups.count, keynotes.count)
         super.viewDidLoad()
-        self.ShareExtensionContext = ExtensionContextContainer.shared.context
+        self.shareExtensionContext = ExtensionContextContainer.shared.context
         
         
         
-        if keynotes.count != 0{
+        if keynotes.count != 0 {
             barButtonItem.title = "Save"
             barButtonItem.action = #selector(saveKeynote)
         }
@@ -47,8 +45,8 @@ class SharePosterViewController: UIViewController, UICollectionViewDelegate, UIC
     }
     
 
-    @IBAction func saveKeynote(_ sender: UIBarButtonItem) {
-        guard keynotes.count != 0 else{
+    @IBAction private func saveKeynote(_ sender: UIBarButtonItem) {
+        guard keynotes.count != 0 else {
             let alert = UIAlertController(title: "Error", message: "Add at least one image", preferredStyle: .alert)
             let action = UIAlertAction(title: "OK", style: .default, handler: nil)
             alert.addAction(action)
@@ -56,7 +54,7 @@ class SharePosterViewController: UIViewController, UICollectionViewDelegate, UIC
             return
         }
         
-        for group in tvGroups{
+        for group in tvGroups {
             CKController.removeKeynote(fromTVGroup: group)
             CKController.postKeynote(keynotes, ofType: ImageFileType.PNG, onTVsOfGroup: group)
         }
@@ -66,11 +64,11 @@ class SharePosterViewController: UIViewController, UICollectionViewDelegate, UIC
         alert.addAction(action)
         self.present(alert, animated: true, completion: nil)
         // FIXME: This completeRequest dismisses the view, i don't know whether this will work after or during the display of the alert view. It needs to be handled properly.
-        self.ShareExtensionContext!.completeRequest(returningItems: [], completionHandler: nil)
+        self.shareExtensionContext!.completeRequest(returningItems: [], completionHandler: nil)
         
     }
     
-    @objc func getPhotosFromGallery(_ notification: NSNotification){
+    @objc func getPhotosFromGallery(_ notification: NSNotification) {
         if let image = notification.userInfo?["images"] as? [UIImage] {
             keynotes = image
             self.collectionView.reloadData()
@@ -78,7 +76,7 @@ class SharePosterViewController: UIViewController, UICollectionViewDelegate, UIC
     }
     
     
-    @IBAction func openImagePicker(_ sender: UIBarButtonItem) {
+    @IBAction private func openImagePicker(_ sender: UIBarButtonItem) {
         
         let imagePicker = self.storyboard?.instantiateViewController(withIdentifier: "ImagePickerViewController")
         self.present(imagePicker!, animated: true, completion: nil)
@@ -92,44 +90,43 @@ class SharePosterViewController: UIViewController, UICollectionViewDelegate, UIC
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "galleryImageCell", for: indexPath) as? ImagePickerCollectionViewCell {return UITableViewCell()}
         
-        cell.imageView.image = keynotes[indexPath.item]
-        cell.checkerView.isHidden = true
+        cell?.currentImage = keynotes[indexPath.item]
+        cell?.isCheked = true
         
-        return cell
+        return cell ?? ImagePickerCollectionViewCell()
     }
     
-    func loadImagesFromAttachments(){
+    func loadImagesFromAttachments() {
         
         let UTI = kUTTypeImage as String
         
         var keynoteData: [Data] = []
         
-        if let content = self.ShareExtensionContext?.inputItems[0] as? NSExtensionItem{
-            print("Found \(content.attachments?.count) attachments")
-            for element in content.attachments!{
+        if let content = self.shareExtensionContext?.inputItems[0] as? NSExtensionItem {
+            print("Found \(String(describing: content.attachments?.count)) attachments")
+            for element in content.attachments! {
                 let itemProvider = element
-                itemProvider
-                if itemProvider.hasItemConformingToTypeIdentifier(UTI){
+                if itemProvider.hasItemConformingToTypeIdentifier(UTI) {
                     itemProvider.loadItem(forTypeIdentifier: UTI, options: nil, completionHandler: { (item, error) in
                         
-                        if let _ = error {
-                            
-                            print("there was an error",error!.localizedDescription)
+                        if error != nil {
+                            print("there was an error", error!.localizedDescription)
                         }
                         
                         var imgData: Data!
                         var img: UIImage?
-                        
-                        
-                        
+
                         if let img = item as? UIImage {
                             imgData = img.byFixingOrientation().jpegData(compressionQuality: 1)
                         } else if let data = item as? NSData {
                             imgData = data as Data
                         } else if let url = item as? NSURL {
-                            imgData = try? Data(contentsOf: url as URL)
+                            do {
+                                imgData = try? Data(contentsOf: url as URL)
+                            } catch {
+                                NSLog("Can't get imgData - SharePosterViewController: loadImagesFromAttachments")
+                            }
                         }
-                        
                         
                         keynoteData.append(imgData)
                         let a = UIImage(data: imgData, scale: UIScreen.main.scale)
@@ -138,12 +135,12 @@ class SharePosterViewController: UIViewController, UICollectionViewDelegate, UIC
                             self.collectionView.reloadData()
                         }
                     })
-                }else if itemProvider.hasItemConformingToTypeIdentifier("public.png"){
+                } else if itemProvider.hasItemConformingToTypeIdentifier("public.png") {
                    
                     itemProvider.loadItem(forTypeIdentifier: "public.png", options: nil, completionHandler: { (item, error) in
                         
-                        if let _ = error {
-                            print("there was an error",error!.localizedDescription)
+                        if error != nil {
+                            print("there was an error", error!.localizedDescription)
                         }
                         
                         var imgData: Data!
@@ -153,7 +150,11 @@ class SharePosterViewController: UIViewController, UICollectionViewDelegate, UIC
                         } else if let data = item as? NSData {
                             imgData = data as Data
                         } else if let url = item as? NSURL {
-                            guard let imgData = try? Data(contentsOf: url as URL) else { return }
+                            do {
+                                imgData = try? Data(contentsOf: url as URL)
+                            } catch {
+                                NSLog("Error get the imgData - SharePosterViewController: loadImagesFromAttachments")
+                            }
                         }
                         
 
@@ -192,24 +193,21 @@ extension UIImage {
         var transform = CGAffineTransform.identity
         let size = newSize ?? self.size
         
-        if (orientation == .down || orientation == .downMirrored) {
+        if orientation == .down || orientation == .downMirrored {
             transform = transform.translatedBy(x: size.width, y: size.height)
             transform = transform.rotated(by: .pi)
-        }
-        else if (orientation == .left || orientation == .leftMirrored) {
+        } else if orientation == .left || orientation == .leftMirrored {
             transform = transform.translatedBy(x: size.width, y: 0)
             transform = transform.rotated(by: CGFloat.pi / 2)
-        }
-        else if (orientation == .right || orientation == .rightMirrored) {
+        } else if orientation == .right || orientation == .rightMirrored {
             transform = transform.translatedBy(x: 0, y: size.height)
             transform = transform.rotated(by: -(CGFloat.pi / 2))
         }
         
-        if (orientation == .upMirrored || orientation == .downMirrored) {
-            transform = transform.translatedBy(x: size.width, y: 0);
+        if orientation == .upMirrored || orientation == .downMirrored {
+            transform = transform.translatedBy(x: size.width, y: 0)
             transform = transform.scaledBy(x: -1, y: 1)
-        }
-        else if (orientation == .leftMirrored || orientation == .rightMirrored) {
+        } else if orientation == .leftMirrored || orientation == .rightMirrored {
             transform = transform.translatedBy(x: size.height, y: 0)
             transform = transform.scaledBy(x: -1, y: 1)
         }
@@ -225,7 +223,7 @@ extension UIImage {
         ctx.concatenate(transform)
         
         // Create a new UIImage from the drawing context
-        switch (orientation) {
+        switch orientation {
         case .left, .leftMirrored, .right, .rightMirrored:
             ctx.draw(cgImage, in: CGRect(x: 0, y: 0, width: size.height, height: size.width))
         default:

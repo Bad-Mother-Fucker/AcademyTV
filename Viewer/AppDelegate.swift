@@ -11,7 +11,7 @@ import CloudKit
 import UserNotifications
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     
     var window: UIWindow?
     var currentTV: TV!
@@ -37,8 +37,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
                 DispatchQueue.main.async {
                      application.registerForRemoteNotifications()
                     UNUserNotificationCenter.current().delegate = self
-                    CKController.saveSubscription(for: GlobalMessage.recordType,ID:CKKeys.messageSubscriptionKey)
-                    CKController.saveSubscription(for: TV.recordType,ID:CKKeys.tvSubscriptionKey)
+                    CKController.saveSubscription(for: GlobalMessage.recordType, ID: CKKeys.messageSubscriptionKey)
+                    CKController.saveSubscription(for: TV.recordType, ID: CKKeys.tvSubscriptionKey)
                 
                 }
             }
@@ -73,10 +73,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         TVModel.doesExist { (exists, error) in
             debugPrint("tv \(exists)")
             
-            if !exists{
+            if !exists {
                 
                 TVModel.addTV(withName: UIDevice.current.name, completionHandler: { (record, error) in
-                    guard let _ = record,error == nil else {
+                    guard record != nil, error == nil else {
                         print(error!.localizedDescription)
                         return
                     }
@@ -89,7 +89,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
                 
                 TVModel.getTV(withName: UIDevice.current.name, completionHandler: { (TV, error) in
                     
-                    guard let _ = TV, error == nil else {
+                    guard TV != nil, error == nil else {
                         print(error!.localizedDescription)
                         return
                     }
@@ -125,19 +125,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
         print("notification recieved")
         let notificationName: CKNotificationName
-        guard let info = userInfo as? [String: Any] else { return }
+        if let info = userInfo as? [String: Any] {
 
-        let ckqn = CKQueryNotification(fromRemoteNotificationDictionary: info)
-    
-        switch ckqn.subscriptionID {
-        case CKKeys.tvSubscriptionKey:
-            notificationName = .tv
-        case CKKeys.messageSubscriptionKey:
-            notificationName = .globalMessages
-        case CKKeys.serviceSubscriptionKey:
-            notificationName = .serviceMessage
-        default:
-            notificationName = .null
+            let ckqn = CKQueryNotification(fromRemoteNotificationDictionary: info)
+
+            switch ckqn.subscriptionID {
+            case CKKeys.tvSubscriptionKey:
+                notificationName = .tv
+            case CKKeys.messageSubscriptionKey:
+                notificationName = .globalMessages
+            case CKKeys.serviceSubscriptionKey:
+                notificationName = .serviceMessage
+            default:
+                notificationName = .null
+            }
+            let notification = Notification(name: Notification.Name(rawValue: notificationName.rawValue),
+                                            object: self,
+                                            userInfo: [CKNotificationName.notification.rawValue: ckqn])
+            NotificationCenter.default.post(notification)
         }
         
         

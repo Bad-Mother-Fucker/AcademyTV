@@ -107,7 +107,7 @@
 //    
 //    static var timer: Double {
 //        get {
-//            return record.value(forKey: ServiceMessage.keys.timer) as! Double
+//            return record.value(forKey: ServiceMessage.keys.timer) as? Double
 //        }
 //        set {
 //            record.setValue(newValue, forKey: ServiceMessage.keys.timer)

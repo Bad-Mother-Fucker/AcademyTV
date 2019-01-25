@@ -17,10 +17,10 @@ import MessageUI
  - Author: @GianlucaOrpello
  */
 enum Categories: String{    
-    case TickerMessage = "Ticker Messages"
-    case KeynoteViewer = "Content Viewer"
-    case Timer = "Timer"
-    case GlobalMessage = "Global Messages"
+    case tickerMessage = "Ticker Messages"
+    case keynoteViewer = "Content Viewer"
+    case timer = "Timer"
+    case globalMessage = "Global Messages"
 }
 
 /**
@@ -50,7 +50,7 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
      
      - Author: @GianlucaOrpello
      */
-    var globalMessages: [GlobalMessage]? = nil
+    var globalMessages: [GlobalMessage]?
     
     /**
      ## All the ticker message airing.
@@ -61,7 +61,7 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
      
      - Author: @GianlucaOrpello
      */
-    var thikerMessage: [(message: String, tvName: String, TVGroup: [TVGroup]?)]? = nil
+    var thikerMessage: [(message: String, tvName: String, TVGroup: [TVGroup]?)]?
     
     /**
      ## All the keynote airing.
@@ -72,7 +72,7 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
      
      - Author: @GianlucaOrpello
      */
-    var keynote: [(image: [UIImage]?, tvName: String, TVGroup: [TVGroup]?)]? = nil
+    var keynote: [(image: [UIImage]?, tvName: String, TVGroup: [TVGroup]?)]?
     
     /**
      ## UIVIewController - View did Load Methods
@@ -92,15 +92,15 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
         
         var uniqueTickerMessages = Set<String>()
         
-        for tick in ticker{
+        for tick in ticker {
             // FIXME: Group tickers by message
             uniqueTickerMessages.insert(tick.0)
         }
         
-        for message in uniqueTickerMessages{
-            thikerMessage!.append((message: message, tvName: "", TVGroup: nil))
+        for message in uniqueTickerMessages {
+            thikerMessage?.append((message: message, tvName: "", TVGroup: nil))
             for tick in ticker {
-                if (tick.0 == message){
+                if tick.0 == message {
                     let size = thikerMessage!.count
                     thikerMessage![size-1].tvName.append(contentsOf: "\(tick.1), ")
                 }
@@ -114,7 +114,7 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
         
         
         
-        for key in keynoteFiles{
+        for key in keynoteFiles {
             keynote?.append((image: key.image, tvName: key.tvName, TVGroup: nil))
         }
         
@@ -122,7 +122,7 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
             globalMessages = try CKController.getAllGlobalMessages(completionHandler: {
                 self.numberOfObject = 1
             })
-        }catch{
+        } catch {
             print("Error getting the messages.")
             numberOfObject = 0
         }
@@ -142,12 +142,12 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if numberOfObject == 0{
+        if numberOfObject == 0 {
             let noLiveView = NoLivePrompView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height))
             noLiveView.contactbutton.addTarget(self, action: #selector(sendEmail), for: .touchUpInside)
             self.view.addSubview(noLiveView)
-        }else{
-            for views in self.view.subviews{
+        } else {
+            for views in self.view.subviews {
                 views.removeFromSuperview()
             }
             
@@ -155,7 +155,7 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
             tableView.delegate = self
             tableView.dataSource = self
             tableView.tableFooterView = UIView()
-            tableView.tintColor = UIColor(red: 0, green: 119/255, blue: 1, alpha: 1)
+            tableView.tintColor = UIColor(red: 0, green: 119 / 255, blue: 1, alpha: 1)
 
             tableView.reloadData()
             self.view.addSubview(tableView)
@@ -169,7 +169,7 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
      
      - Author: @GianlucaOrpello
      */
-    @IBAction func addNewProp(_ sender: UIBarButtonItem) {
+    @IBAction private func addNewProp(_ sender: UIBarButtonItem) {
         let destination = PropsViewController()
         let nav = UINavigationController(rootViewController: destination)
         nav.navigationBar.prefersLargeTitles = true
@@ -210,7 +210,7 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
      */
     
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-        switch (result) {
+        switch result {
         case MFMailComposeResult.sent:
             print("You sent the email.")
         case MFMailComposeResult.saved:
@@ -270,14 +270,13 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
      - Author: @GianlucaOrpello
      */
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let remove = UITableViewRowAction(style: .destructive, title: "Delete") {
-            [weak self] (action, indexPath) in
+        let remove = UITableViewRowAction(style: .destructive, title: "Delete") { [weak self] (_, indexPath) in
 
             let alert = UIAlertController(title: "Delete Prop", message: "The prop will be removed from all the screens. This cannot be undone.", preferredStyle: .alert)
             let cancel = UIAlertAction(title: "Cancel", style: .default, handler: nil)
-            let delete = UIAlertAction(title: "Delete", style: .cancel, handler: { [weak self] (action) in
+            let delete = UIAlertAction(title: "Delete", style: .cancel, handler: { [weak self] _ in
 
-                switch indexPath.section{
+                switch indexPath.section {
                 case 0:
                     CKController.removeTickerMessage(fromTVNamed: (self?.thikerMessage![indexPath.row].tvName)!)
                     self?.thikerMessage?.remove(at: indexPath.row)
@@ -319,11 +318,11 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
-            return Categories.TickerMessage.rawValue
+            return Categories.tickerMessage.rawValue
         case 1:
-            return Categories.KeynoteViewer.rawValue
+            return Categories.keynoteViewer.rawValue
         case 2:
-            return Categories.GlobalMessage.rawValue
+            return Categories.globalMessage.rawValue
         default:
             return nil
         }
@@ -358,7 +357,7 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
      
      - Author: @GianlucaOrpello
      */
-    private func getProp(from indexPath: IndexPath) -> Any?{
+    private func getProp(from indexPath: IndexPath) -> Any? {
         switch indexPath.section {
         case 0:
             return thikerMessage?[indexPath.row]
@@ -506,7 +505,7 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
             let button = UIButton(frame: CGRect(x: 0, y: 10, width: self.view.frame.width, height: 40))
             
             button.setTitle("Something's wrong?", for: .normal)
-            button.setTitleColor(UIColor(red: 0, green: 119/255, blue: 1, alpha: 1), for: .normal)
+            button.setTitleColor(UIColor(red: 0, green: 119 / 255, blue: 1, alpha: 1), for: .normal)
             button.addTarget(self, action: #selector(sendEmail), for: .touchUpInside)
             
             cell.contentView.addSubview(button)
@@ -517,6 +516,4 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
             return UITableViewCell()
         }
     }
-    
-    
 }

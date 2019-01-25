@@ -13,7 +13,7 @@
     <a title="Viewer  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">Viewer Docs</a> (33% documented)</p>
+        <p><a href="index.html">Viewer Docs</a> (32% documented)</p>
         <p class="header-right"><a href="https://github.com/Bad-Mother-Fucker/AcademyTV"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -165,25 +165,35 @@
             
             <h1 id='project-viewer' class='heading'>Project Viewer</h1>
 
-<p>subtitle:
-Documentation
-Working in progress&hellip;</p>
+<p>A different way to signage</p>
 <h2 id='overview' class='heading'>Overview</h2>
 
-<p>One way to build compelling AR experiences is to recognize features of the user&rsquo;s environment and use them to trigger the appearance of virtual content. For example, a museum app might add interactive 3D visualizations when the user points their device at a displayed sculpture or artifact. </p>
-
-<p>In iOS 12, you can create such AR experiences by enabling <em>object detection</em> in ARKit: Your app provides <em>reference objects</em>, which encode three-dimensional spatial features of known real-world objects, and ARKit tells your app when and where it detects the corresponding real-world objects during an AR session.</p>
-
-<p>This sample code project provides multiple ways to make use of object detection:</p>
-
-<ul>
-<li>Run the app to scan a real-world object and export a reference object file, which you can use in your own apps to detect that object.</li>
-<li>Use the <a href="https://developer.apple.com/documentation/arkit/arobjectscanningconfiguration"><code>ARObjectScanningConfiguration</code></a> and <a href="https://developer.apple.com/documentation/arkit/arreferenceobject"><code>ARReferenceObject</code></a> classes as demonstrated in this sample app to record reference objects as part of your own asset production pipeline.</li>
-<li>Use <a href="https://developer.apple.com/documentation/arkit/arworldtrackingconfiguration/2968177-detectionobjects"><code>detectionObjects</code></a> in a world-tracking AR session to recognize a reference object and create AR interactions.</li>
-</ul>
+<p>Project Viewer is an tvOS application for the Apple TV that allows a user to instatnly control the view of a signage display using their iPhone. 
+Using Cloudkit as the backend, the user is able to seemlessly direct the scene on an unlimited amount of apple tv instances </p>
 <h2 id='getting-started' class='heading'>Getting Started</h2>
 
-<p>Requires Xcode 10.0, iOS 12.0 and an iOS device with an A9 or later processor. ARKit is not supported in iOS Simulator.</p>
+<p>Requires Xcode 10.0, iOS 12.0 an iOS device,  tvOS device, and an active developer account for cloudkit access</p>
+<h2 id='running-on-apple-tv' class='heading'>Running on Apple TV</h2>
+
+<p>When running the applicaiton for the first time on the apple tv, there will be a prompt by tvOS to allow notifications. Using the apple tv remote, select <q>Allow</q> </p>
+<h2 id='running-on-ios-device' class='heading'>Running on iOS Device</h2>
+
+<p>Loading the </p>
+<h2 id='use-in-education' class='heading'>Use In Education</h2>
+
+<p>Project Viewer includes many props aimed for use of </p>
+<h2 id='use-in-retail-environments' class='heading'>Use In Retail Environments</h2>
+<h2 id='use-in-advertising' class='heading'>Use In Advertising</h2>
+<h2 id='terminology' class='heading'>Terminology</h2>
+
+<ol>
+<li><strong>Props:</strong> Listed bellow are self organied containers for posted data. These containers allow for an organized and consistent onscreen style of the posted information. A prop can be scheduled to post and expire at a specified time.</li>
+<li><strong>Location</strong> Depending on the ammount of devices in use, and the groupings of your space. Props can be directed to only show in specific locations. Groupings of locations and the device are organized based on the name of the apple tv.</li>
+<li><strong>Global Messages.</strong> Is a prop that allows for a loop of data to show on the display. Global Messages are text fields that are organized by <q>Title</q>,<q>Subtitle</q>,<q>Date</q>,<q>Time</q>,<q>QR Code</q>, and <q>Message</q>. The Separation of these text fields allow for automatic formating when displayed. When a location on the screen is chosen using the iOS applicaiton, the Title and subtitle will be formated to allow <q>&hellip;&hellip;</q> When data is filled into the QR Code field, it will automaticly be converted into a QR code on the screen, allowing for another user to scan and recieve data inwhich you intend. Weblinks, Contact Information, Wifi Connection, ect.</li>
+<li><strong>Content Viewer.</strong></li>
+<li><strong>Timer.</strong></li>
+<li><strong>Ticker Message.</strong></li>
+</ol>
 <h2 id='scan-real-world-objects-with-an-ios-app' class='heading'>Scan Real-World Objects with an iOS App</h2>
 
 <p>The programming steps to scan and define a reference object that ARKit can use for detection are simple. (See <q>Create a Reference Object in an AR Session</q> below.) However, the fidelity of the reference object you create, and thus your success at detecting that reference object in your own apps, depends on your physical interactions with the object when scanning. Build and run this app on your iOS device to walk through a series of steps for getting high-quality scan data, resulting in reference object files that you can use for detection in your own apps.</p>
@@ -200,11 +210,11 @@ Working in progress&hellip;</p>
 <li><strong>Define bounding box.</strong> Before scanning, you need to tell the app what region of the world contains the object you want to scan. Drag to move the box around in 3D, or press and hold on a side of the box and then drag to resize it. (Or, if you leave the box untouched, you can move around the object and the app will attempt to automatically fit a box around it.) Make sure the bounding box contains only features of the object you want to scan (not those from the environment it&rsquo;s in), then tap the Scan button.</li>
 <li><strong>Scan the object.</strong> Move around to look at the object from different angles. The app highlights parts of the bounding box to indicate when you&rsquo;ve scanned enough to recognize the object from the corresponding direction. Be sure to scan on all sides from which you want users of your app to be able to recognize the object. The app automatically proceeds to the next step when a scan is complete, or you can tap the Stop button to proceed manually.</li>
 <li><strong>Adjust origin.</strong> The app displays x, y, and z coordinate axis lines showing the object&rsquo;s anchor point, or <em>origin</em>. Drag the circles to move the origin relative to the object. In this step you can also use the Add (+) button to load a 3D model in USDZ format. The app displays the model as it would appear in AR upon detecting the real-world object, and uses the model&rsquo;s size to adjust the scale of the reference object. Tap the Test button when done.</li>
-<li><strong>Test and export.</strong> The app has now created an <a href="https://developer.apple.com/documentation/arkit/arreferenceobject"><code>ARReferenceObject</code></a> and has reconfigured its session to detect it. Look at the real-world object from different angles, in various environments and lighting conditions, to verify that ARKit reliably recognizes its position and orientation. Tap the Export button to open a share sheet for saving the finished <code>.arobject</code> file. For example, you can easily send it to your development Mac using AirDrop, or send it to the Files app to save it to iCloud Drive.</li>
+<li><strong>Test and export.</strong> The app has now created an [<code>ARReferenceObject</code>][01] and has reconfigured its session to detect it. Look at the real-world object from different angles, in various environments and lighting conditions, to verify that ARKit reliably recognizes its position and orientation. Tap the Export button to open a share sheet for saving the finished <code>.arobject</code> file. For example, you can easily send it to your development Mac using AirDrop, or send it to the Files app to save it to iCloud Drive.</li>
 </ol>
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
-    An <a href="https://developer.apple.com/documentation/arkit/arreferenceobject"><code>ARReferenceObject</code></a> contains only the spatial feature information needed for ARKit to recognize the real-world object, and is not a displayable 3D reconstruction of that object.
+    An [<code>ARReferenceObject</code>][01] contains only the spatial feature information needed for ARKit to recognize the real-world object, and is not a displayable 3D reconstruction of that object.
 
 </div>
 <h2 id='detect-reference-objects-in-an-ar-experience' class='heading'>Detect Reference Objects in an AR Experience</h2>
@@ -222,7 +232,7 @@ Working in progress&hellip;</p>
 
 </div>
 
-<p>To enable object detection in an AR session, load the reference objects you want to detect as <a href="https://developer.apple.com/documentation/arkit/arreferenceobject"><code>ARReferenceObject</code></a> instances, provide those objects for the <a href="https://developer.apple.com/documentation/arkit/arworldtrackingconfiguration/2968177-detectionobjects"><code>detectionObjects</code></a> property of an <a href="https://developer.apple.com/documentation/arkit/arworldtrackingconfiguration"><code>ARWorldTrackingConfiguration</code></a>, and run an <a href="https://developer.apple.com/documentation/arkit/arsession"><code>ARSession</code></a> with that configuration:</p>
+<p>To enable object detection in an AR session, load the reference objects you want to detect as [<code>ARReferenceObject</code>][01] instances, provide those objects for the [<code>detectionObjects</code>][02] property of an <a href="https://developer.apple.com/documentation/arkit/arworldtrackingconfiguration"><code>ARWorldTrackingConfiguration</code></a>, and run an <a href="https://developer.apple.com/documentation/arkit/arsession"><code>ARSession</code></a> with that configuration:</p>
 <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">configuration</span> <span class="o">=</span> <span class="kt">ARWorldTrackingConfiguration</span><span class="p">()</span>
 <span class="k">guard</span> <span class="k">let</span> <span class="nv">referenceObjects</span> <span class="o">=</span> <span class="kt">ARReferenceObject</span><span class="o">.</span><span class="nf">referenceObjects</span><span class="p">(</span><span class="nv">inGroupNamed</span><span class="p">:</span> <span class="s">"gallery"</span><span class="p">,</span> <span class="nv">bundle</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">else</span> <span class="p">{</span>
     <span class="nf">fatalError</span><span class="p">(</span><span class="s">"Missing expected asset catalog resources."</span><span class="p">)</span>
@@ -251,7 +261,7 @@ Working in progress&hellip;</p>
 
 <p>This sample app provides one way to create reference objects. You can also scan reference objects in your own app—for example, to build asset management tools for defining AR content that goes into other apps you create.</p>
 
-<p>A reference object encodes a slice of the internal spatial-mapping data that ARKit uses to track a device&rsquo;s position and orientation. To enable the high-quality data collection required for object scanning, run a session with <a href="https://developer.apple.com/documentation/arkit/arobjectscanningconfiguration"><code>ARObjectScanningConfiguration</code></a>:</p>
+<p>A reference object encodes a slice of the internal spatial-mapping data that ARKit uses to track a device&rsquo;s position and orientation. To enable the high-quality data collection required for object scanning, run a session with [<code>ARObjectScanningConfiguration</code>][00]:</p>
 <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">configuration</span> <span class="o">=</span> <span class="kt">ARObjectScanningConfiguration</span><span class="p">()</span>
 <span class="n">configuration</span><span class="o">.</span><span class="n">planeDetection</span> <span class="o">=</span> <span class="o">.</span><span class="n">horizontal</span>
 <span class="n">sceneView</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="nf">run</span><span class="p">(</span><span class="n">configuration</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="o">.</span><span class="n">resetTracking</span><span class="p">)</span>
@@ -261,7 +271,7 @@ Working in progress&hellip;</p>
 
 <p>During your object-scanning AR session, scan the object from various angles to make sure you collect enough spatial data to recognize it. (If you&rsquo;re building your own object-scanning tools, help users walk through the same steps this sample app provides.) </p>
 
-<p>After scanning, call <a href="https://developer.apple.com/documentation/arkit/arsession/3001731-createreferenceobjectwithtransfo"><code>createReferenceObject(transform:center:extent:completionHandler:)</code></a> to produce an <a href="https://developer.apple.com/documentation/arkit/arreferenceobject"><code>ARReferenceObject</code></a> from a region of the user environment mapped by the session:</p>
+<p>After scanning, call <a href="https://developer.apple.com/documentation/arkit/arsession/3001731-createreferenceobjectwithtransfo"><code>createReferenceObject(transform:center:extent:completionHandler:)</code></a> to produce an [<code>ARReferenceObject</code>][01] from a region of the user environment mapped by the session:</p>
 <pre class="highlight swift"><code><span class="c1">// Extract the reference object based on the position &amp; orientation of the bounding box.</span>
 <span class="n">sceneView</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="nf">createReferenceObject</span><span class="p">(</span>
     <span class="nv">transform</span><span class="p">:</span> <span class="n">boundingBox</span><span class="o">.</span><span class="n">simdWorldTransform</span><span class="p">,</span>
@@ -318,14 +328,14 @@ Working in progress&hellip;</p>
 
 <p><a href="x-source-tag://ExtractReferenceObject">View in Source</a></p>
 
-<p>When detecting a reference object, ARKit reports its position based on the origin the reference object defines. If you want to place virtual content that appears to sit on the same surface as the real-world object, make sure the reference object&rsquo;s origin is placed at the point where the real-world object sits. To adjust the origin after capturing an <a href="https://developer.apple.com/documentation/arkit/arreferenceobject"><code>ARReferenceObject</code></a>, use the <a href="https://developer.apple.com/documentation/arkit/arreferenceobject/2977514-applyingtransform"><code>applyingTransform(_:)</code></a> method.</p>
+<p>When detecting a reference object, ARKit reports its position based on the origin the reference object defines. If you want to place virtual content that appears to sit on the same surface as the real-world object, make sure the reference object&rsquo;s origin is placed at the point where the real-world object sits. To adjust the origin after capturing an [<code>ARReferenceObject</code>][01], use the <a href="https://developer.apple.com/documentation/arkit/arreferenceobject/2977514-applyingtransform"><code>applyingTransform(_:)</code></a> method.</p>
 
-<p>After you obtain an <a href="https://developer.apple.com/documentation/arkit/arreferenceobject"><code>ARReferenceObject</code></a>, you can either use it immediately for detection (see <q>Detect Reference Objects in an AR Experience</q> above) or save it as an <code>.arobject</code> file for use in later sessions or other ARKit-based apps. To save an object to a file, use the <a href="https://developer.apple.com/documentation/arkit/arreferenceobject/2968198-export"><code>export</code></a> method. In that method, you can provide a picture of the real-world object for Xcode to use as a preview image.</p>
+<p>After you obtain an [<code>ARReferenceObject</code>][01], you can either use it immediately for detection (see <q>Detect Reference Objects in an AR Experience</q> above) or save it as an <code>.arobject</code> file for use in later sessions or other ARKit-based apps. To save an object to a file, use the <a href="https://developer.apple.com/documentation/arkit/arreferenceobject/2968198-export"><code>export</code></a> method. In that method, you can provide a picture of the real-world object for Xcode to use as a preview image.</p>
 
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="" target="_blank" rel="external">Team Rogue</a>. All rights reserved. (Last updated: 2019-01-23)</p>
+          <p>&copy; 2019 <a class="link" href="" target="_blank" rel="external">Team Rogue</a>. All rights reserved. (Last updated: 2019-01-24)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

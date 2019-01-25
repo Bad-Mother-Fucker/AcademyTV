@@ -12,8 +12,8 @@ class TickerViewController: UITableViewController, UITextFieldDelegate, UIPicker
     
     var selectedGroup: TVGroup = .lab1
 
-    @IBOutlet weak var textField: UITextField!
-    @IBOutlet weak var selectAreaButton: UIButton!
+    @IBOutlet private weak var textField: UITextField!
+    @IBOutlet private weak var selectAreaButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +32,7 @@ class TickerViewController: UITableViewController, UITextFieldDelegate, UIPicker
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0{
             return 235
-        }else{
+        } else {
             return 55
         }
     }
@@ -68,7 +68,7 @@ class TickerViewController: UITableViewController, UITextFieldDelegate, UIPicker
         selectAreaButton.setTitle(selectedGroup.rawValue, for: .normal)
     }
     
-    @IBAction func selectArea(_ sender: UIButton) {
+    @IBAction private func selectArea(_ sender: UIButton) {
         
         let alert = UIAlertController(title: "Select area", message: "\n\n\n\n\n\n", preferredStyle: .alert)
         alert.isModalInPopover = true
@@ -82,11 +82,11 @@ class TickerViewController: UITableViewController, UITextFieldDelegate, UIPicker
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         
-        self.present(alert,animated: true, completion: nil )
+        self.present(alert, animated: true, completion: nil)
     }
     
     // - FIXME: Typos
-    @IBAction func saveTickerMessage(_ sender: UIBarButtonItem) {
+    @IBAction private func saveTickerMessage(_ sender: UIBarButtonItem) {
         if let message = textField.text{
             if message != ""{
                 CKController.postTickerMessage(message, onTvGroup: selectedGroup)
@@ -94,7 +94,7 @@ class TickerViewController: UITableViewController, UITextFieldDelegate, UIPicker
                 let action = UIAlertAction(title: "OK", style: .default, handler: nil)
                 alert.addAction(action)
                 self.present(alert, animated: true, completion: nil)
-            }else{
+            } else {
                 let alert = UIAlertController(title: "Add a message to post", message: "The message to post can't be empty", preferredStyle: .alert)
                 let action = UIAlertAction(title: "OK", style: .default, handler: nil)
                 alert.addAction(action)
@@ -103,4 +103,3 @@ class TickerViewController: UITableViewController, UITextFieldDelegate, UIPicker
         }
     }
 }
-

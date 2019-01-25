@@ -14,7 +14,7 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegate, UIC
     var allPhotos = PHFetchResult<PHAsset>()
     var selectedPhoto = [UIImage]()
     
-    @IBOutlet weak var collectionView: UICollectionView!{
+    @IBOutlet private weak var collectionView: UICollectionView!{
         didSet{
             collectionView.delegate = self
             collectionView.dataSource = self
@@ -42,18 +42,18 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegate, UIC
         let option = PHImageRequestOptions()
         var thumbnail: UIImage?
         option.isSynchronous = false
-        manager.requestImage(for: asset, targetSize: CGSize(width: 1920, height: 1080), contentMode: .aspectFit, options: option, resultHandler: {(result, info)->Void in
+        manager.requestImage(for: asset, targetSize: CGSize(width: 1920, height: 1080), contentMode: .aspectFit, options: option, resultHandler: {(result, _) -> Void in
             thumbnail = result
         })
         return thumbnail
     }
     
-    @IBAction func saveImages(_ sender: UIBarButtonItem) {
+    @IBAction private func saveImages(_ sender: UIBarButtonItem) {
         //        NotificationCenter.default.post(name: NSNotification.Name("GetAllSelectedPhotos"), object: nil, userInfo: ["images": selectedPhoto])
         let story = UIStoryboard(name: "Main", bundle: nil)
         if let destination = story.instantiateViewController(withIdentifier: "SetsViewController") as? TvListViewController{
             destination.keynote = selectedPhoto
-            destination.category = .KeynoteViewer
+            destination.category = .keynoteViewer
             self.navigationController?.pushViewController(destination, animated: true)
             
         }
@@ -65,18 +65,18 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegate, UIC
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImgeCollectionViewCell", for: indexPath) as! ImagePickerCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImgeCollectionViewCell", for: indexPath) as? ImagePickerCollectionViewCell
         
-        cell.image = getAssetThumbnail(asset: allPhotos[indexPath.item])
-        cell.isSelected = false
+        cell?.currentImage = getAssetThumbnail(asset: allPhotos[indexPath.item])
+        cell?.isSelected = false
         
-        return cell
+        return cell ?? ImagePickerCollectionViewCell()
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as! ImagePickerCollectionViewCell
-        cell.isSelected = true
-        selectedPhoto.append(cell.imageView.image!)
+        let cell = collectionView.cellForItem(at: indexPath) as? ImagePickerCollectionViewCell
+        cell?.isSelected = true
+        selectedPhoto.append((cell?.currentImage)!)
     }
 
 }

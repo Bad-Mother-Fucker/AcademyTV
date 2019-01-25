@@ -33,8 +33,8 @@ class AddPropsViewController: UIViewController {
      
      - Author: @GianlucaOrpello
      */
-    var tableView: UITableView!{
-        didSet{
+    var tableView: UITableView! {
+        didSet {
             tableView.delegate = self
             tableView.dataSource = self
         }
@@ -101,7 +101,7 @@ class AddPropsViewController: UIViewController {
      
      - Author: @GianlucaOrpello
      */
-    @objc func dissmissController(){
+    @objc func dissmissController() {
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -112,32 +112,45 @@ class AddPropsViewController: UIViewController {
      
      - Author: @GianlucaOrpello
      */
-    @objc func checkSummary(){
+    @objc func checkSummary() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller:UIViewController
-        
+        let controller: UIViewController
+
+        #warning("Check all the code...")
+
         switch Categories {
-        case .GlobalMessage:
-            
+        case .globalMessage:
             break
-        case .TickerMessage:
-            
-        case .KeynoteViewer:
-            
+        case .tickerMessage:
+            break
+        case .keynoteViewer:
+            break
         default:
-            <#code#>
+            break
         }
         
         
         func checkGlobalMessage() {
-            let title = (tableView.cellForRow(at: IndexPath(row: 0, section: 2))?.viewWithTag(500) as! UITextField).text ?? ""
-            let subtitle = (tableView.cellForRow(at: IndexPath(row: 1, section: 2))?.viewWithTag(500) as! UITextField).text ?? ""
-            let description = (tableView.cellForRow(at: IndexPath(row: 2, section: 2))?.viewWithTag(500) as! UITextField).text ?? ""
-            let url = (tableView.cellForRow(at: IndexPath(row: 0, section: 3))?.viewWithTag(500) as! UILabel).text ?? ""
-            let location = (tableView.cellForRow(at: IndexPath(row: 1, section: 3))?.viewWithTag(500) as! UILabel).text ?? ""
-            let dateTime = (tableView.cellForRow(at: IndexPath(row: 2, section: 3))?.viewWithTag(500) as! UILabel).text ?? ""
-            
-            let message = GlobalMessage(title: title, subtitle: subtitle, location: location, date: date, description: description, URL: url, timeToLive: 0)
+
+            if let titleView = tableView.cellForRow(at: IndexPath(row: 0, section: 2))?.viewWithTag(500) as? UITextField,
+                let subtitleView = tableView.cellForRow(at: IndexPath(row: 1, section: 2))?.viewWithTag(500) as? UITextField,
+                let descriptionView = tableView.cellForRow(at: IndexPath(row: 2, section: 2))?.viewWithTag(500) as? UITextField,
+                let urlView = tableView.cellForRow(at: IndexPath(row: 0, section: 3))?.viewWithTag(500) as? UILabel,
+                let locationView = tableView.cellForRow(at: IndexPath(row: 1, section: 3))?.viewWithTag(500) as? UILabel,
+                let dateTimeView = tableView.cellForRow(at: IndexPath(row: 2, section: 3))?.viewWithTag(500) as? UILabel {
+
+                let title = titleView.text
+                let subtitle = subtitleView.text
+                let description = descriptionView.text
+                let url = urlView.text
+                let location = locationView.text
+                let dateTime = dateTimeView.text
+
+                let message = GlobalMessage(title: title, subtitle: subtitle, location: location, date: date, description: description, URL: url, timeToLive: 0)
+
+            } else {
+                let message = GlobalMessage(title: "", subtitle: "", location: "", date: "", description: "", URL: "", timeToLive: 0)
+            }
         }
         
         
@@ -156,7 +169,7 @@ class AddPropsViewController: UIViewController {
  
  - Author: @GianlucaOrpello
  */
-extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
+extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
 
     // MARK: - UITableView Delegate
     
@@ -171,15 +184,15 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
         
         switch props.title {
         case Categories.GlobalMessage.rawValue:
-            switch indexPath.section{
+            switch indexPath.section {
             case 0:
                 return 235
             case 1:
                 return 75
             case 2:
-                if indexPath.row == 2{
+                if indexPath.row == 2 {
                     return 125
-                }else{
+                } else {
                     return 44
                 }
             case 3:
@@ -188,7 +201,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                 return 0
             }
         case Categories.TickerMessage.rawValue:
-            switch indexPath.section{
+            switch indexPath.section {
             case 0:
                 return 235
             case 1, 2:
@@ -197,7 +210,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                 return 0
             }
         case Categories.KeynoteViewer.rawValue:
-            switch indexPath.section{
+            switch indexPath.section {
             case 0:
                 return 235
             case 1:
@@ -222,7 +235,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch props.title {
         case Categories.GlobalMessage.rawValue:
-            switch section{
+            switch section {
             case 1:
                 return "Description"
             case 2:
@@ -233,7 +246,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                 return nil
             }
         case Categories.TickerMessage.rawValue:
-            switch section{
+            switch section {
             case 1:
                 return "Description"
             case 2:
@@ -242,7 +255,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                 return nil
             }
         case Categories.KeynoteViewer.rawValue:
-            switch section{
+            switch section {
             case 1:
                 return "Description"
             case 2:
@@ -285,16 +298,16 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
      - Author: @GianlucaOrpello
      */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 || section == 1{
+        if section == 0 || section == 1 {
             return 1
-        }else{
+        } else {
             switch props.title {
             case Categories.GlobalMessage.rawValue:
-                if section == 2{
+                if section == 2 {
                     return 3
-                }else if section == 3{
+                } else if section == 3 {
                     return 4
-                }else{
+                } else {
                     return 0
                 }
             case Categories.TickerMessage.rawValue:
@@ -315,7 +328,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
      - Author: @GianlucaOrpello
      */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0{
+        if indexPath.section == 0 {
             let cell = UITableViewCell()
             cell.selectionStyle = .none
             
@@ -326,27 +339,23 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
             switch props.title {
             case Categories.GlobalMessage.rawValue:
                 image = UIImage(named: "PreviewGlobalMessage")
-                break
             case Categories.TickerMessage.rawValue:
                 image = UIImage(named: "PreviewTicker")
-                break
             case Categories.KeynoteViewer.rawValue:
                 image = UIImage(named: "PreviewContentViewer")
-                break
             default:
                 image = nil
-                break
             }
             
             imageView.image = image
             cell.contentView.addSubview(imageView)
             return cell
-        }else{
+        } else {
             
             switch props.title {
             case Categories.GlobalMessage.rawValue:
                 
-                switch indexPath.section{
+                switch indexPath.section {
                     
                 case 1:
                     let cell = UITableViewCell()
@@ -361,7 +370,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                     cell.contentView.addSubview(label)
                     return cell
                 case 2:
-                    switch indexPath.row{
+                    switch indexPath.row {
                     case 0:
                         let cell = UITableViewCell()
                         cell.selectionStyle = .none
@@ -398,7 +407,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                     }
                 case 3:
                     
-                    switch indexPath.row{
+                    switch indexPath.row {
                     case 0:
                         
                         let cell = UITableViewCell()
@@ -472,7 +481,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                 }
                 
             case Categories.TickerMessage.rawValue:
-                switch indexPath.section{
+                switch indexPath.section {
                     
                 case 1:
                     let cell = UITableViewCell()
@@ -487,7 +496,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                     cell.contentView.addSubview(label)
                     return cell
                 case 2:
-                    if indexPath.row == 0{
+                    if indexPath.row == 0 {
                         let cell = UITableViewCell()
                         cell.selectionStyle = .none
                         
@@ -497,7 +506,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                         
                         cell.contentView.addSubview(textField)
                         return cell
-                    }else{
+                    } else {
                         let cell = UITableViewCell()
                         cell.selectionStyle = .none
                         
@@ -514,7 +523,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                     return UITableViewCell()
                 }
             case Categories.KeynoteViewer.rawValue:
-                switch indexPath.section{
+                switch indexPath.section {
                     
                 case 1:
                     let cell = UITableViewCell()
@@ -530,28 +539,28 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
                     return cell
                 case 2:
                     
-                    if indexPath.row == 0{
+                    if indexPath.row == 0 {
                     
                         let cell = UITableViewCell()
                         cell.selectionStyle = .none
                         
                         let button = UIButton(frame: CGRect(x: 16, y: 10, width: self.view.frame.size.width - 26, height: 22))
                         button.setTitle("Select from Photos", for: .normal)
-                        button.setTitleColor(UIColor(red: 0, green: 122/255, blue: 1, alpha: 1), for: .normal)
+                        button.setTitleColor(UIColor(red: 0, green: 122 / 255, blue: 1, alpha: 1), for: .normal)
                         button.contentHorizontalAlignment = .left
                         #warning("Add Target to this button")
                         
                         cell.contentView.addSubview(button)
                         return cell
                         
-                    }else{
+                    } else {
                         
                         let cell = UITableViewCell()
                         cell.selectionStyle = .none
                         
                         let button = UIButton(frame: CGRect(x: 16, y: 10, width: self.view.frame.size.width - 26, height: 22))
                         button.setTitle("Select from Files", for: .normal)
-                        button.setTitleColor(UIColor(red: 0, green: 122/255, blue: 1, alpha: 1), for: .normal)
+                        button.setTitleColor(UIColor(red: 0, green: 122 / 255, blue: 1, alpha: 1), for: .normal)
                         button.contentHorizontalAlignment = .left
                         #warning("Add Target to this button")
                         
@@ -572,11 +581,13 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource{
 
 /**
  ## Extension for UITextFieldDelegate implementation.
+
+ - Todo: Check this delegate.
  
  - Version: 1.0
  
  - Author: @GianlucaOrpello
  */
-extension AddPropsViewController: UITextFieldDelegate{
+extension AddPropsViewController: UITextFieldDelegate {
     
 }

@@ -13,9 +13,9 @@ class PosterViewController: UIViewController, UICollectionViewDelegate, UICollec
     var tvGroups: [TVGroup]!
     var keynotes = [UIImage]()
     
-    @IBOutlet weak var saveBarButtonItem: UIBarButtonItem!
-    @IBOutlet weak var barButtonItem: UIBarButtonItem!
-    @IBOutlet weak var collectionView: UICollectionView!{
+    @IBOutlet private weak var saveBarButtonItem: UIBarButtonItem!
+    @IBOutlet private weak var barButtonItem: UIBarButtonItem!
+    @IBOutlet private weak var collectionView: UICollectionView!{
         didSet{
             collectionView.delegate = self
             collectionView.dataSource = self
@@ -35,7 +35,7 @@ class PosterViewController: UIViewController, UICollectionViewDelegate, UICollec
         if keynotes.count != 0{
             barButtonItem.title = "Save"
             barButtonItem.action = #selector(saveKeynote)
-        }else{
+        } else {
             
             saveBarButtonItem.isEnabled = false
         }
@@ -43,7 +43,7 @@ class PosterViewController: UIViewController, UICollectionViewDelegate, UICollec
         NotificationCenter.default.addObserver(self, selector: #selector(getPhotosFromGallery(_:)), name: NSNotification.Name("GetAllSelectedPhotos"), object: nil)
     }
     
-    @IBAction func saveKeynote(_ sender: UIBarButtonItem) {
+    @IBAction private func saveKeynote(_ sender: UIBarButtonItem) {
         guard keynotes.count != 0 else{
             let alert = UIAlertController(title: "Error", message: "Add at least one image", preferredStyle: .alert)
             let action = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -71,7 +71,7 @@ class PosterViewController: UIViewController, UICollectionViewDelegate, UICollec
         }
     }
     
-    @IBAction func openImagePicker(_ sender: UIBarButtonItem) {
+    @IBAction private func openImagePicker(_ sender: UIBarButtonItem) {
         
         let libraryPicker = UIImagePickerController()
         libraryPicker.delegate = self
@@ -89,27 +89,28 @@ class PosterViewController: UIViewController, UICollectionViewDelegate, UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "galleryImageCell", for: indexPath) as! ImagePickerCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "galleryImageCell", for: indexPath) as? ImagePickerCollectionViewCell
         
-        cell.imageView.image = keynotes[indexPath.item]
-        cell.checkerView.isHidden = true
+        cell?.currentImage = keynotes[indexPath.item]
+        cell?.isCheked = true
         
-        return cell
+        return cell ?? ImagePickerCollectionViewCell()
+        
     }
     
     //MARK: - Image picker Delegates
     
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        let chosenImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
-        keynotes.append(chosenImage)
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        let chosenImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+        keynotes.append(chosenImage ?? UIImage())
         DispatchQueue.main.async {
             self.collectionView.reloadData()
             if self.keynotes.count != 0{
                 self.saveBarButtonItem.isEnabled = true
             }
         }
-        dismiss(animated:true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     

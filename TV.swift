@@ -12,111 +12,107 @@ import CloudKit
 
 
 class TVModel {
-    static func addTV(withName name: String, completionHandler: @escaping (CKRecord?,Error?)-> Void){
-        let tv = TV(name:name)
-        CKKeys.database.save(tv.record) {
-            (record, error) in
-            if let /*error*/_ = error {
+    static func addTV(withName name: String, completionHandler: @escaping (CKRecord?, Error?) -> Void) {
+        let tv = TV(name: name)
+        CKKeys.database.save(tv.record) { (record, error) in
+            if error != nil {
                 // Insert error handling
                 print(error!.localizedDescription)
                 return
             }
             //successfully saved record code
-            completionHandler(record,error)
+            completionHandler(record, error)
             print("TV Saved")
         }
     }
     
-    static func doesExist(completionHandler: @escaping (Bool,Error?)->Void) {
+    static func doesExist(completionHandler: @escaping (Bool, Error?) -> Void) {
         let predicate = NSPredicate(format: "recordName == %@", UIDevice.current.identifierForVendor!.uuidString)
         let query = CKQuery(recordType: TV.recordType, predicate: predicate)
         
         CKKeys.database.perform(query, inZoneWith: nil) { (records, error) in
-            guard error == nil,let _ = records else {
-                completionHandler(false,error!)
+            guard error == nil, records != nil else {
+                completionHandler(false, error!)
                 return
             }
             guard records!.count > 0 else {
-                completionHandler(false,nil)
+                completionHandler(false, nil)
                 return
             }
-            completionHandler(true,nil)
+            completionHandler(true, nil)
             
         }
     }
     
-    static func getTV(withName name:String,completionHandler: @escaping (TV?,Error?)->Void) {
+    static func getTV(withName name: String, completionHandler: @escaping (TV?, Error?) -> Void) {
         let predicate = NSPredicate(format: "\(TV.keys.name) == %@", name)
         print("fetching with name \(name)")
         let query = CKQuery(recordType: TV.recordType, predicate: predicate)
         
         CKKeys.database.perform(query, inZoneWith: nil) { (records, error) in
-            guard let _ = records, error == nil else {
+            guard records != nil, error == nil else {
 //                error handling
-                completionHandler(nil,error)
+                completionHandler(nil, error)
                 return
             }
             guard records!.count > 0 else {
-                completionHandler(nil,CKQueryException.recordNotFound("No TV Found in pulic databse with the given name"))
+                completionHandler(nil, CKQueryException.recordNotFound("No TV Found in pulic databse with the given name"))
                 return
             }
             
             let tv = TV(record: records!.first!)
-            completionHandler(tv,error)
-
+            completionHandler(tv, error)
         }
-
     }
-    
-    
-    static func getTvs(ofGroup group: TVGroup,completionHandler: @escaping ([TV]?,Error?)->Void){
+
+    static func getTvs(ofGroup group: TVGroup, completionHandler: @escaping ([TV]?, Error?) -> Void){
         let predicate = group == .all ? NSPredicate(value: true) : NSPredicate(format: "\(TV.keys.tvGroup) == %@", group.rawValue)
         let query = CKQuery(recordType: TV.recordType, predicate: predicate)
         
         CKKeys.database.perform(query, inZoneWith: nil) { (records, error) in
-            guard let _ = records, error == nil else {
+            guard records != nil, error == nil else {
                 //  error handling
-                completionHandler(nil,error)
+                completionHandler(nil, error)
                 return
             }
             
             guard records!.count > 0 else {
-                completionHandler(nil,CKQueryException.recordNotFound("No TV Found in pulic databse with the given name"))
+                completionHandler(nil, CKQueryException.recordNotFound("No TV Found in pulic databse with the given name"))
                 return
             }
             
             let tvs = records!.map({ (record) -> TV in
                 return TV(record: record)
             })
+
             debugPrint("Got \(tvs.count) tvs from CK ")
             for tv in tvs {
                 debugPrint("tvName: \(tv.name), recordID: \(tv.record.recordID)")
             }
-            
-            
-            completionHandler(tvs,nil)
+
+            completionHandler(tvs, nil)
         }
     }
-    
-    
 }
 
 class TV: CloudStored {
     var record: CKRecord
     
     static var recordType: String = "TVs"
-    static var keys = (name: "name", uuid: "recordName", tvGroup: "tvGroup",isOn:"isOn",keynote:"keynote",ticker:"tickerMessage")
+    static var keys = (name: "name", uuid: "recordName", tvGroup: "tvGroup", isOn: "isOn", keynote: "keynote", ticker: "tickerMessage")
     
     required init(record: CKRecord) {
         self.record = record
     }
-    
+
+    // swiftlint:disable weak_delegate
     var viewDelegate: ATVViewDelegate?
+
     var hasKeynote: Bool = false
     
     init (name: String) {
         self.record = CKRecord(recordType: TV.recordType)
-        record.setValue(name , forKey: TV.keys.name)
+        record.setValue(name, forKey: TV.keys.name)
         record.setValue(1, forKey: TV.keys.isOn)
         let group: TVGroup
         switch name {
@@ -132,15 +128,15 @@ class TV: CloudStored {
         record.setValue(UIDevice.current.identifierForVendor!.uuidString, forKey: TV.keys.uuid)
     }
     
-    var keynote:[UIImage]? {
+    var keynote: [UIImage]? {
         if let assets = record.value(forKey: TV.keys.keynote) as? [CKAsset] {
             let images: [UIImage] = assets.map { (asset) -> UIImage in
-                guard let image = asset.image else {return UIImage()}
+                guard let image = asset.image else { return UIImage() }
                 //Returns a white background image if it was not possible to decode single image data
                 return image
             }
             return images
-        }else {
+        } else {
             return nil
         }
     }
@@ -246,7 +242,7 @@ class TV: CloudStored {
                 print("Error creating assets", error)
             }
         }
-        self.record.setValue(assets,forKey: TV.keys.keynote)
+        self.record.setValue(assets, forKey: TV.keys.keynote)
         let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
         op.savePolicy = .changedKeys
         CKKeys.database.add(op)

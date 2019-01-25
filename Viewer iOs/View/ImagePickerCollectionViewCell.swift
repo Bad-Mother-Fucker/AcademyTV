@@ -10,25 +10,31 @@ import UIKit
 
 class ImagePickerCollectionViewCell: UICollectionViewCell {
     
-    var image: UIImage?{
+    var currentImage: UIImage?{
         didSet{
-            imageView.image = image
+            imageView.image = currentImage
+        }
+    }
+
+    var isCheked: Bool?{
+        didSet{
+            checkerView.isHidden = isCheked ?? false
         }
     }
     
-    @IBOutlet weak var imageView: UIImageView!{
+    @IBOutlet private weak var imageView: UIImageView!{
         didSet{
             imageView.contentMode = .scaleAspectFit
         }
     }
     
-    @IBOutlet weak var checkerView: UIImageView!
+    @IBOutlet private weak var checkerView: UIImageView!
     
     override var isSelected: Bool{
         didSet{
             if isSelected{
                 checkerView.isHidden = false
-            }else{
+            } else {
                 checkerView.isHidden = true
             }
         }
@@ -36,6 +42,6 @@ class ImagePickerCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        imageView.image = image
+        imageView.image = currentImage
     }
 }

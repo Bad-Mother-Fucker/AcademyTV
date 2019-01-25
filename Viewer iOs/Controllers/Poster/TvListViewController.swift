@@ -22,7 +22,7 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     // MARK: CollectionView methods
     
-    @IBOutlet weak var collectionView: UICollectionView!{
+    @IBOutlet private weak var collectionView: UICollectionView!{
         didSet{
             collectionView.delegate = self
             collectionView.dataSource = self
@@ -31,9 +31,9 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
         }
     }
     // MARK: NextBarButton
-    @IBOutlet weak var nextBarButtonItem: UIBarButtonItem!
+    @IBOutlet private weak var nextBarButtonItem: UIBarButtonItem!
 
-    @IBAction func nextBarButtonPressed(_ sender: Any) {
+    @IBAction private func nextBarButtonPressed(_ sender: Any) {
         let summary = SummaryViewController()
         summary.isCheckoutMode = true
         summary.categories = category
@@ -48,20 +48,18 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
                     tvNames.append(group.rawValue)
                     tvNames.append(", ")
                 }
-                let prop = (message: tickerMessage, tvName: tvNames,TVGroup:selectedGroups)
+                let prop = (message: tickerMessage, tvName: tvNames, TVGroup: selectedGroups)
                 summary.prop = prop
                 
-                break
-            case Categories.KeynoteViewer:
+            case Categories.keynoteViewer:
                 
                 var tvNames: String = ""
-                for group in selectedGroups{
+                for group in selectedGroups {
                     tvNames.append(contentsOf: group.rawValue)
                 }
-                let prop = (keynote: keynote,tvName: tvNames,TVGroup:selectedGroups)
+                let prop = (keynote: keynote, tvName: tvNames, TVGroup:selectedGroups)
                 summary.prop = prop
                 
-                break
             default:
                 break
             }
@@ -76,7 +74,7 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
         nextBarButtonItem.isEnabled = false
-        if (traitCollection.forceTouchCapability == .available){
+        if traitCollection.forceTouchCapability == .available {
         }
         
     }
@@ -96,8 +94,8 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width : CGFloat
-        let height : CGFloat
+        let width: CGFloat
+        let height: CGFloat
     
         if indexPath.item < 1 {
             width = 386
@@ -116,29 +114,35 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        if indexPath.item > 0{
-             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TVGroup", for: indexPath) as! GroupsCollectionViewCell
+        if indexPath.item > 0 {
+            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TVGroup", for: indexPath) as? GroupsCollectionViewCell {
             
             let group = groups[indexPath.item - 1]
     
-            cell.setGradientBackground(form: UIColor(red: CGFloat(group.startingColor.red/255),
-                                                     green: CGFloat(group.startingColor.green/255),
-                                                     blue: CGFloat(group.startingColor.blue/255),
+            cell.setGradientBackground(form: UIColor(red: CGFloat(group.startingColor.red / 255),
+                                                     green: CGFloat(group.startingColor.green / 255),
+                                                     blue: CGFloat(group.startingColor.blue / 255),
                                                      alpha: 1),
-                                       to: UIColor(red: CGFloat(group.endingColor.red/255),
-                                                   green: CGFloat(group.endingColor.green/255),
-                                                   blue: CGFloat(group.endingColor.blue/255),
+                                       to: UIColor(red: CGFloat(group.endingColor.red / 255),
+                                                   green: CGFloat(group.endingColor.green / 255),
+                                                   blue: CGFloat(group.endingColor.blue / 255),
                                                    alpha: 1))
             
             cell.groupNameLabel.text = group.name.rawValue
 
             return cell
+            } else {
+                return UICollectionViewCell()
+            }
             
-        }else{
-            let borderCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddAllTVGroup", for: indexPath) as! BorderCollectionViewCell
+        } else {
+            if let borderCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddAllTVGroup", for: indexPath) as? BorderCollectionViewCell{
             borderCell.frame.size = CGSize(width: 386, height: 45)
             borderCell.titleLabel.text = "Select All"
             return borderCell
+            } else {
+                return UICollectionViewCell()
+            }
         }
 
     }
@@ -150,7 +154,7 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
         if cell?.reuseIdentifier == "TVGroup"{
             cell!.isSelected = true
             selectedGroups.append(groups[indexPath.item - 1].name)
-        }else{
+        } else {
             for i in 1..<collectionView.numberOfItems(inSection: 0){
                 collectionView.selectItem(at: IndexPath(item: i, section: 0), animated: true, scrollPosition: .bottom)
             }
@@ -177,14 +181,14 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
         if cell?.reuseIdentifier == "TVGroup"{
             cell!.isSelected = false
             selectedGroups = selectedGroups.filter { (tvGroup) -> Bool in
-                if tvGroup == groups[indexPath.item - 1].name{
+                if tvGroup == groups[indexPath.item - 1].name {
                     return false
-                }else{
+                } else {
                     return true
                 }
             }
-        }else{
-            for i in 1..<collectionView.numberOfItems(inSection: 0){
+        } else {
+            for i in 1 ..< collectionView.numberOfItems(inSection: 0) {
                 collectionView.deselectItem(at: IndexPath(item: i, section: 0), animated: true)
             }
             selectedGroups.removeAll()
@@ -200,14 +204,14 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
         switch segue.identifier {
         case "setTheTvSegue":
             
-            if selectedGroups.count == 0{
+            if selectedGroups.count == 0 {
                 let alert = UIAlertController(title: "Select at least one group.", message: nil, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
                 self.present(alert, animated: true, completion: nil)
                 return
             }
 
-            if let destination = segue.destination as? PosterViewController{
+            if let destination = segue.destination as? PosterViewController {
                 destination.tvGroups = selectedGroups
             }
 
@@ -216,4 +220,3 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
         }
     }
 }
-

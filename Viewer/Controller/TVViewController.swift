@@ -29,7 +29,7 @@ class TVViewController: UIViewController {
                             ]
         
         videos.forEach { (URL) in
-            guard let _ = URL else {
+            guard URL != nil else {
                 videos.remove(at: videos.index(of: URL)!)
                 print("failed to get video at index: \(videos.index(of: URL)!)")
                 return
@@ -39,14 +39,13 @@ class TVViewController: UIViewController {
         
 //      comment to use videos directly from Dropbox
 
-//        videos = VideoDownloader.getVideos(from: videos as! [URL])
+//        videos = VideoDownloader.getVideos(from: videos as? [URL])
 
-        
-        
         let items = videos.map { (url) -> AVPlayerItem in
             let item = AVPlayerItem(url: url!)
             return item
         }
+
         return items
     }
     
@@ -103,7 +102,7 @@ class TVViewController: UIViewController {
         switch ckqn.queryNotificationReason {
         case .recordCreated:
             CKKeys.database.fetch(withRecordID: recordID) { (record, error) in
-                guard let _ = record, error == nil else {
+                guard record != nil, error == nil else {
                     if let ckError = error as? CKError {
                         let errorCode = ckError.errorCode
                         print(CKError.Code(rawValue: errorCode).debugDescription)
@@ -123,7 +122,7 @@ class TVViewController: UIViewController {
             
         case .recordUpdated:
             CKKeys.database.fetch(withRecordID: recordID) { (record, error) in
-                guard let _ = record, error == nil else { return }
+                guard record != nil, error == nil else { return }
                 let msg = GlobalMessage(record: record!)
                 DispatchQueue.main.async {
                     
@@ -135,7 +134,7 @@ class TVViewController: UIViewController {
     }
     
     private func handleTVNotification(_ ckqn: CKQueryNotification) {
-        guard let recordID = ckqn.recordID else {return}
+        guard let recordID = ckqn.recordID else { return }
         
         switch ckqn.queryNotificationReason {
         case .recordCreated:
@@ -146,26 +145,23 @@ class TVViewController: UIViewController {
         case .recordUpdated:
             
             CKKeys.database.fetch(withRecordID: recordID) { (record, error) in
-                guard let _ = record, error == nil else {return}
+                guard record != nil, error == nil else { return }
                 DispatchQueue.main.async {
-                    self.appDelegate?.currentTV.record = record!
-                    if let keynote = self.appDelegate?.currentTV.keynote {
-                        self.appDelegate?.currentTV.viewDelegate?.show(keynote: keynote)
-                    } else {
-                        self.appDelegate?.currentTV.viewDelegate?.hideKeynote()
+                    if let delegate = self.appDelegate {
+                        delegate.currentTV.record = record!
+                        if let keynote = delegate.currentTV.keynote {
+                            delegate.currentTV.viewDelegate?.show(keynote: keynote)
+                        } else {
+                            delegate.currentTV.viewDelegate?.hideKeynote()
+                        }
+                        if delegate.currentTV.tickerMsg.count > 0 {
+                            delegate.currentTV.viewDelegate?.show(ticker: delegate.currentTV.tickerMsg)
+                        } else {
+                            delegate.currentTV.viewDelegate?.hideTicker()
+                        }
                     }
-                    
-                    if (self.appDelegate?.currentTV.tickerMsg.count)! > 0 {
-                        self.appDelegate?.currentTV.viewDelegate?.show(ticker: self.appDelegate!.currentTV.tickerMsg)
-                    } else {
-                        self.appDelegate?.currentTV.viewDelegate?.hideTicker()
-                    }
-                    
                 }
-                
             }
-            
         }
     }
-
 }

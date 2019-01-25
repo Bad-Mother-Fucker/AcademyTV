@@ -9,6 +9,13 @@ disabled_rules:
 - mark
 - large_tuple
 - line_length
+- discarded_notification_center_observer
+- discouraged_optional_collection
+- redundant_string_enum_value
+- opening_brace
+- implicit_return
+- operator_usage_whitespace
+- function_parameter_count
 
 excluded:
 - Pods
@@ -59,5 +66,5 @@ identifier_name:
   - y
 
 function_body_length:
-- 100 # warning
-- 200 # error
+- 200 # warning
+- 300 # error
