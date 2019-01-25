@@ -15,7 +15,7 @@ class SharePosterViewController: UIViewController, UICollectionViewDelegate, UIC
     var tvGroups: [TVGroup]!
     var keynotes: [UIImage]! = [UIImage]()
     
-    var ShareExtensionContext: NSExtensionContext?
+    var shareExtensionContext: NSExtensionContext?
     
     
     
@@ -153,7 +153,7 @@ class SharePosterViewController: UIViewController, UICollectionViewDelegate, UIC
                         } else if let data = item as? NSData {
                             imgData = data as Data
                         } else if let url = item as? NSURL {
-                            imgData = try! Data(contentsOf: url as URL)
+                            guard let imgData = try? Data(contentsOf: url as URL) else { return }
                         }
                         
 

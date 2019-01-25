@@ -373,7 +373,7 @@ class GlobalMessageView: UIView {
             let index: Int
             if nextMsg >= 0 && nextMsg < globalMessages.count {
                 index = nextMsg
-                nextMsg = nextMsg + 1
+                nextMsg += 1
                 return index
             }else {
                 nextMsg = 0

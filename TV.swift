@@ -148,7 +148,9 @@ class TV: CloudStored {
     
     var isOn: Bool {
         get{
-            return record.value(forKey: TV.keys.isOn) as! Int  == 0 ? false : true
+            guard let value = record.value(forKey: TV.keys.isOn) as? Int else { return false }
+            let isOn = value == 0 ? false : true
+            return isOn
         }
         set {
             newValue ? record.setValue(1, forKey: TV.keys.isOn) : record.setValue(0, forKey: TV.keys.isOn)
@@ -160,7 +162,8 @@ class TV: CloudStored {
     
     var name: String {
         get{
-            return record.value(forKey: TV.keys.name) as! String
+            guard let value = record.value(forKey: TV.keys.name) as? String else { return "" }
+            return value
         }
         set{
             record.setValue(newValue, forKey: TV.keys.name)
@@ -171,10 +174,11 @@ class TV: CloudStored {
     }
     
     var uuid: String  {
-        get{
-            return record.value(forKey: TV.keys.uuid) as! String
+        get {
+            guard let value = record.value(forKey: TV.keys.uuid) as? String else { return "" }
+            return value
         }
-        set{
+        set {
             record.setValue(newValue, forKey: TV.keys.uuid)
             let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
             op.savePolicy = .changedKeys
@@ -184,7 +188,8 @@ class TV: CloudStored {
     
     var tvGroup: TVGroup {
         get {
-            return TVGroup(rawValue: record.value(forKey: TV.keys.tvGroup) as! String) ?? .all
+            guard let value = record.value(forKey: TV.keys.tvGroup) as? String else { return .all }
+            return TVGroup(rawValue: value) ?? .all
         }
         set{
             record.setValue(newValue.rawValue, forKey: TV.keys.tvGroup)
@@ -220,30 +225,28 @@ class TV: CloudStored {
             do {
                 let asset = try CKAsset(image: page, fileType: imageType)
                 assets.append(asset)
-            }
-            catch {
+            } catch {
                 print("Error creating assets", error)
             }
         }
-        self.record.setValue(assets,forKey:TV.keys.keynote)
+        self.record.setValue(assets,forKey: TV.keys.keynote)
         let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
         op.savePolicy = .allKeys
         CKKeys.database.add(op)
     }
     
-    func setKeynoteData(_ keynote:[Data],ofType imageType: ImageFileType) {
+    func setKeynoteData(_ keynote: [Data],ofType imageType: ImageFileType) {
         var assets: [CKAsset] = []
         
         for page in keynote {
             do {
                 let asset = try CKAsset(fromData: page, ofType: imageType)
                 assets.append(asset)
-            }
-            catch {
+            } catch {
                 print("Error creating assets", error)
             }
         }
-        self.record.setValue(assets,forKey:TV.keys.keynote)
+        self.record.setValue(assets,forKey: TV.keys.keynote)
         let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
         op.savePolicy = .changedKeys
         CKKeys.database.add(op)

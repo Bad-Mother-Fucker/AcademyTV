@@ -89,7 +89,7 @@ class GlobalMessage: CloudStored {
             return record.value(forKey: GlobalMessage.keys.timeToLive) as? Double
         }
         set{
-            guard let _ = newValue else {return}
+            guard let _ = newValue else { return }
             record.setValue(newValue, forKey: GlobalMessage.keys.timeToLive)
             let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
             op.savePolicy = .changedKeys
@@ -99,8 +99,9 @@ class GlobalMessage: CloudStored {
     }
     
     var title: String {
-        get{
-            return record.object(forKey: GlobalMessage.keys.title) as! String
+        get {
+            guard let value = record.object(forKey: GlobalMessage.keys.title) as? String else { return "" }
+            return value
         }
         set{
             
@@ -113,7 +114,8 @@ class GlobalMessage: CloudStored {
     
     var subtitle: String {
         get{
-            return record.object(forKey: GlobalMessage.keys.subtitle) as! String
+            guard let value = record.object(forKey: GlobalMessage.keys.subtitle) as? String else { return "" }
+            return value
         }
         set{
             record.setValue(newValue, forKey: GlobalMessage.keys.subtitle)
@@ -151,7 +153,10 @@ class GlobalMessage: CloudStored {
     
     var creationDate: Date {
         get{
-            return record.object(forKey: "createdAt") as! Date
+            guard let value = record.object(forKey: "createdAt") as? Date else { return Date() }
+
+            return value
+
         }
     }
     

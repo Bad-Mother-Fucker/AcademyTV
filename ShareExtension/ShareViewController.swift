@@ -19,7 +19,7 @@ class ShareViewController: UIViewController, UICollectionViewDataSource, UIColle
     var selectedGroups = [TVGroup]()
     var image: UIImage!
     
-    var ShareExtensionContext: NSExtensionContext?
+    var shareExtensionContext: NSExtensionContext?
     
     
     
@@ -69,7 +69,7 @@ class ShareViewController: UIViewController, UICollectionViewDataSource, UIColle
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if indexPath.item < groups.count{
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TVGroup", for: indexPath) as! GroupsCollectionViewCell
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TVGroup", for: indexPath) as? GroupsCollectionViewCell else { return UITableViewCell() }
             
             let group = groups[indexPath.item]
             
@@ -86,7 +86,7 @@ class ShareViewController: UIViewController, UICollectionViewDataSource, UIColle
             
             return cell
         }else{
-            let borderCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddAllTVGroup", for: indexPath) as! BorderCollectionViewCell
+            guard let borderCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddAllTVGroup", for: indexPath) as? BorderCollectionViewCell else { return UITableViewCell() }
             borderCell.frame.size = CGSize(width: 343, height: 43)
             borderCell.titleLabel.text = "Select All"
             return borderCell
@@ -174,7 +174,7 @@ func shareContent(_ sender: Any) {
                         
                         var imgData: Data!
                         if let url = item as? URL {
-                            imgData = try! Data(contentsOf: url)
+                            guard let imgData = try? Data(contentsOf: url) else { return }
                         }
                         
                         if let img = item as? UIImage {
@@ -201,7 +201,7 @@ func shareContent(_ sender: Any) {
                         
                         var imgData: Data!
                         if let url = item as? URL {
-                            imgData = try! Data(contentsOf: url)
+                            guard let imgData = try? Data(contentsOf: url) else { return }
                         }
                         
                         if let img = item as? UIImage {

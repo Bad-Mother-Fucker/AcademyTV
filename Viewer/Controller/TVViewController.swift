@@ -11,18 +11,18 @@ import CloudKit
 import AVFoundation
 
 class TVViewController: UIViewController {
-    var globalMessages = [GlobalMessage](){
+    var globalMessages: [GlobalMessage] = [] {
         didSet{
             print(globalMessages)
         }
     }
 
-    let appDelegate  = UIApplication.shared.delegate as? AppDelegate
+    weak var appDelegate = UIApplication.shared.delegate as? AppDelegate
     
-    var currentTV:TV!
+    var currentTV: TV!
     
     var videosURL: [AVPlayerItem] {
-        var videos:[URL?] = [URL(string: "https://dl.dropboxusercontent.com/s/jiygs4mqvfmube2/Elmo180.m4v?dl=0"),
+        var videos: [URL?] = [URL(string: "https://dl.dropboxusercontent.com/s/jiygs4mqvfmube2/Elmo180.m4v?dl=0"),
                              URL(string: "https://dl.dropboxusercontent.com/s/0s48rm38u8awzve/Floridiana180.m4v?dl=0"),
                              URL(string: "https://dl.dropboxusercontent.com/s/pikrsmippuu59qq/Lungomare180.m4v?dl=0" ),
                              URL(string: "https://dl.dropboxusercontent.com/s/n0aczqi5irkhzcb/Uovo180.m4v?dl=0")
@@ -30,8 +30,8 @@ class TVViewController: UIViewController {
         
         videos.forEach { (URL) in
             guard let _ = URL else {
-                videos.remove(at: videos.index(of:URL)!)
-                print("failed to get video at index: \(videos.index(of:URL)!)")
+                videos.remove(at: videos.index(of: URL)!)
+                print("failed to get video at index: \(videos.index(of: URL)!)")
                 return
             }
             return
@@ -44,12 +44,13 @@ class TVViewController: UIViewController {
         
         
         let items = videos.map { (url) -> AVPlayerItem in
-            return AVPlayerItem(url: url!)
+            let item = AVPlayerItem(url: url!)
+            return item
         }
         return items
     }
     
-    var videoManager:VideoManager!
+    var videoManager: VideoManager!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,7 +98,7 @@ class TVViewController: UIViewController {
     }
     
     private func handleMsgNotification(_ ckqn: CKQueryNotification) {
-        guard let recordID = ckqn.recordID else {return}
+        guard let recordID = ckqn.recordID else { return }
         
         switch ckqn.queryNotificationReason {
         case .recordCreated:
@@ -112,21 +113,21 @@ class TVViewController: UIViewController {
                 }
                 let msg = GlobalMessage(record: record!)
                 DispatchQueue.main.async {
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: CKNotificationName.MessageNotification.create.rawValue), object: self, userInfo: ["newMsg":msg])
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: CKNotificationName.MessageNotification.create.rawValue), object: self, userInfo: ["newMsg": msg])
                 }
                 
             }
         case .recordDeleted:
             
-            NotificationCenter.default.post(name: Notification.Name(rawValue: CKNotificationName.MessageNotification.delete.rawValue), object: self, userInfo: ["recordID":recordID])
+            NotificationCenter.default.post(name: Notification.Name(rawValue: CKNotificationName.MessageNotification.delete.rawValue), object: self, userInfo: ["recordID": recordID])
             
         case .recordUpdated:
             CKKeys.database.fetch(withRecordID: recordID) { (record, error) in
-                guard let _ = record, error == nil else {return}
+                guard let _ = record, error == nil else { return }
                 let msg = GlobalMessage(record: record!)
                 DispatchQueue.main.async {
                     
-                    NotificationCenter.default.post(name: Notification.Name(rawValue: CKNotificationName.MessageNotification.update.rawValue), object: self, userInfo: ["modifiedMsg":msg])
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: CKNotificationName.MessageNotification.update.rawValue), object: self, userInfo: ["modifiedMsg": msg])
                 }
             }
         }

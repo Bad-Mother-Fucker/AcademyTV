@@ -87,7 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
                 
             } else {
                 
-                TVModel.getTV(withName: UIDevice.current.name, completionHandler: { (TV, Error) in
+                TVModel.getTV(withName: UIDevice.current.name, completionHandler: { (TV, error) in
                     
                     guard let _ = TV, error == nil else {
                         print(error!.localizedDescription)
@@ -122,11 +122,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         print(error.localizedDescription)
     }
     
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
         print("notification recieved")
         let notificationName: CKNotificationName
-        guard let _ = userInfo as? [String:Any] else {return}
-        let ckqn = CKQueryNotification(fromRemoteNotificationDictionary: userInfo as! [String:Any])
+        guard let info = userInfo as? [String: Any] else { return }
+
+        let ckqn = CKQueryNotification(fromRemoteNotificationDictionary: info)
     
         switch ckqn.subscriptionID {
         case CKKeys.tvSubscriptionKey:
@@ -143,7 +144,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         
         let notification = Notification(name: Notification.Name(rawValue: notificationName.rawValue),
                                         object: self,
-                                        userInfo: [CKNotificationName.notification.rawValue:ckqn])
+                                        userInfo: [CKNotificationName.notification.rawValue: ckqn])
         NotificationCenter.default.post(notification)
         
     }
@@ -163,7 +164,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
 
     // MARK: Private function
     
-    private func playVideo(){
+    private func playVideo() {
         if let boardViewController = window?.rootViewController as? BoardViewController {
             boardViewController.videoManager.playVideo()
         }

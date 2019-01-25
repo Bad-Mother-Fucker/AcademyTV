@@ -55,7 +55,7 @@ class CKController {
         CKKeys.database.save(subscription) { (subscription, error) in
             guard let _ = subscription, error == nil else {
                 print(error!.localizedDescription)
-                let err = error as! CKError
+                guard let err = error as? CKError else { return }
                 if err.code ==  CKError.Code.serverRejectedRequest {
                     print("subscription already extists")
                 }
@@ -429,8 +429,8 @@ class CKController {
      - Author: @Micheledes
      */
     
-    static func postMessage(title:String , subtitle: String, location: String?,date:(String?,String?), description: String?, URL: URL?,timeToLive:TimeInterval ) {
-    GlobalMessageModel.postMessage(title:title , subtitle: subtitle, location: location,date:date, description: description, URL: URL,timeToLive: timeToLive) { (record, error) -> Void in
+    static func postMessage(title: String, subtitle: String, location: String?, date: (String?, String?), description: String?, URL: URL?, timeToLive: TimeInterval ) {
+    GlobalMessageModel.postMessage(title: title, subtitle: subtitle, location: location, date: date, description: description, URL: URL, timeToLive: timeToLive) { (_, error) -> Void in
             if let _ = error {
                 print(error!.localizedDescription)
             }
@@ -452,7 +452,7 @@ class CKController {
             hasDate = true
         }
         
-        UsageStatisticsModel.addGlobalMessage(length: description?.count ?? 0, link: link , location: hasLocation, date: hasDate)
+        UsageStatisticsModel.addGlobalMessage(length: description?.count ?? 0, link: link, location: hasLocation, date: hasDate)
     }
     
 
@@ -474,9 +474,9 @@ class CKController {
      */
     
     
-   static func postKeynote(_ keynote:[UIImage],ofType imageType: ImageFileType?,onTVNamed name: String) {
-        TVModel.getTV(withName: name) { (TV, error) -> Void in
-            guard let _ = TV else {return }
+   static func postKeynote(_ keynote: [UIImage], ofType imageType: ImageFileType?, onTVNamed name: String) {
+        TVModel.getTV(withName: name) { (TV, _) -> Void in
+            guard let _ = TV else { return }
             TV!.set(keynote: keynote, imageType: imageType ?? .PNG)
         }
         UsageStatisticsModel.addKeynote(length: keynote.count)
@@ -505,11 +505,12 @@ class CKController {
 
     static func postKeynoteData(_ data: [Data], ofType type: ImageFileType?, onTVNamed name: String) {
         let keynote = data.map { (imgData) -> UIImage in
-            return UIImage(data: imgData) ?? UIImage()
+            let keynote = UIImage(data: imgData) ?? UIImage()
+            return keynote
         }
         
-        TVModel.getTV(withName: name) { (TV, error) -> Void in
-            guard let _ = TV else {return }
+        TVModel.getTV(withName: name) { (TV, _) -> Void in
+            guard let _ = TV else { return }
             TV!.set(keynote: keynote, imageType: type ?? .PNG)
         }
         UsageStatisticsModel.addKeynote(length: data.count)
@@ -517,13 +518,15 @@ class CKController {
     
     
     
-    static func postKeynoteData(_ data: [Data],ofType imageType:ImageFileType?, onTVsOfGroup group: TVGroup) {
+    static func postKeynoteData(_ data: [Data], ofType imageType: ImageFileType?, onTVsOfGroup group: TVGroup) {
         let keynote = data.map { (imgData) -> UIImage in
-            return UIImage(data: imgData) ?? UIImage()
+            let keynote = UIImage(data: imgData) ?? UIImage()
+            return keynote
+
         }
         
-        TVModel.getTvs(ofGroup: group) { (tvs, error) in
-            guard let _ = tvs else {return}
+        TVModel.getTvs(ofGroup: group) { (tvs, _) in
+            guard let _ = tvs else { return }
             for tv in tvs! {
                 tv.set(keynote: keynote, imageType: imageType ?? .PNG)
             }
