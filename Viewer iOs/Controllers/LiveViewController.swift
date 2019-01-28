@@ -189,8 +189,7 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
             let mail = MFMailComposeViewController()
             mail.mailComposeDelegate = self
             mail.setToRecipients(["theappteam@icloud.com"])
-            mail.setSubject("Viewer: Problem on execution.")
-            mail.setMessageBody("<p>There is an error inside Viewer app.</p>", isHTML: true)
+            mail.setSubject("Feedback for Project Viewer")
             
             present(mail, animated: true)
         } else {

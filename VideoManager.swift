@@ -117,8 +117,6 @@ class VideoManager {
             return currentIndex
         }
     }
-
-    
 }
 
 /**
