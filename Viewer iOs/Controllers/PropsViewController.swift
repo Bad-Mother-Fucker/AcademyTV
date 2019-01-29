@@ -42,7 +42,7 @@ class PropsViewController: UITableViewController, UISearchResultsUpdating {
      
      - Author: @GianlucaOrpello
      */
-    fileprivate let identifier = "PropsTableViewCell"
+    fileprivate let identifier = "LeftImageAndDescriptionTableViewCell"
     
     /**
      ## Search Bar Controller
@@ -81,13 +81,10 @@ class PropsViewController: UITableViewController, UISearchResultsUpdating {
         searchController.searchBar.barTintColor = .white
         searchController.searchBar.tintColor = .lightGray
 
-        
+        self.tableView.register(LeftImageAndDescriptionTableViewCell.self, forCellReuseIdentifier: "LeftImageAndDescriptionTableViewCell")
         self.tableView.tableHeaderView = searchController.searchBar
         fileteredProp = props
-        
-//        let tapAction = UITapGestureRecognizer(target: self, action: #selector(tableViewTapped))
-//        self.tableView.addGestureRecognizer(tapAction)
-        
+
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dissmissController))
     
     }
@@ -172,14 +169,19 @@ class PropsViewController: UITableViewController, UISearchResultsUpdating {
      - Author: @GianlucaOrpello
      */
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = PropsTableViewCell()
-        
-        let prop = fileteredProp[indexPath.row]
-        cell.leftImageView.image = prop.image
-        cell.titleLabel.text = prop.title
-        cell.descriptionLabel.text = prop.description
-        
-        return cell
+
+        if let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? LeftImageAndDescriptionTableViewCell {
+
+            let prop = fileteredProp[indexPath.row]
+            cell.leftImage = prop.image
+            cell.title = prop.title
+            cell.descriptions = prop.description
+
+            return cell
+
+        } else {
+            return UITableViewCell()
+        }
     }
     
     /**
