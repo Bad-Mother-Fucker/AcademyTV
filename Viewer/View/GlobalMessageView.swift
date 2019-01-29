@@ -269,11 +269,22 @@ class GlobalMessageView: UIView {
     
         
     }
-    
-    
 
-    
-    
+    /**
+     ## Generate the QRCode from a generic String
+
+     This function allow you to generate a functional QRCode from a generic String.
+     In this funcion are applied two different CIFilter. The first one generate the QRCode, and the second one apply the selected color for the image and background,
+
+     - Parameters:
+        - string: The string message to encrypt in a QRCode image.
+
+     - Return: The UIImage data with the QRCode inside if the function was able to generate it
+
+     - Version: 1.0
+
+     - Author: @GianlucaOrpello
+     */
     func generateQRCode(from string: String) -> UIImage? {
         let data = string.data(using: String.Encoding.ascii)
         if string == "" { return nil }
@@ -339,43 +350,37 @@ class GlobalMessageView: UIView {
         }
         
     }
+
+    func nextIndex() -> Int {
+        let index: Int
+        if nextMsg >= 0 && nextMsg < globalMessages.count {
+            index = nextMsg
+            nextMsg += 1
+            return index
+        } else {
+            nextMsg = 0
+            return nextIndex()
+        }
+    }
+
+    func textExceedBoundsOf(_ textView: UITextView) -> Bool {
+        let textHeight = textView.contentSize.height
+        return textHeight > textView.bounds.height
+    }
     
-    
-   
-    
-        func nextIndex() -> Int {
-            let index: Int
-            if nextMsg >= 0 && nextMsg < globalMessages.count {
-                index = nextMsg
-                nextMsg += 1
-                return index
-            } else {
-                nextMsg = 0
-                return nextIndex()
+
+    func scrollTextIfNeeded(in textView: UITextView) {
+        guard textExceedBoundsOf(textView) else { return }
+        textView.scrollRangeToVisible(NSRange(location: 0, length: 0))
+        var lastRange = NSRange(location: 0, length: 250)
+        Timer.scheduledTimer(withTimeInterval: 6, repeats: true) { (timer) in
+            guard self.textExceedBoundsOf(textView) else {
+                timer.invalidate()
+                return
             }
+            let newRange = NSRange(location: lastRange.upperBound, length: 250)
+            textView.scrollRangeToVisible(newRange)
+            lastRange = newRange
         }
-        
-    
-        
-        
-        func textExceedBoundsOf(_ textView: UITextView) -> Bool {
-            let textHeight = textView.contentSize.height
-            return textHeight > textView.bounds.height
-        }
-    
-        
-        func scrollTextIfNeeded(in textView: UITextView) {
-            guard textExceedBoundsOf(textView) else { return }
-            textView.scrollRangeToVisible(NSRange(location: 0, length: 0))
-            var lastRange = NSRange(location: 0, length: 250)
-            Timer.scheduledTimer(withTimeInterval: 6, repeats: true) { (timer) in
-                guard self.textExceedBoundsOf(textView) else {
-                    timer.invalidate()
-                    return
-                }
-                let newRange = NSRange(location: lastRange.upperBound, length: 250)
-                textView.scrollRangeToVisible(newRange)
-                lastRange = newRange
-            }
-        }
+    }
 }

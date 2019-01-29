@@ -24,6 +24,17 @@ enum Categories: String{
 }
 
 /**
+ ## PropsListDelegate
+
+ - Version: 1.0
+
+ - Author: @GianlucaOrpello
+ */
+protocol PropsListDelegate: class {
+    func getAiringProp()
+}
+
+/**
  ## The Home screen view controller.
  
  - Version: 1.1
@@ -31,7 +42,16 @@ enum Categories: String{
  - Author: @GianlucaOrpello
  */
 class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate {
-    
+
+    /**
+     ## The main tableView
+
+     - Version: 1.0
+
+     - Author: @GianlucaOrpello
+     */
+    var tableView: UITableView?
+
     /**
      ## Number of item of the table view
 
@@ -83,51 +103,10 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let ticker = CKController.getAiringTickers(in: .all)
-        let keynoteFiles = CKController.getAiringKeynote(in: .all)
-        
-        keynote = []
-        thikerMessage = []
-        
-        var uniqueTickerMessages = Set<String>()
-        
-        for tick in ticker {
-            // FIXME: Group tickers by message
-            uniqueTickerMessages.insert(tick.0)
-        }
-        
-        for message in uniqueTickerMessages {
-            thikerMessage?.append((message: message, tvName: "", TVGroup: nil))
-            for tick in ticker {
-                if tick.0 == message {
-                    let size = thikerMessage!.count
-                    thikerMessage![size - 1].tvName.append(tick.1 + ", ")
-                }
-                //Remove last two digits
-                let size = thikerMessage!.count
-                thikerMessage?[size - 1].tvName.removeLast(2)
-            }
-            
-        }
-        
-        
-        
-        for key in keynoteFiles {
-            keynote?.append((image: key.image, tvName: key.tvName, TVGroup: nil))
-        }
-        
-        do{
-            globalMessages = try CKController.getAllGlobalMessages(completionHandler: {
-                self.numberOfObject = 1
-            })
-        } catch {
-            print("Error getting the messages.")
-            numberOfObject = 0
-        }
-    }
-    
+        getAiringProp()
 
+        NotificationCenter.default.addObserver(self, selector: #selector(getAiringProp), name: NSNotification.Name(rawValue: "UpdateAiringPropsList"), object: nil)
+    }
     
     /**
      ## UIVIewController - ViewDidAppear Methods
@@ -150,14 +129,14 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
                 views.removeFromSuperview()
             }
             
-            let tableView = UITableView(frame: self.view.frame)
-            tableView.delegate = self
-            tableView.dataSource = self
-            tableView.tableFooterView = UIView()
-            tableView.tintColor = UIColor(red: 0, green: 119 / 255, blue: 1, alpha: 1)
+            tableView = UITableView(frame: self.view.frame)
+            tableView!.delegate = self
+            tableView!.dataSource = self
+            tableView!.tableFooterView = UIView()
+            tableView!.tintColor = UIColor(red: 0, green: 119 / 255, blue: 1, alpha: 1)
 
-            tableView.reloadData()
-            self.view.addSubview(tableView)
+            tableView!.reloadData()
+            self.view.addSubview(tableView!)
         }
     }
     
@@ -210,25 +189,68 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         switch result {
         case MFMailComposeResult.sent:
-            print("You sent the email.")
+            NSLog("You sent the email.")
         case MFMailComposeResult.saved:
-            print("You saved a draft of this email")
+            NSLog("You saved a draft of this email")
         case MFMailComposeResult.cancelled:
-            print("You cancelled sending this email.")
+            NSLog("You cancelled sending this email.")
         case MFMailComposeResult.failed:
-            print("Mail failed:  An error occurred when trying to compose this email")
+            NSLog("Mail failed:  An error occurred when trying to compose this email")
         default:
-            print("An error occurred when trying to compose this email")
+            NSLog("An error occurred when trying to compose this email")
         }
         controller.dismiss(animated: true)
     }
-    
+
+    /**
+     ## Get all the Airing Props
+
+     - Version: 1.0
+
+     - Author: @GianlucaOrpello
+     */
+    @objc func getAiringProp() {
+
+        let ticker = CKController.getAiringTickers(in: .all)
+        let keynoteFiles = CKController.getAiringKeynote(in: .all)
+
+        keynote = []
+        thikerMessage = []
+
+        var uniqueTickerMessages = Set<String>()
+
+        for tick in ticker {
+            // FIXME: Group tickers by message
+            uniqueTickerMessages.insert(tick.0)
+        }
+
+        for message in uniqueTickerMessages {
+            thikerMessage?.append((message: message, tvName: "", TVGroup: nil))
+            for tick in ticker {
+                if tick.0 == message {
+                    let size = thikerMessage!.count
+                    thikerMessage![size - 1].tvName.append(tick.1 + ", ")
+                }
+                //Remove last two digits
+                let size = thikerMessage!.count
+                thikerMessage?[size - 1].tvName.removeLast(2)
+            }
+        }
+
+        for key in keynoteFiles {
+            keynote?.append((image: key.image, tvName: key.tvName, TVGroup: nil))
+        }
+
+        do{
+            globalMessages = try CKController.getAllGlobalMessages(completionHandler: {
+                self.numberOfObject = 1
+            })
+        } catch {
+            print("Error getting the messages.")
+            numberOfObject = 0
+        }
+    }
 }
-
-
-
-
-
 /**
  ## LiveViewController - Inplement the Table View delegate and datasource.
  

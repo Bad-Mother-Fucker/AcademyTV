@@ -122,7 +122,7 @@ class SharePosterViewController: UIViewController, UICollectionViewDelegate, UIC
                             imgData = data as Data
                         } else if let url = item as? NSURL {
                             do {
-                                imgData = try? Data(contentsOf: url as URL)
+                                imgData = try Data(contentsOf: url as URL)
                             } catch {
                                 NSLog("Can't get imgData - SharePosterViewController: loadImagesFromAttachments")
                             }
@@ -151,7 +151,7 @@ class SharePosterViewController: UIViewController, UICollectionViewDelegate, UIC
                             imgData = data as Data
                         } else if let url = item as? NSURL {
                             do {
-                                imgData = try? Data(contentsOf: url as URL)
+                                imgData = try Data(contentsOf: url as URL)
                             } catch {
                                 NSLog("Error get the imgData - SharePosterViewController: loadImagesFromAttachments")
                             }
