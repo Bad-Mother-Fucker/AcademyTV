@@ -19,7 +19,14 @@ import CloudKit
  - Author: @GianlucaOrpello
  */
 class SummaryViewController: UIViewController, MFMailComposeViewControllerDelegate{
-    
+
+    /**
+     ## The main tableView
+
+     - Version: 1.0
+
+     - Author: @GianlucaOrpello
+     */
     var tableView: UITableView!
     
     /**
@@ -192,15 +199,15 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
              
                 break
             case Categories.globalMessage:
-                let gm = prop as? GlobalMessage
-                gm?.title = (tableView.cellForRow(at: IndexPath(row: 0, section: 0))?.viewWithTag(500) as? UILabel)?.text ?? ""
-                gm?.subtitle = (tableView.cellForRow(at: IndexPath(row: 0, section: 0))?.viewWithTag(501) as? UILabel)?.text ?? ""
-                gm?.location = (tableView.cellForRow(at: IndexPath(row: 1, section: 0))?.viewWithTag(505) as? UILabel)?.text ?? ""
-                gm?.date.0 = (tableView.cellForRow(at: IndexPath(row: 1, section: 0))?.viewWithTag(504) as? UITextField)?.text ?? ""
-                gm?.description = (tableView.cellForRow(at: IndexPath(row: 0, section: 0))?.viewWithTag(502) as? UITextField)?.text ?? ""
-                gm?.url = URL(string: (tableView.cellForRow(at: IndexPath(row: 1, section: 0))?.viewWithTag(503) as? UITextField)?.text ?? "")
+                let globalMessage = prop as? GlobalMessage
+                globalMessage?.title = (tableView.cellForRow(at: IndexPath(row: 0, section: 0))?.viewWithTag(500) as? UILabel)?.text ?? ""
+                globalMessage?.subtitle = (tableView.cellForRow(at: IndexPath(row: 0, section: 0))?.viewWithTag(501) as? UILabel)?.text ?? ""
+                globalMessage?.location = (tableView.cellForRow(at: IndexPath(row: 1, section: 0))?.viewWithTag(505) as? UILabel)?.text ?? ""
+                globalMessage?.date.0 = (tableView.cellForRow(at: IndexPath(row: 1, section: 0))?.viewWithTag(504) as? UITextField)?.text ?? ""
+                globalMessage?.description = (tableView.cellForRow(at: IndexPath(row: 0, section: 0))?.viewWithTag(502) as? UITextField)?.text ?? ""
+                globalMessage?.url = URL(string: (tableView.cellForRow(at: IndexPath(row: 1, section: 0))?.viewWithTag(503) as? UITextField)?.text ?? "")
                 
-                let operation = CKModifyRecordsOperation(recordsToSave: [(gm?.record)!], recordIDsToDelete: nil)
+                let operation = CKModifyRecordsOperation(recordsToSave: [(globalMessage?.record)!], recordIDsToDelete: nil)
                 CKKeys.database.add(operation)
                 self.navigationController?.dismiss(animated: true, completion: nil)
                 
@@ -213,10 +220,7 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
             alert.addAction(action)
             self.present(alert, animated: true, completion: nil)
         }
-
-        
     }
-    
     
     /**
      ## Send an email for report a problem
@@ -262,7 +266,7 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
             } else if let globalMessage = self?.prop as? GlobalMessage{
                 CKController.remove(globalMessage: globalMessage)
             }
-            
+            NotificationCenter.default.post(name: NSNotification.Name("UpdateAiringPropsList"), object: nil)
             self?.dismiss(animated: true, completion: nil)
         })
         

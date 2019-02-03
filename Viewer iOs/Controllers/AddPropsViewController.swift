@@ -62,7 +62,16 @@ class AddPropsViewController: UIViewController {
      
      - Author: @GianlucaOrpello
      */
-    var datePickerIsVisible: Bool = false
+    var datePickerIsVisible: Bool = false{
+        didSet{
+            guard self.title == Categories.globalMessage.rawValue else { return }
+            if datePickerIsVisible == false{
+                if let label = tableView.cellForRow(at: IndexPath(row: 2, section: 3))?.viewWithTag(500) as? UILabel {
+                    label.text = "None"
+                }
+            }
+        }
+    }
     
     /**
      ## Selected location , Selected DateTime, Selected Keynote
@@ -284,6 +293,13 @@ class AddPropsViewController: UIViewController {
      */
     fileprivate func toggleShowDateDatepicker () {
         datePickerIsVisible = !datePickerIsVisible
+
+        if locationPickerIsVisible == false{
+            if let label = tableView.cellForRow(at: IndexPath(row: 2, section: 3))?.viewWithTag(500) as? UILabel {
+                label.text = "None"
+            }
+        }
+
         self.tableView.beginUpdates()
         self.tableView.reloadRows(at: [IndexPath(row: 4, section: 3)], with: .automatic)
         self.tableView.endUpdates()
@@ -305,9 +321,16 @@ class AddPropsViewController: UIViewController {
     
     @objc func dateDidChange(sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .medium
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .short
         selectedDateTime = dateFormatter.string(from: sender.date)
+    }
+
+    fileprivate func getCurrent(date: Date) -> String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .short
+        return dateFormatter.string(from: date)
     }
     
     /**
@@ -614,7 +637,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
                     let cell = UITableViewCell()
                     cell.selectionStyle = .none
                     
-                    let label = UILabel(frame: CGRect(x: 16, y: 10, width: self.view.frame.size.width - 32, height: 54))
+                    let label = UILabel(frame: CGRect(x: 16, y: (cell.frame.height / 2) - 10, width: self.view.frame.size.width - 32, height: 54))
                     label.numberOfLines = 0
                     label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
                     label.textColor = .lightGray
@@ -628,7 +651,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
                         let cell = UITableViewCell()
                         cell.selectionStyle = .none
                         
-                        let textField = UITextField(frame: CGRect(x: 16, y: 10, width: self.view.frame.size.width - 32, height: 36))
+                        let textField = UITextField(frame: CGRect(x: 16, y: (cell.frame.height / 2) - 10, width: self.view.frame.size.width - 32, height: 36))
                         textField.delegate = self
                         textField.borderStyle = .none
                         textField.placeholder = "Title"
@@ -641,7 +664,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
                         cell.selectionStyle = .none
                         
                         
-                        let textField = UITextField(frame: CGRect(x: 16, y: 10, width: self.view.frame.size.width - 32, height: 36))
+                        let textField = UITextField(frame: CGRect(x: 16, y: (cell.frame.height / 2) - 10, width: self.view.frame.size.width - 32, height: 36))
                         textField.delegate = self
                         textField.borderStyle = .none
                         textField.placeholder = "Description"
@@ -652,7 +675,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
                         let cell = UITableViewCell()
                         cell.selectionStyle = .none
                         
-                        let textField = UITextField(frame: CGRect(x: 16, y: 10, width: self.view.frame.size.width - 32, height: 105))
+                        let textField = UITextField(frame: CGRect(x: 16, y: (cell.frame.height / 2) - 10, width: self.view.frame.size.width - 32, height: 105))
                         textField.delegate = self
                         textField.borderStyle = .none
                         textField.placeholder = "Message"
@@ -674,7 +697,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
                         let label = UILabel(frame: CGRect(x: 16, y: 10, width: 100, height: 22))
                         label.text = "URL"
                         
-                        let textField = UITextField(frame: CGRect(x: self.view.frame.size.width - 167, y: 10, width: 157, height: 22))
+                        let textField = UITextField(frame: CGRect(x: self.view.frame.size.width - 167, y: (cell.frame.height / 2) - 10, width: 157, height: 22))
                         textField.delegate = self
                         textField.borderStyle = .none
                         textField.textColor = .lightGray
@@ -689,11 +712,12 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
                         let cell = UITableViewCell()
                         cell.selectionStyle = .none
                         
-                        let label = UILabel(frame: CGRect(x: 16, y: 10, width: 100, height: 22))
+                        let label = UILabel(frame: CGRect(x: 16, y: (cell.frame.height / 2) - 10, width: 100, height: 22))
                         label.text = "Location"
                         
-                        let locationLabel = UILabel(frame: CGRect(x: self.view.frame.size.width - 157, y: 10, width: 157, height: 22))
+                        let locationLabel = UILabel(frame: CGRect(x: self.view.frame.size.width - 167, y: (cell.frame.height / 2) - 10, width: 157, height: 22))
                         locationLabel.text = selectedLocation.rawValue
+                        locationLabel.textAlignment = .right
                         locationLabel.textColor = .lightGray
                         locationLabel.tag = 500
                         
@@ -717,19 +741,20 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
                         let cell = UITableViewCell()
                         cell.selectionStyle = .none
                         
-                        let locationLabel = UILabel(frame: CGRect(x: 16, y: 10, width: 100, height: 22))
+                        let locationLabel = UILabel(frame: CGRect(x: 16, y: (cell.frame.height / 2) - 10, width: 100, height: 22))
                         locationLabel.text = "Date & Time"
-                        
-                        let label = UILabel(frame: CGRect(x: self.view.frame.size.width - 180, y: 10, width: 110, height: 22))
-                        label.numberOfLines = 0
-                        label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
-                        label.textColor = .lightGray
-                        label.text = "Today, 10:41"
-                        label.tag = 500
+
                         let swi = UISwitch(frame: CGRect(x: self.view.frame.size.width - 65, y: 10, width: 55, height: 36))
                         swi.isOn = datePickerIsVisible
                         swi.addTarget(self, action: #selector(openOrCloseDatePicker), for: .valueChanged)
-                        
+
+                        let label = UILabel(frame: CGRect(x: self.view.frame.size.width - 225, y: (cell.frame.height / 2) - 11, width: 150, height: 22))
+                        label.numberOfLines = 0
+                        label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+                        label.textColor = .lightGray
+                        label.text = swi.isOn ? getCurrent(date: Date()) : "None"
+                        label.textAlignment = .right
+                        label.tag = 500
                         
                         cell.contentView.addSubview(swi)
                         cell.contentView.addSubview(label)
@@ -876,7 +901,25 @@ extension AddPropsViewController: UITextFieldDelegate {
      - Author: @GianlucaOrpello
      */
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.endEditing(true)
+
+        let textFields = [tableView.cellForRow(at: IndexPath(row: 0, section: 2))?.viewWithTag(500) as? UITextField,
+                          tableView.cellForRow(at: IndexPath(row: 1, section: 2))?.viewWithTag(500) as? UITextField,
+                          tableView.cellForRow(at: IndexPath(row: 2, section: 2))?.viewWithTag(500) as? UITextField]
+
+        switch self.title {
+        case Categories.globalMessage.rawValue:
+
+            if let index = textFields.index(of: textField){
+                if let nextTextField = textFields[index + 1] {
+                    nextTextField.becomeFirstResponder()
+                }
+            }
+
+        default:
+            textField.endEditing(true)
+        }
+
+        tableView.setContentOffset(CGPoint.zero, animated: true)
         return true
     }
     
@@ -915,8 +958,7 @@ extension AddPropsViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if self.title == Categories.globalMessage.rawValue {
 //            self.tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .top, animated: true)
-            tableView.setContentOffset(CGPoint(x: 0, y: textField.center.y + 250), animated: true)
-
+            tableView.setContentOffset(CGPoint(x: 0, y: textField.center.y + 100), animated: true)
         }
     }
     
@@ -984,8 +1026,8 @@ extension AddPropsViewController: UIDocumentPickerDelegate, UINavigationControll
         if let destination = story.instantiateViewController(withIdentifier: "SetsViewController") as? TvListViewController {
             for url in urls {
                 do {
-                    let data = try? Data(contentsOf: url)
-                    destination.keynote?.append(UIImage(data: data!)!)
+                    let data = try Data(contentsOf: url)
+                    destination.keynote?.append(UIImage(data: data)!)
                     destination.category = .keynoteViewer
                     self.navigationController?.pushViewController(destination, animated: true)
                 } catch {

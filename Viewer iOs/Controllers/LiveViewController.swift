@@ -5,7 +5,6 @@
 //  Created by Gianluca Orpello on 12/01/2019.
 //  Copyright © 2019 Gianluca Orpello. All rights reserved.
 //
-
 import UIKit
 import MessageUI
 
@@ -24,6 +23,17 @@ enum Categories: String{
 }
 
 /**
+ ## PropsListDelegate
+
+ - Version: 1.0
+
+ - Author: @GianlucaOrpello
+ */
+protocol PropsListDelegate {
+    func getAiringProp()
+}
+
+/**
  ## The Home screen view controller.
  
  - Version: 1.1
@@ -31,7 +41,16 @@ enum Categories: String{
  - Author: @GianlucaOrpello
  */
 class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate {
-    
+
+    /**
+     ## The main tableView
+
+     - Version: 1.0
+
+     - Author: @GianlucaOrpello
+     */
+    var tableView: UITableView?
+
     /**
      ## Number of item of the table view
 
@@ -83,52 +102,9 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let ticker = CKController.getAiringTickers(in: .all)
-        let keynoteFiles = CKController.getAiringKeynote(in: .all)
-        
-        keynote = []
-        thikerMessage = []
-        
-        var uniqueTickerMessages = Set<String>()
-        
-        for tick in ticker {
-            // FIXME: Group tickers by message
-            uniqueTickerMessages.insert(tick.0)
-        }
-        
-        for message in uniqueTickerMessages {
-            thikerMessage?.append((message: message, tvName: "", TVGroup: nil))
-            for tick in ticker {
-                if tick.0 == message {
-                    let size = thikerMessage!.count
-                    thikerMessage![size-1].tvName.append(contentsOf: "\(tick.1), ")
-                }
-                
-            }
-            //Remove last two digits
-            let size = thikerMessage!.count
-//            guard thikerMessage![size - 1].tvName.count > 2 else {return}
-            thikerMessage?[size - 1].tvName.removeLast(2)
-        }
-        
-        
-        
-        for key in keynoteFiles {
-            keynote?.append((image: key.image, tvName: key.tvName, TVGroup: nil))
-        }
-        
-        do{
-            globalMessages = try CKController.getAllGlobalMessages(completionHandler: {
-                self.numberOfObject = 1
-            })
-        } catch {
-            print("Error getting the messages.")
-            numberOfObject = 0
-        }
+        getAiringProp()
+        NotificationCenter.default.addObserver(self, selector: #selector(getAiringProp), name: NSNotification.Name(rawValue: "UpdateAiringPropsList"), object: nil)
     }
-    
-
     
     /**
      ## UIVIewController - ViewDidAppear Methods
@@ -141,7 +117,6 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
      */
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
         if numberOfObject == 0 {
             let noLiveView = NoLivePrompView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height))
             noLiveView.contactbutton.addTarget(self, action: #selector(sendEmail), for: .touchUpInside)
@@ -151,14 +126,19 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
                 views.removeFromSuperview()
             }
             
-            let tableView = UITableView(frame: self.view.frame)
-            tableView.delegate = self
-            tableView.dataSource = self
-            tableView.tableFooterView = UIView()
-            tableView.tintColor = UIColor(red: 0, green: 119 / 255, blue: 1, alpha: 1)
+            tableView = UITableView(frame: self.view.frame)
+            tableView!.delegate = self
+            tableView!.dataSource = self
+            tableView!.tableFooterView = UIView()
+            tableView!.tintColor = UIColor(red: 0, green: 119 / 255, blue: 1, alpha: 1)
 
-            tableView.reloadData()
-            self.view.addSubview(tableView)
+            tableView!.register(TitleSubtitleAndDescriptionTableViewCell.self, forCellReuseIdentifier: "TitleSubtitleAndDescriptionTableViewCell")
+            tableView!.register(TextAndSubtitleTableViewCell.self, forCellReuseIdentifier: "TextAndSubtitleTableViewCell")
+            tableView!.register(TitleAndMultipleSubtitleTableViewCell.self, forCellReuseIdentifier: "TitleAndMultipleSubtitleTableViewCell")
+            tableView!.register(CenteredButtonTableViewCell.self, forCellReuseIdentifier: "CenteredButtonTableViewCell")
+
+            tableView!.reloadData()
+            self.view.addSubview(tableView!)
         }
     }
     
@@ -211,25 +191,68 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         switch result {
         case MFMailComposeResult.sent:
-            print("You sent the email.")
+            NSLog("You sent the email.")
         case MFMailComposeResult.saved:
-            print("You saved a draft of this email")
+            NSLog("You saved a draft of this email")
         case MFMailComposeResult.cancelled:
-            print("You cancelled sending this email.")
+            NSLog("You cancelled sending this email.")
         case MFMailComposeResult.failed:
-            print("Mail failed:  An error occurred when trying to compose this email")
+            NSLog("Mail failed:  An error occurred when trying to compose this email")
         default:
-            print("An error occurred when trying to compose this email")
+            NSLog("An error occurred when trying to compose this email")
         }
         controller.dismiss(animated: true)
     }
-    
+
+    /**
+     ## Get all the Airing Props
+
+     - Version: 1.0
+
+     - Author: @GianlucaOrpello
+     */
+    @objc func getAiringProp() {
+
+        let ticker = CKController.getAiringTickers(in: .all)
+        let keynoteFiles = CKController.getAiringKeynote(in: .all)
+
+        keynote = []
+        thikerMessage = []
+
+        var uniqueTickerMessages = Set<String>()
+
+        for tick in ticker {
+            // FIXME: Group tickers by message
+            uniqueTickerMessages.insert(tick.0)
+        }
+
+        for message in uniqueTickerMessages {
+            thikerMessage?.append((message: message, tvName: "", TVGroup: nil))
+            for tick in ticker {
+                if tick.0 == message {
+                    let size = thikerMessage!.count
+                    thikerMessage![size - 1].tvName.append(tick.1 + ", ")
+                }
+                //Remove last two digits
+                let size = thikerMessage!.count
+                thikerMessage?[size - 1].tvName.removeLast(2)
+            }
+        }
+
+        for key in keynoteFiles {
+            keynote?.append((image: key.image, tvName: key.tvName, TVGroup: nil))
+        }
+
+        do{
+            globalMessages = try CKController.getAllGlobalMessages(completionHandler: {
+                self.numberOfObject = 1
+            })
+        } catch {
+            print("Error getting the messages.")
+            numberOfObject = 0
+        }
+    }
 }
-
-
-
-
-
 /**
  ## LiveViewController - Inplement the Table View delegate and datasource.
  
@@ -420,96 +443,48 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
         switch indexPath.section {
             
         case 0:
-            
-            let cell = UITableViewCell()
-            cell.accessoryType = .detailButton
-            cell.selectionStyle = .none
-            
-            let titleLabel = UILabel(frame: CGRect(x: 16, y: 16, width: 350, height: 44))
-            
-            titleLabel.text = thikerMessage?[indexPath.row].message
-            titleLabel.font = UIFont.systemFont(ofSize: 17, weight: .regular)
-            titleLabel.textColor = .black
-            
-            let subtitleLabel = UILabel(frame: CGRect(x: 16, y: 66, width: 350, height: 13))
-            
-            subtitleLabel.text = thikerMessage?[indexPath.row].tvName
-            subtitleLabel.font = UIFont.systemFont(ofSize: 11, weight: .regular)
-            subtitleLabel.textColor = .lightGray
-            
-            cell.contentView.addSubview(titleLabel)
-            cell.contentView.addSubview(subtitleLabel)
-            
-            return cell
+
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "TitleAndMultipleSubtitleTableViewCell") as? TitleAndMultipleSubtitleTableViewCell{
+                
+                cell.title = thikerMessage?[indexPath.row].message
+                cell.subtitle = thikerMessage?[indexPath.row].tvName
+
+                return cell
+
+            } else { return UITableViewCell() }
             
         case 1:
-            
-            let cell = UITableViewCell()
-            cell.accessoryType = .detailButton
-            cell.selectionStyle = .none
-            
-            let titleLabel = UILabel(frame: CGRect(x: 16, y: 16, width: 350, height: 22))
-            
-            titleLabel.text = "Unnamed"
-            titleLabel.font = UIFont.systemFont(ofSize: 17, weight: .regular)
-            titleLabel.textColor = .black
-            
-            let subtitleLabel = UILabel(frame: CGRect(x: 16, y: 44, width: 350, height: 13))
-            
-            subtitleLabel.text = keynote?[indexPath.row].tvName
-            subtitleLabel.font = UIFont.systemFont(ofSize: 11, weight: .regular)
-            subtitleLabel.textColor = .lightGray
-            
-            cell.contentView.addSubview(titleLabel)
-            cell.contentView.addSubview(subtitleLabel)
-            
-            return cell
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "TextAndSubtitleTableViewCell") as? TextAndSubtitleTableViewCell{
+
+                cell.title = "Unnamed"
+                cell.subtitle = keynote?[indexPath.row].tvName
+
+                return cell
+            } else { return UITableViewCell() }
             
         case 2:
-            
-            let cell = UITableViewCell()
-            cell.accessoryType = .detailButton
-            cell.selectionStyle = .none
-            
-            let titleLabel = UILabel(frame: CGRect(x: 16, y: 16, width: 350, height: 22))
-            
-            titleLabel.text = globalMessages?[indexPath.row].title
-            titleLabel.font = UIFont.systemFont(ofSize: 17, weight: .bold)
-            titleLabel.textColor = .black
-            
-            let subtitleLabel = UILabel(frame: CGRect(x: 16, y: 38, width: 350, height: 22))
-            
-            subtitleLabel.text = globalMessages?[indexPath.row].subtitle
-            subtitleLabel.font = UIFont.systemFont(ofSize: 17, weight: .regular)
-            subtitleLabel.textColor = .black
-            
-            let locationLabel = UILabel(frame: CGRect(x: 16, y: 66, width: 350, height: 13))
-            
-            locationLabel.text = "Everywhere"
-            locationLabel.font = UIFont.systemFont(ofSize: 11, weight: .regular)
-            locationLabel.textColor = .lightGray
-            
-            cell.contentView.addSubview(titleLabel)
-            cell.contentView.addSubview(subtitleLabel)
-            cell.contentView.addSubview(locationLabel)
-            
-            return cell
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "TitleSubtitleAndDescriptionTableViewCell") as? TitleSubtitleAndDescriptionTableViewCell{
+                //            let cell = TitleSubtitleAndDescriptionTableViewCell()
+
+                cell.title = globalMessages?[indexPath.row].title
+                cell.subtitle = globalMessages?[indexPath.row].subtitle
+                cell.descriptions = "Everywhere"
+
+                return cell
+                
+            } else { return UITableViewCell() }
             
         case 3:
-            
-            let cell = UITableViewCell()
-            cell.selectionStyle = .none
-            tableView.separatorStyle = .none
-            
-            let button = UIButton(frame: CGRect(x: 0, y: 10, width: self.view.frame.width, height: 40))
-            
-            button.setTitle("Something's wrong?", for: .normal)
-            button.setTitleColor(UIColor(red: 0, green: 119 / 255, blue: 1, alpha: 1), for: .normal)
-            button.addTarget(self, action: #selector(sendEmail), for: .touchUpInside)
-            
-            cell.contentView.addSubview(button)
-            
-            return cell
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "CenteredButtonTableViewCell") as? CenteredButtonTableViewCell{
+
+                tableView.separatorStyle = .none
+                cell.title = "Something's wrong?"
+                cell.titleColor = UIColor(red: 0, green: 119 / 255, blue: 1, alpha: 1)
+                cell.addTarget(self, action: #selector(sendEmail))
+
+                return cell
+
+            } else { return UITableViewCell() }
             
         default:
             return UITableViewCell()

@@ -86,22 +86,22 @@ class BooquableTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "BooquableTableViewCell", for: indexPath) as? PropsTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "BooquableTableViewCell", for: indexPath) as? LeftImageAndDescriptionTableViewCell
         
         let order = orders[indexPath.row]
         
-        cell!.titleLabel.text = order.customerName()
+        cell!.title = order.customerName()
         
         let time = get(String(order.stopsAt.prefix(10)), with: formatter)
-        let days = getDifference(from: time!, and: Date())
-        
-        let deviceInfo = order.getDevice()
-        cell!.leftImageView.backgroundColor = .lightGray
-        cell!.leftImageView.layer.cornerRadius = 5
-        cell!.leftImageView.clipsToBounds = true
-        cell!.leftImageView.image = UIImage(named: deviceInfo.glyph.rawValue)
-        cell!.descriptionLabel.text = deviceInfo.name + " " + String(days!)
-        
+//        let days = getDifference(from: time!, and: Date())
+//
+//        let deviceInfo = order.getDevice()
+//        cell!.leftImageView.backgroundColor = .lightGray
+//        cell!.leftImageView.layer.cornerRadius = 5
+//        cell!.leftImageView.clipsToBounds = true
+//        cell!.leftImageView.image = UIImage(named: deviceInfo.glyph.rawValue)
+//        cell!.descriptionLabel.text = deviceInfo.name + " " + String(days!)
+
         return cell!
     }
 }
