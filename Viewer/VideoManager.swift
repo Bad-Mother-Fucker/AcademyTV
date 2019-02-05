@@ -191,17 +191,19 @@ class VideoDownloader {
      */
     
     static func getVideos(from urls: [URL]) -> [URL] {
-        if let videoData = UserDefaults.standard.value(forKey: "videoURLs") as? Data {
-            if let urlsArray = NSKeyedUnarchiver.unarchiveObject(with: videoData) as? [URL] {
-                return urlsArray
-            } else {
-                print("Error unarchiving video files, donwloading from dropbox")
-                VideoDownloader.downloadVideosFrom(URLs: urls)
-                return urls
-            }
-        } else {
-            VideoDownloader.downloadVideosFrom(URLs: urls)
-            return urls
-        }
+//        if let videoData = UserDefaults.standard.value(forKey: "videoURLs") as? Data {
+//            if let urlsArray = NSKeyedUnarchiver.unarchiveObject(with: videoData) as? [URL] {
+//                return urlsArray
+//            } else {
+//                print("Error unarchiving video files, donwloading from dropbox")
+//                VideoDownloader.downloadVideosFrom(URLs: urls)
+//                return urls
+//            }
+//        } else {
+//            VideoDownloader.downloadVideosFrom(URLs: urls)
+//            return urls
+//        }
+
+        return []
     }
 }

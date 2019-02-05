@@ -146,11 +146,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
         
         
-        
-        let notification = Notification(name: Notification.Name(rawValue: notificationName.rawValue),
-                                        object: self,
-                                        userInfo: [CKNotificationName.notification.rawValue: ckqn])
-        NotificationCenter.default.post(notification)
+     
         
     }
     

@@ -18,34 +18,16 @@ class TVViewController: UIViewController {
     }
 
     weak var appDelegate = UIApplication.shared.delegate as? AppDelegate
-    
+
+    let assets = [AVAssets.elmo, AVAssets.floridiana, AVAssets.lungomare, AVAssets.uovo]
+
     var currentTV: TV!
     
     var videosURL: [AVPlayerItem] {
-        var videos: [URL?] = [URL(string: "https://dl.dropboxusercontent.com/s/jiygs4mqvfmube2/Elmo180.m4v?dl=0"),
-                             URL(string: "https://dl.dropboxusercontent.com/s/0s48rm38u8awzve/Floridiana180.m4v?dl=0"),
-                             URL(string: "https://dl.dropboxusercontent.com/s/pikrsmippuu59qq/Lungomare180.m4v?dl=0" ),
-                             URL(string: "https://dl.dropboxusercontent.com/s/n0aczqi5irkhzcb/Uovo180.m4v?dl=0")
-                            ]
-        
-        videos.forEach { (URL) in
-            guard URL != nil else {
-                videos.remove(at: videos.index(of: URL)!)
-                print("failed to get video at index: \(videos.index(of: URL)!)")
-                return
-            }
-            return
-        }
-        
-//      comment to use videos directly from Dropbox
-
-//        videos = VideoDownloader.getVideos(from: videos as? [URL])
-
-        let items = videos.map { (url) -> AVPlayerItem in
-            let item = AVPlayerItem(url: url!)
+        let items = assets.map { (asset) -> AVPlayerItem in
+            let item = AVPlayerItem(asset: asset)
             return item
         }
-
         return items
     }
     

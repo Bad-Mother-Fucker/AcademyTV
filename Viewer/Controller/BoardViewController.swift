@@ -343,7 +343,7 @@ class BoardViewController: TVViewController {
         
         NotificationCenter.default.addObserver(forName: Notification.Name(CKNotificationName.MessageNotification.update.rawValue), object: nil, queue: .main) { (notification) in
             guard let userinfo = notification.userInfo as? [String: GlobalMessage] else { return }
-            if let newMsg = userinfo?["modifiedMsg"] {
+            if let newMsg = userinfo["modifiedMsg"] {
                 self.globalMessageView.globalMessages = self.globalMessageView.globalMessages.map({ (msg) -> GlobalMessage in
                     if msg.record.recordID == newMsg.record.recordID {
                         return newMsg
