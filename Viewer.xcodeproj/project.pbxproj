@@ -56,7 +56,14 @@
 		994CDB8621A06FBF005909BF /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 994CDB8521A06FBF005909BF /* CloudKit.framework */; };
 		995801D521E0BF6800A6BD49 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 995801D421E0BF6800A6BD49 /* README.md */; };
 		996353E82195E2E500AE8AAE /* GlobalMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996353E72195E2E500AE8AAE /* GlobalMessageView.swift */; };
+		9967BBF622099668006F9AA6 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9967BBF522099668006F9AA6 /* Protocols.swift */; };
+		9967BBF722099668006F9AA6 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9967BBF522099668006F9AA6 /* Protocols.swift */; };
+		9967BBF822099668006F9AA6 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9967BBF522099668006F9AA6 /* Protocols.swift */; };
 		9986D1C021EFA3A20051AD85 /* SummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9986D1BF21EFA3A20051AD85 /* SummaryViewController.swift */; };
+		998F5D6922098A11006164FA /* MasterAndDetailLabelsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998F5D6822098A11006164FA /* MasterAndDetailLabelsTableViewCell.swift */; };
+		998F5D6A22098A11006164FA /* MasterAndDetailLabelsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998F5D6822098A11006164FA /* MasterAndDetailLabelsTableViewCell.swift */; };
+		998F5D6C22098D45006164FA /* MasterDetailLabelsAndSwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998F5D6B22098D45006164FA /* MasterDetailLabelsAndSwitchTableViewCell.swift */; };
+		998F5D6D22098D45006164FA /* MasterDetailLabelsAndSwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998F5D6B22098D45006164FA /* MasterDetailLabelsAndSwitchTableViewCell.swift */; };
 		99AC09542174E6B100CFCAD0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99AC09532174E6B100CFCAD0 /* AppDelegate.swift */; };
 		99AC09592174E6B100CFCAD0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99AC09572174E6B100CFCAD0 /* Main.storyboard */; };
 		99AC095B2174E6B300CFCAD0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99AC095A2174E6B300CFCAD0 /* Assets.xcassets */; };
@@ -68,6 +75,14 @@
 		99B0DDFA21F672E500E3FAAA /* AddPropsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B0DDF921F672E500E3FAAA /* AddPropsViewController.swift */; };
 		99B4232C22008AFA0074FB0A /* LeftImageAndDescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B4232A22008A420074FB0A /* LeftImageAndDescriptionTableViewCell.swift */; };
 		99B4232D22008AFB0074FB0A /* LeftImageAndDescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B4232A22008A420074FB0A /* LeftImageAndDescriptionTableViewCell.swift */; };
+		99B423342201C1F10074FB0A /* FullImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B423322201C0400074FB0A /* FullImageTableViewCell.swift */; };
+		99B423352201C1F10074FB0A /* FullImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B423322201C0400074FB0A /* FullImageTableViewCell.swift */; };
+		99B423382201C5B80074FB0A /* FullLightTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B423362201C4CC0074FB0A /* FullLightTextTableViewCell.swift */; };
+		99B423392201C5B90074FB0A /* FullLightTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B423362201C4CC0074FB0A /* FullLightTextTableViewCell.swift */; };
+		99B4233B220303A10074FB0A /* TextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B4233A220303A10074FB0A /* TextFieldTableViewCell.swift */; };
+		99B4233D22030E850074FB0A /* LabelAndTextfieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B4233C22030E850074FB0A /* LabelAndTextfieldTableViewCell.swift */; };
+		99B4233E22045B740074FB0A /* TextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B4233A220303A10074FB0A /* TextFieldTableViewCell.swift */; };
+		99B4233F22045B760074FB0A /* LabelAndTextfieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B4233C22030E850074FB0A /* LabelAndTextfieldTableViewCell.swift */; };
 		99DE995821AD809D00D01FF5 /* BooquableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DE995721AD809D00D01FF5 /* BooquableTableViewController.swift */; };
 		99DE995D21ADF55A00D01FF5 /* ImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DE995C21ADF55A00D01FF5 /* ImagePickerViewController.swift */; };
 		99DE995F21ADF7DD00D01FF5 /* ImagePickerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DE995E21ADF7DD00D01FF5 /* ImagePickerCollectionViewCell.swift */; };
@@ -155,9 +170,12 @@
 		994CDB8521A06FBF005909BF /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		995801D421E0BF6800A6BD49 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		996353E72195E2E500AE8AAE /* GlobalMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalMessageView.swift; sourceTree = "<group>"; };
+		9967BBF522099668006F9AA6 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		997395EC21AC335200F650A6 /* ShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareExtension.entitlements; sourceTree = "<group>"; };
 		997395ED21AC336B00F650A6 /* Viewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Viewer.entitlements; sourceTree = "<group>"; };
 		9986D1BF21EFA3A20051AD85 /* SummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewController.swift; sourceTree = "<group>"; };
+		998F5D6822098A11006164FA /* MasterAndDetailLabelsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterAndDetailLabelsTableViewCell.swift; sourceTree = "<group>"; };
+		998F5D6B22098D45006164FA /* MasterDetailLabelsAndSwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterDetailLabelsAndSwitchTableViewCell.swift; sourceTree = "<group>"; };
 		99AC09502174E6B100CFCAD0 /* Viewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Viewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99AC09532174E6B100CFCAD0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		99AC09582174E6B100CFCAD0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -173,6 +191,10 @@
 		99AC097A2174F4B000CFCAD0 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
 		99B0DDF921F672E500E3FAAA /* AddPropsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPropsViewController.swift; sourceTree = "<group>"; };
 		99B4232A22008A420074FB0A /* LeftImageAndDescriptionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftImageAndDescriptionTableViewCell.swift; sourceTree = "<group>"; };
+		99B423322201C0400074FB0A /* FullImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullImageTableViewCell.swift; sourceTree = "<group>"; };
+		99B423362201C4CC0074FB0A /* FullLightTextTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullLightTextTableViewCell.swift; sourceTree = "<group>"; };
+		99B4233A220303A10074FB0A /* TextFieldTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldTableViewCell.swift; sourceTree = "<group>"; };
+		99B4233C22030E850074FB0A /* LabelAndTextfieldTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelAndTextfieldTableViewCell.swift; sourceTree = "<group>"; };
 		99DE995721AD809D00D01FF5 /* BooquableTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooquableTableViewController.swift; sourceTree = "<group>"; };
 		99DE995C21ADF55A00D01FF5 /* ImagePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerViewController.swift; sourceTree = "<group>"; };
 		99DE995E21ADF7DD00D01FF5 /* ImagePickerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -265,6 +287,7 @@
 			children = (
 				99B4232A22008A420074FB0A /* LeftImageAndDescriptionTableViewCell.swift */,
 				99EBB19622005F180030199D /* CenteredButtonTableViewCell.swift */,
+				99B423312201C0200074FB0A /* Add TableViewCell */,
 				99EBB18C220057140030199D /* Live TableViewCell */,
 				991AB6B621A30D8300D0565E /* BorderCollectionViewCell.swift */,
 				99F596C221A30F9000E999D7 /* GroupsCollectionViewCell.swift */,
@@ -296,6 +319,7 @@
 				99E3790121EBDF27006380F7 /* UsageStatistic.swift */,
 				1915AD2121C15FB200CF0E2F /* VideoManager.swift */,
 				19FA366621A8203D00E3B1C0 /* CKController.swift */,
+				9967BBF522099668006F9AA6 /* Protocols.swift */,
 				19FA365B21A8202300E3B1C0 /* ServiceMessage.swift */,
 				19FA365C21A8202300E3B1C0 /* TV.swift */,
 				19FA365A21A8202300E3B1C0 /* UIImage+CKAsset.swift */,
@@ -363,6 +387,19 @@
 				1CA1AE84D11F4E5D405BEC99 /* Pods_Viewer_iOS.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		99B423312201C0200074FB0A /* Add TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				99B423322201C0400074FB0A /* FullImageTableViewCell.swift */,
+				99B423362201C4CC0074FB0A /* FullLightTextTableViewCell.swift */,
+				99B4233A220303A10074FB0A /* TextFieldTableViewCell.swift */,
+				99B4233C22030E850074FB0A /* LabelAndTextfieldTableViewCell.swift */,
+				998F5D6822098A11006164FA /* MasterAndDetailLabelsTableViewCell.swift */,
+				998F5D6B22098D45006164FA /* MasterDetailLabelsAndSwitchTableViewCell.swift */,
+			);
+			path = "Add TableViewCell";
 			sourceTree = "<group>";
 		};
 		99D07F3521A47EFE005B1BC5 /* Recovered References */ = {
@@ -676,17 +713,24 @@
 				656E2A1621F62CC600B9FD77 /* NoLivePrompView.swift in Sources */,
 				99EBB19522005C090030199D /* TitleSubtitleAndDescriptionTableViewCell.swift in Sources */,
 				65F389AF21F5D7250084D5F5 /* TvGroups.swift in Sources */,
+				99B423392201C5B90074FB0A /* FullLightTextTableViewCell.swift in Sources */,
 				656887F621C91A3400EBD49B /* BorderCollectionViewCell.swift in Sources */,
 				99EBB18721FF11750030199D /* PosterViewController.swift in Sources */,
 				656E2A0E21F62C7900B9FD77 /* PropsViewController.swift in Sources */,
+				99B4233E22045B740074FB0A /* TextFieldTableViewCell.swift in Sources */,
 				19FA365F21A8202400E3B1C0 /* UIImage+CKAsset.swift in Sources */,
 				99308B7721A6FAE500EA0F9C /* ShareViewController.swift in Sources */,
 				99B4232D22008AFB0074FB0A /* LeftImageAndDescriptionTableViewCell.swift in Sources */,
 				656887FA21C9450F00EBD49B /* SharePosterViewController.swift in Sources */,
+				998F5D6D22098D45006164FA /* MasterDetailLabelsAndSwitchTableViewCell.swift in Sources */,
 				656E2A1321F62CA400B9FD77 /* ImagePickerViewController.swift in Sources */,
+				998F5D6A22098A11006164FA /* MasterAndDetailLabelsTableViewCell.swift in Sources */,
+				99B423352201C1F10074FB0A /* FullImageTableViewCell.swift in Sources */,
 				9936D1BE21F6855600478244 /* AddPropsViewController.swift in Sources */,
+				9967BBF822099668006F9AA6 /* Protocols.swift in Sources */,
 				656887F421C919F400EBD49B /* TvListViewController.swift in Sources */,
 				656887F821C91A4400EBD49B /* ImagePickerCollectionViewCell.swift in Sources */,
+				99B4233F22045B760074FB0A /* LabelAndTextfieldTableViewCell.swift in Sources */,
 				656E2A0C21F62C3E00B9FD77 /* SummaryViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -706,6 +750,7 @@
 				996353E82195E2E500AE8AAE /* GlobalMessageView.swift in Sources */,
 				99FA31B421A4637900A31F02 /* BooquableOrder.swift in Sources */,
 				9904CA6B217DDBAD00210884 /* GlobalMessage.swift in Sources */,
+				9967BBF622099668006F9AA6 /* Protocols.swift in Sources */,
 				99AC09542174E6B100CFCAD0 /* AppDelegate.swift in Sources */,
 				9936D1BF21F76EF600478244 /* UsageStatistic.swift in Sources */,
 				99FA31B221A45A1B00A31F02 /* BooquableManager.swift in Sources */,
@@ -720,13 +765,17 @@
 			files = (
 				99F596C321A30F9000E999D7 /* GroupsCollectionViewCell.swift in Sources */,
 				99EBB19722005F180030199D /* CenteredButtonTableViewCell.swift in Sources */,
+				99B4233D22030E850074FB0A /* LabelAndTextfieldTableViewCell.swift in Sources */,
 				992C547021AD5C3300E05494 /* BooquableManager.swift in Sources */,
 				99B0DDFA21F672E500E3FAAA /* AddPropsViewController.swift in Sources */,
 				99F6B24821A2FF5D00B3FA65 /* TvListViewController.swift in Sources */,
 				99E3790221EBDF27006380F7 /* UsageStatistic.swift in Sources */,
 				19FA366421A8202400E3B1C0 /* TV.swift in Sources */,
+				998F5D6922098A11006164FA /* MasterAndDetailLabelsTableViewCell.swift in Sources */,
 				99B4232C22008AFA0074FB0A /* LeftImageAndDescriptionTableViewCell.swift in Sources */,
 				99E378FE21EA2ED0006380F7 /* NoLivePrompView.swift in Sources */,
+				9967BBF722099668006F9AA6 /* Protocols.swift in Sources */,
+				998F5D6C22098D45006164FA /* MasterDetailLabelsAndSwitchTableViewCell.swift in Sources */,
 				99DE995F21ADF7DD00D01FF5 /* ImagePickerCollectionViewCell.swift in Sources */,
 				19FA366121A8202400E3B1C0 /* ServiceMessage.swift in Sources */,
 				99DE995D21ADF55A00D01FF5 /* ImagePickerViewController.swift in Sources */,
@@ -736,6 +785,7 @@
 				99F6B24621A2F9DB00B3FA65 /* PropsViewController.swift in Sources */,
 				9936D1C121F77A1500478244 /* ShareViewController.swift in Sources */,
 				99AC09692174E9C100CFCAD0 /* AppDelegate.swift in Sources */,
+				99B423342201C1F10074FB0A /* FullImageTableViewCell.swift in Sources */,
 				99EBB1912200594C0030199D /* TextAndSubtitleTableViewCell.swift in Sources */,
 				991AB6B721A30D8300D0565E /* BorderCollectionViewCell.swift in Sources */,
 				99F6B25021A306EA00B3FA65 /* GlobalMessage.swift in Sources */,
@@ -744,7 +794,9 @@
 				9986D1C021EFA3A20051AD85 /* SummaryViewController.swift in Sources */,
 				19FA365E21A8202400E3B1C0 /* UIImage+CKAsset.swift in Sources */,
 				99EBB19422005C090030199D /* TitleSubtitleAndDescriptionTableViewCell.swift in Sources */,
+				99B4233B220303A10074FB0A /* TextFieldTableViewCell.swift in Sources */,
 				99EBB18E220057720030199D /* TitleAndMultipleSubtitleTableViewCell.swift in Sources */,
+				99B423382201C5B80074FB0A /* FullLightTextTableViewCell.swift in Sources */,
 				9936D1C021F7780500478244 /* SharePosterViewController.swift in Sources */,
 				9936D1C221F77A2E00478244 /* ShareBackgroundViewController.swift in Sources */,
 				992C547221AD5C3300E05494 /* BooquableOrder.swift in Sources */,

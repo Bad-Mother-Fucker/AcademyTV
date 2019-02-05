@@ -114,7 +114,7 @@ class SharePosterViewController: UIViewController, UICollectionViewDelegate, UIC
                         }
                         
                         var imgData: Data!
-                        var img: UIImage?
+//                        var img: UIImage?
 
                         if let img = item as? UIImage {
                             imgData = img.byFixingOrientation().jpegData(compressionQuality: 1)
