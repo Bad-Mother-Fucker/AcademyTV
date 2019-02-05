@@ -150,7 +150,7 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
         } else if let key = prop as? (image: [UIImage]?, tvName: String?, TVGroup: [TVGroup]?){
             self.categories = .keynoteViewer
             keynote = key
-            print(keynote)
+            debugPrint(keynote!)
             // swiftlint:disable unused_optional_binding
         } else if let _ = prop as? GlobalMessage{
             self.categories = .globalMessage

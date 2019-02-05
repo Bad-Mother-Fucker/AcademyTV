@@ -55,8 +55,8 @@ class CKController {
         CKKeys.database.save(subscription) { (subscription, error) in
             guard subscription != nil, error == nil else {
                 print(error!.localizedDescription)
-                guard let err = error as? CKError else { return }
-                if err.code ==  CKError.Code.serverRejectedRequest {
+                let err = error as? CKError
+                if err?.code ==  CKError.Code.serverRejectedRequest {
                     print("subscription already extists")
                 }
                 return
@@ -192,9 +192,7 @@ class CKController {
             
         }
     }
-    
-    
-    
+
     /**
      ## removeTickerMessage(fromTVNamed:)
      
@@ -241,10 +239,7 @@ class CKController {
     static func isThereAMessage(onTV tv: TV) -> Bool {
         return tv.tickerMsg != "" 
     }
-    
-    
-    
-    
+
     /**
      ## getAiringTickers(in:)
      
@@ -366,7 +361,6 @@ class CKController {
      
      - Author: @Micheledes
      */
-    
     static func getAllGlobalMessages(completionHandler: @escaping () -> Void) throws -> [GlobalMessage] {
         var mess: [GlobalMessage] = []
         let sem = DispatchSemaphore(value: 0)
@@ -384,11 +378,7 @@ class CKController {
         completionHandler()
         return mess
     }
-    
-    
-//  Fetches all TVs from a given group
-    
-    
+
     /**
      ## getAllTVs(from:)
      
@@ -405,7 +395,6 @@ class CKController {
      
      - Author: @Micheledes
      */
-    
     static func getAllTVs(from group: TVGroup) throws -> [TV] {
         var tvVector: [TV] = []
         let sem = DispatchSemaphore(value: 0)
@@ -424,12 +413,7 @@ class CKController {
         }
         return tvVector
     }
-    
-    
 
-//    Posts a message to all TVs (iOS)
-    
-    
     /**
      ## postMessage(title: subtitle: location: description: URL: timeToLive:)
      
@@ -444,7 +428,6 @@ class CKController {
      
      - Author: @Micheledes
      */
-    
     static func postMessage(title: String, subtitle: String, location: String?, date: (String?, String?), description: String?, URL: URL?, timeToLive: TimeInterval) {
     GlobalMessageModel.postMessage(title: title, subtitle: subtitle, location: location, date: date, description: description, URL: URL, timeToLive: timeToLive) { (_, error) -> Void in
             if error != nil {
@@ -470,10 +453,7 @@ class CKController {
         
         UsageStatisticsModel.addGlobalMessage(length: description?.count ?? 0, link: link, location: hasLocation, date: hasDate)
     }
-    
 
-//    Post a keynote in Png or Jpg format on a given TV (iOS)
-    
     /**
      ## postKeynote(_:ofType:onTVNamed:)
      
@@ -488,8 +468,6 @@ class CKController {
      
      - Author: @Micheledes
      */
-    
-    
    static func postKeynote(_ keynote: [UIImage], ofType imageType: ImageFileType?, onTVNamed name: String) {
         TVModel.getTV(withName: name) { (TV, _) -> Void in
             guard TV != nil else { return }
@@ -497,9 +475,7 @@ class CKController {
         }
         UsageStatisticsModel.addKeynote(length: keynote.count)
     }
-    
-    
-    
+
     /**
      ## postKeynoteData(_:ofType:onTVNamed:)
      
@@ -518,7 +494,6 @@ class CKController {
      
      - Author: @Micheledes
      */
-
     static func postKeynoteData(_ data: [Data], ofType type: ImageFileType?, onTVNamed name: String) {
         let keynote = data.map { (imgData) -> UIImage in
             let keynote = UIImage(data: imgData) ?? UIImage()
@@ -531,9 +506,7 @@ class CKController {
         }
         UsageStatisticsModel.addKeynote(length: data.count)
     }
-    
-    
-    
+
     static func postKeynoteData(_ data: [Data], ofType imageType: ImageFileType?, onTVsOfGroup group: TVGroup) {
         let keynote = data.map { (imgData) -> UIImage in
             let keynote = UIImage(data: imgData) ?? UIImage()
@@ -549,9 +522,7 @@ class CKController {
         }
         UsageStatisticsModel.addKeynote(length: data.count)
     }
-    
-//    Post a keynote in Png or Jpg format on a given group of TV (iOS)
-    
+
     /**
      ## postKeynote(_:ofType:onTVsOfGroup:)
      
@@ -575,11 +546,7 @@ class CKController {
         }
         UsageStatisticsModel.addKeynote(length: keynote.count)
     }
-    
 
-    
-//  Removes keynote from a given TV (iOS)
-    
     /**
      ## removeKeynote(FromTV:)
      
@@ -601,9 +568,7 @@ class CKController {
             tv.removeKeynote()
         }
     }
-    
-//  Removes keynote from a given TV group
-    
+
     /**
      ## removeKeynote(FromTVGroup:)
      
@@ -618,7 +583,6 @@ class CKController {
      
      - Author: @Micheledes
      */
-    
    static func removeKeynote(fromTVGroup g: TVGroup) {
         TVModel.getTvs(ofGroup: g) { (tvs, _) in
             guard let tvs = tvs else { return }

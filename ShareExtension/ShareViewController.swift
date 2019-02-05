@@ -31,11 +31,9 @@ class ShareViewController: UIViewController, UICollectionViewDataSource, UIColle
     
     @IBOutlet private weak var clearBarButtonItem: UIBarButtonItem! {
         didSet {
-            if selectedGroups != nil {
-                if selectedGroups.count != 0 {
-                    clearBarButtonItem.isEnabled = true
-                }
-            } 
+            if selectedGroups.count != 0 {
+                clearBarButtonItem.isEnabled = true
+            }
         }
     }
     
@@ -171,7 +169,7 @@ func shareContent(_ sender: Any) {
                         var imgData: Data!
                         if let url = item as? URL {
                             do {
-                                imgData = try? Data(contentsOf: url)
+                                imgData = try Data(contentsOf: url)
                             } catch {
                                 NSLog("Error getting imgData - ShareViewController: shareContent")
                             }
@@ -200,7 +198,7 @@ func shareContent(_ sender: Any) {
                         var imgData: Data!
                         if let url = item as? URL {
                             do {
-                                imgData = try? Data(contentsOf: url)
+                                imgData = try Data(contentsOf: url)
                             } catch {
                                 NSLog("Error getting imgData - ShareViewController: shareContent")
                             }

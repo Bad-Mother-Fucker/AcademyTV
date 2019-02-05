@@ -16,6 +16,7 @@ disabled_rules:
 - implicit_return
 - operator_usage_whitespace
 - function_parameter_count
+- class_delegate_protocol
 
 excluded:
 - Pods

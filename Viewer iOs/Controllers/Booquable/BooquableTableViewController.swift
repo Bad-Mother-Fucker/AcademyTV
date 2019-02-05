@@ -92,7 +92,7 @@ class BooquableTableViewController: UITableViewController {
         
         cell!.title = order.customerName()
         
-        let time = get(String(order.stopsAt.prefix(10)), with: formatter)
+//        let time = get(String(order.stopsAt.prefix(10)), with: formatter)
 //        let days = getDifference(from: time!, and: Date())
 //
 //        let deviceInfo = order.getDevice()

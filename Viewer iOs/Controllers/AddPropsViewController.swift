@@ -9,23 +9,6 @@
 import UIKit
 import MobileCoreServices
 
-enum Locations: String, CaseIterable {
-    case none = "None"
-    case seminar = "Main Classroom"
-    case kitchen = "Kitchen"
-    case br1 = "Boardroom 1"
-    case br2 = "Boardroom 2"
-    case br3 = "Boardroom 3"
-    case lab1 = "Lab 1"
-    case collab1 = "Collab-01"
-    case lab2 = "Lab 2"
-    case collab2 = "Collab-02"
-    case lab3 = "Lab 3"
-    case collab3 = "Collab-03"
-    case lab4 = "Lab 4"
-    case collab4 = "Collab-04"
-}
-
 /**
  ## UIViewController that allow you to add a new props.
  
@@ -34,8 +17,6 @@ enum Locations: String, CaseIterable {
  - Author: @GianlucaOrpello
  */
 class AddPropsViewController: UIViewController {
-    
-    
 
     /**
      ## The selected props type.
@@ -112,6 +93,13 @@ class AddPropsViewController: UIViewController {
         didSet {
             tableView.delegate = self
             tableView.dataSource = self
+
+            tableView.register(FullImageTableViewCell.self, forCellReuseIdentifier: "FullImageTableViewCell")
+            tableView.register(FullLightTextTableViewCell.self, forCellReuseIdentifier: "FullLightTextTableViewCell")
+            tableView.register(TextFieldTableViewCell.self, forCellReuseIdentifier: "TextFieldTableViewCell")
+            tableView.register(LabelAndTextfieldTableViewCell.self, forCellReuseIdentifier: "LabelAndTextfieldTableViewCell")
+            tableView.register(MasterAndDetailLabelsTableViewCell.self, forCellReuseIdentifier: "MasterAndDetailLabelsTableViewCell")
+            tableView.register(MasterDetailLabelsAndSwitchTableViewCell.self, forCellReuseIdentifier: "MasterDetailLabelsAndSwitchTableViewCell")
         }
     }
     
@@ -281,6 +269,7 @@ class AddPropsViewController: UIViewController {
      */
     @objc fileprivate func openOrCloseDatePicker() {
         toggleShowDateDatepicker()
+        tableView.setContentOffset(CGPoint(x: 0, y: 100), animated: true)
         tableView.deselectRow(at: IndexPath(row: 4, section: 3), animated: true)
     }
     
@@ -604,27 +593,22 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
      */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            let cell = UITableViewCell()
-            cell.selectionStyle = .none
-            
-            let imageView = UIImageView(frame: CGRect(x: 16, y: 14, width: self.view.frame.size.width - 32, height: 206))
-            imageView.contentMode = .scaleAspectFit
 
-            let image: UIImage?
-            switch props.title {
-            case Categories.globalMessage.rawValue:
-                image = UIImage(named: "PreviewGlobalMessage")
-            case Categories.tickerMessage.rawValue:
-                image = UIImage(named: "PreviewTicker")
-            case Categories.keynoteViewer.rawValue:
-                image = UIImage(named: "PreviewContentViewer")
-            default:
-                image = nil
-            }
-            
-            imageView.image = image
-            cell.contentView.addSubview(imageView)
-            return cell
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "FullImageTableViewCell") as? FullImageTableViewCell {
+
+                switch props.title {
+                case Categories.globalMessage.rawValue:
+                    cell.fullImage = UIImage(named: "PreviewGlobalMessage")
+                case Categories.tickerMessage.rawValue:
+                    cell.fullImage = UIImage(named: "PreviewTicker")
+                case Categories.keynoteViewer.rawValue:
+                    cell.fullImage = UIImage(named: "PreviewContentViewer")
+                default:
+                    cell.fullImage = nil
+                }
+                return cell
+
+            } else { return UITableViewCell() }
         } else {
             
             switch props.title {
@@ -632,57 +616,46 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
             case Categories.globalMessage.rawValue:
                 
                 switch indexPath.section {
-                    
                 case 1:
-                    let cell = UITableViewCell()
-                    cell.selectionStyle = .none
+                    if let cell = tableView.dequeueReusableCell(withIdentifier: "FullLightTextTableViewCell") as? FullLightTextTableViewCell{
+
+                        cell.fullText = "Displays a message with a title and description attached with location, date, time and a link displayed as a QR code."
+                        return cell
+                    } else { return UITableViewCell() }
                     
-                    let label = UILabel(frame: CGRect(x: 16, y: (cell.frame.height / 2) - 10, width: self.view.frame.size.width - 32, height: 54))
-                    label.numberOfLines = 0
-                    label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
-                    label.textColor = .lightGray
-                    label.text = "Displays a message with a title and description attached with location, date, time and a link displayed as a QR code."
-                    
-                    cell.contentView.addSubview(label)
-                    return cell
                 case 2:
                     switch indexPath.row {
                     case 0:
-                        let cell = UITableViewCell()
-                        cell.selectionStyle = .none
-                        
-                        let textField = UITextField(frame: CGRect(x: 16, y: (cell.frame.height / 2) - 10, width: self.view.frame.size.width - 32, height: 36))
-                        textField.delegate = self
-                        textField.borderStyle = .none
-                        textField.placeholder = "Title"
-                        textField.tag = 500
-                        
-                        cell.contentView.addSubview(textField)
-                        return cell
+
+                        if let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldTableViewCell") as? TextFieldTableViewCell{
+
+                            cell.placeholderText = "Title"
+                            cell.delegate = self
+
+                            return cell
+                        } else { return UITableViewCell() }
+
                     case 1:
-                        let cell = UITableViewCell()
-                        cell.selectionStyle = .none
-                        
-                        
-                        let textField = UITextField(frame: CGRect(x: 16, y: (cell.frame.height / 2) - 10, width: self.view.frame.size.width - 32, height: 36))
-                        textField.delegate = self
-                        textField.borderStyle = .none
-                        textField.placeholder = "Description"
-                        textField.tag = 500
-                        cell.contentView.addSubview(textField)
-                        return cell
+
+                        if let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldTableViewCell") as? TextFieldTableViewCell{
+
+                            cell.placeholderText = "Description"
+                            cell.delegate = self
+
+                            return cell
+                        } else { return UITableViewCell() }
+
                     case 2:
-                        let cell = UITableViewCell()
-                        cell.selectionStyle = .none
-                        
-                        let textField = UITextField(frame: CGRect(x: 16, y: (cell.frame.height / 2) - 10, width: self.view.frame.size.width - 32, height: 105))
-                        textField.delegate = self
-                        textField.borderStyle = .none
-                        textField.placeholder = "Message"
-                        textField.tag = 500
-                        
-                        cell.contentView.addSubview(textField)
-                        return cell
+
+                        if let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldTableViewCell") as? TextFieldTableViewCell{
+
+                            cell.placeholderText = "Message"
+                            cell.delegate = self
+
+                            return cell
+                        } else { return UITableViewCell() }
+
+
                     default:
                         return UITableViewCell()
                     }
@@ -690,41 +663,25 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
                     
                     switch indexPath.row {
                     case 0:
-                        
-                        let cell = UITableViewCell()
-                        cell.selectionStyle = .none
-                        
-                        let label = UILabel(frame: CGRect(x: 16, y: 10, width: 100, height: 22))
-                        label.text = "URL"
-                        
-                        let textField = UITextField(frame: CGRect(x: self.view.frame.size.width - 167, y: (cell.frame.height / 2) - 10, width: 157, height: 22))
-                        textField.delegate = self
-                        textField.borderStyle = .none
-                        textField.textColor = .lightGray
-                        textField.placeholder = "https://example.com"
-                        textField.tag = 500
-                        cell.contentView.addSubview(textField)
-                        cell.contentView.addSubview(label)
-                        return cell
-                        
+
+                        if let cell = tableView.dequeueReusableCell(withIdentifier: "LabelAndTextfieldTableViewCell") as? LabelAndTextfieldTableViewCell{
+
+                            cell.titleText = "URL"
+                            cell.delegate = self
+                            cell.placeholderText = "https://example.com"
+
+                            return cell
+                        } else { return UITableViewCell() }
+                                                
                     case 1:
-                        
-                        let cell = UITableViewCell()
-                        cell.selectionStyle = .none
-                        
-                        let label = UILabel(frame: CGRect(x: 16, y: (cell.frame.height / 2) - 10, width: 100, height: 22))
-                        label.text = "Location"
-                        
-                        let locationLabel = UILabel(frame: CGRect(x: self.view.frame.size.width - 167, y: (cell.frame.height / 2) - 10, width: 157, height: 22))
-                        locationLabel.text = selectedLocation.rawValue
-                        locationLabel.textAlignment = .right
-                        locationLabel.textColor = .lightGray
-                        locationLabel.tag = 500
-                        
-                        cell.contentView.addSubview(locationLabel)
-                        cell.contentView.addSubview(label)
-                        return cell
-                        
+
+                        if let cell = tableView.dequeueReusableCell(withIdentifier: "MasterAndDetailLabelsTableViewCell") as? MasterAndDetailLabelsTableViewCell{
+
+                            cell.mainText = "Location"
+                            cell.detailText = selectedLocation.rawValue
+
+                            return cell
+                        } else { return UITableViewCell() }
                     case 2:
                         let cell = UITableViewCell()
                         cell.selectionStyle = .none
@@ -737,30 +694,15 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
                         cell.contentView.addSubview(picker)
                         return cell
                     case 3:
-                        
-                        let cell = UITableViewCell()
-                        cell.selectionStyle = .none
-                        
-                        let locationLabel = UILabel(frame: CGRect(x: 16, y: (cell.frame.height / 2) - 10, width: 100, height: 22))
-                        locationLabel.text = "Date & Time"
 
-                        let swi = UISwitch(frame: CGRect(x: self.view.frame.size.width - 65, y: 10, width: 55, height: 36))
-                        swi.isOn = datePickerIsVisible
-                        swi.addTarget(self, action: #selector(openOrCloseDatePicker), for: .valueChanged)
+                        if let cell = tableView.dequeueReusableCell(withIdentifier: "MasterDetailLabelsAndSwitchTableViewCell") as? MasterDetailLabelsAndSwitchTableViewCell {
 
-                        let label = UILabel(frame: CGRect(x: self.view.frame.size.width - 225, y: (cell.frame.height / 2) - 11, width: 150, height: 22))
-                        label.numberOfLines = 0
-                        label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
-                        label.textColor = .lightGray
-                        label.text = swi.isOn ? getCurrent(date: Date()) : "None"
-                        label.textAlignment = .right
-                        label.tag = 500
-                        
-                        cell.contentView.addSubview(swi)
-                        cell.contentView.addSubview(label)
-                        cell.contentView.addSubview(locationLabel)
-                        return cell
-                        
+                            cell.mainText = "Date & Time"
+                            cell.isSwitchOn = datePickerIsVisible
+                            cell.addTarget(self, action: #selector(openOrCloseDatePicker))
+                            cell.detailText = cell.isSwitchOn! ? getCurrent(date: Date()) : "None"
+                            return cell
+                        } else { return UITableViewCell() }
                     case 4:
                         
                         let cell = UITableViewCell()
@@ -786,17 +728,13 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
                 switch indexPath.section {
                     
                 case 1:
-                    let cell = UITableViewCell()
-                    cell.selectionStyle = .none
-                    
-                    let label = UILabel(frame: CGRect(x: 16, y: 10, width: self.view.frame.size.width - 32, height: 36))
-                    label.numberOfLines = 0
-                    label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
-                    label.textColor = .lightGray
-                    label.text = "Displays a short message always visible at the bottom of the screen."
-                    
-                    cell.contentView.addSubview(label)
-                    return cell
+
+                    if let cell = tableView.dequeueReusableCell(withIdentifier: "FullLightTextTableViewCell") as? FullLightTextTableViewCell{
+
+                        cell.fullText = "Displays a short message always visible at the bottom of the screen."
+                        return cell
+                    } else { return UITableViewCell() }
+
                 case 2:
                     if indexPath.row == 0 {
                         let cell = UITableViewCell()
@@ -832,17 +770,13 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
                 switch indexPath.section {
                     
                 case 1:
-                    let cell = UITableViewCell()
-                    cell.selectionStyle = .none
-                    
-                    let label = UILabel(frame: CGRect(x: 16, y: 10, width: self.view.frame.size.width - 32, height: 90))
-                    label.numberOfLines = 0
-                    label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
-                    label.textColor = .lightGray
-                    label.text = "Displays an image or a file that covers most of the screen. Use a content with a transparent background to get the Viewer overlay. Prefer 16:9 PNG files. You can also use the share extension inside other apps like Keynote, Photos or Files."
-                    
-                    cell.contentView.addSubview(label)
-                    return cell
+
+                    if let cell = tableView.dequeueReusableCell(withIdentifier: "FullLightTextTableViewCell") as? FullLightTextTableViewCell{
+
+                        cell.fullText = "Displays an image or a file that covers most of the screen. Use a content with a transparent background to get the Viewer overlay. Prefer 16:9 PNG files. You can also use the share extension inside other apps like Keynote, Photos or Files."
+                        return cell
+                    } else { return UITableViewCell() }
+
                 case 2:
                     
                         let cell = UITableViewCell()
@@ -957,7 +891,6 @@ extension AddPropsViewController: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if self.title == Categories.globalMessage.rawValue {
-//            self.tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .top, animated: true)
             tableView.setContentOffset(CGPoint(x: 0, y: textField.center.y + 100), animated: true)
         }
     }
