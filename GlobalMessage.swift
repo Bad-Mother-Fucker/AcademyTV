@@ -153,12 +153,11 @@ class GlobalMessage: CloudStored {
     }
     
     var creationDate: Date {
-        get{
-            guard let value = record.object(forKey: "createdAt") as? Date else { return Date() }
 
-            return value
+        guard let value = record.object(forKey: "createdAt") as? Date else { return Date() }
 
-        }
+        return value
+
     }
     
     var url: URL?{

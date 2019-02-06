@@ -175,8 +175,8 @@ class GlassOfficeViewController: TVViewController, UITableViewDelegate {
         
         NotificationCenter.default.addObserver(self, selector: #selector(getAllOrders), name: NSNotification.Name("GetAllOrders"), object: nil)
         
-        NotificationCenter.default.addObserver(forName: Notification.Name(CKNotificationName.tvSet.rawValue), object: nil, queue: .main) { (notification) in
-            guard let appdelegate = UIApplication.shared.delegate as? AppDelegate else {return}
+        NotificationCenter.default.addObserver(forName: Notification.Name(CKNotificationName.tvSet.rawValue), object: nil, queue: .main) { (_) in
+            guard let appdelegate = UIApplication.shared.delegate as? AppDelegate else { return }
             self.currentTV = appdelegate.currentTV
             self.currentTV.viewDelegate = self
         }

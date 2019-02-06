@@ -682,7 +682,7 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
                     if isCheckoutMode {
                         textLabel.isEditable = false
                         textLabel.isSelectable = false
-                    }else {
+                    } else {
                         textLabel.isEditable = true
                         textLabel.isSelectable = true
                     }

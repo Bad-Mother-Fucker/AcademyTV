@@ -225,13 +225,13 @@ class TV: CloudStored {
                 print("Error creating assets", error)
             }
         }
-        self.record.setValue(assets,forKey: TV.keys.keynote)
+        self.record.setValue(assets, forKey: TV.keys.keynote)
         let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
         op.savePolicy = .allKeys
         CKKeys.database.add(op)
     }
     
-    func setKeynoteData(_ keynote: [Data],ofType imageType: ImageFileType) {
+    func setKeynoteData(_ keynote: [Data], ofType imageType: ImageFileType) {
         var assets: [CKAsset] = []
         
         for page in keynote {

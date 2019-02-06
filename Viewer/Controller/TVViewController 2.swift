@@ -17,7 +17,7 @@ class TVViewController: UIViewController {
         }
     }
 
-    let appDelegate = UIApplication.shared.delegate as? AppDelegate
+    weak var appDelegate = UIApplication.shared.delegate as? AppDelegate
     
     var currentTV: TV!
     
@@ -29,7 +29,7 @@ class TVViewController: UIViewController {
                              ]
         
         videos.forEach { (URL) in
-            guard let _ = URL else {
+            guard URL != nil else {
                 videos.remove(at: videos.index(of: URL)!)
                 print("failed to get video at index: \(videos.index(of: URL)!)")
                 return
@@ -98,12 +98,12 @@ class TVViewController: UIViewController {
     }
     
     private func handleMsgNotification(_ ckqn: CKQueryNotification) {
-        guard let recordID = ckqn.recordID else {return}
+        guard let recordID = ckqn.recordID else { return }
         
         switch ckqn.queryNotificationReason {
         case .recordCreated:
             CKKeys.database.fetch(withRecordID: recordID) { (record, error) in
-                guard let _ = record, error == nil else {
+                guard record != nil, error == nil else {
                     if let ckError = error as? CKError {
                         let errorCode = ckError.errorCode
                         print(CKError.Code(rawValue: errorCode).debugDescription)
@@ -124,7 +124,7 @@ class TVViewController: UIViewController {
             
         case .recordUpdated:
             CKKeys.database.fetch(withRecordID: recordID) { (record, error) in
-                guard let _ = record, error == nil else {return}
+                guard record != nil, error == nil else { return }
                 let newMsg = GlobalMessage(record: record!)
                 DispatchQueue.main.async {
                     self.globalMessages = self.globalMessages.map { (msg) -> GlobalMessage in
@@ -139,7 +139,7 @@ class TVViewController: UIViewController {
     }
     
     private func handleTVNotification(_ ckqn: CKQueryNotification) {
-        guard let recordID = ckqn.recordID else {return}
+        guard let recordID = ckqn.recordID else { return }
         
         switch ckqn.queryNotificationReason {
         case .recordCreated:
@@ -150,7 +150,7 @@ class TVViewController: UIViewController {
         case .recordUpdated:
             
             CKKeys.database.fetch(withRecordID: recordID) { (record, error) in
-                guard let _ = record, error == nil else {return}
+                guard record != nil, error == nil else { return }
                 DispatchQueue.main.async {
                     self.appDelegate.currentTV.record = record!
                     if let keynote = self.appDelegate.currentTV.keynote {
@@ -160,7 +160,7 @@ class TVViewController: UIViewController {
                     }
                     
                     if self.appDelegate.currentTV.tickerMsg.count > 0 {
-                        self.appDelegate.currentTV.viewDelegate?.show(ticker:self.appDelegate.currentTV.tickerMsg)
+                        self.appDelegate.currentTV.viewDelegate?.show(ticker: self.appDelegate.currentTV.tickerMsg)
                     } else {
                         self.appDelegate.currentTV.viewDelegate?.hideTicker()
                     }

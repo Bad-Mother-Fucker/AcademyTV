@@ -333,7 +333,7 @@ class BoardViewController: TVViewController {
         }
         
         NotificationCenter.default.addObserver(forName: Notification.Name(CKNotificationName.MessageNotification.delete.rawValue), object: nil, queue: .main) { (notification) in
-            guard let userinfo = notification.userInfo as? [String:CKRecord.ID] else { return }
+            guard let userinfo = notification.userInfo as? [String: CKRecord.ID] else { return }
             let recordID = userinfo["recordID"]!
             self.globalMessageView.globalMessages = self.globalMessageView.globalMessages.filter({ (msg) -> Bool in
                 return msg.record.recordID != recordID

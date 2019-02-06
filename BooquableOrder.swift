@@ -86,7 +86,7 @@ class BooquableOrder {
      - Author: @GianlucaOrpello
      */
     func customerName() -> String {
-        guard let name = customer.value(forKey: "name") as? String else {return ""}
+        guard let name = customer.value(forKey: "name") as? String else { return "" }
         return name
     }
     
@@ -100,7 +100,7 @@ class BooquableOrder {
      - Author: @GianlucaOrpello
      */
     func getDevice() -> (name: String, glyph: GliphName) {
-        guard let deviceName = lines.value(forKey: "title") as? String else {return(name:"",glyph:GliphName.iphoneX)}
+        guard let deviceName = lines.value(forKey: "title") as? String else { return (name:"", glyph:GliphName.iphoneX) }
         let glyph = getGliph(from: deviceName)
         return (name: deviceName, glyph: glyph)
     }
