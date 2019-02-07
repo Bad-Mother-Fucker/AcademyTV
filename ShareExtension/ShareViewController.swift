@@ -63,8 +63,8 @@ class ShareViewController: UIViewController, UICollectionViewDataSource, UIColle
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        if indexPath.item < groups.count {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TVGroup", for: indexPath) as? GroupsCollectionViewCell
+        if indexPath.item < groups.count{
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TVGroup", for: indexPath) as? GroupsCollectionViewCell else { return UITableViewCell() }
             
             let group = groups[indexPath.item]
             
@@ -81,10 +81,10 @@ class ShareViewController: UIViewController, UICollectionViewDataSource, UIColle
             
             return cell ?? GroupsCollectionViewCell()
         } else {
-            let borderCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddAllTVGroup", for: indexPath) as? GroupsCollectionViewCell
-            borderCell?.frame.size = CGSize(width: 343, height: 43)
-            //borderCell?.titleLabel.text = "Select All"
-            return borderCell ?? GroupsCollectionViewCell()
+            guard let borderCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddAllTVGroup", for: indexPath) as? BorderCollectionViewCell else { return UITableViewCell() }
+            borderCell.frame.size = CGSize(width: 343, height: 43)
+            borderCell.titleLabel.text = "Select All"
+            return borderCell
         }
         
     }

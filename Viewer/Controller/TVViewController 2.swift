@@ -11,22 +11,37 @@ import CloudKit
 import AVFoundation
 
 class TVViewController: UIViewController {
-    var globalMessages: [GlobalMessage] = [] {
+    var globalMessages = [GlobalMessage](){
         didSet{
             print(globalMessages)
         }
     }
 
     weak var appDelegate = UIApplication.shared.delegate as? AppDelegate
-
-    let assets = [AVAssets.elmo, AVAssets.floridiana, AVAssets.lungomare, AVAssets.uovo]
-
+    
     var currentTV: TV!
     
     var videosURL: [AVPlayerItem] {
-        let items = assets.map { (asset) -> AVPlayerItem in
-            let item = AVPlayerItem(asset: asset)
-            return item
+        var videos: [URL?] = [URL(string: "https://dl.dropboxusercontent.com/s/jiygs4mqvfmube2/Elmo180.m4v?dl=0"),
+                             URL(string: "https://dl.dropboxusercontent.com/s/0s48rm38u8awzve/Floridiana180.m4v?dl=0"),
+                             URL(string: "https://dl.dropboxusercontent.com/s/pikrsmippuu59qq/Lungomare180.m4v?dl=0" ),
+                             URL(string: "https://dl.dropboxusercontent.com/s/n0aczqi5irkhzcb/Uovo180.m4v?dl=0")
+                             ]
+        
+        videos.forEach { (URL) in
+            guard URL != nil else {
+                videos.remove(at: videos.index(of: URL)!)
+                print("failed to get video at index: \(videos.index(of: URL)!)")
+                return
+            }
+            return
+        }
+        
+//      comment to use videos directly from Dropbox
+//        videos = VideoDownloader.getVideos(from: videos as! [URL])
+        
+        let items = videos.map { (url) -> AVPlayerItem in
+            return AVPlayerItem(url: url!)
         }
         return items
     }
@@ -35,12 +50,14 @@ class TVViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
-        NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: CKNotificationName.globalMessages.rawValue), object: nil, queue: OperationQueue.main) { (notification) in
+        
+        NotificationCenter.default.addObserver(forName: Notification.Name(rawValue:
+            CKNotificationName.globalMessages.rawValue), object: nil, queue: OperationQueue.main) { (notification) in
             if let ckqn = notification.userInfo?[CKNotificationName.notification.rawValue] as? CKQueryNotification {
                 self.handleCKNotification(ckqn)
             }
-            debugPrint(self.globalMessages)
+            return
+           
         }
         
         NotificationCenter.default.addObserver(forName: Notification.Name(CKNotificationName.tv.rawValue), object: nil, queue: .main) { (notification) in
@@ -58,6 +75,7 @@ class TVViewController: UIViewController {
         }
         
         
+        
     }
     
     private func handleCKNotification(_ ckqn: CKQueryNotification) {
@@ -70,6 +88,7 @@ class TVViewController: UIViewController {
             handleServiceMessageNotification(ckqn)
         default:
             break
+            
         }
     }
     
@@ -94,25 +113,29 @@ class TVViewController: UIViewController {
                 }
                 let msg = GlobalMessage(record: record!)
                 DispatchQueue.main.async {
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: CKNotificationName.MessageNotification.create.rawValue), object: self, userInfo: ["newMsg": msg])
+                    self.globalMessages.append(msg)
                 }
                 
             }
         case .recordDeleted:
-            
-            NotificationCenter.default.post(name: Notification.Name(rawValue: CKNotificationName.MessageNotification.delete.rawValue), object: self, userInfo: ["recordID": recordID])
+            self.globalMessages = self.globalMessages.filter { (msg) -> Bool in
+                return msg.record.recordID != recordID
+            }
             
         case .recordUpdated:
             CKKeys.database.fetch(withRecordID: recordID) { (record, error) in
                 guard record != nil, error == nil else { return }
-                let msg = GlobalMessage(record: record!)
+                let newMsg = GlobalMessage(record: record!)
                 DispatchQueue.main.async {
-                    
-                    NotificationCenter.default.post(name: Notification.Name(rawValue: CKNotificationName.MessageNotification.update.rawValue), object: self, userInfo: ["modifiedMsg": msg])
+                    self.globalMessages = self.globalMessages.map { (msg) -> GlobalMessage in
+                        if msg.record.recordID == recordID {
+                            return newMsg
+                        }
+                        return msg
+                    }
                 }
             }
         }
-        
     }
     
     private func handleTVNotification(_ ckqn: CKQueryNotification) {
@@ -129,21 +152,24 @@ class TVViewController: UIViewController {
             CKKeys.database.fetch(withRecordID: recordID) { (record, error) in
                 guard record != nil, error == nil else { return }
                 DispatchQueue.main.async {
-                    if let delegate = self.appDelegate {
-                        delegate.currentTV.record = record!
-                        if let keynote = delegate.currentTV.keynote {
-                            delegate.currentTV.viewDelegate?.show(keynote: keynote)
-                        } else {
-                            delegate.currentTV.viewDelegate?.hideKeynote()
-                        }
-                        if delegate.currentTV.tickerMsg.count > 0 {
-                            delegate.currentTV.viewDelegate?.show(ticker: delegate.currentTV.tickerMsg)
-                        } else {
-                            delegate.currentTV.viewDelegate?.hideTicker()
-                        }
+                    self.appDelegate.currentTV.record = record!
+                    if let keynote = self.appDelegate.currentTV.keynote {
+                        self.appDelegate.currentTV.viewDelegate?.show(keynote: keynote)
+                    } else {
+                        self.appDelegate.currentTV.viewDelegate?.hideKeynote()
                     }
+                    
+                    if self.appDelegate.currentTV.tickerMsg.count > 0 {
+                        self.appDelegate.currentTV.viewDelegate?.show(ticker: self.appDelegate.currentTV.tickerMsg)
+                    } else {
+                        self.appDelegate.currentTV.viewDelegate?.hideTicker()
+                    }
+                    
                 }
+                
             }
+            
         }
     }
+
 }

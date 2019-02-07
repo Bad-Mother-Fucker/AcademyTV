@@ -663,9 +663,9 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
                     subtitle.text = "Subtitle"
                     text.text = "Text"
                     
-                    let titleLabel = UILabel(frame: CGRect(x: 72, y: 32, width: 287, height: 44))
-                    let subtitleLabel = UILabel(frame: CGRect(x: 72, y: 105, width: 287, height: 44))
-                    let textLabel = UILabel(frame: CGRect(x: 72, y: 175, width: 287, height: 44))
+                    let titleLabel = UITextField(frame: CGRect(x: 72, y: 32, width: 287, height: 44))
+                    let subtitleLabel = UITextField(frame: CGRect(x: 72, y: 105, width: 287, height: 44))
+                    let textLabel = UITextView(frame: CGRect(x: 72, y: 175, width: 287, height: 44))
                     
                     titleLabel.text = globalMessage?.title
                     subtitleLabel.text = globalMessage?.subtitle
@@ -674,7 +674,18 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
                     titleLabel.tag = 500
                     subtitleLabel.tag = 501
                     textLabel.tag = 502
-                    textLabel.numberOfLines = 0
+//                    textLabel.numberOfLines = 0
+                    
+                    textLabel.showsVerticalScrollIndicator = false
+                    textLabel.showsHorizontalScrollIndicator = false
+                    
+                    if isCheckoutMode {
+                        textLabel.isEditable = false
+                        textLabel.isSelectable = false
+                    } else {
+                        textLabel.isEditable = true
+                        textLabel.isSelectable = true
+                    }
                     
                     let color = UIColor(red: 0, green: 119/255, blue: 1, alpha: 1)
                     

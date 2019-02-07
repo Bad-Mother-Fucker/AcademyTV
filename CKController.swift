@@ -314,6 +314,10 @@ class CKController {
         GlobalMessageModel.delete(record: globalMessage.record)
     }
     
+    
+//    Fetches all global messages from the CK database
+    
+    
     /**
      ## getAllGlobalMessages(completionHandler:)
      
@@ -463,7 +467,8 @@ class CKController {
      */
     static func postKeynoteData(_ data: [Data], ofType type: ImageFileType?, onTVNamed name: String) {
         let keynote = data.map { (imgData) -> UIImage in
-            return UIImage(data: imgData) ?? UIImage()
+            let keynote = UIImage(data: imgData) ?? UIImage()
+            return keynote
         }
         
         TVModel.getTV(withName: name) { (TV, _) -> Void in
@@ -475,7 +480,9 @@ class CKController {
 
     static func postKeynoteData(_ data: [Data], ofType imageType: ImageFileType?, onTVsOfGroup group: TVGroup) {
         let keynote = data.map { (imgData) -> UIImage in
-            return UIImage(data: imgData) ?? UIImage()
+            let keynote = UIImage(data: imgData) ?? UIImage()
+            return keynote
+
         }
         
         TVModel.getTvs(ofGroup: group) { (tvs, _) in

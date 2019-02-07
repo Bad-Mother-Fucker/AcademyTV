@@ -88,7 +88,7 @@ class SharePosterViewController: UIViewController, UICollectionViewDelegate, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "galleryImageCell", for: indexPath) as? ImagePickerCollectionViewCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "galleryImageCell", for: indexPath) as? ImagePickerCollectionViewCell { return UITableViewCell() }
         
         cell?.currentImage = keynotes[indexPath.item]
         cell?.isCheked = true
