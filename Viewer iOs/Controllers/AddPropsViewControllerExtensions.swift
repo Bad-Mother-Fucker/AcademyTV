@@ -347,7 +347,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
                     return UITableViewCell()
                 }
 
-            // MARK: Keynote Viewer
+            // MARK: Content Viewer
             case Categories.keynoteViewer.rawValue:
                 switch indexPath.section {
                 case 1:
@@ -363,7 +363,6 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
                         cell.titleColor = UIColor(red: 0, green: 122 / 255, blue: 1, alpha: 1)
                         cell.horizontalAlignment = .left
                         cell.addTarget(self, action: #selector(getContentViewer))
-                        //                        button.contentHorizontalAlignment = .left
                         return cell
                     } else { return UITableViewCell() }
                 default:
