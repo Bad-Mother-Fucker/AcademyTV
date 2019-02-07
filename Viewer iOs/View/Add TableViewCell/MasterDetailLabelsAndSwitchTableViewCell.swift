@@ -119,11 +119,13 @@ class MasterDetailLabelsAndSwitchTableViewCell: UITableViewCell {
         detailLabel.numberOfLines = 0
         detailLabel.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         detailLabel.textAlignment = .right
+        detailLabel.textColor = .lightGray
         detailLabel.tag = 500
 
         self.contentView.addSubview(mainLabel)
         self.contentView.addSubview(detailLabel)
         self.contentView.addSubview(mainSwitch)
+        addConstraints(to: mainLabel, and: detailLabel, mainSwitch)
     }
 
     /**
@@ -157,43 +159,27 @@ class MasterDetailLabelsAndSwitchTableViewCell: UITableViewCell {
 
      - Author: @GianlucaOrpello
      */
-    private func addConstraints(to view: UIView){
-        view.translatesAutoresizingMaskIntoConstraints = false
+    private func addConstraints(to firstView: UIView, and secondView: UIView, _ thirdView: UIView){
 
-        let topConstraint = NSLayoutConstraint(item: view,
-                                               attribute: .top,
-                                               relatedBy: .equal,
-                                               toItem: self.backgroundView,
-                                               attribute: .top,
-                                               multiplier: 1,
-                                               constant: 16)
+        firstView.translatesAutoresizingMaskIntoConstraints = false
+        secondView.translatesAutoresizingMaskIntoConstraints = false
+        thirdView.translatesAutoresizingMaskIntoConstraints = false
 
-        let rightConstraint = NSLayoutConstraint(item: view,
-                                                 attribute: .right,
-                                                 relatedBy: .equal,
-                                                 toItem: self.backgroundView,
-                                                 attribute: .right,
-                                                 multiplier: 1,
-                                                 constant: 16)
+        let safeArea = self.safeAreaLayoutGuide
 
-        let bottomConstraint = NSLayoutConstraint(item: view,
-                                                  attribute: .bottom,
-                                                  relatedBy: .equal,
-                                                  toItem: self.backgroundView,
-                                                  attribute: .bottom,
-                                                  multiplier: 1,
-                                                  constant: 16)
+        firstView.centerYAnchor.constraint(equalTo: safeArea.centerYAnchor).isActive = true
+        secondView.centerYAnchor.constraint(equalTo: safeArea.centerYAnchor).isActive = true
+        thirdView.centerYAnchor.constraint(equalTo: safeArea.centerYAnchor).isActive = true
 
-        let leftConstraint = NSLayoutConstraint(item: view,
-                                                attribute: .left,
-                                                relatedBy: .equal,
-                                                toItem: self.backgroundView,
-                                                attribute: .left,
-                                                multiplier: 1,
-                                                constant: 16)
 
-        view.addConstraints([topConstraint, rightConstraint, bottomConstraint, leftConstraint])
-        view.layoutIfNeeded()
+        firstView.trailingAnchor.constraint(equalTo: secondView.leadingAnchor, constant: -16).isActive = true
+        firstView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16).isActive = true
+
+        secondView.trailingAnchor.constraint(equalTo: thirdView.leadingAnchor, constant: -16).isActive = true
+        secondView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width * 0.4).isActive = true
+
+        thirdView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16).isActive = true
+
+        self.contentView.layoutIfNeeded()
     }
-
 }

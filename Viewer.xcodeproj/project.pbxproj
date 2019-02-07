@@ -60,6 +60,8 @@
 		9967BBF722099668006F9AA6 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9967BBF522099668006F9AA6 /* Protocols.swift */; };
 		9967BBF822099668006F9AA6 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9967BBF522099668006F9AA6 /* Protocols.swift */; };
 		9986D1C021EFA3A20051AD85 /* SummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9986D1BF21EFA3A20051AD85 /* SummaryViewController.swift */; };
+		998E9D6C220C4A6000ED4F2A /* AddPropsViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998E9D6B220C4A6000ED4F2A /* AddPropsViewControllerExtensions.swift */; };
+		998E9D6D220C4A6000ED4F2A /* AddPropsViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998E9D6B220C4A6000ED4F2A /* AddPropsViewControllerExtensions.swift */; };
 		998F5D6922098A11006164FA /* MasterAndDetailLabelsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998F5D6822098A11006164FA /* MasterAndDetailLabelsTableViewCell.swift */; };
 		998F5D6A22098A11006164FA /* MasterAndDetailLabelsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998F5D6822098A11006164FA /* MasterAndDetailLabelsTableViewCell.swift */; };
 		998F5D6C22098D45006164FA /* MasterDetailLabelsAndSwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998F5D6B22098D45006164FA /* MasterDetailLabelsAndSwitchTableViewCell.swift */; };
@@ -174,6 +176,7 @@
 		997395EC21AC335200F650A6 /* ShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareExtension.entitlements; sourceTree = "<group>"; };
 		997395ED21AC336B00F650A6 /* Viewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Viewer.entitlements; sourceTree = "<group>"; };
 		9986D1BF21EFA3A20051AD85 /* SummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewController.swift; sourceTree = "<group>"; };
+		998E9D6B220C4A6000ED4F2A /* AddPropsViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPropsViewControllerExtensions.swift; sourceTree = "<group>"; };
 		998F5D6822098A11006164FA /* MasterAndDetailLabelsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterAndDetailLabelsTableViewCell.swift; sourceTree = "<group>"; };
 		998F5D6B22098D45006164FA /* MasterDetailLabelsAndSwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterDetailLabelsAndSwitchTableViewCell.swift; sourceTree = "<group>"; };
 		99AC09502174E6B100CFCAD0 /* Viewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Viewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -305,6 +308,7 @@
 				9986D1BF21EFA3A20051AD85 /* SummaryViewController.swift */,
 				99F6B24521A2F9DB00B3FA65 /* PropsViewController.swift */,
 				99B0DDF921F672E500E3FAAA /* AddPropsViewController.swift */,
+				998E9D6B220C4A6000ED4F2A /* AddPropsViewControllerExtensions.swift */,
 				99F6B24721A2FF5D00B3FA65 /* TvListViewController.swift */,
 				99DE995C21ADF55A00D01FF5 /* ImagePickerViewController.swift */,
 				99EBB18521FF11750030199D /* PosterViewController.swift */,
@@ -702,6 +706,7 @@
 				656E2A1C21F7785700B9FD77 /* ShareTVListViewController.swift in Sources */,
 				19FA366921A8203D00E3B1C0 /* CKController.swift in Sources */,
 				656E2A0D21F62C5800B9FD77 /* LiveViewController.swift in Sources */,
+				998E9D6D220C4A6000ED4F2A /* AddPropsViewControllerExtensions.swift in Sources */,
 				99EBB18F220057720030199D /* TitleAndMultipleSubtitleTableViewCell.swift in Sources */,
 				19FA366221A8202400E3B1C0 /* ServiceMessage.swift in Sources */,
 				99EBB19822005F180030199D /* CenteredButtonTableViewCell.swift in Sources */,
@@ -766,6 +771,7 @@
 				99F596C321A30F9000E999D7 /* GroupsCollectionViewCell.swift in Sources */,
 				99EBB19722005F180030199D /* CenteredButtonTableViewCell.swift in Sources */,
 				99B4233D22030E850074FB0A /* LabelAndTextfieldTableViewCell.swift in Sources */,
+				998E9D6C220C4A6000ED4F2A /* AddPropsViewControllerExtensions.swift in Sources */,
 				992C547021AD5C3300E05494 /* BooquableManager.swift in Sources */,
 				99B0DDFA21F672E500E3FAAA /* AddPropsViewController.swift in Sources */,
 				99F6B24821A2FF5D00B3FA65 /* TvListViewController.swift in Sources */,

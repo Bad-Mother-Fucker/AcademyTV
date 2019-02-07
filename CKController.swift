@@ -15,12 +15,7 @@ import UIKit
 class CKController {
     
     // MARK: - static methods implementation
-
-    
 //    Creates and saves subscriptions to push notifications
-
-    
-    
    static func saveSubscription(for type: String, ID: String) {
         
         var predicate = NSPredicate(value: true)
@@ -64,13 +59,8 @@ class CKController {
             debugPrint ("subscription \(subscription!.subscriptionID) saved")
         }
     }
-    
-    
+
     //    Deletes all the subscriptions, use it during times we don't want to listen for push notifications
-    
-    
-    
-    
     static func removeSubscriptions() {
         
         CKKeys.database.delete(withSubscriptionID: CKKeys.messageSubscriptionKey) { (_, error) in
@@ -95,8 +85,6 @@ class CKController {
             }
         }
     }
-    
-    
 
     /**
      ## postTickerMessage(_:onTvNamed:)
@@ -113,8 +101,6 @@ class CKController {
      
      - Author: @Micheledes
      */
-   
-    
     static func postTickerMessage(_ text: String, onTvNamed name: String) {
         TVModel.getTV(withName: name) { (tv, error) in
             guard tv != nil, error == nil else {
@@ -125,8 +111,7 @@ class CKController {
             UsageStatisticsModel.addTickerMessage(length: text.count)
         }
     }
-    
-    
+
     /**
      ## postTickerMessage(_:onTvGroup:)
      
@@ -142,9 +127,7 @@ class CKController {
      
      - Author: @Micheledes
      */
-    
-    
-    
+
     static func postTickerMessage(_ text: String, onTvGroup group: TVGroup) {
         TVModel.getTvs(ofGroup: group) { (tvs, error) in
             guard tvs != nil, error == nil else {
@@ -157,8 +140,7 @@ class CKController {
             UsageStatisticsModel.addTickerMessage(length: text.count)
         }
     }
-    
-    
+
     /**
      ## removeTickerMessage(fromTvsIn:)
      
@@ -173,7 +155,6 @@ class CKController {
      
      - Author: @Micheledes
      */
-    
     static func removeTickerMessage(fromTvsIn tvGroup: TVGroup) {
         TVModel.getTvs(ofGroup: tvGroup) { (tvs, error) in
             guard tvs != nil, error == nil else {
@@ -189,7 +170,6 @@ class CKController {
             let op = CKModifyRecordsOperation(recordsToSave: records, recordIDsToDelete: nil)
             op.savePolicy = .changedKeys
             CKKeys.database.add(op)
-            
         }
     }
 
@@ -207,7 +187,6 @@ class CKController {
      
      - Author: @Micheledes
      */
-
     static func removeTickerMessage(fromTVNamed name: String) {
         TVModel.getTV(withName: name) { (tv, error) in
             guard tv != nil, error == nil else {
@@ -235,7 +214,6 @@ class CKController {
      
      - Author: @Micheledes
      */
-    
     static func isThereAMessage(onTV tv: TV) -> Bool {
         return tv.tickerMsg != "" 
     }
@@ -254,7 +232,6 @@ class CKController {
      
      - Author: @Micheledes
      */
-
     static func getAiringTickers(in group: TVGroup) -> [(String, String)] {
         let sem = DispatchSemaphore(value: 0)
         var tickers: [(message: String, tvName: String)] = []
@@ -318,8 +295,7 @@ class CKController {
     static func isThereAKeynote(on tv: TV) -> Bool {
         return tv.keynote != nil
     }
-    
-    
+
     /**
      ## remove(globalMessage:)
      
@@ -334,7 +310,6 @@ class CKController {
      
      - Author: @Micheledes
      */
-    
     static func remove(globalMessage: GlobalMessage) {
         GlobalMessageModel.delete(record: globalMessage.record)
     }
@@ -379,7 +354,7 @@ class CKController {
      ## getAllTVs(from:)
      
      - Parameters:
-     - tvGroup
+        - tvGroup
    
      - Throws: CKQueryException.connectionTimedOut
      
@@ -434,19 +409,15 @@ class CKController {
         var hasLocation: Bool = false
         var hasDate: Bool = false
         
-        
         if URL != nil {
             link = true
         }
-        
         if location != nil {
             hasLocation = true
         }
-        
         if date.0 != nil {
             hasDate = true
         }
-        
         UsageStatisticsModel.addGlobalMessage(length: description?.count ?? 0, link: link, location: hasLocation, date: hasDate)
     }
 
@@ -554,7 +525,6 @@ class CKController {
      
      - Author: @Micheledes
      */
-    
    static func removeKeynote(FromTV name: String) {
         TVModel.getTV(withName: name) { (tv, _) in
             guard let tv = tv else { return } //TODO: Add error handling

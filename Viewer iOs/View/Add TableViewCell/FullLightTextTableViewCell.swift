@@ -54,7 +54,7 @@ class FullLightTextTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
 
-        label = UILabel(frame: CGRect(x: 16, y: (self.contentView.bounds.height / 2) - 10, width: UIScreen.main.bounds.width - 32, height: self.frame.height))
+        label = UILabel()
 
         label.numberOfLines = 0
         label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
@@ -62,7 +62,7 @@ class FullLightTextTableViewCell: UITableViewCell {
         label.text = fullText
 
         self.contentView.addSubview(label)
-        
+        addConstraints(to: label)
     }
 
     /**
@@ -76,49 +76,4 @@ class FullLightTextTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    /**
-     ## Add Constraints
-
-     - Version: 1.0
-
-     - Author: @GianlucaOrpello
-     */
-    private func addConstraints(to view: UIView){
-        view.translatesAutoresizingMaskIntoConstraints = false
-
-        let topConstraint = NSLayoutConstraint(item: view,
-                                                      attribute: .top,
-                                                      relatedBy: .equal,
-                                                      toItem: self.backgroundView,
-                                                      attribute: .top,
-                                                      multiplier: 1,
-                                                      constant: 16)
-
-        let rightConstraint = NSLayoutConstraint(item: view,
-                                                    attribute: .right,
-                                                    relatedBy: .equal,
-                                                    toItem: self.backgroundView,
-                                                    attribute: .right,
-                                                    multiplier: 1,
-                                                    constant: 16)
-
-        let bottomConstraint = NSLayoutConstraint(item: view,
-                                                 attribute: .bottom,
-                                                 relatedBy: .equal,
-                                                 toItem: self.backgroundView,
-                                                 attribute: .bottom,
-                                                 multiplier: 1,
-                                                 constant: 16)
-
-        let leftConstraint = NSLayoutConstraint(item: view,
-                                                  attribute: .left,
-                                                  relatedBy: .equal,
-                                                  toItem: self.backgroundView,
-                                                  attribute: .left,
-                                                  multiplier: 1,
-                                                  constant: 16)
-
-        view.addConstraints([topConstraint, rightConstraint, bottomConstraint, leftConstraint])
-        view.layoutIfNeeded()
-    }
 }

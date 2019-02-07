@@ -50,11 +50,12 @@ class FullImageTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
 
-        fullImageView = UIImageView(frame: CGRect(x: 16, y: 14, width: UIScreen.main.bounds.width - 32, height: 206))
+        fullImageView = UIImageView()
         fullImageView.image = fullImage
         fullImageView.contentMode = .scaleAspectFit
 
         self.contentView.addSubview(fullImageView)
+        addConstraints(to: fullImageView)
     }
 
     /**
@@ -66,5 +67,25 @@ class FullImageTableViewCell: UITableViewCell {
      */
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    /**
+     ## Add Constraints
+
+     - Version: 1.0
+
+     - Author: @GianlucaOrpello
+     */
+    override func addConstraints(to view: UIView){
+        view.translatesAutoresizingMaskIntoConstraints = false
+
+        let safeArea = self.safeAreaLayoutGuide
+
+        view.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 14).isActive = true
+        view.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16).isActive = true
+        view.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -14).isActive = true
+        view.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16).isActive = true
+
+        self.contentView.layoutIfNeeded()
     }
 }

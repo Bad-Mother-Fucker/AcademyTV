@@ -125,3 +125,78 @@ enum Locations: String, CaseIterable {
     case lab4 = "Lab 4"
     case collab4 = "Collab-04"
 }
+
+/**
+ ## List of categories section of the table view.
+
+ - Version: 1.0
+
+ - Author: @GianlucaOrpello
+ */
+enum Categories: String{
+    case tickerMessage = "Ticker Messages"
+    case keynoteViewer = "Content Viewer"
+    case timer = "Timer"
+    case globalMessage = "Global Messages"
+}
+
+/**
+ ## PropsListDelegate
+
+ - Version: 1.0
+
+ - Author: @GianlucaOrpello
+ */
+protocol PropsListDelegate {
+    func getAiringProp()
+}
+
+extension UIView{
+
+    /**
+     ## Add Constraints
+
+     - Version: 1.0
+
+     - Author: @GianlucaOrpello
+     */
+    @objc func addConstraints(to view: UIView){
+        view.translatesAutoresizingMaskIntoConstraints = false
+
+        let safeArea = self.safeAreaLayoutGuide
+
+        view.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 10).isActive = true
+        view.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16).isActive = true
+        view.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -10).isActive = true
+        view.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16).isActive = true
+
+        self.layoutIfNeeded()
+    }
+
+    /**
+     ## Add Constraints
+
+     - Version: 1.0
+
+     - Author: @GianlucaOrpello
+     */
+    @objc func addConstraints(to view: UIView, and secondView: UIView){
+        view.translatesAutoresizingMaskIntoConstraints = false
+        secondView.translatesAutoresizingMaskIntoConstraints = false
+
+        let safeArea = self.safeAreaLayoutGuide
+
+        view.centerYAnchor.constraint(equalTo: safeArea.centerYAnchor).isActive = true
+        secondView.centerYAnchor.constraint(equalTo: safeArea.centerYAnchor).isActive = true
+
+
+        view.trailingAnchor.constraint(equalTo: secondView.leadingAnchor, constant: -16).isActive = true
+        view.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16).isActive = true
+
+        secondView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16).isActive = true
+        secondView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width * 0.7).isActive = true
+
+        self.layoutIfNeeded()
+    }
+
+}

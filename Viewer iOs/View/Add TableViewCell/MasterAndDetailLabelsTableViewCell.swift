@@ -81,16 +81,17 @@ class MasterAndDetailLabelsTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
 
-        mainLabel = UILabel(frame: CGRect(x: 16, y: (self.frame.height / 2) - 10, width: 100, height: 22))
+        mainLabel = UILabel()
         mainLabel.text = mainText
 
-        detailLabel = UILabel(frame: CGRect(x: UIScreen.main.bounds.width - 167, y: (self.frame.height / 2) - 10, width: 157, height: 22))
-
+        detailLabel = UILabel()
+        detailLabel.textColor = .lightGray
         detailLabel.textAlignment = .right
         detailLabel.tag = 500
 
         self.contentView.addSubview(mainLabel)
         self.contentView.addSubview(detailLabel)
+        addConstraints(to: mainLabel, and: detailLabel)
     }
 
     /**
@@ -104,49 +105,5 @@ class MasterAndDetailLabelsTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    /**
-     ## Add Constraints
-
-     - Version: 1.0
-
-     - Author: @GianlucaOrpello
-     */
-    private func addConstraints(to view: UIView){
-        view.translatesAutoresizingMaskIntoConstraints = false
-
-        let topConstraint = NSLayoutConstraint(item: view,
-                                               attribute: .top,
-                                               relatedBy: .equal,
-                                               toItem: self.backgroundView,
-                                               attribute: .top,
-                                               multiplier: 1,
-                                               constant: 16)
-
-        let rightConstraint = NSLayoutConstraint(item: view,
-                                                 attribute: .right,
-                                                 relatedBy: .equal,
-                                                 toItem: self.backgroundView,
-                                                 attribute: .right,
-                                                 multiplier: 1,
-                                                 constant: 16)
-
-        let bottomConstraint = NSLayoutConstraint(item: view,
-                                                  attribute: .bottom,
-                                                  relatedBy: .equal,
-                                                  toItem: self.backgroundView,
-                                                  attribute: .bottom,
-                                                  multiplier: 1,
-                                                  constant: 16)
-
-        let leftConstraint = NSLayoutConstraint(item: view,
-                                                attribute: .left,
-                                                relatedBy: .equal,
-                                                toItem: self.backgroundView,
-                                                attribute: .left,
-                                                multiplier: 1,
-                                                constant: 16)
-
-        view.addConstraints([topConstraint, rightConstraint, bottomConstraint, leftConstraint])
-        view.layoutIfNeeded()
-    }
+    
 }

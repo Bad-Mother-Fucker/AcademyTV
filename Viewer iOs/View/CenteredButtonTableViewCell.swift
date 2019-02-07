@@ -44,6 +44,19 @@ class CenteredButtonTableViewCell: UITableViewCell {
     }
 
     /**
+     ## The Horizontal Alignment of the button
+
+     - Version: 1.0
+
+     - Author: @GianlucaOrpello
+     */
+    var horizontalAlignment: UIControl.ContentHorizontalAlignment?{
+        didSet{
+            button.contentHorizontalAlignment = horizontalAlignment ?? .center
+        }
+    }
+
+    /**
      ## The button of the cell
 
      - Version: 1.0
@@ -64,12 +77,14 @@ class CenteredButtonTableViewCell: UITableViewCell {
 
         self.selectionStyle = .none
 
-        button = UIButton(frame: CGRect(x: 0, y: 10, width: UIScreen.main.bounds.width, height: 40))
+        button = UIButton()
 
         button.setTitle(title, for: .normal)
         button.setTitleColor(titleColor, for: .normal)
+        button.contentHorizontalAlignment = horizontalAlignment ?? .center
 
         self.contentView.addSubview(button)
+        addConstraints(to: button)
     }
 
     /**

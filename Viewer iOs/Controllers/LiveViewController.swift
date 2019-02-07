@@ -9,31 +9,6 @@ import UIKit
 import MessageUI
 
 /**
- ## List of categories section of the table view.
- 
- - Version: 1.0
- 
- - Author: @GianlucaOrpello
- */
-enum Categories: String{    
-    case tickerMessage = "Ticker Messages"
-    case keynoteViewer = "Content Viewer"
-    case timer = "Timer"
-    case globalMessage = "Global Messages"
-}
-
-/**
- ## PropsListDelegate
-
- - Version: 1.0
-
- - Author: @GianlucaOrpello
- */
-protocol PropsListDelegate {
-    func getAiringProp()
-}
-
-/**
  ## The Home screen view controller.
  
  - Version: 1.1

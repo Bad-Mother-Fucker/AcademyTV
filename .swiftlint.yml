@@ -44,8 +44,8 @@ opt_in_rules:
 #- force_unwrapping
 
 file_length:
-- 500
-- 1300
+- 700
+- 1400
 
 line_length: 300
 
