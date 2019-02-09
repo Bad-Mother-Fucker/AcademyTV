@@ -39,7 +39,7 @@ class FullLightTextTableViewCell: UITableViewCell {
      */
     private var label: UILabel!{
         didSet{
-            addConstraints(to: label)
+            addConstraintsWithSafeArea(to: label)
         }
     }
 
@@ -62,7 +62,7 @@ class FullLightTextTableViewCell: UITableViewCell {
         label.text = fullText
 
         self.contentView.addSubview(label)
-        addConstraints(to: label)
+        addConstraintsWithSafeArea(to: label)
     }
 
     /**

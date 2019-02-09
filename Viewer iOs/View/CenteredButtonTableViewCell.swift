@@ -84,7 +84,7 @@ class CenteredButtonTableViewCell: UITableViewCell {
         button.contentHorizontalAlignment = horizontalAlignment ?? .center
 
         self.contentView.addSubview(button)
-        addConstraints(to: button)
+        addConstraintsWithSafeArea(to: button)
     }
 
     /**
@@ -107,7 +107,7 @@ class CenteredButtonTableViewCell: UITableViewCell {
      */
     func addTarget(_ controller: UIViewController, action: Selector){
         if button != nil{
-            button.addTarget(controller, action: action, for: .touchDragInside)
+            button.addTarget(controller, action: action, for: .touchUpInside)
         }
     }
 }

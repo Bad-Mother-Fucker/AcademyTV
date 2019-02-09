@@ -52,7 +52,7 @@ class TextFieldTableViewCell: UITableViewCell {
      */
     private var textField: UITextField!{
         didSet{
-            addConstraints(to: textField)
+            addConstraintsWithSafeArea(to: textField)
         }
     }
 
@@ -76,7 +76,7 @@ class TextFieldTableViewCell: UITableViewCell {
         textField.tag = 500
 
         self.contentView.addSubview(textField)
-        addConstraints(to: textField)
+        addConstraintsWithSafeArea(to: textField)
     }
 
     /**

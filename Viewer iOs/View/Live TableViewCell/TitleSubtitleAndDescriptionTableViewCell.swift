@@ -26,7 +26,7 @@ class TitleSubtitleAndDescriptionTableViewCell: UITableViewCell {
      */
     var title: String?{
         didSet{
-            titleLabel?.text = title
+            titleLabel.text = title
         }
     }
 
@@ -39,7 +39,7 @@ class TitleSubtitleAndDescriptionTableViewCell: UITableViewCell {
      */
     var subtitle: String?{
         didSet{
-            subtitleLabel?.text = subtitle
+            subtitleLabel.text = subtitle
         }
     }
 
@@ -52,7 +52,7 @@ class TitleSubtitleAndDescriptionTableViewCell: UITableViewCell {
      */
     var descriptions: String?{
         didSet{
-            descriptionLabel?.text = descriptions
+            descriptionLabel.text = descriptions
         }
     }
 
@@ -63,7 +63,7 @@ class TitleSubtitleAndDescriptionTableViewCell: UITableViewCell {
 
      - Author: @GianlucaOrpello
      */
-    private var titleLabel: UILabel?
+    private var titleLabel: UILabel!
 
     /**
      ## Subtitle Label of the table view cell
@@ -72,7 +72,7 @@ class TitleSubtitleAndDescriptionTableViewCell: UITableViewCell {
 
      - Author: @GianlucaOrpello
      */
-    private var subtitleLabel: UILabel?
+    private var subtitleLabel: UILabel!
 
     /**
      ## Description Label of the table view cell
@@ -81,7 +81,7 @@ class TitleSubtitleAndDescriptionTableViewCell: UITableViewCell {
 
      - Author: @GianlucaOrpello
      */
-    private var descriptionLabel: UILabel?
+    private var descriptionLabel: UILabel!
 
     /**
      ## Initializer
@@ -96,28 +96,29 @@ class TitleSubtitleAndDescriptionTableViewCell: UITableViewCell {
         self.accessoryType = .detailButton
         self.selectionStyle = .none
 
-        titleLabel = UILabel(frame: CGRect(x: 16, y: 16, width: 350, height: 22))
-        subtitleLabel = UILabel(frame: CGRect(x: 16, y: 38, width: 350, height: 22))
-        descriptionLabel = UILabel(frame: CGRect(x: 16, y: 66, width: 350, height: 13))
+        titleLabel = UILabel()
+        subtitleLabel = UILabel()
+        descriptionLabel = UILabel()
 
         // Set the Title Label
-        titleLabel!.text = title
-        titleLabel!.font = UIFont.systemFont(ofSize: 17, weight: .bold)
-        titleLabel!.textColor = .black
+        titleLabel.text = title
+        titleLabel.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+        titleLabel.textColor = .black
 
         // Set the Subtitle Label
-        subtitleLabel!.text = subtitle
-        subtitleLabel!.font = UIFont.systemFont(ofSize: 17, weight: .regular)
-        subtitleLabel!.textColor = .black
+        subtitleLabel.text = subtitle
+        subtitleLabel.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+        subtitleLabel.textColor = .black
 
         // Set the description Label
-        descriptionLabel!.text = descriptions
-        descriptionLabel!.font = UIFont.systemFont(ofSize: 11, weight: .regular)
-        descriptionLabel!.textColor = .lightGray
+        descriptionLabel.text = descriptions
+        descriptionLabel.font = UIFont.systemFont(ofSize: 11, weight: .regular)
+        descriptionLabel.textColor = .lightGray
 
-        self.contentView.addSubview(titleLabel!)
-        self.contentView.addSubview(subtitleLabel!)
-        self.contentView.addSubview(descriptionLabel!)
+        self.contentView.addSubview(titleLabel)
+        self.contentView.addSubview(subtitleLabel)
+        self.contentView.addSubview(descriptionLabel)
+        addConstraints(to: titleLabel, subtitleLabel, and: descriptionLabel)
     }
 
     /**
@@ -129,5 +130,35 @@ class TitleSubtitleAndDescriptionTableViewCell: UITableViewCell {
      */
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    /**
+     ## Add Constraints
+
+     - Version: 1.0
+
+     - Author: @GianlucaOrpello
+     */
+    @objc func addConstraints(to view: UIView, _ secondView: UIView, and thirdView: UIView){
+        view.translatesAutoresizingMaskIntoConstraints = false
+        secondView.translatesAutoresizingMaskIntoConstraints = false
+        thirdView.translatesAutoresizingMaskIntoConstraints = false
+
+        let safeArea = self.safeAreaLayoutGuide
+
+        view.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 16)
+        view.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16).isActive = true
+        view.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -64).isActive = true
+        view.bottomAnchor.constraint(equalTo: secondView.topAnchor, constant: -6).isActive = true
+
+        secondView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16).isActive = true
+        secondView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -64).isActive = true
+        secondView.bottomAnchor.constraint(equalTo: thirdView.topAnchor, constant: -6).isActive = true
+
+        thirdView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16).isActive = true
+        thirdView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -64).isActive = true
+        thirdView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -16).isActive = true
+
+        self.layoutIfNeeded()
     }
 }

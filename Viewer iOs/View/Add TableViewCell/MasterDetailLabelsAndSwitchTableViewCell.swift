@@ -65,7 +65,7 @@ class MasterDetailLabelsAndSwitchTableViewCell: UITableViewCell {
      */
     private var mainLabel: UILabel!{
         didSet{
-            addConstraints(to: mainLabel)
+            addConstraintsWithSafeArea(to: mainLabel)
         }
     }
 
@@ -79,7 +79,7 @@ class MasterDetailLabelsAndSwitchTableViewCell: UITableViewCell {
      */
     private var detailLabel: UILabel!{
         didSet{
-            addConstraints(to: detailLabel)
+            addConstraintsWithSafeArea(to: detailLabel)
         }
     }
 
@@ -92,7 +92,7 @@ class MasterDetailLabelsAndSwitchTableViewCell: UITableViewCell {
      */
     private var mainSwitch: UISwitch!{
         didSet{
-            addConstraints(to: mainSwitch)
+            addConstraintsWithSafeArea(to: mainSwitch)
         }
     }
 

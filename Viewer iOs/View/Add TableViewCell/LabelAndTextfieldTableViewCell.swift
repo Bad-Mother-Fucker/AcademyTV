@@ -65,7 +65,7 @@ class LabelAndTextfieldTableViewCell: UITableViewCell {
      */
     private var label: UILabel!{
         didSet{
-            addConstraints(to: label)
+            addConstraintsWithSafeArea(to: label)
         }
     }
 
@@ -79,7 +79,7 @@ class LabelAndTextfieldTableViewCell: UITableViewCell {
      */
     private var textField: UITextField!{
         didSet{
-            addConstraints(to: textField)
+            addConstraintsWithSafeArea(to: textField)
         }
     }
 
@@ -108,7 +108,7 @@ class LabelAndTextfieldTableViewCell: UITableViewCell {
 
         self.contentView.addSubview(label)
         self.contentView.addSubview(textField)
-        addConstraints(to: label, and: textField)
+        addHorizontalConstraints(between: label, and: textField)
     }
 
     /**

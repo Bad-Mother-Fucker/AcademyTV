@@ -52,7 +52,7 @@ class MasterAndDetailLabelsTableViewCell: UITableViewCell {
      */
     private var mainLabel: UILabel!{
         didSet{
-            addConstraints(to: mainLabel)
+            addConstraintsWithSafeArea(to: mainLabel)
         }
     }
 
@@ -66,7 +66,7 @@ class MasterAndDetailLabelsTableViewCell: UITableViewCell {
      */
     private var detailLabel: UILabel!{
         didSet{
-            addConstraints(to: detailLabel)
+            addConstraintsWithSafeArea(to: detailLabel)
         }
     }
 
@@ -91,7 +91,7 @@ class MasterAndDetailLabelsTableViewCell: UITableViewCell {
 
         self.contentView.addSubview(mainLabel)
         self.contentView.addSubview(detailLabel)
-        addConstraints(to: mainLabel, and: detailLabel)
+        addHorizontalConstraints(between: mainLabel, and: detailLabel)
     }
 
     /**

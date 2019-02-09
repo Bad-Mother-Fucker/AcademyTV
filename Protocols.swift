@@ -154,13 +154,13 @@ protocol PropsListDelegate {
 extension UIView{
 
     /**
-     ## Add Constraints
+     ## Add Constraints with SafeArea
 
      - Version: 1.0
 
      - Author: @GianlucaOrpello
      */
-    @objc func addConstraints(to view: UIView){
+    @objc func addConstraintsWithSafeArea(to view: UIView){
         view.translatesAutoresizingMaskIntoConstraints = false
 
         let safeArea = self.safeAreaLayoutGuide
@@ -174,13 +174,33 @@ extension UIView{
     }
 
     /**
+     ## Add Constraints with SuperView
+
+     - Version: 1.0
+
+     - Author: @GianlucaOrpello
+     */
+    @objc func addConstraintsWithSuperView(to view: UIView){
+        view.translatesAutoresizingMaskIntoConstraints = false
+
+        let safeArea = self.safeAreaLayoutGuide
+
+        view.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 0).isActive = true
+        view.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: 0).isActive = true
+        view.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: 0).isActive = true
+        view.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 0).isActive = true
+
+        self.layoutIfNeeded()
+    }
+
+    /**
      ## Add Constraints
 
      - Version: 1.0
 
      - Author: @GianlucaOrpello
      */
-    @objc func addConstraints(to view: UIView, and secondView: UIView){
+    @objc func addHorizontalConstraints(between view: UIView, and secondView: UIView){
         view.translatesAutoresizingMaskIntoConstraints = false
         secondView.translatesAutoresizingMaskIntoConstraints = false
 

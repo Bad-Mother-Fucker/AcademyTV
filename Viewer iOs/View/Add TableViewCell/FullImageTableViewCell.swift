@@ -55,7 +55,7 @@ class FullImageTableViewCell: UITableViewCell {
         fullImageView.contentMode = .scaleAspectFit
 
         self.contentView.addSubview(fullImageView)
-        addConstraints(to: fullImageView)
+        addConstraintsWithSafeArea(to: fullImageView)
     }
 
     /**
@@ -76,7 +76,7 @@ class FullImageTableViewCell: UITableViewCell {
 
      - Author: @GianlucaOrpello
      */
-    override func addConstraints(to view: UIView){
+    override func addConstraintsWithSafeArea(to view: UIView){
         view.translatesAutoresizingMaskIntoConstraints = false
 
         let safeArea = self.safeAreaLayoutGuide
