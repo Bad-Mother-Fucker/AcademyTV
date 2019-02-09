@@ -308,11 +308,11 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
-            return Categories.tickerMessage.rawValue
+            return thikerMessage?.count != 0 ? Categories.tickerMessage.rawValue : nil
         case 1:
-            return Categories.keynoteViewer.rawValue
+            return keynote?.count != 0 ? Categories.keynoteViewer.rawValue : nil
         case 2:
-            return Categories.globalMessage.rawValue
+            return globalMessages?.count != 0 ? Categories.globalMessage.rawValue : nil
         default:
             return nil
         }
