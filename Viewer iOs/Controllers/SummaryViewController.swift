@@ -27,7 +27,13 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
 
      - Author: @GianlucaOrpello
      */
-    var tableView: UITableView!
+    var tableView: UITableView!{
+        didSet{
+            tableView.register(FullImageTableViewCell.self, forCellReuseIdentifier: "LeftImageAndDescriptionTableViewCell")
+            tableView.register(CenteredButtonTableViewCell.self, forCellReuseIdentifier: "CenteredButtonTableViewCell")
+            tableView.register(TopTitleAndBottomLabelValue.self, forCellReuseIdentifier: "TopTitleAndBottomLabelValue")
+        }
+    }
     
     /**
      ## isCheckoutMode
@@ -119,14 +125,12 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(pop))
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Post", style: .done, target: self, action: #selector(postProp))
         } else if categories?.rawValue == Categories.globalMessage.rawValue {
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "edit", style: .done, target: self, action: #selector(editProp))
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(dissmissController))
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .done, target: self, action: #selector(editProp))
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(dissmissController))
         } else {
-             self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(dissmissController))
+             self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(dissmissController))
         }
-        
-        
-        
+
         getCurrentCategories()
         
         tableView = UITableView(frame: self.view.frame)
@@ -187,11 +191,11 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
             self.present(alert, animated: true, completion: nil)
         }
     }
-    
-    
+
     @objc func editProp() {
         if let cat = categories{
             switch cat {
+            // FIXME: check the edit function for thicker and content view.
             case Categories.tickerMessage:
                
                 break
@@ -269,10 +273,8 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
             NotificationCenter.default.post(name: NSNotification.Name("UpdateAiringPropsList"), object: nil)
             self?.dismiss(animated: true, completion: nil)
         })
-        
         alert.addAction(cancel)
         alert.addAction(delete)
-        
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -301,8 +303,6 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
     }
 }
 
-
-
 extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate{
     
     // MARK: - UITableViewDelegate
@@ -318,7 +318,6 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
         switch categories! {
         case .tickerMessage:
             // Total of 6 rows
-            
             switch indexPath.row{
             case 0:
                 return 54
@@ -329,10 +328,8 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
             default:
                 return 0
             }
-            
         case .globalMessage:
             // Total of 6 rows
-            
             switch indexPath.row{
             case 0, 4, 5:
                 return 44
@@ -345,10 +342,8 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
             default:
                 return 0
             }
-           
         case .keynoteViewer:
             // Total of 5 rows
-
             switch indexPath.row{
             case 0, 3, 4:
                 return 44
@@ -359,7 +354,6 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
             default:
                 return 0
             }
-
         case .timer:
             return 0
         }
@@ -418,34 +412,23 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.row == 0{
-            
-            let cell = UITableViewCell()
-            cell.selectionStyle = .none
-            tableView.separatorStyle = .none
-            
-            let image = UIImageView(frame: CGRect(x: 16, y: 12, width: 40, height: 40))
-            let textLabel = UILabel(frame: CGRect(x: 72, y: 20, width: 287, height: 24))
-            image.contentMode = .scaleAspectFit
-            
-            switch categories!{
-            case .tickerMessage:
-                image.image = UIImage(named: "Ticker")
-                textLabel.text = Categories.tickerMessage.rawValue
-            case .keynoteViewer:
-                image.image = UIImage(named: "Keynote")
-                textLabel.text = Categories.keynoteViewer.rawValue
-            case .globalMessage:
-                image.image = UIImage(named: "GlobalMessage")
-                textLabel.text = Categories.globalMessage.rawValue
-            case .timer:
-                break
-            }
-            
-            cell.contentView.addSubview(image)
-            cell.contentView.addSubview(textLabel)
-            
-            return cell
-            
+
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "LeftImageAndDescriptionTableViewCell") as? LeftImageAndDescriptionTableViewCell{
+                switch categories!{
+                case .tickerMessage:
+                    cell.leftImage = UIImage(named: "Ticker")
+                    cell.title = Categories.tickerMessage.rawValue
+                case .keynoteViewer:
+                    cell.leftImage = UIImage(named: "Keynote")
+                    cell.title = Categories.keynoteViewer.rawValue
+                case .globalMessage:
+                    cell.leftImage = UIImage(named: "GlobalMessage")
+                    cell.title = Categories.globalMessage.rawValue
+                case .timer:
+                    break
+                }
+                return cell
+            } else { return UITableViewCell() }
         } else {
             
             switch categories!{
@@ -494,11 +477,8 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
                         }
                         tvNamesString.removeLast()
                     }
-                    
-                    
-                    
+
                     secondLabel.text = tvNamesString
-                    
                     secondLabel.textColor = UIColor(red: 0, green: 119/255, blue: 1, alpha: 1)
                     
                     cell.contentView.addSubview(label)
@@ -523,36 +503,19 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
                     return cell
                     
                 case 4:
-                    
-                    let cell = UITableViewCell()
-                    tableView.separatorStyle = .singleLine
-                    cell.selectionStyle = .none
-
-                    let button = UIButton(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: cell.contentView.frame.height))
-                    button.setTitle("Delete Prop", for: .normal)
-                    button.setTitleColor(.red, for: .normal)
-                    
-                    button.addTarget(self, action: #selector(remove), for: .touchUpInside)
-                    
-                    cell.contentView.addSubview(button)
-                    
-                    return cell
-                    
+                    if let cell = tableView.dequeueReusableCell(withIdentifier: "CenteredButtonTableViewCell") as? CenteredButtonTableViewCell {
+                        cell.title = "Delete Prop"
+                        cell.titleColor = .red
+                        cell.addTarget(self, action: #selector(remove))
+                        return cell
+                    } else { return UITableViewCell() }
                 case 5:
-                    
-                    let cell = UITableViewCell()
-                    cell.selectionStyle = .none
-                    tableView.separatorStyle = .none
-                    
-                    let button = UIButton(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: cell.contentView.frame.height))
-                    button.setTitle("Something's wrong?", for: .normal)
-                    button.setTitleColor(UIColor(red: 0, green: 119/255, blue: 1, alpha: 1), for: .normal)
-                    button.addTarget(self, action: #selector(sendEmail), for: .touchUpInside)
-                    
-                    cell.contentView.addSubview(button)
-                    
-                    return cell
-                    
+                    if let cell = tableView.dequeueReusableCell(withIdentifier: "CenteredButtonTableViewCell") as? CenteredButtonTableViewCell{
+                        cell.title = "Something's wrong?"
+                        cell.titleColor = UIColor(red: 0, green: 119/255, blue: 1, alpha: 1)
+                        cell.addTarget(self, action: #selector(sendEmail))
+                        return cell
+                    } else { return UITableViewCell() }
                 default:
                     return UITableViewCell()
                 }
@@ -610,35 +573,19 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
                     return cell
                     
                 case 3:
-                    
-                    let cell = UITableViewCell()
-                    cell.selectionStyle = .none
-                    
-                    let button = UIButton(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: cell.contentView.frame.height))
-                    button.setTitle("Delete Prop", for: .normal)
-                    button.setTitleColor(.red, for: .normal)
-                    
-                    button.addTarget(self, action: #selector(remove), for: .touchUpInside)
-
-                    cell.contentView.addSubview(button)
-                    
-                    return cell
-                    
+                    if let cell = tableView.dequeueReusableCell(withIdentifier: "CenteredButtonTableViewCell") as? CenteredButtonTableViewCell {
+                        cell.title = "Delete Prop"
+                        cell.titleColor = .red
+                        cell.addTarget(self, action: #selector(remove))
+                        return cell
+                    } else { return UITableViewCell() }
                 case 4:
-                    
-                    let cell = UITableViewCell()
-                    cell.selectionStyle = .none
-                    tableView.separatorStyle = .none
-                    
-                    let button = UIButton(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: cell.contentView.frame.height))
-                    button.setTitle("Something's wrong?", for: .normal)
-                    button.setTitleColor(UIColor(red: 0, green: 119/255, blue: 1, alpha: 1), for: .normal)
-                    button.addTarget(self, action: #selector(sendEmail), for: .touchUpInside)
-                    
-                    cell.contentView.addSubview(button)
-                    
-                    return cell
-                    
+                    if let cell = tableView.dequeueReusableCell(withIdentifier: "CenteredButtonTableViewCell") as? CenteredButtonTableViewCell{
+                        cell.title = "Something's wrong?"
+                        cell.titleColor = UIColor(red: 0, green: 119/255, blue: 1, alpha: 1)
+                        cell.addTarget(self, action: #selector(sendEmail))
+                        return cell
+                    } else { return UITableViewCell() }
                 default:
                     return UITableViewCell()
                 }
@@ -766,40 +713,22 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
                     return cell
                     
                 case 4:
-                    
-                    let cell = UITableViewCell()
-                    cell.selectionStyle = .none
-                    tableView.separatorStyle = .singleLine
-                    
-                    let button = UIButton(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: cell.contentView.frame.height))
-                    button.setTitle("Delete Prop", for: .normal)
-                    button.setTitleColor(.red, for: .normal)
-                    
-                    button.addTarget(self, action: #selector(remove), for: .touchUpInside)
-
-                    cell.contentView.addSubview(button)
-                    
-                    return cell
-                    
+                    if let cell = tableView.dequeueReusableCell(withIdentifier: "CenteredButtonTableViewCell") as? CenteredButtonTableViewCell {
+                        cell.title = "Delete Prop"
+                        cell.titleColor = .red
+                        cell.addTarget(self, action: #selector(remove))
+                        return cell
+                    } else { return UITableViewCell() }
                 case 5:
-                    
-                    let cell = UITableViewCell()
-                    cell.selectionStyle = .none
-                    tableView.separatorStyle = .singleLine
-                    
-                    let button = UIButton(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: cell.contentView.frame.height))
-                    button.setTitle("Something's wrong?", for: .normal)
-                    button.setTitleColor(UIColor(red: 0, green: 119/255, blue: 1, alpha: 1), for: .normal)
-                    button.addTarget(self, action: #selector(sendEmail), for: .touchUpInside)
-                    
-                    cell.contentView.addSubview(button)
-                    
-                    return cell
-                    
+                    if let cell = tableView.dequeueReusableCell(withIdentifier: "CenteredButtonTableViewCell") as? CenteredButtonTableViewCell{
+                        cell.title = "Something's wrong?"
+                        cell.titleColor = UIColor(red: 0, green: 119/255, blue: 1, alpha: 1)
+                        cell.addTarget(self, action: #selector(sendEmail))
+                        return cell
+                    } else { return UITableViewCell() }
                 default:
                     return UITableViewCell()
                 }
-                
             case .timer:
                 return UITableViewCell()
             }

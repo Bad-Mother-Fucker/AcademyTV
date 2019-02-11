@@ -107,6 +107,8 @@
 		99FA31AF21A449ED00A31F02 /* GlassOfficeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FA31AE21A449ED00A31F02 /* GlassOfficeTableViewCell.swift */; };
 		99FA31B221A45A1B00A31F02 /* BooquableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FA31B121A45A1B00A31F02 /* BooquableManager.swift */; };
 		99FA31B421A4637900A31F02 /* BooquableOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FA31B321A4637900A31F02 /* BooquableOrder.swift */; };
+		99FF4BA32211AE6000FD30E1 /* TopTitleAndBottomLabelValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FF4BA22211AE6000FD30E1 /* TopTitleAndBottomLabelValue.swift */; };
+		99FF4BA42211AE6000FD30E1 /* TopTitleAndBottomLabelValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FF4BA22211AE6000FD30E1 /* TopTitleAndBottomLabelValue.swift */; };
 		B3E9AE6B276920812842D5DC /* Pods_Viewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D64EE5E4E2D322DB311A9224 /* Pods_Viewer.framework */; };
 /* End PBXBuildFile section */
 
@@ -213,6 +215,7 @@
 		99FA31AE21A449ED00A31F02 /* GlassOfficeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassOfficeTableViewCell.swift; sourceTree = "<group>"; };
 		99FA31B121A45A1B00A31F02 /* BooquableManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooquableManager.swift; sourceTree = "<group>"; };
 		99FA31B321A4637900A31F02 /* BooquableOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooquableOrder.swift; sourceTree = "<group>"; };
+		99FF4BA22211AE6000FD30E1 /* TopTitleAndBottomLabelValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTitleAndBottomLabelValue.swift; sourceTree = "<group>"; };
 		D4B06A49A2CE53E02260DED8 /* Pods_Viewer_iOs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Viewer_iOs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D525920A7C7FDA427B50547A /* Pods-Viewer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Viewer.release.xcconfig"; path = "Pods/Target Support Files/Pods-Viewer/Pods-Viewer.release.xcconfig"; sourceTree = "<group>"; };
 		D64EE5E4E2D322DB311A9224 /* Pods_Viewer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Viewer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -297,6 +300,7 @@
 				99EBB19622005F180030199D /* CenteredButtonTableViewCell.swift */,
 				99B423312201C0200074FB0A /* Add TableViewCell */,
 				99EBB18C220057140030199D /* Live TableViewCell */,
+				99FF4BA12211ADFC00FD30E1 /* Summary TableViewCell */,
 				991AB6B621A30D8300D0565E /* BorderCollectionViewCell.swift */,
 				99F596C221A30F9000E999D7 /* GroupsCollectionViewCell.swift */,
 				99DE995E21ADF7DD00D01FF5 /* ImagePickerCollectionViewCell.swift */,
@@ -434,6 +438,14 @@
 				99EBB19322005C090030199D /* TitleSubtitleAndDescriptionTableViewCell.swift */,
 			);
 			path = "Live TableViewCell";
+			sourceTree = "<group>";
+		};
+		99FF4BA12211ADFC00FD30E1 /* Summary TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				99FF4BA22211AE6000FD30E1 /* TopTitleAndBottomLabelValue.swift */,
+			);
+			path = "Summary TableViewCell";
 			sourceTree = "<group>";
 		};
 		F9754990412350993893B029 /* Pods */ = {
@@ -718,6 +730,7 @@
 				19FA366521A8202400E3B1C0 /* TV.swift in Sources */,
 				65D9BAC221C9612E000466BA /* ShareBackgroundViewController.swift in Sources */,
 				656E2A1621F62CC600B9FD77 /* NoLivePrompView.swift in Sources */,
+				99FF4BA42211AE6000FD30E1 /* TopTitleAndBottomLabelValue.swift in Sources */,
 				99EBB19522005C090030199D /* TitleSubtitleAndDescriptionTableViewCell.swift in Sources */,
 				65F389AF21F5D7250084D5F5 /* TvGroups.swift in Sources */,
 				99B423392201C5B90074FB0A /* FullLightTextTableViewCell.swift in Sources */,
@@ -806,6 +819,7 @@
 				99B423382201C5B80074FB0A /* FullLightTextTableViewCell.swift in Sources */,
 				9936D1C021F7780500478244 /* SharePosterViewController.swift in Sources */,
 				9936D1C221F77A2E00478244 /* ShareBackgroundViewController.swift in Sources */,
+				99FF4BA32211AE6000FD30E1 /* TopTitleAndBottomLabelValue.swift in Sources */,
 				992C547221AD5C3300E05494 /* BooquableOrder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
