@@ -15,7 +15,7 @@ class ShareViewController: UIViewController, UICollectionViewDataSource, UIColle
     
     var groups = globalGroups
     
-    var selectedGroup: TVGroups?
+    var selectedGroup: TVGroupCellData?
     var selectedGroups = [TVGroup]()
     var image: UIImage!
     

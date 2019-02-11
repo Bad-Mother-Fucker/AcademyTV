@@ -16,7 +16,7 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
     
     var groups = globalGroups
     
-    var selectedGroup: TVGroups?
+    var selectedGroup: TVGroupCellData?
     var selectedGroups: [TVGroup]?
     var keynote: [UIImage] = [UIImage]()
     var category: Categories?

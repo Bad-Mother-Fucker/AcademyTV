@@ -14,9 +14,6 @@
 		19FA365D21A8202400E3B1C0 /* UIImage+CKAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FA365A21A8202300E3B1C0 /* UIImage+CKAsset.swift */; };
 		19FA365E21A8202400E3B1C0 /* UIImage+CKAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FA365A21A8202300E3B1C0 /* UIImage+CKAsset.swift */; };
 		19FA365F21A8202400E3B1C0 /* UIImage+CKAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FA365A21A8202300E3B1C0 /* UIImage+CKAsset.swift */; };
-		19FA366021A8202400E3B1C0 /* ServiceMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FA365B21A8202300E3B1C0 /* ServiceMessage.swift */; };
-		19FA366121A8202400E3B1C0 /* ServiceMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FA365B21A8202300E3B1C0 /* ServiceMessage.swift */; };
-		19FA366221A8202400E3B1C0 /* ServiceMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FA365B21A8202300E3B1C0 /* ServiceMessage.swift */; };
 		19FA366321A8202400E3B1C0 /* TV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FA365C21A8202300E3B1C0 /* TV.swift */; };
 		19FA366421A8202400E3B1C0 /* TV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FA365C21A8202300E3B1C0 /* TV.swift */; };
 		19FA366521A8202400E3B1C0 /* TV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FA365C21A8202300E3B1C0 /* TV.swift */; };
@@ -149,7 +146,6 @@
 		19A86201220A3DBB00201741 /* AvAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvAssets.swift; sourceTree = "<group>"; };
 		19C227CC21A3372400BB4BC3 /* TVViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVViewController.swift; sourceTree = "<group>"; };
 		19FA365A21A8202300E3B1C0 /* UIImage+CKAsset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+CKAsset.swift"; sourceTree = "<group>"; };
-		19FA365B21A8202300E3B1C0 /* ServiceMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceMessage.swift; sourceTree = "<group>"; };
 		19FA365C21A8202300E3B1C0 /* TV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TV.swift; sourceTree = "<group>"; };
 		19FA366621A8203D00E3B1C0 /* CKController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CKController.swift; sourceTree = "<group>"; };
 		1CA1AE84D11F4E5D405BEC99 /* Pods_Viewer_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Viewer_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -256,6 +252,15 @@
 			path = "New Group";
 			sourceTree = "<group>";
 		};
+		19FFB05D220B012700CCE34E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				65F389AD21F5D7250084D5F5 /* TvGroups.swift */,
+			);
+			name = Model;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		9904CA65217DC5CB00210884 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -327,13 +332,11 @@
 				99E3790121EBDF27006380F7 /* UsageStatistic.swift */,
 				19FA366621A8203D00E3B1C0 /* CKController.swift */,
 				9967BBF522099668006F9AA6 /* Protocols.swift */,
-				19FA365B21A8202300E3B1C0 /* ServiceMessage.swift */,
 				19FA365C21A8202300E3B1C0 /* TV.swift */,
 				19FA365A21A8202300E3B1C0 /* UIImage+CKAsset.swift */,
 				9904CA6A217DDBAD00210884 /* GlobalMessage.swift */,
 				99FA31B121A45A1B00A31F02 /* BooquableManager.swift */,
 				99FA31B321A4637900A31F02 /* BooquableOrder.swift */,
-				65F389AD21F5D7250084D5F5 /* TvGroups.swift */,
 				99AC09522174E6B100CFCAD0 /* Viewer */,
 				99AC09672174E9C100CFCAD0 /* Viewer iOs */,
 				99308B7521A6FAE500EA0F9C /* ShareExtension */,
@@ -373,6 +376,7 @@
 		99AC09672174E9C100CFCAD0 /* Viewer iOs */ = {
 			isa = PBXGroup;
 			children = (
+				19FFB05D220B012700CCE34E /* Model */,
 				99AC09712174E9C200CFCAD0 /* LaunchScreen.storyboard */,
 				99AC096F2174E9C200CFCAD0 /* Assets.xcassets */,
 				99AC09742174E9C200CFCAD0 /* Info.plist */,
@@ -709,8 +713,7 @@
 				656E2A1C21F7785700B9FD77 /* ShareTVListViewController.swift in Sources */,
 				19FA366921A8203D00E3B1C0 /* CKController.swift in Sources */,
 				656E2A0D21F62C5800B9FD77 /* LiveViewController.swift in Sources */,
-				99EBB18F220057720030199D /* TitleAndSubtitleTableViewCell.swift in Sources */,
-				19FA366221A8202400E3B1C0 /* ServiceMessage.swift in Sources */,
+				99EBB18F220057720030199D /* TitleAndMultipleSubtitleTableViewCell.swift in Sources */,
 				99EBB19822005F180030199D /* CenteredButtonTableViewCell.swift in Sources */,
 				19261D2C21F74C9600647314 /* UsageStatistic.swift in Sources */,
 				19FA366A21A821A200E3B1C0 /* GlobalMessage.swift in Sources */,
@@ -752,7 +755,6 @@
 				19A86202220A3DBB00201741 /* AvAssets.swift in Sources */,
 				99FA31AD21A41EDB00A31F02 /* CKController.swift in Sources */,
 				19FA366321A8202400E3B1C0 /* TV.swift in Sources */,
-				19FA366021A8202400E3B1C0 /* ServiceMessage.swift in Sources */,
 				9904CA67217DC5F100210884 /* GlobalMessageTableViewCell.swift in Sources */,
 				19C227CD21A3372400BB4BC3 /* TVViewController.swift in Sources */,
 				996353E82195E2E500AE8AAE /* GlobalMessageView.swift in Sources */,
@@ -785,7 +787,6 @@
 				9967BBF722099668006F9AA6 /* Protocols.swift in Sources */,
 				998F5D6C22098D45006164FA /* MasterDetailLabelsAndSwitchTableViewCell.swift in Sources */,
 				99DE995F21ADF7DD00D01FF5 /* ImagePickerCollectionViewCell.swift in Sources */,
-				19FA366121A8202400E3B1C0 /* ServiceMessage.swift in Sources */,
 				99DE995D21ADF55A00D01FF5 /* ImagePickerViewController.swift in Sources */,
 				19FA366821A8203D00E3B1C0 /* CKController.swift in Sources */,
 				65F389AE21F5D7250084D5F5 /* TvGroups.swift in Sources */,

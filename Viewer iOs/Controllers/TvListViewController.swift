@@ -14,7 +14,7 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     var groups = globalGroups
     
-    var selectedGroup: TVGroups?
+    var selectedGroup: TVGroupCellData?
     var selectedGroups: [TVGroup]?
     var keynote: [UIImage]?
     var category: Categories?
