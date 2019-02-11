@@ -26,7 +26,7 @@ class TextFieldTableViewCell: UITableViewCell {
      */
     var placeholderText: String?{
         didSet{
-            textField.text = placeholderText
+            textField.placeholder = placeholderText
         }
     }
 

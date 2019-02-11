@@ -209,7 +209,6 @@ extension UIView{
         view.centerYAnchor.constraint(equalTo: safeArea.centerYAnchor).isActive = true
         secondView.centerYAnchor.constraint(equalTo: safeArea.centerYAnchor).isActive = true
 
-
         view.trailingAnchor.constraint(equalTo: secondView.leadingAnchor, constant: -16).isActive = true
         view.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16).isActive = true
 
@@ -219,4 +218,28 @@ extension UIView{
         self.layoutIfNeeded()
     }
 
+    /**
+     ## Add Constraints
+
+     - Version: 1.0
+
+     - Author: @GianlucaOrpello
+     */
+    @objc func addVerticalConstraints(between view: UIView, and secondView: UIView){
+        view.translatesAutoresizingMaskIntoConstraints = false
+        secondView.translatesAutoresizingMaskIntoConstraints = false
+
+        let safeArea = self.safeAreaLayoutGuide
+
+        view.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 16).isActive = true
+        view.trailingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: -16).isActive = true
+        view.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 72).isActive = true
+        view.bottomAnchor.constraint(equalTo: secondView.topAnchor, constant: 7).isActive = true
+
+        secondView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16).isActive = true
+        secondView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 72).isActive = true
+        secondView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -16).isActive = true
+
+        self.layoutIfNeeded()
+    }
 }
