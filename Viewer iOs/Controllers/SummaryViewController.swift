@@ -32,6 +32,8 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
             tableView.register(FullImageTableViewCell.self, forCellReuseIdentifier: "LeftImageAndDescriptionTableViewCell")
             tableView.register(CenteredButtonTableViewCell.self, forCellReuseIdentifier: "CenteredButtonTableViewCell")
             tableView.register(TopTitleAndBottomLabelValue.self, forCellReuseIdentifier: "TopTitleAndBottomLabelValue")
+            tableView.register(FullLightTextTableViewCell.self, forCellReuseIdentifier: "FullLightTextTableViewCell")
+            tableView.register(ThreeLabelsAndThreeTextFieldTableViewCell.self, forCellReuseIdentifier: "ThreeLabelsAndThreeTextFieldTableViewCell")
         }
     }
     
@@ -412,7 +414,6 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.row == 0{
-
             if let cell = tableView.dequeueReusableCell(withIdentifier: "LeftImageAndDescriptionTableViewCell") as? LeftImageAndDescriptionTableViewCell{
                 switch categories!{
                 case .tickerMessage:
@@ -434,74 +435,36 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
             switch categories!{
             case .tickerMessage:
                 // Total of 6 rows
-
                 let tickerMessage = prop as? (message: String, tvName: String?, TVGroup: [TVGroup]?)
                 
                 switch indexPath.row{
                 case 1:
-                    
-                    let cell = UITableViewCell()
-                    cell.selectionStyle = .none
-                    tableView.separatorStyle = .singleLine
-                    
-                    let label = UILabel(frame: CGRect(x: 72, y: 12, width: 287, height: 22))
-                    label.text = "Text"
-                    
-                    let textLabel = UILabel(frame: CGRect(x: 72, y: 38, width: 287, height: 44))
-                    textLabel.text = tickerMessage?.message
-                    textLabel.textColor = UIColor(red: 0, green: 119/255, blue: 1, alpha: 1)
-                    
-                    cell.contentView.addSubview(label)
-                    cell.contentView.addSubview(textLabel)
-                    
-                    return cell
-                    
+                    if let cell = tableView.dequeueReusableCell(withIdentifier: "TopTitleAndBottomLabelValue") as? TopTitleAndBottomLabelValue{
+                        cell.title = "Text"
+                        cell.valueText = tickerMessage?.message
+                        return cell
+                    } else { return UITableViewCell() }
                 case 2:
-                    
-                    let cell = UITableViewCell()
-                    cell.selectionStyle = .none
-                    tableView.separatorStyle = .singleLine
-                    
-                    let label = UILabel(frame: CGRect(x: 72, y: 10, width: 287, height: 22))
-                    label.text = "Sets"
-                    
-                    let secondLabel = UILabel(frame: CGRect(x: 72, y: 37, width: 287, height: 44))
-                    secondLabel.numberOfLines = 0
-                    
-                    var tvNamesString = String()
-                    
-                    if let groups = tickerMessage?.TVGroup{
-                        for tm in groups{
-                            tvNamesString.append(contentsOf: tm.rawValue)
-                            tvNamesString.append(contentsOf: ",")
+                    if let cell = tableView.dequeueReusableCell(withIdentifier: "TopTitleAndBottomLabelValue") as? TopTitleAndBottomLabelValue{
+                        cell.title = "Sets"
+                        var tvNamesString = String()
+                        if let groups = tickerMessage?.TVGroup{
+                            for tm in groups{
+                                tvNamesString.append(contentsOf: tm.rawValue)
+                                tvNamesString.append(contentsOf: ", ")
+                            }
+                            tvNamesString.removeLast()
                         }
-                        tvNamesString.removeLast()
-                    }
-
-                    secondLabel.text = tvNamesString
-                    secondLabel.textColor = UIColor(red: 0, green: 119/255, blue: 1, alpha: 1)
-                    
-                    cell.contentView.addSubview(label)
-                    cell.contentView.addSubview(secondLabel)
-                    
-                    return cell
-                    
+                        cell.valueText = tvNamesString
+                        return cell
+                    } else { return UITableViewCell() }
                 case 3:
-                    
-                    let cell = UITableViewCell()
-                    cell.selectionStyle = .none
-                    tableView.separatorStyle = .singleLine
-                    
-                    let label = UILabel(frame: CGRect(x: 72, y: 10, width: 287, height: 66))
-                    label.numberOfLines = 0
-                    label.text = "If a screen is already airing a Ticker Message, it will be erased and replaced by this one"
-                    label.textColor = .black
-                    label.font = UIFont.systemFont(ofSize: 17)
-                    
-                    cell.contentView.addSubview(label)
-                    
-                    return cell
-                    
+                    if let cell = tableView.dequeueReusableCell(withIdentifier: "FullLightTextTableViewCell") as? FullLightTextTableViewCell {
+                        cell.fullText = "If a screen is already airing a Ticker Message, it will be erased and replaced by this one"
+                        cell.fullTextColor = .black
+                        cell.fullTextFont = UIFont.systemFont(ofSize: 17)
+                        return cell
+                    } else { return UITableViewCell() }                    
                 case 4:
                     if let cell = tableView.dequeueReusableCell(withIdentifier: "CenteredButtonTableViewCell") as? CenteredButtonTableViewCell {
                         cell.title = "Delete Prop"
@@ -516,8 +479,7 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
                         cell.addTarget(self, action: #selector(sendEmail))
                         return cell
                     } else { return UITableViewCell() }
-                default:
-                    return UITableViewCell()
+                default: return UITableViewCell()
                 }
                 
             case .keynoteViewer:
@@ -528,7 +490,6 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
                 switch indexPath.row{
                     
                 case 1:
-                    
                     let cell = UITableViewCell()
                     tableView.separatorStyle = .singleLine
                     cell.selectionStyle = .none
@@ -553,25 +514,14 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
                         
                         cell.contentView.addSubview(collectionView!)
                     }
-                    
                     return cell
-                    
                 case 2:
-                    
-                    let cell = UITableViewCell()
-                    cell.selectionStyle = .none
-                    tableView.separatorStyle = .singleLine
-                    
-                    let label = UILabel(frame: CGRect(x: 72, y: 15, width: 287, height: 66))
-                    label.numberOfLines = 0
-                    label.text = "Content will automatically loop if more than one file is selected"
-                    label.textColor = .black
-                    label.font = UIFont.systemFont(ofSize: 17)
-                    
-                    cell.contentView.addSubview(label)
-                    
-                    return cell
-                    
+                    if let cell = tableView.dequeueReusableCell(withIdentifier: "FullLightTextTableViewCell") as? FullLightTextTableViewCell {
+                        cell.fullText = "Content will automatically loop if more than one file is selected"
+                        cell.fullTextColor = .black
+                        cell.fullTextFont = UIFont.systemFont(ofSize: 17)
+                        return cell
+                    } else { return UITableViewCell() }
                 case 3:
                     if let cell = tableView.dequeueReusableCell(withIdentifier: "CenteredButtonTableViewCell") as? CenteredButtonTableViewCell {
                         cell.title = "Delete Prop"
@@ -597,121 +547,38 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
                 switch indexPath.row{
                     
                 case 1:
-                    
-                    let cell = UITableViewCell()
-                    cell.selectionStyle = .none
-                    tableView.separatorStyle = .singleLine
-                    
-                    let title = UILabel(frame: CGRect(x: 72, y: 10, width: 287, height: 22))
-                    let subtitle = UILabel(frame: CGRect(x: 72, y: 77, width: 287, height: 22))
-                    let text = UILabel(frame: CGRect(x: 72, y: 150, width: 287, height: 22))
-                    
-                    title.text = "Title"
-                    subtitle.text = "Subtitle"
-                    text.text = "Text"
-                    
-                    let titleLabel = UITextField(frame: CGRect(x: 72, y: 32, width: 287, height: 44))
-                    let subtitleLabel = UITextField(frame: CGRect(x: 72, y: 105, width: 287, height: 44))
-                    let textLabel = UITextView(frame: CGRect(x: 72, y: 175, width: 287, height: 44))
-                    
-                    titleLabel.text = globalMessage?.title
-                    subtitleLabel.text = globalMessage?.subtitle
-                    textLabel.text = globalMessage?.description
-                    
-                    titleLabel.tag = 500
-                    subtitleLabel.tag = 501
-                    textLabel.tag = 502
-//                    textLabel.numberOfLines = 0
-                    
-                    textLabel.showsVerticalScrollIndicator = false
-                    textLabel.showsHorizontalScrollIndicator = false
-                    
-                    if isCheckoutMode {
-                        textLabel.isEditable = false
-                        textLabel.isSelectable = false
-                    } else {
-                        textLabel.isEditable = true
-                        textLabel.isSelectable = true
-                    }
-                    
-                    let color = UIColor(red: 0, green: 119/255, blue: 1, alpha: 1)
-                    
-                    titleLabel.textColor = color
-                    subtitleLabel.textColor = color
-                    textLabel.textColor = color
-
-                    cell.contentView.addSubview(title)
-                    cell.contentView.addSubview(subtitle)
-                    cell.contentView.addSubview(text)
-                    
-                    cell.contentView.addSubview(titleLabel)
-                    cell.contentView.addSubview(subtitleLabel)
-                    cell.contentView.addSubview(textLabel)
-                    
-                    return cell
-                    
+                    if let cell = tableView.dequeueReusableCell(withIdentifier: "ThreeLabelsAndThreeTextFieldTableViewCell") as? ThreeLabelsAndThreeTextFieldTableViewCell {
+                        cell.firstTitle = "Title"
+                        cell.secondTitle = "Subtitle"
+                        cell.thirdTitle = "Text"
+                        cell.firstText = globalMessage?.title
+                        cell.secondText = globalMessage?.subtitle
+                        cell.thirdText = globalMessage?.description
+                        cell.delegate = self
+                        cell.isCheckoutMode = isCheckoutMode
+                        cell.textfieldTextColor = UIColor(red: 0, green: 119/255, blue: 1, alpha: 1)
+                        return cell
+                    } else { return UITableViewCell() }
                 case 2:
-                    
-                    let cell = UITableViewCell()
-                    cell.selectionStyle = .none
-                    tableView.separatorStyle = .singleLine
-                    
-                    let url = UILabel(frame: CGRect(x: 72, y: 15, width: 287, height: 22))
-                    let dateTime = UILabel(frame: CGRect(x: 72, y: 80, width: 287, height: 22))
-                    let location = UILabel(frame: CGRect(x: 72, y: 145, width: 287, height: 22))
-                    
-                    url.text = "URL"
-                    dateTime.text = "Date & Time"
-                    location.text = "Location"
-                    
-                    let urlTextEdit = UITextField(frame: CGRect(x: 72, y: 35, width: 287, height: 44))
-                    let dateTimeTextEdit = UITextField(frame: CGRect(x: 72, y: 105, width: 287, height: 44))
-                    let locationTextEdit = UITextField(frame: CGRect(x: 72, y: 175, width: 287, height: 44))
-                    
-                    urlTextEdit.delegate = self
-                    dateTimeTextEdit.delegate = self
-                    locationTextEdit.delegate = self
-                    
-                    urlTextEdit.text = globalMessage?.url?.absoluteString ?? "None"
-                    dateTimeTextEdit.text = globalMessage?.date.day ?? "None"
-                    locationTextEdit.text = globalMessage?.location ?? "None"
-                    
-                    urlTextEdit.tag = 503
-                    dateTimeTextEdit.tag = 504
-                    locationTextEdit.tag = 505
-                    
-                    let color = UIColor(red: 0, green: 119/255, blue: 1, alpha: 1)
-                    
-                    urlTextEdit.textColor = color
-                    dateTimeTextEdit.textColor = color
-                    locationTextEdit.textColor = color
-                    
-                    cell.contentView.addSubview(url)
-                    cell.contentView.addSubview(dateTime)
-                    cell.contentView.addSubview(location)
-                    
-                    cell.contentView.addSubview(urlTextEdit)
-                    cell.contentView.addSubview(dateTimeTextEdit)
-                    cell.contentView.addSubview(locationTextEdit)
-                    
-                    return cell
-                    
+                    if let cell = tableView.dequeueReusableCell(withIdentifier: "ThreeLabelsAndThreeTextFieldTableViewCell") as? ThreeLabelsAndThreeTextFieldTableViewCell {
+                        cell.firstTitle = "URL"
+                        cell.secondTitle = "Date & Time"
+                        cell.thirdTitle = "Location"
+                        cell.firstText = globalMessage?.url?.absoluteString ?? "None"
+                        cell.secondText = globalMessage?.date.day ?? "None"
+                        cell.thirdText = globalMessage?.location ?? "None"
+                        cell.delegate = self
+                        cell.isCheckoutMode = false
+                        cell.textfieldTextColor = UIColor(red: 0, green: 119/255, blue: 1, alpha: 1)
+                        return cell
+                    } else { return UITableViewCell() }
                 case 3:
-                    
-                    let cell = UITableViewCell()
-                    cell.selectionStyle = .none
-                    tableView.separatorStyle = .none
-                    
-                    let label = UILabel(frame: CGRect(x: 72, y: 15, width: 287, height: 66))
-                    label.numberOfLines = 0
-                    label.text = "Global Messages are added to the queue and will automatically loop"
-                    label.textColor = .black
-                    label.font = UIFont.systemFont(ofSize: 17)
-                    
-                    cell.contentView.addSubview(label)
-                    
-                    return cell
-                    
+                    if let cell = tableView.dequeueReusableCell(withIdentifier: "FullLightTextTableViewCell") as? FullLightTextTableViewCell {
+                        cell.fullText = "Global Messages are added to the queue and will automatically loop"
+                        cell.fullTextColor = .black
+                        cell.fullTextFont = UIFont.systemFont(ofSize: 17)
+                        return cell
+                    } else { return UITableViewCell() }
                 case 4:
                     if let cell = tableView.dequeueReusableCell(withIdentifier: "CenteredButtonTableViewCell") as? CenteredButtonTableViewCell {
                         cell.title = "Delete Prop"
@@ -726,13 +593,11 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
                         cell.addTarget(self, action: #selector(sendEmail))
                         return cell
                     } else { return UITableViewCell() }
-                default:
-                    return UITableViewCell()
+                default: return UITableViewCell()
                 }
             case .timer:
                 return UITableViewCell()
             }
-            
         }
     }
 }
@@ -740,7 +605,6 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
 extension SummaryViewController: UICollectionViewDataSource{
     
     // MARK: - UICollectionViewDataSource
-    
     /**
      ## UICollectionViewDataSource - numberOfItemsInSection Methods
      
@@ -751,9 +615,7 @@ extension SummaryViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let keynote = keynote{
             return keynote.image!.count
-        } else {
-            return 0
-        }
+        } else { return 0 }
     }
     
     /**
@@ -780,9 +642,6 @@ extension SummaryViewController: UICollectionViewDataSource{
             
             cell.contentView.addSubview(imageView)
             return cell
-            
-        } else {
-            return UICollectionViewCell()
-        }
+        } else { return UICollectionViewCell() }
     }
 }

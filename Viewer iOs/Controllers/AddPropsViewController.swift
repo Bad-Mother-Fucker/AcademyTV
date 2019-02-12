@@ -603,8 +603,9 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
                 switch indexPath.section {
                 case 1:
                     if let cell = tableView.dequeueReusableCell(withIdentifier: "FullLightTextTableViewCell") as? FullLightTextTableViewCell{
-
                         cell.fullText = "Displays a message with a title and description attached with location, date, time and a link displayed as a QR code."
+                        cell.fullTextColor = .lightGray
+                        cell.fullTextFont = UIFont.systemFont(ofSize: 13)
                         return cell
                     } else { return UITableViewCell() }
 
@@ -716,6 +717,8 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
 
                     if let cell = tableView.dequeueReusableCell(withIdentifier: "FullLightTextTableViewCell") as? FullLightTextTableViewCell{
                         cell.fullText = "Displays a short message always visible at the bottom of the screen."
+                        cell.fullTextColor = .lightGray
+                        cell.fullTextFont = UIFont.systemFont(ofSize: 13)
                         return cell
                     } else { return UITableViewCell() }
 
@@ -730,9 +733,9 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
                     } else {
                         if let cell = tableView.dequeueReusableCell(withIdentifier: "FullLightTextTableViewCell") as?
                             FullLightTextTableViewCell {
-                            //                            label.tag = 150
                             cell.fullText = "\(numberOfChar) characters left"
-
+                            cell.fullTextColor = .lightGray
+                            cell.fullTextFont = UIFont.systemFont(ofSize: 13)
                             return cell
                         } else { return UITableViewCell() }
                     }
@@ -745,8 +748,9 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
                 switch indexPath.section {
                 case 1:
                     if let cell = tableView.dequeueReusableCell(withIdentifier: "FullLightTextTableViewCell") as? FullLightTextTableViewCell{
-
                         cell.fullText = "Displays an image or a file that covers most of the screen. Use a content with a transparent background to get the Viewer overlay. Prefer 16:9 PNG files. You can also use the share extension inside other apps like Keynote, Photos or Files."
+                        cell.fullTextColor = .lightGray
+                        cell.fullTextFont = UIFont.systemFont(ofSize: 13)
                         return cell
                     } else { return UITableViewCell() }
 
