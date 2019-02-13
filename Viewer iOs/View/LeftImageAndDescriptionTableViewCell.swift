@@ -99,9 +99,9 @@ class LeftImageAndDescriptionTableViewCell: UITableViewCell {
         
         self.accessoryType = .disclosureIndicator
         
-        leftImageView = UIImageView(frame: CGRect(x: 17, y: 10, width: 60, height: 60))
-        titleLabel = UILabel(frame: CGRect(x: 92, y: 22, width: 250, height: 22))
-        descriptionLabel = UILabel(frame: CGRect(x: 92, y: 45, width: 250, height: 30))
+        leftImageView = UIImageView()
+        titleLabel = UILabel()
+        descriptionLabel = UILabel()
 
         leftImageView.image = leftImage
         leftImageView.contentMode = .scaleAspectFit
@@ -118,6 +118,7 @@ class LeftImageAndDescriptionTableViewCell: UITableViewCell {
         self.contentView.addSubview(leftImageView)
         self.contentView.addSubview(titleLabel)
         self.contentView.addSubview(descriptionLabel)
+        addConstraits()
     }
     
     /**
@@ -132,9 +133,9 @@ class LeftImageAndDescriptionTableViewCell: UITableViewCell {
         
         self.accessoryType = .disclosureIndicator
         
-        leftImageView = UIImageView(frame: CGRect(x: 17, y: 10, width: 60, height: 60))
-        titleLabel = UILabel(frame: CGRect(x: 92, y: 22, width: 250, height: 22))
-        descriptionLabel = UILabel(frame: CGRect(x: 92, y: 45, width: 250, height: 30))
+        leftImageView = UIImageView()
+        titleLabel = UILabel()
+        descriptionLabel = UILabel()
         
         leftImageView.contentMode = .scaleAspectFit
         
@@ -149,5 +150,35 @@ class LeftImageAndDescriptionTableViewCell: UITableViewCell {
         self.contentView.addSubview(leftImageView)
         self.contentView.addSubview(titleLabel)
         self.contentView.addSubview(descriptionLabel)
+    }
+
+    /**
+     ## Add Action to the button
+
+     - Version: 1.0
+
+     - Author: @GianlucaOrpello
+     */
+    private func addConstraits(){
+        leftImageView.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        let safeArea = self.safeAreaLayoutGuide
+
+        leftImageView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 10).isActive = true
+        leftImageView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16).isActive = true
+        leftImageView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -10).isActive = true
+        leftImageView.widthAnchor.constraint(equalTo: leftImageView.heightAnchor, constant: 0).isActive = true
+
+        titleLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 22).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: leftImageView.trailingAnchor, constant: 16).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -32).isActive = true
+        titleLabel.heightAnchor.constraint(equalToConstant: 22)
+
+        descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 1).isActive = true
+        descriptionLabel.leadingAnchor.constraint(equalTo: leftImageView.trailingAnchor, constant: 16).isActive = true
+        descriptionLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -32).isActive = true
+        descriptionLabel.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -10).isActive = true
     }
 }

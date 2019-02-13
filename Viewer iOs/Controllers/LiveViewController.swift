@@ -207,9 +207,9 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
                     let size = thikerMessage!.count
                     thikerMessage![size - 1].tvName.append(tick.1 + ", ")
                 }
-                //Remove last two digits
-                let size = thikerMessage!.count
-                thikerMessage?[size - 1].tvName.removeLast(2)
+//                //Remove last two digits
+//                let size = thikerMessage!.count
+//                thikerMessage?[size - 1].tvName.removeLast(2)
             }
         }
 
@@ -222,7 +222,7 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
                 self.numberOfObject = 1
             })
         } catch {
-            print("Error getting the messages.")
+            NSLog("Error getting the messages.")
             numberOfObject = 0
         }
     }

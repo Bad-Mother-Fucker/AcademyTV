@@ -301,6 +301,7 @@
 			children = (
 				99B4232A22008A420074FB0A /* LeftImageAndDescriptionTableViewCell.swift */,
 				99EBB19622005F180030199D /* CenteredButtonTableViewCell.swift */,
+				99B423362201C4CC0074FB0A /* FullLightTextTableViewCell.swift */,
 				99B423312201C0200074FB0A /* Add TableViewCell */,
 				99EBB18C220057140030199D /* Live TableViewCell */,
 				99FF4BA12211ADFC00FD30E1 /* Summary TableViewCell */,
@@ -409,7 +410,6 @@
 			isa = PBXGroup;
 			children = (
 				99B423322201C0400074FB0A /* FullImageTableViewCell.swift */,
-				99B423362201C4CC0074FB0A /* FullLightTextTableViewCell.swift */,
 				99B4233A220303A10074FB0A /* TextFieldTableViewCell.swift */,
 				99B4233C22030E850074FB0A /* LabelAndTextfieldTableViewCell.swift */,
 				998F5D6822098A11006164FA /* MasterAndDetailLabelsTableViewCell.swift */,

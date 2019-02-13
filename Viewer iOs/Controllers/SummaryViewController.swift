@@ -29,7 +29,7 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
      */
     var tableView: UITableView!{
         didSet{
-            tableView.register(FullImageTableViewCell.self, forCellReuseIdentifier: "LeftImageAndDescriptionTableViewCell")
+            tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
             tableView.register(CenteredButtonTableViewCell.self, forCellReuseIdentifier: "CenteredButtonTableViewCell")
             tableView.register(TopTitleAndBottomLabelValue.self, forCellReuseIdentifier: "TopTitleAndBottomLabelValue")
             tableView.register(FullLightTextTableViewCell.self, forCellReuseIdentifier: "FullLightTextTableViewCell")
@@ -46,7 +46,6 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
      
      - Author: @Micheledes
      */
-    
     var isCheckoutMode: Bool = false
     
     /**
@@ -412,27 +411,32 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
      - Author: @GianlucaOrpello
      */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         if indexPath.row == 0{
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "LeftImageAndDescriptionTableViewCell") as? LeftImageAndDescriptionTableViewCell{
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "Cell"){
+                cell.selectionStyle = .none
+                tableView.separatorStyle = .none
                 switch categories!{
                 case .tickerMessage:
-                    cell.leftImage = UIImage(named: "Ticker")
-                    cell.title = Categories.tickerMessage.rawValue
+                    cell.imageView?.image = UIImage(named: "Ticker")
+                    cell.textLabel?.text = Categories.tickerMessage.rawValue
+                    cell.textLabel?.font = UIFont.systemFont(ofSize: 17, weight: .regular)
                 case .keynoteViewer:
-                    cell.leftImage = UIImage(named: "Keynote")
-                    cell.title = Categories.keynoteViewer.rawValue
+                    cell.imageView?.image = UIImage(named: "Keynote")
+                    cell.textLabel?.text = Categories.keynoteViewer.rawValue
+                    cell.textLabel?.font = UIFont.systemFont(ofSize: 17, weight: .regular)
                 case .globalMessage:
-                    cell.leftImage = UIImage(named: "GlobalMessage")
-                    cell.title = Categories.globalMessage.rawValue
+                    cell.imageView?.image = UIImage(named: "GlobalMessage")
+                    cell.textLabel?.text = Categories.globalMessage.rawValue
+                    cell.textLabel?.font = UIFont.systemFont(ofSize: 17, weight: .regular)
                 case .timer:
                     break
                 }
                 return cell
             } else { return UITableViewCell() }
         } else {
-            
+            tableView.separatorStyle = .singleLine
             switch categories!{
+            // MARK: Ticker Message
             case .tickerMessage:
                 // Total of 6 rows
                 let tickerMessage = prop as? (message: String, tvName: String?, TVGroup: [TVGroup]?)
@@ -453,9 +457,9 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
                                 tvNamesString.append(contentsOf: tm.rawValue)
                                 tvNamesString.append(contentsOf: ", ")
                             }
-                            tvNamesString.removeLast()
+                            tvNamesString.removeLast(2)
                         }
-                        cell.valueText = tvNamesString
+                        cell.valueText = tickerMessage?.tvName
                         return cell
                     } else { return UITableViewCell() }
                 case 3:
@@ -463,6 +467,7 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
                         cell.fullText = "If a screen is already airing a Ticker Message, it will be erased and replaced by this one"
                         cell.fullTextColor = .black
                         cell.fullTextFont = UIFont.systemFont(ofSize: 17)
+                        cell.isFullSize = false
                         return cell
                     } else { return UITableViewCell() }                    
                 case 4:
@@ -481,10 +486,9 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
                     } else { return UITableViewCell() }
                 default: return UITableViewCell()
                 }
-                
+            // MARK: Content Viewer
             case .keynoteViewer:
                 // Total of 5 rows
-
                 keynote = prop as? (image: [UIImage]?, tvName: String?, TVGroup: [TVGroup]?)
                 
                 switch indexPath.row{
@@ -539,6 +543,7 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource, UIT
                 default:
                     return UITableViewCell()
                 }
+            //MARK: Global Message
             case .globalMessage:
                 // Total of 6 rows
 

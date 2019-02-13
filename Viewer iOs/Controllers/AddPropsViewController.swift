@@ -799,9 +799,9 @@ extension AddPropsViewController: UITextFieldDelegate {
         case Categories.globalMessage.rawValue:
 
             if let index = textFields.index(of: textField){
-                if let nextTextField = textFields[index + 1] {
-                    nextTextField.becomeFirstResponder()
-                }
+                if index + 1 < textFields.count{
+                    textFields[index + 1]?.becomeFirstResponder()
+                } else{ textField.endEditing(true) }
             }
 
         default:

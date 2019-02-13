@@ -57,6 +57,21 @@ class FullLightTextTableViewCell: UITableViewCell {
     }
 
     /**
+     ## The SuperView of the cell
+
+     - Version: 1.0
+
+     - Author: @GianlucaOrpello
+     */
+    var isFullSize: Bool = true{
+        didSet{
+            if isFullSize{
+                addConstraintsWithSafeArea(to: label)
+            }
+        }
+    }
+
+    /**
      ## The label
 
      - Version: 1.0
@@ -88,7 +103,9 @@ class FullLightTextTableViewCell: UITableViewCell {
         label.text = fullText
 
         self.contentView.addSubview(label)
-        addConstraits(to: label)
+        if isFullSize{
+            addConstraintsWithSafeArea(to: label)
+        }
     }
 
     /**
@@ -100,16 +117,5 @@ class FullLightTextTableViewCell: UITableViewCell {
      */
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    /**
-     ## Required Initializer
-
-     - Version: 1.0
-
-     - Author: @GianlucaOrpello
-     */
-    private func addConstraits(to view: UIView) {
-        addConstraintsWithSafeArea(to: view)
     }
 }

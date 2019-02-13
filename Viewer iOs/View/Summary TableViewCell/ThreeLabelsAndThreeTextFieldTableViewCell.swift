@@ -106,7 +106,7 @@ class ThreeLabelsAndThreeTextFieldTableViewCell: UITableViewCell {
         didSet{
             firstTextField.delegate = delegate
             secondTextField.delegate = delegate
-            thirdTextField.delegate = delegate
+//            thirdTextField.delegate = delegate
         }
     }
 
@@ -120,9 +120,11 @@ class ThreeLabelsAndThreeTextFieldTableViewCell: UITableViewCell {
     var isCheckoutMode: Bool = true{
         didSet{
             if isCheckoutMode {
-                thirdTextField.isEnabled = false
+                thirdTextField.isEditable = false
+                thirdTextField.isSelectable = false
             } else {
-                thirdTextField.isEnabled = true
+                thirdTextField.isEditable = true
+                thirdTextField.isSelectable = true
             }
         }
     }
@@ -194,7 +196,7 @@ class ThreeLabelsAndThreeTextFieldTableViewCell: UITableViewCell {
 
      - Author: @GianlucaOrpello
      */
-    private var thirdTextField: UITextField!
+    private var thirdTextField: UITextView!
 
     /**
      ## initializer
@@ -215,14 +217,21 @@ class ThreeLabelsAndThreeTextFieldTableViewCell: UITableViewCell {
         secondLabel.text = secondTitle
         thirdLabel.text = thirdTitle
 
+        firstLabel.font = UIFont.systemFont(ofSize: 17)
+        secondLabel.font = UIFont.systemFont(ofSize: 17)
+        thirdLabel.font = UIFont.systemFont(ofSize: 17)
 
         firstTextField = UITextField()
         secondTextField = UITextField()
-        thirdTextField = UITextField()
+        thirdTextField = UITextView()
+
+        firstTextField.font = UIFont.systemFont(ofSize: 16)
+        secondTextField.font = UIFont.systemFont(ofSize: 16)
+        thirdTextField.font = UIFont.systemFont(ofSize: 16)
 
         firstTextField.delegate = delegate
         secondTextField.delegate = delegate
-        thirdTextField.delegate = delegate
+//        thirdTextField.delegate = delegate
 
         firstTextField.text = firstTitle
         secondTextField.text = secondTitle
@@ -237,9 +246,11 @@ class ThreeLabelsAndThreeTextFieldTableViewCell: UITableViewCell {
         thirdTextField.textColor = textfieldTextColor
 
         if isCheckoutMode {
-            thirdTextField.isEnabled = false
+            thirdTextField.isEditable = false
+            thirdTextField.isSelectable = false
         } else {
-            thirdTextField.isEnabled = true
+            thirdTextField.isEditable = true
+            thirdTextField.isSelectable = true
         }
 
         self.contentView.addSubview(firstLabel)
@@ -274,9 +285,9 @@ class ThreeLabelsAndThreeTextFieldTableViewCell: UITableViewCell {
         let safeArea = self.safeAreaLayoutGuide
 
         func addSimpleConstraints(from view: UIView, to secondView: UIView){
-            view.trailingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: -16).isActive = true
-            view.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 72).isActive = true
-            view.bottomAnchor.constraint(equalTo: secondView.topAnchor, constant: 5).isActive = true
+            view.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16).isActive = true
+            view.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 89).isActive = true
+            view.bottomAnchor.constraint(equalTo: secondView.topAnchor, constant: -5).isActive = true
         }
 
         firstLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -288,15 +299,23 @@ class ThreeLabelsAndThreeTextFieldTableViewCell: UITableViewCell {
         thirdTextField.translatesAutoresizingMaskIntoConstraints = false
 
 
-        firstLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 15).isActive = true
-        firstLabel.trailingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: -16).isActive = true
-        firstLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 72).isActive = true
-        firstLabel.bottomAnchor.constraint(equalTo: firstTextField.topAnchor, constant: 5).isActive = true
+        firstLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 10).isActive = true
+        firstLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16).isActive = true
+        firstLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 89).isActive = true
+        firstLabel.bottomAnchor.constraint(equalTo: firstTextField.topAnchor, constant: 0).isActive = true
 
         addSimpleConstraints(from: firstTextField, to: secondLabel)
         addSimpleConstraints(from: secondLabel, to: secondTextField)
         addSimpleConstraints(from: secondTextField, to: thirdLabel)
         addSimpleConstraints(from: thirdLabel, to: thirdTextField)
+
+        firstLabel.heightAnchor.constraint(equalToConstant: 22).isActive = true
+        secondLabel.heightAnchor.constraint(equalToConstant: 22).isActive = true
+        thirdLabel.heightAnchor.constraint(equalToConstant: 22).isActive = true
+
+        thirdTextField.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16).isActive = true
+        thirdTextField.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 89).isActive = true
+        thirdTextField.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -10).isActive = true
 
         self.layoutIfNeeded()
     }
