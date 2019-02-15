@@ -14,7 +14,6 @@ import Social
 class ShareViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UIPopoverPresentationControllerDelegate {
     
     var groups = globalGroups
-    
     var selectedGroup: TVGroups?
     var selectedGroups = [TVGroup]()
     var image: UIImage!

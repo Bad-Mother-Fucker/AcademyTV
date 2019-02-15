@@ -134,10 +134,10 @@ enum Locations: String, CaseIterable {
  - Author: @GianlucaOrpello
  */
 enum Categories: String{
-    case tickerMessage = "Ticker Messages"
+    case tickerMessage = "Ticker Message"
     case keynoteViewer = "Content Viewer"
     case timer = "Timer"
-    case globalMessage = "Global Messages"
+    case globalMessage = "Global Message"
 }
 
 /**
@@ -209,7 +209,7 @@ extension UIView{
         view.centerYAnchor.constraint(equalTo: safeArea.centerYAnchor).isActive = true
         secondView.centerYAnchor.constraint(equalTo: safeArea.centerYAnchor).isActive = true
 
-        view.trailingAnchor.constraint(equalTo: secondView.leadingAnchor, constant: -16).isActive = true
+        view.trailingAnchor.constraint(equalTo: secondView.trailingAnchor, constant: -16).isActive = true
         view.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16).isActive = true
 
         secondView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16).isActive = true
