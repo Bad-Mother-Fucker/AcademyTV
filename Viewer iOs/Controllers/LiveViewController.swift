@@ -205,22 +205,23 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate,
 
         for tick in ticker {
             // FIXME: Group tickers by message
-            //uniqueTickerMessages.insert(tick.0)
-            thikerMessage?.append((message: tick.0, tvName: tick.1, TVGroup: nil))
+            uniqueTickerMessages.insert(tick.0)
+            print(tick.1)
+//            thikerMessage?.append((message: tick.0, tvName: tick.1, TVGroup: nil))
         }
 
-//        for message in uniqueTickerMessages {
-//            thikerMessage?.append((message: message, tvName: "", TVGroup: nil))
-//            for tick in ticker {
-//                if tick.0 == message {
-//                    let size = thikerMessage!.count
-//                    thikerMessage![size - 1].tvName.append(tick.1 + ", ")
-//                }
-////                //Remove last two digits
-////                let size = thikerMessage!.count
-////                thikerMessage?[size - 1].tvName.removeLast(2)
-//            }
-//        }
+        for message in uniqueTickerMessages {
+            thikerMessage?.append((message: message, tvName: "", TVGroup: nil))
+            for tick in ticker {
+                if tick.0 == message {
+                    let size = thikerMessage!.count
+                    thikerMessage![size - 1].tvName.append(tick.1 + ", ")
+                }
+                //Remove last two digits
+                let size = thikerMessage!.count
+                thikerMessage?[size - 1].tvName.removeLast(2)
+            }
+        }
 
 
         for key in keynoteFiles {
@@ -284,7 +285,11 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
 
                 switch indexPath.section {
                 case 0:
-                    CKController.removeTickerMessage(fromTVNamed: (self?.thikerMessage![indexPath.row].tvName)!)
+                    let tickersToDelete = self?.thikerMessage![indexPath.row].tvName.replacingOccurrences(of: ", ", with: "$").split(separator: "$")
+                    for tickerTVName in tickersToDelete!{
+                        CKController.removeTickerMessage(fromTVNamed: (String(tickerTVName)))
+                    }
+//                    CKController.removeTickerMessage(fromTVNamed: (self?.thikerMessage![indexPath.row].tvName)!)
                     self?.thikerMessage?.remove(at: indexPath.row)
                 case 1:
                     CKController.removeKeynote(FromTV: (self?.keynote![indexPath.row].tvName)!)
