@@ -72,8 +72,10 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.backBarButtonItem?.title = "Back"
         selectedGroups = []
         nextBarButtonItem.isEnabled = false
+        nextBarButtonItem.title = "Next"
     }
     
     // MARK: DelegateFlowLayout methods

@@ -25,7 +25,7 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegate, UIC
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(dissmissController))
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(dissmissController))
         
         let allPhotoOption = PHFetchOptions()
         allPhotoOption.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
