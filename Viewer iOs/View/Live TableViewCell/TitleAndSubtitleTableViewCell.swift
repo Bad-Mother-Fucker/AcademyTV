@@ -76,8 +76,12 @@ class TitleAndSubtitleTableViewCell: UITableViewCell {
 
         titleLabel = UILabel()
         titleLabel.text = title
-        titleLabel.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+        titleLabel.font = UIFont.systemFont(ofSize: 19, weight: .regular)
         titleLabel.textColor = .black
+        titleLabel.numberOfLines = 0
+//        titleLabel.lineBreakMode = .byClipping
+//        titleLabel.adjustsFontSizeToFitWidth = true
+//        titleLabel.minimumScaleFactor = 0.7
 
         subtitleLabel = UILabel()
         subtitleLabel.text = subtitle
@@ -113,11 +117,11 @@ class TitleAndSubtitleTableViewCell: UITableViewCell {
 
         let safeArea = self.safeAreaLayoutGuide
 
-        view.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 16)
+        view.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 10)
         view.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -64).isActive = true
         view.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16).isActive = true
-        view.bottomAnchor.constraint(equalTo: secondView.topAnchor, constant: -6).isActive = true
-        view.heightAnchor.constraint(equalTo: safeArea.heightAnchor, multiplier: 0.4).isActive = true
+        view.bottomAnchor.constraint(equalTo: secondView.topAnchor, constant: -5).isActive = true
+        view.heightAnchor.constraint(equalTo: safeArea.heightAnchor, multiplier: 0.5).isActive = true
 
         secondView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16).isActive = true
         secondView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -64).isActive = true

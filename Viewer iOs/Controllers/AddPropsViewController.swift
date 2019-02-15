@@ -15,7 +15,7 @@ import MobileCoreServices
  
  - Author: @GianlucaOrpello
  */
-class AddPropsViewController: UIViewController {     
+class AddPropsViewController: UITableViewController {
 
     /**
      ## The selected props type.
@@ -81,28 +81,28 @@ class AddPropsViewController: UIViewController {
     
     var keynote: [UIImage]? = []
     
-    /**
-     ## Table View
-     
-     - Version: 1.0
-     
-     - Author: @GianlucaOrpello
-     */
-    var tableView: UITableView! {
-        didSet {
-            tableView.delegate = self
-            tableView.dataSource = self
+//    /**
+//     ## Table View
+//
+//     - Version: 1.0
+//
+//     - Author: @GianlucaOrpello
+//     */
+//    var tableView: UITableView! {
+//        didSet {
+//            tableView.delegate = self
+//            tableView.dataSource = self
+//
+//            tableView.register(FullImageTableViewCell.self, forCellReuseIdentifier: "FullImageTableViewCell")
+//            tableView.register(CenteredButtonTableViewCell.self, forCellReuseIdentifier: "CenteredButtonTableViewCell")
+//            tableView.register(FullLightTextTableViewCell.self, forCellReuseIdentifier: "FullLightTextTableViewCell")
+//            tableView.register(TextFieldTableViewCell.self, forCellReuseIdentifier: "TextFieldTableViewCell")
+//            tableView.register(LabelAndTextfieldTableViewCell.self, forCellReuseIdentifier: "LabelAndTextfieldTableViewCell")
+//            tableView.register(MasterAndDetailLabelsTableViewCell.self, forCellReuseIdentifier: "MasterAndDetailLabelsTableViewCell")
+//            tableView.register(MasterDetailLabelsAndSwitchTableViewCell.self, forCellReuseIdentifier: "MasterDetailLabelsAndSwitchTableViewCell")
+//        }
+//    }
 
-            tableView.register(FullImageTableViewCell.self, forCellReuseIdentifier: "FullImageTableViewCell")
-            tableView.register(CenteredButtonTableViewCell.self, forCellReuseIdentifier: "CenteredButtonTableViewCell")
-            tableView.register(FullLightTextTableViewCell.self, forCellReuseIdentifier: "FullLightTextTableViewCell")
-            tableView.register(TextFieldTableViewCell.self, forCellReuseIdentifier: "TextFieldTableViewCell")
-            tableView.register(LabelAndTextfieldTableViewCell.self, forCellReuseIdentifier: "LabelAndTextfieldTableViewCell")
-            tableView.register(MasterAndDetailLabelsTableViewCell.self, forCellReuseIdentifier: "MasterAndDetailLabelsTableViewCell")
-            tableView.register(MasterDetailLabelsAndSwitchTableViewCell.self, forCellReuseIdentifier: "MasterDetailLabelsAndSwitchTableViewCell")
-        }
-    }
-    
     /**
      ## The current number of character left for ticker message.
      
@@ -160,7 +160,14 @@ class AddPropsViewController: UIViewController {
         
         self.navigationItem.rightBarButtonItem?.isEnabled = false
         
-        tableView = UITableView(frame: self.view.frame)
+//        tableView = UITableView(frame: self.view.frame)
+        tableView.register(FullImageTableViewCell.self, forCellReuseIdentifier: "FullImageTableViewCell")
+        tableView.register(CenteredButtonTableViewCell.self, forCellReuseIdentifier: "CenteredButtonTableViewCell")
+        tableView.register(FullLightTextTableViewCell.self, forCellReuseIdentifier: "FullLightTextTableViewCell")
+        tableView.register(TextFieldTableViewCell.self, forCellReuseIdentifier: "TextFieldTableViewCell")
+        tableView.register(LabelAndTextfieldTableViewCell.self, forCellReuseIdentifier: "LabelAndTextfieldTableViewCell")
+        tableView.register(MasterAndDetailLabelsTableViewCell.self, forCellReuseIdentifier: "MasterAndDetailLabelsTableViewCell")
+        tableView.register(MasterDetailLabelsAndSwitchTableViewCell.self, forCellReuseIdentifier: "MasterDetailLabelsAndSwitchTableViewCell")
         tableView.tableFooterView = UIView()
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "GetAllSelectedPhotos"), object: nil, queue: .main) { (notification) in
@@ -168,9 +175,7 @@ class AddPropsViewController: UIViewController {
                 self.keynote = images
             }
         }
-
-        self.view.addSubview(tableView)
-        
+//        self.view.addSubview(tableView)
     }
     
     /**
@@ -408,7 +413,7 @@ class AddPropsViewController: UIViewController {
 
  - Author: @GianlucaOrpello
  */
-extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
+extension AddPropsViewController/*: UITableViewDelegate, UITableViewDataSource*/ {
 
     // MARK: - UITableView Delegate
 
@@ -419,7 +424,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
 
      - Author: @GianlucaOrpello
      */
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
         switch props.title {
         case Categories.globalMessage.rawValue:
@@ -481,7 +486,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
 
      - Author: @GianlucaOrpello
      */
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         guard section != 1 else { return "Description" }
 
         switch props.title {
@@ -520,7 +525,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
 
      - Author: @GianlucaOrpello
      */
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard props.title == Categories.globalMessage.rawValue,
             indexPath.section == 3,
             indexPath.row == 1 else { return }
@@ -538,7 +543,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
 
      - Author: @GianlucaOrpello
      */
-    func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         switch props.title {
         case Categories.globalMessage.rawValue:
             return 4
@@ -558,7 +563,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
 
      - Author: @GianlucaOrpello
      */
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard section != 0, section != 1 else { return 1 }
 
         switch props.title {
@@ -586,7 +591,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
 
      - Author: @GianlucaOrpello
      */
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
 
             if let cell = tableView.dequeueReusableCell(withIdentifier: "FullImageTableViewCell") as? FullImageTableViewCell {
@@ -793,7 +798,7 @@ extension AddPropsViewController: UITextFieldDelegate {
 
             if let index = textFields.index(of: textField){
                 if index + 1 < textFields.count{
-                    tableView.setContentOffset(CGPoint(x: 0, y: textFields[index + 1]!.superview!.frame.midY), animated: true)
+//                    tableView.setContentOffset(CGPoint(x: 0, y: textFields[index + 1]!.superview!.frame.midY), animated: true)
                     textFields[index + 1]?.becomeFirstResponder()
                 } else{ textField.endEditing(true) }
             }
@@ -801,7 +806,6 @@ extension AddPropsViewController: UITextFieldDelegate {
         default:
             textField.endEditing(true)
         }
-        tableView.setContentOffset(CGPoint.zero, animated: true)
         return true
     }
 
@@ -839,7 +843,7 @@ extension AddPropsViewController: UITextFieldDelegate {
      - Author: @GianlucaOrpello
      */
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        tableView.setContentOffset(CGPoint(x: 0, y: textField.frame.midY), animated: true)
+//        tableView.setContentOffset(CGPoint(x: 0, y: textField.frame.midY), animated: true)
     }
 }
 

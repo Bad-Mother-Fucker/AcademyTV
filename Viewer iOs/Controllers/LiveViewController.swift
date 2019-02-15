@@ -247,10 +247,10 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
      */
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
-        case 0, 2:
-            return 95
         case 1:
             return 73
+        case 0, 2:
+            return 95
         default:
             return 60
         }
@@ -411,16 +411,22 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
         switch indexPath.section {
             
         case 0:
+//
+//            let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "TitleAndSubtitleTableViewCell")
+//            cell.accessoryType = .detailButton
+//            cell.selectionStyle = .none
+//            cell.textLabel?.text = thikerMessage?[indexPath.row].message
+//            cell.detailTextLabel?.text = thikerMessage?[indexPath.row].tvName
+//            return cell
 
             if let cell = tableView.dequeueReusableCell(withIdentifier: "TitleAndSubtitleTableViewCell") as? TitleAndSubtitleTableViewCell{
-                
+
                 cell.title = thikerMessage?[indexPath.row].message
                 cell.subtitle = thikerMessage?[indexPath.row].tvName
 
                 return cell
 
             } else { return UITableViewCell() }
-            
         case 1:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "TitleAndSubtitleTableViewCell") as? TitleAndSubtitleTableViewCell{
 
