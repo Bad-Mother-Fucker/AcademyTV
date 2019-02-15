@@ -122,13 +122,13 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
         self.title = "Summary"
         
         if isCheckoutMode {
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(pop))
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Post", style: .done, target: self, action: #selector(postProp))
+            self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(pop))
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(postProp))
         } else if categories?.rawValue == Categories.globalMessage.rawValue {
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .done, target: self, action: #selector(editProp))
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(dissmissController))
+            self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(dissmissController))
         } else {
-             self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(dissmissController))
+             self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(dissmissController))
         }
 
         getCurrentCategories()
@@ -182,13 +182,7 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
             default:
                 break
             }
-            
-            let alert = UIAlertController(title: "Saved", message: "The prop will appaire in a few seconds", preferredStyle: .alert)
-            let action = UIAlertAction(title: "Ok", style: .default) { _ in
-                self.navigationController?.dismiss(animated: true, completion: nil)
-            }
-            alert.addAction(action)
-            self.present(alert, animated: true, completion: nil)
+
         }
     }
 
@@ -219,10 +213,6 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
                 break
             }
             
-            let alert = UIAlertController(title: "Saved", message: "The prop will appaire in a few seconds", preferredStyle: .alert)
-            let action = UIAlertAction(title: "ok", style: .default, handler: nil)
-            alert.addAction(action)
-            self.present(alert, animated: true, completion: nil)
         }
     }
     

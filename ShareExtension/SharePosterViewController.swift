@@ -59,11 +59,6 @@ class SharePosterViewController: UIViewController, UICollectionViewDelegate, UIC
             CKController.postKeynote(keynotes, ofType: ImageFileType.PNG, onTVsOfGroup: group)
         }
         
-        let alert = UIAlertController(title: "Saved", message: "In a moment it will be displayed on selected tv", preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alert.addAction(action)
-        self.present(alert, animated: true, completion: nil)
-        // FIXME: This completeRequest dismisses the view, i don't know whether this will work after or during the display of the alert view. It needs to be handled properly.
         self.shareExtensionContext!.completeRequest(returningItems: [], completionHandler: nil)
         
     }

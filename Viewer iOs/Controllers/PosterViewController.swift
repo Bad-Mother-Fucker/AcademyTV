@@ -57,10 +57,6 @@ class PosterViewController: UIViewController, UICollectionViewDelegate, UICollec
             CKController.postKeynote(keynotes, ofType: ImageFileType.PNG, onTVsOfGroup: group)
         }
         
-        let alert = UIAlertController(title: "Saved", message: "In a moment it will be displayed on selected tv", preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alert.addAction(action)
-        self.present(alert, animated: true, completion: nil)
     }
     
     @objc func getPhotosFromGallery(_ notification: NSNotification){
