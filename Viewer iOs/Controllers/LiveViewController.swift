@@ -15,7 +15,12 @@ import MessageUI
  
  - Author: @GianlucaOrpello
  */
-class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate {
+class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate, UISearchResultsUpdating {
+
+    func updateSearchResults(for searchController: UISearchController) {
+        //
+    }
+
 
     /**
      ## The main tableView
@@ -44,7 +49,8 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
      
      - Author: @GianlucaOrpello
      */
-    var globalMessages: [GlobalMessage]?
+    var globalMessages: [GlobalMessage]? = [GlobalMessage]()
+    var filteredGlobalMessages: [GlobalMessage]?
     
     /**
      ## All the ticker message airing.
@@ -55,8 +61,8 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
      
      - Author: @GianlucaOrpello
      */
-    var thikerMessage: [(message: String, tvName: String, TVGroup: [TVGroup]?)]?
-    
+    var thikerMessage: [(message: String, tvName: String, TVGroup: [TVGroup]?)]? = [(message: String, tvName: String, TVGroup: [TVGroup]?)]()
+    var filteredThikerMessage: [(message: String, tvName: String, TVGroup: [TVGroup]?)]?
     /**
      ## All the keynote airing.
      
@@ -66,8 +72,9 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
      
      - Author: @GianlucaOrpello
      */
-    var keynote: [(image: [UIImage]?, tvName: String, TVGroup: [TVGroup]?)]?
-    
+    var keynote: [(image: [UIImage]?, tvName: String, TVGroup: [TVGroup]?)]? = [(image: [UIImage]?, tvName: String, TVGroup: [TVGroup]?)]()
+    var filteredKeynote: [(image: [UIImage]?, tvName: String, TVGroup: [TVGroup]?)]?
+
     /**
      ## UIVIewController - View did Load Methods
      
@@ -95,6 +102,7 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
         if numberOfObject == 0 {
             let noLiveView = NoLivePrompView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height))
             noLiveView.contactbutton.addTarget(self, action: #selector(sendEmail), for: .touchUpInside)
+            print(numberOfObject)
             self.view.addSubview(noLiveView)
         } else {
             for views in self.view.subviews {
@@ -197,21 +205,23 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
 
         for tick in ticker {
             // FIXME: Group tickers by message
-            uniqueTickerMessages.insert(tick.0)
+            //uniqueTickerMessages.insert(tick.0)
+            thikerMessage?.append((message: tick.0, tvName: tick.1, TVGroup: nil))
         }
 
-        for message in uniqueTickerMessages {
-            thikerMessage?.append((message: message, tvName: "", TVGroup: nil))
-            for tick in ticker {
-                if tick.0 == message {
-                    let size = thikerMessage!.count
-                    thikerMessage![size - 1].tvName.append(tick.1 + ", ")
-                }
-//                //Remove last two digits
-//                let size = thikerMessage!.count
-//                thikerMessage?[size - 1].tvName.removeLast(2)
-            }
-        }
+//        for message in uniqueTickerMessages {
+//            thikerMessage?.append((message: message, tvName: "", TVGroup: nil))
+//            for tick in ticker {
+//                if tick.0 == message {
+//                    let size = thikerMessage!.count
+//                    thikerMessage![size - 1].tvName.append(tick.1 + ", ")
+//                }
+////                //Remove last two digits
+////                let size = thikerMessage!.count
+////                thikerMessage?[size - 1].tvName.removeLast(2)
+//            }
+//        }
+
 
         for key in keynoteFiles {
             keynote?.append((image: key.image, tvName: key.tvName, TVGroup: nil))
@@ -278,10 +288,10 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
                     self?.thikerMessage?.remove(at: indexPath.row)
                 case 1:
                     CKController.removeKeynote(FromTV: (self?.keynote![indexPath.row].tvName)!)
-                    self?.thikerMessage?.remove(at: indexPath.row)
+                    self?.keynote!.remove(at: indexPath.row)
                 case 2:
                     CKController.remove(globalMessage: (self?.globalMessages![indexPath.row])!)
-                    self?.thikerMessage?.remove(at: indexPath.row)
+                    self?.globalMessages!.remove(at: indexPath.row)
                 default:
                     break
                 }
