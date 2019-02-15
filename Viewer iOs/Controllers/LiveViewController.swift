@@ -15,7 +15,12 @@ import MessageUI
  
  - Author: @GianlucaOrpello
  */
-class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate {
+class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate, UISearchResultsUpdating {
+
+    func updateSearchResults(for searchController: UISearchController) {
+        //
+    }
+
 
     /**
      ## The main tableView
@@ -45,6 +50,7 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
      - Author: @GianlucaOrpello
      */
     var globalMessages: [GlobalMessage]?
+    var filteredGlobalMessages: [GlobalMessage]?
     
     /**
      ## All the ticker message airing.
@@ -56,7 +62,7 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
      - Author: @GianlucaOrpello
      */
     var thikerMessage: [(message: String, tvName: String, TVGroup: [TVGroup]?)]?
-    
+    var filteredThikerMessage: [(message: String, tvName: String, TVGroup: [TVGroup]?)]?
     /**
      ## All the keynote airing.
      
@@ -67,6 +73,7 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
      - Author: @GianlucaOrpello
      */
     var keynote: [(image: [UIImage]?, tvName: String, TVGroup: [TVGroup]?)]?
+    var filteredKeynote: [(image: [UIImage]?, tvName: String, TVGroup: [TVGroup]?)]?
     
     /**
      ## UIVIewController - View did Load Methods

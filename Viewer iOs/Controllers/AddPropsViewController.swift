@@ -154,7 +154,10 @@ class AddPropsViewController: UIViewController {
         
         self.title = props.title
         
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(dissmissController))
+
+        let vc = navigationController?.viewControllers.first
+        let button = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(dissmissController))
+        vc?.navigationItem.backBarButtonItem = button
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(checkSummary))
         
@@ -380,10 +383,18 @@ class AddPropsViewController: UIViewController {
      - Author: @GianlucaOrpello
      */
     private func getPhotos() {
-        let story = UIStoryboard(name: "Main", bundle: nil)
-        let vc = story.instantiateViewController(withIdentifier: "ImagePickerViewController")
-        self.present(vc, animated: true)
-        self.navigationItem.rightBarButtonItem?.isEnabled = true
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = .photoLibrary
+            imagePicker.allowsEditing = false
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+
+//        let story = UIStoryboard(name: "Main", bundle: nil)
+//        let vc = story.instantiateViewController(withIdentifier: "ImagePickerViewController")
+//        self.present(vc, animated: true)
+//        self.navigationItem.rightBarButtonItem?.isEnabled = true
     }
     
     /**

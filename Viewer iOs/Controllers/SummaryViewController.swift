@@ -183,8 +183,9 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
             default:
                 break
             }
-
+            self.navigationController?.dismiss(animated: true, completion: nil)
         }
+
     }
 
     @objc func editProp() {
