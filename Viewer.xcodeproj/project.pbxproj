@@ -725,7 +725,7 @@
 				656E2A1C21F7785700B9FD77 /* ShareTVListViewController.swift in Sources */,
 				19FA366921A8203D00E3B1C0 /* CKController.swift in Sources */,
 				656E2A0D21F62C5800B9FD77 /* LiveViewController.swift in Sources */,
-				99EBB18F220057720030199D /* TitleAndMultipleSubtitleTableViewCell.swift in Sources */,
+				99EBB18F220057720030199D /* TitleAndSubtitleTableViewCell.swift in Sources */,
 				99EBB19822005F180030199D /* CenteredButtonTableViewCell.swift in Sources */,
 				19261D2C21F74C9600647314 /* UsageStatistic.swift in Sources */,
 				19FA366A21A821A200E3B1C0 /* GlobalMessage.swift in Sources */,
@@ -878,7 +878,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5QJLL8HM6C;
+				DEVELOPMENT_TEAM = D4L4S7MAUX;
 				INFOPLIST_FILE = ShareExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -903,7 +903,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5QJLL8HM6C;
+				DEVELOPMENT_TEAM = D4L4S7MAUX;
 				INFOPLIST_FILE = ShareExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
