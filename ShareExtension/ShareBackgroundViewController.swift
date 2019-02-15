@@ -22,7 +22,7 @@ class ShareBackgroundViewController: UIViewController {
         // Do any additional setup after loading the view.
         if let content = self.extensionContext?.inputItems[0] as? NSExtensionItem {
             ExtensionContextContainer.shared.context = self.extensionContext
-            print(content.attachments?.count)
+            debugPrint(content.attachments?.count ?? -1)
         }
     }
     

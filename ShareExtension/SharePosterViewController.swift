@@ -88,12 +88,12 @@ class SharePosterViewController: UIViewController, UICollectionViewDelegate, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "galleryImageCell", for: indexPath) as? ImagePickerCollectionViewCell
-        
-        cell?.currentImage = keynotes[indexPath.item]
-        cell?.isCheked = true
-        
-        return cell ?? ImagePickerCollectionViewCell()
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "galleryImageCell", for: indexPath) as? ImagePickerCollectionViewCell {
+            cell.currentImage = keynotes[indexPath.item]
+            cell.isCheked = true
+
+            return cell
+        } else { return UICollectionViewCell() }
     }
     
     func loadImagesFromAttachments() {
@@ -114,7 +114,7 @@ class SharePosterViewController: UIViewController, UICollectionViewDelegate, UIC
                         }
                         
                         var imgData: Data!
-                        var img: UIImage?
+//                        var img: UIImage?
 
                         if let img = item as? UIImage {
                             imgData = img.byFixingOrientation().jpegData(compressionQuality: 1)

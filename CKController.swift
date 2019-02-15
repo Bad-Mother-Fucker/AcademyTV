@@ -15,12 +15,7 @@ import UIKit
 class CKController {
     
     // MARK: - static methods implementation
-
-    
 //    Creates and saves subscriptions to push notifications
-
-    
-    
    static func saveSubscription(for type: String, ID: String) {
         
         var predicate = NSPredicate(value: true)
@@ -64,13 +59,8 @@ class CKController {
             debugPrint ("subscription \(subscription!.subscriptionID) saved")
         }
     }
-    
-    
+
     //    Deletes all the subscriptions, use it during times we don't want to listen for push notifications
-    
-    
-    
-    
     static func removeSubscriptions() {
         
         CKKeys.database.delete(withSubscriptionID: CKKeys.messageSubscriptionKey) { (_, error) in
@@ -95,8 +85,6 @@ class CKController {
             }
         }
     }
-    
-    
 
     /**
      ## postTickerMessage(_:onTvNamed:)
@@ -113,8 +101,6 @@ class CKController {
      
      - Author: @Micheledes
      */
-   
-    
     static func postTickerMessage(_ text: String, onTvNamed name: String) {
         TVModel.getTV(withName: name) { (tv, error) in
             guard tv != nil, error == nil else {
@@ -125,8 +111,7 @@ class CKController {
             UsageStatisticsModel.addTickerMessage(length: text.count)
         }
     }
-    
-    
+
     /**
      ## postTickerMessage(_:onTvGroup:)
      
@@ -142,9 +127,7 @@ class CKController {
      
      - Author: @Micheledes
      */
-    
-    
-    
+
     static func postTickerMessage(_ text: String, onTvGroup group: TVGroup) {
         TVModel.getTvs(ofGroup: group) { (tvs, error) in
             guard tvs != nil, error == nil else {
@@ -157,8 +140,7 @@ class CKController {
             UsageStatisticsModel.addTickerMessage(length: text.count)
         }
     }
-    
-    
+
     /**
      ## removeTickerMessage(fromTvsIn:)
      
@@ -173,7 +155,6 @@ class CKController {
      
      - Author: @Micheledes
      */
-    
     static func removeTickerMessage(fromTvsIn tvGroup: TVGroup) {
         TVModel.getTvs(ofGroup: tvGroup) { (tvs, error) in
             guard tvs != nil, error == nil else {
@@ -189,12 +170,9 @@ class CKController {
             let op = CKModifyRecordsOperation(recordsToSave: records, recordIDsToDelete: nil)
             op.savePolicy = .changedKeys
             CKKeys.database.add(op)
-            
         }
     }
-    
-    
-    
+
     /**
      ## removeTickerMessage(fromTVNamed:)
      
@@ -209,7 +187,6 @@ class CKController {
      
      - Author: @Micheledes
      */
-
     static func removeTickerMessage(fromTVNamed name: String) {
         TVModel.getTV(withName: name) { (tv, error) in
             guard tv != nil, error == nil else {
@@ -237,14 +214,10 @@ class CKController {
      
      - Author: @Micheledes
      */
-    
     static func isThereAMessage(onTV tv: TV) -> Bool {
         return tv.tickerMsg != "" 
     }
-    
-    
-    
-    
+
     /**
      ## getAiringTickers(in:)
      
@@ -259,7 +232,6 @@ class CKController {
      
      - Author: @Micheledes
      */
-
     static func getAiringTickers(in group: TVGroup) -> [(String, String)] {
         let sem = DispatchSemaphore(value: 0)
         var tickers: [(message: String, tvName: String)] = []
@@ -323,8 +295,7 @@ class CKController {
     static func isThereAKeynote(on tv: TV) -> Bool {
         return tv.keynote != nil
     }
-    
-    
+
     /**
      ## remove(globalMessage:)
      
@@ -339,11 +310,9 @@ class CKController {
      
      - Author: @Micheledes
      */
-    
     static func remove(globalMessage: GlobalMessage) {
         GlobalMessageModel.delete(record: globalMessage.record)
     }
-    
     
     
 //    Fetches all global messages from the CK database
@@ -367,7 +336,6 @@ class CKController {
      
      - Author: @Micheledes
      */
-    
     static func getAllGlobalMessages(completionHandler: @escaping () -> Void) throws -> [GlobalMessage] {
         var mess: [GlobalMessage] = []
         let sem = DispatchSemaphore(value: 0)
@@ -385,16 +353,12 @@ class CKController {
         completionHandler()
         return mess
     }
-    
-    
-//  Fetches all TVs from a given group
-    
-    
+
     /**
      ## getAllTVs(from:)
      
      - Parameters:
-     - tvGroup
+        - tvGroup
    
      - Throws: CKQueryException.connectionTimedOut
      
@@ -406,7 +370,6 @@ class CKController {
      
      - Author: @Micheledes
      */
-    
     static func getAllTVs(from group: TVGroup) throws -> [TV] {
         var tvVector: [TV] = []
         let sem = DispatchSemaphore(value: 0)
@@ -425,12 +388,7 @@ class CKController {
         }
         return tvVector
     }
-    
-    
 
-//    Posts a message to all TVs (iOS)
-    
-    
     /**
      ## postMessage(title: subtitle: location: description: URL: timeToLive:)
      
@@ -445,7 +403,6 @@ class CKController {
      
      - Author: @Micheledes
      */
-    
     static func postMessage(title: String, subtitle: String, location: String?, date: (String?, String?), description: String?, URL: URL?, timeToLive: TimeInterval) {
     GlobalMessageModel.postMessage(title: title, subtitle: subtitle, location: location, date: date, description: description, URL: URL, timeToLive: timeToLive) { (_, error) -> Void in
             if error != nil {
@@ -456,25 +413,18 @@ class CKController {
         var hasLocation: Bool = false
         var hasDate: Bool = false
         
-        
         if URL != nil {
             link = true
         }
-        
         if location != nil {
             hasLocation = true
         }
-        
         if date.0 != nil {
             hasDate = true
         }
-        
         UsageStatisticsModel.addGlobalMessage(length: description?.count ?? 0, link: link, location: hasLocation, date: hasDate)
     }
-    
 
-//    Post a keynote in Png or Jpg format on a given TV (iOS)
-    
     /**
      ## postKeynote(_:ofType:onTVNamed:)
      
@@ -489,8 +439,6 @@ class CKController {
      
      - Author: @Micheledes
      */
-    
-    
    static func postKeynote(_ keynote: [UIImage], ofType imageType: ImageFileType?, onTVNamed name: String) {
         TVModel.getTV(withName: name) { (TV, _) -> Void in
             guard TV != nil else { return }
@@ -498,9 +446,7 @@ class CKController {
         }
         UsageStatisticsModel.addKeynote(length: keynote.count)
     }
-    
-    
-    
+
     /**
      ## postKeynoteData(_:ofType:onTVNamed:)
      
@@ -519,10 +465,10 @@ class CKController {
      
      - Author: @Micheledes
      */
-
     static func postKeynoteData(_ data: [Data], ofType type: ImageFileType?, onTVNamed name: String) {
         let keynote = data.map { (imgData) -> UIImage in
-            return UIImage(data: imgData) ?? UIImage()
+            let keynote = UIImage(data: imgData) ?? UIImage()
+            return keynote
         }
         
         TVModel.getTV(withName: name) { (TV, _) -> Void in
@@ -531,12 +477,12 @@ class CKController {
         }
         UsageStatisticsModel.addKeynote(length: data.count)
     }
-    
-    
-    
+
     static func postKeynoteData(_ data: [Data], ofType imageType: ImageFileType?, onTVsOfGroup group: TVGroup) {
         let keynote = data.map { (imgData) -> UIImage in
-            return UIImage(data: imgData) ?? UIImage()
+            let keynote = UIImage(data: imgData) ?? UIImage()
+            return keynote
+
         }
         
         TVModel.getTvs(ofGroup: group) { (tvs, _) in
@@ -547,9 +493,7 @@ class CKController {
         }
         UsageStatisticsModel.addKeynote(length: data.count)
     }
-    
-//    Post a keynote in Png or Jpg format on a given group of TV (iOS)
-    
+
     /**
      ## postKeynote(_:ofType:onTVsOfGroup:)
      
@@ -573,11 +517,7 @@ class CKController {
         }
         UsageStatisticsModel.addKeynote(length: keynote.count)
     }
-    
 
-    
-//  Removes keynote from a given TV (iOS)
-    
     /**
      ## removeKeynote(FromTV:)
      
@@ -592,16 +532,13 @@ class CKController {
      
      - Author: @Micheledes
      */
-    
    static func removeKeynote(FromTV name: String) {
         TVModel.getTV(withName: name) { (tv, _) in
             guard let tv = tv else { return } //TODO: Add error handling
             tv.removeKeynote()
         }
     }
-    
-//  Removes keynote from a given TV group
-    
+
     /**
      ## removeKeynote(FromTVGroup:)
      
@@ -616,7 +553,6 @@ class CKController {
      
      - Author: @Micheledes
      */
-    
    static func removeKeynote(fromTVGroup g: TVGroup) {
         TVModel.getTvs(ofGroup: g) { (tvs, _) in
             guard let tvs = tvs else { return }
@@ -626,114 +562,4 @@ class CKController {
             }
         }
     }
-}
-
-
-
-// MARK: - Custom Types and Protocols
-
-/**
- ## CloudStored
- 
- 
- - Note: The protocol adopted by every data model stored in cloudkit
- 
- - Version: 1.0
- 
- - Author: @Micheledes
- */
-
-protocol CloudStored {
-    var record: CKRecord { get set }
-    static var recordType: String { get }
-    init(record: CKRecord)
-}
-
-/**
- ## CKQueryException
- 
- - Parameters:
- - connectionTimedOut: Thrown when a query takes too long to be executed
- - recordNotFound: Thrown when a requested record is not found in the database
- 
- - Note: Enum containing the custom exceptions
- 
- - Version: 1.0
- 
- - Author: @Micheledes
- */
-
-
-enum CKQueryException: Error {
-    case connectionTimedOut(String)
-    case recordNotFound(String)
-}
-
-/**
- ## CKNotificationName
- 
- - Note: Enum containing the notification names used by the notification center
- 
- - Version: 1.0
- 
- - Author: @Micheledes
- */
-
-enum CKNotificationName: String {
-    case globalMessages = "global messages notification"
-    case tv = "tv notification"
-    case serviceMessage = "service message notification"
-    case null = ""
-    case notification = "notification"
-    case tvSet = "currentTvSet"
-    case serviceMessageSet = "serviceMessageSet"
-    
-    
-    enum MessageNotification: String {
-        case create = "msgCreated"
-        case delete = "msgDeleted"
-        case update = "msgUpdated"
-    }
-}
-
-/**
- ## CKKeys
- 
- - Note: Enum containing the subscription keys for cloudkit
- 
- - Version: 1.0
- 
- - Author: @Micheledes
- */
-
-enum CKKeys {
-    
-    static let database = CKContainer(identifier: "iCloud.com.TeamRogue.Viewer").publicCloudDatabase
-    static let messageSubscriptionKey = "CKMessageSubscription"
-    static let tvSubscriptionKey = "CKTVSubscription"
-    static let serviceSubscriptionKey = "CKServiceMessageSubscription"
-}
-
-protocol ATVViewDelegate {
-    func show(keynote: [UIImage])
-    func hideKeynote()
-    func show(ticker: String)
-    func hideTicker()
-}
-
-enum TVGroup: String{
-    case lab1 = "Lab-01"
-    case lab2 = "Lab-02"
-    case lab3 = "Lab-03"
-    case lab4 = "Lab-04"
-    case collab1 = "Collab-01"
-    case collab2 = "Collab-02"
-    case collab3 = "Collab-03"
-    case collab4 = "Collab-04"
-    case br1 = "BR-01"
-    case br2 = "BR-02"
-    case br3 = "BR-03"
-    case kitchen = "kitchen"
-    case seminar = "seminar"
-    case all = "all"
 }

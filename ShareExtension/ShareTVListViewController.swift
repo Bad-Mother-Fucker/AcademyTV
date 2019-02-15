@@ -219,7 +219,7 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
             postBarButtonItem.isEnabled = true
         }
 
-        print(selectedGroups)
+        debugPrint(selectedGroups!)
         
     }
     
@@ -304,10 +304,10 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
         var keynoteData: [Data] = []
         
         if let content = self.shareExtensionContext?.inputItems[0] as? NSExtensionItem {
-            print("Found \(content.attachments?.count) attachments")
+            debugPrint("Found \(String(describing: content.attachments?.count)) attachments")
             for element in content.attachments! {
                 let itemProvider = element
-                itemProvider
+//                itemProvider
                 if itemProvider.hasItemConformingToTypeIdentifier(UTI) {
                     itemProvider.loadItem(forTypeIdentifier: UTI, options: nil, completionHandler: { (item, error) in
                         
@@ -316,17 +316,15 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
                         }
                         
                         var imgData: Data!
-                        var img: UIImage?
-                        
-                        
-                        
+//                        var img: UIImage?
+
                         if let img = item as? UIImage {
                             imgData = img.byFixingOrientation().jpegData(compressionQuality: 1)
                         } else if let data = item as? NSData {
                             imgData = data as Data
                         } else if let url = item as? NSURL {
                             do {
-                                imgData = try? Data(contentsOf: url as URL)
+                                imgData = try Data(contentsOf: url as URL)
                             } catch {
                                 NSLog("Error getting imgData - ShareTvListViewController: shareContent")
                             }
@@ -356,7 +354,7 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
                             imgData = data as Data
                         } else if let url = item as? NSURL {
                             do {
-                                imgData = try? Data(contentsOf: url as URL)
+                                imgData = try Data(contentsOf: url as URL)
                             } catch {
                                 NSLog("Error Get imgData - ShareTvListViewController: shareContent")
                             }

@@ -5,26 +5,8 @@
 //  Created by Gianluca Orpello on 20/01/2019.
 //  Copyright © 2019 Gianluca Orpello. All rights reserved.
 //
-
 import UIKit
 import MobileCoreServices
-
-enum Locations: String, CaseIterable {
-    case none = "None"
-    case seminar = "Main Classroom"
-    case kitchen = "Kitchen"
-    case br1 = "Boardroom 1"
-    case br2 = "Boardroom 2"
-    case br3 = "Boardroom 3"
-    case lab1 = "Lab 1"
-    case collab1 = "Collab-01"
-    case lab2 = "Lab 2"
-    case collab2 = "Collab-02"
-    case lab3 = "Lab 3"
-    case collab3 = "Collab-03"
-    case lab4 = "Lab 4"
-    case collab4 = "Collab-04"
-}
 
 /**
  ## UIViewController that allow you to add a new props.
@@ -34,8 +16,6 @@ enum Locations: String, CaseIterable {
  - Author: @GianlucaOrpello
  */
 class AddPropsViewController: UIViewController {
-    
-    
 
     /**
      ## The selected props type.
@@ -112,6 +92,14 @@ class AddPropsViewController: UIViewController {
         didSet {
             tableView.delegate = self
             tableView.dataSource = self
+
+            tableView.register(FullImageTableViewCell.self, forCellReuseIdentifier: "FullImageTableViewCell")
+            tableView.register(CenteredButtonTableViewCell.self, forCellReuseIdentifier: "CenteredButtonTableViewCell")
+            tableView.register(FullLightTextTableViewCell.self, forCellReuseIdentifier: "FullLightTextTableViewCell")
+            tableView.register(TextFieldTableViewCell.self, forCellReuseIdentifier: "TextFieldTableViewCell")
+            tableView.register(LabelAndTextfieldTableViewCell.self, forCellReuseIdentifier: "LabelAndTextfieldTableViewCell")
+            tableView.register(MasterAndDetailLabelsTableViewCell.self, forCellReuseIdentifier: "MasterAndDetailLabelsTableViewCell")
+            tableView.register(MasterDetailLabelsAndSwitchTableViewCell.self, forCellReuseIdentifier: "MasterDetailLabelsAndSwitchTableViewCell")
         }
     }
     
@@ -254,17 +242,10 @@ class AddPropsViewController: UIViewController {
       
             return prop
         case Categories.tickerMessage.rawValue:
-
             let text = (tableView.cellForRow(at: IndexPath(row: 0, section: 2))?.viewWithTag(500) as? UITextField)?.text!
-            
             return text
-
         case Categories.keynoteViewer.rawValue:
-            
-            
             return keynote
-            
-            
         case Categories.timer.rawValue:
             return "nil"
         default:
@@ -279,8 +260,9 @@ class AddPropsViewController: UIViewController {
      
      - Author: @GianlucaOrpello
      */
-    @objc fileprivate func openOrCloseDatePicker() {
+    @objc func openOrCloseDatePicker() {
         toggleShowDateDatepicker()
+        tableView.setContentOffset(CGPoint(x: 0, y: 100), animated: true)
         tableView.deselectRow(at: IndexPath(row: 4, section: 3), animated: true)
     }
     
@@ -291,7 +273,7 @@ class AddPropsViewController: UIViewController {
      
      - Author: @GianlucaOrpello
      */
-    fileprivate func toggleShowDateDatepicker () {
+    func toggleShowDateDatepicker () {
         datePickerIsVisible = !datePickerIsVisible
 
         if locationPickerIsVisible == false{
@@ -299,7 +281,6 @@ class AddPropsViewController: UIViewController {
                 label.text = "None"
             }
         }
-
         self.tableView.beginUpdates()
         self.tableView.reloadRows(at: [IndexPath(row: 4, section: 3)], with: .automatic)
         self.tableView.endUpdates()
@@ -312,20 +293,34 @@ class AddPropsViewController: UIViewController {
      
      - Author: @GianlucaOrpello
      */
-    fileprivate func toggleShowLocationDatepicker() {
+    func toggleShowLocationDatepicker() {
         locationPickerIsVisible = !locationPickerIsVisible
         self.tableView.beginUpdates()
         self.tableView.reloadRows(at: [IndexPath(row: 2, section: 3)], with: .automatic)
         self.tableView.endUpdates()
     }
-    
-    @objc func dateDidChange(sender: UIDatePicker) {
+
+    /**
+     ## Date Did Change
+
+     - Version: 1.0
+
+     - Author: @GianlucaOrpello
+     */
+    @objc fileprivate func dateDidChange(sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .short
         dateFormatter.timeStyle = .short
         selectedDateTime = dateFormatter.string(from: sender.date)
     }
 
+    /**
+     ## Get Current Date
+
+     - Version: 1.0
+
+     - Author: @GianlucaOrpello
+     */
     fileprivate func getCurrent(date: Date) -> String{
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .short
@@ -343,24 +338,19 @@ class AddPropsViewController: UIViewController {
     @objc fileprivate func getContentViewer() {
         let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        let camera = UIAlertAction(title: "Take Photo", style: .default) { _ in
+        sheet.addAction(UIAlertAction(title: "Take Photo", style: .default) { _ in
             self.getCamera()
-        }
-        
-        let library = UIAlertAction(title: "Photo Library", style: .default) { _ in
+        })
+
+        sheet.addAction(UIAlertAction(title: "Photo Library", style: .default) { _ in
             self.getPhotos()
-        }
-        
-        let document = UIAlertAction(title: "Browse Files", style: .default) { _ in
+        })
+
+        sheet.addAction(UIAlertAction(title: "Browse Files", style: .default) { _ in
             self.getDocumentPicker()
-        }
-        
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        
-        sheet.addAction(camera)
-        sheet.addAction(library)
-        sheet.addAction(document)
-        sheet.addAction(cancel)
+        })
+
+        sheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         self.present(sheet, animated: true, completion: nil)
     }
@@ -413,24 +403,24 @@ class AddPropsViewController: UIViewController {
 
 /**
  ## Extension needed for the table view implementation.
- 
+
  - Version: 1.0
- 
+
  - Author: @GianlucaOrpello
  */
 extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
 
     // MARK: - UITableView Delegate
-    
+
     /**
      ## UITableView Delegate - heightForRowAt Methods
-     
+
      - Version: 1.0
-     
+
      - Author: @GianlucaOrpello
      */
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
+
         switch props.title {
         case Categories.globalMessage.rawValue:
             switch indexPath.section {
@@ -483,20 +473,20 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
             return 0
         }
     }
-    
+
     /**
      ## UITableView Delegate - titleForHeaderInSection Methods
-     
+
      - Version: 1.0
-     
+
      - Author: @GianlucaOrpello
      */
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        guard section != 1 else { return "Description" }
+
         switch props.title {
         case Categories.globalMessage.rawValue:
             switch section {
-            case 1:
-                return "Description"
             case 2:
                 return "Text"
             case 3:
@@ -506,8 +496,6 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
             }
         case Categories.tickerMessage.rawValue:
             switch section {
-            case 1:
-                return "Description"
             case 2:
                 return "Text"
             default:
@@ -515,8 +503,6 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
             }
         case Categories.keynoteViewer.rawValue:
             switch section {
-            case 1:
-                return "Description"
             case 2:
                 return "File"
             default:
@@ -526,19 +512,19 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
             return nil
         }
     }
-    
+
     /**
      ## UITableView Delegate - didSelectRowAt Methods
-     
+
      - Version: 1.0
-     
+
      - Author: @GianlucaOrpello
      */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard props.title == Categories.globalMessage.rawValue,
             indexPath.section == 3,
             indexPath.row == 1 else { return }
-        
+
         toggleShowLocationDatepicker()
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -547,9 +533,9 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
 
     /**
      ## UITableView Data Source - numberOfSections Methods
-     
+
      - Version: 1.0
-     
+
      - Author: @GianlucaOrpello
      */
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -567,337 +553,236 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
 
     /**
      ## UITableView Data Source - numberOfRowsInSection Methods
-     
+
      - Version: 1.0
-     
+
      - Author: @GianlucaOrpello
      */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 || section == 1 {
-            return 1
-        } else {
-            switch props.title {
-            case Categories.globalMessage.rawValue:
-                if section == 2 {
-                    return 3
-                } else if section == 3 {
-                    return 5
-                } else {
-                    return 0
-                }
-            case Categories.tickerMessage.rawValue:
-                return 2
-            case Categories.keynoteViewer.rawValue:
-                return 1
-            default:
+        guard section != 0, section != 1 else { return 1 }
+
+        switch props.title {
+        case Categories.globalMessage.rawValue:
+            if section == 2 {
+                return 3
+            } else if section == 3 {
+                return 5
+            } else {
                 return 0
             }
+        case Categories.tickerMessage.rawValue:
+            return 2
+        case Categories.keynoteViewer.rawValue:
+            return 1
+        default:
+            return 0
         }
     }
 
     /**
      ## UITableView Data Source - cellForRowAt Methods
-     
+
      - Version: 1.0
-     
+
      - Author: @GianlucaOrpello
      */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            let cell = UITableViewCell()
-            cell.selectionStyle = .none
-            
-            let imageView = UIImageView(frame: CGRect(x: 16, y: 14, width: self.view.frame.size.width - 32, height: 206))
-            imageView.contentMode = .scaleAspectFit
 
-            let image: UIImage?
-            switch props.title {
-            case Categories.globalMessage.rawValue:
-                image = UIImage(named: "PreviewGlobalMessage")
-            case Categories.tickerMessage.rawValue:
-                image = UIImage(named: "PreviewTicker")
-            case Categories.keynoteViewer.rawValue:
-                image = UIImage(named: "PreviewContentViewer")
-            default:
-                image = nil
-            }
-            
-            imageView.image = image
-            cell.contentView.addSubview(imageView)
-            return cell
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "FullImageTableViewCell") as? FullImageTableViewCell {
+                cell.fullImage = UIImage(named: props.title)
+                return cell
+            } else { return UITableViewCell() }
+
         } else {
-            
+
             switch props.title {
             // MARK: Global Message
             case Categories.globalMessage.rawValue:
-                
+
                 switch indexPath.section {
-                    
                 case 1:
-                    let cell = UITableViewCell()
-                    cell.selectionStyle = .none
-                    
-                    let label = UILabel(frame: CGRect(x: 16, y: (cell.frame.height / 2) - 10, width: self.view.frame.size.width - 32, height: 54))
-                    label.numberOfLines = 0
-                    label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
-                    label.textColor = .lightGray
-                    label.text = "Displays a message with a title and description attached with location, date, time and a link displayed as a QR code."
-                    
-                    cell.contentView.addSubview(label)
-                    return cell
+                    if let cell = tableView.dequeueReusableCell(withIdentifier: "FullLightTextTableViewCell") as? FullLightTextTableViewCell{
+
+                        cell.fullText = "Displays a message with a title and description attached with location, date, time and a link displayed as a QR code."
+                        return cell
+                    } else { return UITableViewCell() }
+
                 case 2:
                     switch indexPath.row {
                     case 0:
-                        let cell = UITableViewCell()
-                        cell.selectionStyle = .none
-                        
-                        let textField = UITextField(frame: CGRect(x: 16, y: (cell.frame.height / 2) - 10, width: self.view.frame.size.width - 32, height: 36))
-                        textField.delegate = self
-                        textField.borderStyle = .none
-                        textField.placeholder = "Title"
-                        textField.tag = 500
-                        
-                        cell.contentView.addSubview(textField)
-                        return cell
+
+                        if let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldTableViewCell") as? TextFieldTableViewCell{
+
+                            cell.placeholderText = "Title"
+                            cell.delegate = self
+
+                            return cell
+                        } else { return UITableViewCell() }
+
                     case 1:
-                        let cell = UITableViewCell()
-                        cell.selectionStyle = .none
-                        
-                        
-                        let textField = UITextField(frame: CGRect(x: 16, y: (cell.frame.height / 2) - 10, width: self.view.frame.size.width - 32, height: 36))
-                        textField.delegate = self
-                        textField.borderStyle = .none
-                        textField.placeholder = "Description"
-                        textField.tag = 500
-                        cell.contentView.addSubview(textField)
-                        return cell
+
+                        if let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldTableViewCell") as? TextFieldTableViewCell{
+
+                            cell.placeholderText = "Description"
+                            cell.delegate = self
+
+                            return cell
+                        } else { return UITableViewCell() }
+
                     case 2:
-                        let cell = UITableViewCell()
-                        cell.selectionStyle = .none
-                        
-                        let textField = UITextField(frame: CGRect(x: 16, y: (cell.frame.height / 2) - 10, width: self.view.frame.size.width - 32, height: 105))
-                        textField.delegate = self
-                        textField.borderStyle = .none
-                        textField.placeholder = "Message"
-                        textField.tag = 500
-                        
-                        cell.contentView.addSubview(textField)
-                        return cell
+
+                        if let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldTableViewCell") as? TextFieldTableViewCell{
+
+                            cell.placeholderText = "Message"
+                            cell.delegate = self
+
+                            return cell
+                        } else { return UITableViewCell() }
+
+
                     default:
                         return UITableViewCell()
                     }
                 case 3:
-                    
+
                     switch indexPath.row {
                     case 0:
-                        
-                        let cell = UITableViewCell()
-                        cell.selectionStyle = .none
-                        
-                        let label = UILabel(frame: CGRect(x: 16, y: 10, width: 100, height: 22))
-                        label.text = "URL"
-                        
-                        let textField = UITextField(frame: CGRect(x: self.view.frame.size.width - 167, y: (cell.frame.height / 2) - 10, width: 157, height: 22))
-                        textField.delegate = self
-                        textField.borderStyle = .none
-                        textField.textColor = .lightGray
-                        textField.placeholder = "https://example.com"
-                        textField.tag = 500
-                        cell.contentView.addSubview(textField)
-                        cell.contentView.addSubview(label)
-                        return cell
-                        
+
+                        if let cell = tableView.dequeueReusableCell(withIdentifier: "LabelAndTextfieldTableViewCell") as? LabelAndTextfieldTableViewCell{
+
+                            cell.titleText = "URL"
+                            cell.delegate = self
+                            cell.placeholderText = "https://example.com"
+
+                            return cell
+                        } else { return UITableViewCell() }
+
                     case 1:
-                        
-                        let cell = UITableViewCell()
-                        cell.selectionStyle = .none
-                        
-                        let label = UILabel(frame: CGRect(x: 16, y: (cell.frame.height / 2) - 10, width: 100, height: 22))
-                        label.text = "Location"
-                        
-                        let locationLabel = UILabel(frame: CGRect(x: self.view.frame.size.width - 167, y: (cell.frame.height / 2) - 10, width: 157, height: 22))
-                        locationLabel.text = selectedLocation.rawValue
-                        locationLabel.textAlignment = .right
-                        locationLabel.textColor = .lightGray
-                        locationLabel.tag = 500
-                        
-                        cell.contentView.addSubview(locationLabel)
-                        cell.contentView.addSubview(label)
-                        return cell
-                        
+
+                        if let cell = tableView.dequeueReusableCell(withIdentifier: "MasterAndDetailLabelsTableViewCell") as? MasterAndDetailLabelsTableViewCell{
+
+                            cell.mainText = "Location"
+                            cell.detailText = selectedLocation.rawValue
+
+                            return cell
+                        } else { return UITableViewCell() }
                     case 2:
                         let cell = UITableViewCell()
                         cell.selectionStyle = .none
-                        
+
                         let picker = UIPickerView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 217))
                         picker.delegate = self
                         picker.dataSource = self
                         picker.isHidden = !locationPickerIsVisible
-                        
+
                         cell.contentView.addSubview(picker)
                         return cell
                     case 3:
-                        
-                        let cell = UITableViewCell()
-                        cell.selectionStyle = .none
-                        
-                        let locationLabel = UILabel(frame: CGRect(x: 16, y: (cell.frame.height / 2) - 10, width: 100, height: 22))
-                        locationLabel.text = "Date & Time"
 
-                        let swi = UISwitch(frame: CGRect(x: self.view.frame.size.width - 65, y: 10, width: 55, height: 36))
-                        swi.isOn = datePickerIsVisible
-                        swi.addTarget(self, action: #selector(openOrCloseDatePicker), for: .valueChanged)
+                        if let cell = tableView.dequeueReusableCell(withIdentifier: "MasterDetailLabelsAndSwitchTableViewCell") as? MasterDetailLabelsAndSwitchTableViewCell {
 
-                        let label = UILabel(frame: CGRect(x: self.view.frame.size.width - 225, y: (cell.frame.height / 2) - 11, width: 150, height: 22))
-                        label.numberOfLines = 0
-                        label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
-                        label.textColor = .lightGray
-                        label.text = swi.isOn ? getCurrent(date: Date()) : "None"
-                        label.textAlignment = .right
-                        label.tag = 500
-                        
-                        cell.contentView.addSubview(swi)
-                        cell.contentView.addSubview(label)
-                        cell.contentView.addSubview(locationLabel)
-                        return cell
-                        
+                            cell.mainText = "Date & Time"
+                            cell.isSwitchOn = datePickerIsVisible
+                            cell.addTarget(self, action: #selector(openOrCloseDatePicker))
+                            cell.detailText = cell.isSwitchOn! ? getCurrent(date: Date()) : "None"
+                            return cell
+                        } else { return UITableViewCell() }
                     case 4:
-                        
+
                         let cell = UITableViewCell()
                         cell.selectionStyle = .none
-                        
+
                         let picker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 217))
                         picker.datePickerMode = .dateAndTime
                         picker.isHidden = !datePickerIsVisible
                         picker.addTarget(self, action: #selector(dateDidChange(sender:)), for: .valueChanged)
-                        
+
                         cell.contentView.addSubview(picker)
                         return cell
-                        
+
                     default:
                         return UITableViewCell()
                     }
                 default:
                     return UITableViewCell()
                 }
-                
+
             // MARK: Ticker Message
             case Categories.tickerMessage.rawValue:
                 switch indexPath.section {
-                    
+
                 case 1:
-                    let cell = UITableViewCell()
-                    cell.selectionStyle = .none
-                    
-                    let label = UILabel(frame: CGRect(x: 16, y: 10, width: self.view.frame.size.width - 32, height: 36))
-                    label.numberOfLines = 0
-                    label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
-                    label.textColor = .lightGray
-                    label.text = "Displays a short message always visible at the bottom of the screen."
-                    
-                    cell.contentView.addSubview(label)
-                    return cell
+
+                    if let cell = tableView.dequeueReusableCell(withIdentifier: "FullLightTextTableViewCell") as? FullLightTextTableViewCell{
+                        cell.fullText = "Displays a short message always visible at the bottom of the screen."
+                        return cell
+                    } else { return UITableViewCell() }
+
                 case 2:
                     if indexPath.row == 0 {
-                        let cell = UITableViewCell()
-                        cell.selectionStyle = .none
-                        
-                        let textField = UITextField(frame: CGRect(x: 16, y: 10, width: self.view.frame.size.width - 32, height: 36))
-                        textField.delegate = self
-                        textField.tag = 100
-                        textField.borderStyle = .none
-                        textField.placeholder = "Message"
-                        textField.tag = 500
-                        cell.contentView.addSubview(textField)
-                        return cell
+                        if let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldTableViewCell") as? TextFieldTableViewCell{
+
+                            cell.delegate = self
+                            cell.placeholderText = "Message"
+                            return cell
+                        } else { return UITableViewCell() }
                     } else {
-                        let cell = UITableViewCell()
-                        cell.selectionStyle = .none
-                        
-                        let label = UILabel(frame: CGRect(x: 16, y: 10, width: self.view.frame.size.width - 32, height: 36))
-                        label.tag = 150
-                        label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
-                        label.textColor = .lightGray
-                        label.text = "\(numberOfChar) characters left"
-                        
-                        cell.contentView.addSubview(label)
-                        return cell
+                        if let cell = tableView.dequeueReusableCell(withIdentifier: "FullLightTextTableViewCell") as?
+                            FullLightTextTableViewCell {
+                            //                            label.tag = 150
+                            cell.fullText = "\(numberOfChar) characters left"
+
+                            return cell
+                        } else { return UITableViewCell() }
                     }
                 default:
                     return UITableViewCell()
                 }
-            
-            // MARK: Keynote Viewer
+
+            // MARK: Content Viewer
             case Categories.keynoteViewer.rawValue:
                 switch indexPath.section {
-                    
                 case 1:
-                    let cell = UITableViewCell()
-                    cell.selectionStyle = .none
-                    
-                    let label = UILabel(frame: CGRect(x: 16, y: 10, width: self.view.frame.size.width - 32, height: 90))
-                    label.numberOfLines = 0
-                    label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
-                    label.textColor = .lightGray
-                    label.text = "Displays an image or a file that covers most of the screen. Use a content with a transparent background to get the Viewer overlay. Prefer 16:9 PNG files. You can also use the share extension inside other apps like Keynote, Photos or Files."
-                    
-                    cell.contentView.addSubview(label)
-                    return cell
-                case 2:
-                    
-                        let cell = UITableViewCell()
-                        cell.selectionStyle = .none
-                        
-                        let button = UIButton(frame: CGRect(x: 16, y: 10, width: self.view.frame.size.width - 26, height: 22))
-                        button.setTitle("Select Content", for: .normal)
-                        button.setTitleColor(UIColor(red: 0, green: 122 / 255, blue: 1, alpha: 1), for: .normal)
-                        button.contentHorizontalAlignment = .left
-                       
-                        button.addTarget(self, action: #selector(getContentViewer), for: .touchUpInside)
-                        
-                        cell.contentView.addSubview(button)
+                    if let cell = tableView.dequeueReusableCell(withIdentifier: "FullLightTextTableViewCell") as? FullLightTextTableViewCell{
+
+                        cell.fullText = "Displays an image or a file that covers most of the screen. Use a content with a transparent background to get the Viewer overlay. Prefer 16:9 PNG files. You can also use the share extension inside other apps like Keynote, Photos or Files."
                         return cell
-                        
-//                    }else{
-//
-//                        let cell = UITableViewCell()
-//                        cell.selectionStyle = .none
-//
-//                        let button = UIButton(frame: CGRect(x: 16, y: 10, width: self.view.frame.size.width - 26, height: 22))
-//                        button.setTitle("Select from Files", for: .normal)
-//                        button.setTitleColor(UIColor(red: 0, green: 122/255, blue: 1, alpha: 1), for: .normal)
-//                        button.contentHorizontalAlignment = .left
-//                        button.addTarget(self, action: #selector(getDocumentPicker), for: .touchUpInside)
-//
-//                        cell.contentView.addSubview(button)
-//                        return cell
-//                    }
-                    
+                    } else { return UITableViewCell() }
+
+                case 2:
+                    if let cell = tableView.dequeueReusableCell(withIdentifier: "CenteredButtonTableViewCell") as? CenteredButtonTableViewCell{
+                        cell.title = "Select Content"
+                        cell.titleColor = UIColor(red: 0, green: 122 / 255, blue: 1, alpha: 1)
+                        cell.horizontalAlignment = .left
+                        cell.addTarget(self, action: #selector(getContentViewer))
+                        return cell
+                    } else { return UITableViewCell() }
                 default:
                     return UITableViewCell()
                 }
             default:
                 return UITableViewCell()
             }
-            
         }
     }
 }
 
+
 /**
  ## Extension for UITextFieldDelegate implementation.
- 
+
  - Version: 1.0
- 
+
  - Author: @GianlucaOrpello
  */
 extension AddPropsViewController: UITextFieldDelegate {
-    
+
     /**
      ## UITextFieldDelegate - textFieldShouldReturn Methods
-     
+
      - Version: 1.0
-     
+
      - Author: @GianlucaOrpello
      */
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -922,94 +807,92 @@ extension AddPropsViewController: UITextFieldDelegate {
         tableView.setContentOffset(CGPoint.zero, animated: true)
         return true
     }
-    
+
     /**
      ## UITextFieldDelegate - shouldChangeCharactersIn Methods
 
      - Version: 1.0
-     
+
      - Author: @GianlucaOrpello
      */
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
-        
+
+
         guard let text = textField.text, textField.tag == 500 else {
             self.navigationItem.rightBarButtonItem?.isEnabled = true
             return false
 
         }
         let newLength = text.count + string.count - range.length
-        
+
         if newLength == 0 {
             self.navigationItem.rightBarButtonItem?.isEnabled = false
         } else {
             self.navigationItem.rightBarButtonItem?.isEnabled = true
         }
-        
         numberOfChar = 70 - newLength
-        
-        if numberOfChar > 0 {
-            return true
-        } else {
-            return false
-        }
+        return numberOfChar > 0 ? true : false
     }
-    
+
+    /**
+     ## UITextFieldDelegate - textFieldDidBeginEditing Methods
+
+     - Version: 1.0
+
+     - Author: @GianlucaOrpello
+     */
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if self.title == Categories.globalMessage.rawValue {
-//            self.tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .top, animated: true)
             tableView.setContentOffset(CGPoint(x: 0, y: textField.center.y + 100), animated: true)
         }
     }
-    
 }
 
 // MARK: - Extension for UIPickerController
-
 extension AddPropsViewController: UIPickerViewDelegate, UIPickerViewDataSource {
-    
+
     // MARK: - UIPickerView Delegate
-    
+
     /**
      ## UIPickerViewDelegate - titleForRow Methods
-     
+
      - Version: 1.0
-     
+
      - Author: @GianlucaOrpello
      */
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return Locations.allCases[row].rawValue
     }
-    
+
     /**
      ## UIPickerViewDelegate - didSelectRow Methods
-     
+
      - Version: 1.0
-     
+
      - Author: @GianlucaOrpello
      */
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedLocation = Locations.allCases[row]
     }
-    
+
     // MARK: - UIPickerView Data Source
-    
+
     /**
      ## UIPickerViewDataSource - numberOfComponents Methods
-     
+
      - Version: 1.0
-     
+
      - Author: @GianlucaOrpello
      */
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
-    
+
     /**
      ## UIPickerViewDataSource - numberOfRowsInComponent Methods
-     
+
      - Version: 1.0
-     
+
      - Author: @GianlucaOrpello
      */
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
@@ -1018,10 +901,10 @@ extension AddPropsViewController: UIPickerViewDelegate, UIPickerViewDataSource {
 }
 
 extension AddPropsViewController: UIDocumentPickerDelegate, UINavigationControllerDelegate {
-    
+
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         print(urls)
-        
+
         let story = UIStoryboard(name: "Main", bundle: nil)
         if let destination = story.instantiateViewController(withIdentifier: "SetsViewController") as? TvListViewController {
             for url in urls {
@@ -1036,17 +919,17 @@ extension AddPropsViewController: UIDocumentPickerDelegate, UINavigationControll
             }
         }
     }
-    
+
     func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
         self.navigationController?.popViewController(animated: true)
     }
 }
 
 extension AddPropsViewController: UIImagePickerControllerDelegate {
-    
+
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         picker.dismiss(animated: true, completion: nil)
-        
+
         let story = UIStoryboard(name: "Main", bundle: nil)
         if let destination = story.instantiateViewController(withIdentifier: "SetsViewController") as? TvListViewController {
             if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
@@ -1054,11 +937,11 @@ extension AddPropsViewController: UIImagePickerControllerDelegate {
                 destination.category = .keynoteViewer
             }
             self.navigationController?.pushViewController(destination, animated: true)
-            
         }
     }
-    
+
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
+    // swiftlint:disable file_length
 }

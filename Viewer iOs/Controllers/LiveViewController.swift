@@ -9,31 +9,6 @@ import UIKit
 import MessageUI
 
 /**
- ## List of categories section of the table view.
- 
- - Version: 1.0
- 
- - Author: @GianlucaOrpello
- */
-enum Categories: String{    
-    case tickerMessage = "Ticker Messages"
-    case keynoteViewer = "Content Viewer"
-    case timer = "Timer"
-    case globalMessage = "Global Messages"
-}
-
-/**
- ## PropsListDelegate
-
- - Version: 1.0
-
- - Author: @GianlucaOrpello
- */
-protocol PropsListDelegate {
-    func getAiringProp()
-}
-
-/**
  ## The Home screen view controller.
  
  - Version: 1.1
@@ -133,8 +108,7 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
             tableView!.tintColor = UIColor(red: 0, green: 119 / 255, blue: 1, alpha: 1)
 
             tableView!.register(TitleSubtitleAndDescriptionTableViewCell.self, forCellReuseIdentifier: "TitleSubtitleAndDescriptionTableViewCell")
-            tableView!.register(TextAndSubtitleTableViewCell.self, forCellReuseIdentifier: "TextAndSubtitleTableViewCell")
-            tableView!.register(TitleAndMultipleSubtitleTableViewCell.self, forCellReuseIdentifier: "TitleAndMultipleSubtitleTableViewCell")
+            tableView!.register(TitleAndSubtitleTableViewCell.self, forCellReuseIdentifier: "TitleAndSubtitleTableViewCell")
             tableView!.register(CenteredButtonTableViewCell.self, forCellReuseIdentifier: "CenteredButtonTableViewCell")
 
             tableView!.reloadData()
@@ -302,22 +276,16 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
                 case 0:
                     CKController.removeTickerMessage(fromTVNamed: (self?.thikerMessage![indexPath.row].tvName)!)
                     self?.thikerMessage?.remove(at: indexPath.row)
-                    tableView.reloadData()
-                    
                 case 1:
                     CKController.removeKeynote(FromTV: (self?.keynote![indexPath.row].tvName)!)
                     self?.thikerMessage?.remove(at: indexPath.row)
-                    tableView.reloadData()
-                    
                 case 2:
                     CKController.remove(globalMessage: (self?.globalMessages![indexPath.row])!)
                     self?.thikerMessage?.remove(at: indexPath.row)
-                    tableView.reloadData()
-                    
                 default:
                     break
                 }
-                
+                tableView.reloadData()
             })
             
             alert.addAction(cancel)
@@ -327,7 +295,7 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
         }
         
         remove.backgroundColor = .red
-        return [remove]
+        return indexPath.section == 3 ? nil : [remove]
     }
     
     /**
@@ -340,11 +308,11 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
-            return Categories.tickerMessage.rawValue
+            return thikerMessage?.count != 0 ? Categories.tickerMessage.rawValue : nil
         case 1:
-            return Categories.keynoteViewer.rawValue
+            return keynote?.count != 0 ? Categories.keynoteViewer.rawValue : nil
         case 2:
-            return Categories.globalMessage.rawValue
+            return globalMessages?.count != 0 ? Categories.globalMessage.rawValue : nil
         default:
             return nil
         }
@@ -444,7 +412,7 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
             
         case 0:
 
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "TitleAndMultipleSubtitleTableViewCell") as? TitleAndMultipleSubtitleTableViewCell{
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "TitleAndSubtitleTableViewCell") as? TitleAndSubtitleTableViewCell{
                 
                 cell.title = thikerMessage?[indexPath.row].message
                 cell.subtitle = thikerMessage?[indexPath.row].tvName
@@ -454,7 +422,7 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
             } else { return UITableViewCell() }
             
         case 1:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "TextAndSubtitleTableViewCell") as? TextAndSubtitleTableViewCell{
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "TitleAndSubtitleTableViewCell") as? TitleAndSubtitleTableViewCell{
 
                 cell.title = "Unnamed"
                 cell.subtitle = keynote?[indexPath.row].tvName
@@ -464,14 +432,12 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
             
         case 2:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "TitleSubtitleAndDescriptionTableViewCell") as? TitleSubtitleAndDescriptionTableViewCell{
-                //            let cell = TitleSubtitleAndDescriptionTableViewCell()
 
                 cell.title = globalMessages?[indexPath.row].title
                 cell.subtitle = globalMessages?[indexPath.row].subtitle
                 cell.descriptions = "Everywhere"
 
                 return cell
-                
             } else { return UITableViewCell() }
             
         case 3:
@@ -483,9 +449,7 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
                 cell.addTarget(self, action: #selector(sendEmail))
 
                 return cell
-
             } else { return UITableViewCell() }
-            
         default:
             return UITableViewCell()
         }

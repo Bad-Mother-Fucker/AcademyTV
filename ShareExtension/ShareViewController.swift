@@ -31,11 +31,9 @@ class ShareViewController: UIViewController, UICollectionViewDataSource, UIColle
     
     @IBOutlet private weak var clearBarButtonItem: UIBarButtonItem! {
         didSet {
-            if selectedGroups != nil {
-                if selectedGroups.count != 0 {
-                    clearBarButtonItem.isEnabled = true
-                }
-            } 
+            if selectedGroups.count != 0 {
+                clearBarButtonItem.isEnabled = true
+            }
         }
     }
     
@@ -65,28 +63,30 @@ class ShareViewController: UIViewController, UICollectionViewDataSource, UIColle
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        if indexPath.item < groups.count {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TVGroup", for: indexPath) as? GroupsCollectionViewCell
+        if indexPath.item < groups.count{
+            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TVGroup", for: indexPath) as? GroupsCollectionViewCell {
+                let group = groups[indexPath.item]
+
+                cell.setGradientBackground(form: UIColor(red: CGFloat(group.startingColor.red / 255),
+                                                          green: CGFloat(group.startingColor.green / 255),
+                                                          blue: CGFloat(group.startingColor.blue / 255),
+                                                          alpha: 1),
+                                            to: UIColor(red: CGFloat(group.endingColor.red / 255),
+                                                        green: CGFloat(group.endingColor.green / 255),
+                                                        blue: CGFloat(group.endingColor.blue / 255),
+                                                        alpha: 1))
+
+                cell.groupName = group.name.rawValue
+
+                return cell
+            } else { return UICollectionViewCell() }
             
-            let group = groups[indexPath.item]
-            
-            cell?.setGradientBackground(form: UIColor(red: CGFloat(group.startingColor.red / 255),
-                                                     green: CGFloat(group.startingColor.green / 255),
-                                                     blue: CGFloat(group.startingColor.blue / 255),
-                                                     alpha: 1),
-                                       to: UIColor(red: CGFloat(group.endingColor.red / 255),
-                                                   green: CGFloat(group.endingColor.green / 255),
-                                                   blue: CGFloat(group.endingColor.blue / 255),
-                                                   alpha: 1))
-            
-            cell?.groupName = group.name.rawValue
-            
-            return cell ?? GroupsCollectionViewCell()
+
         } else {
-            let borderCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddAllTVGroup", for: indexPath) as? GroupsCollectionViewCell
-            borderCell?.frame.size = CGSize(width: 343, height: 43)
-            //borderCell?.titleLabel.text = "Select All"
-            return borderCell ?? GroupsCollectionViewCell()
+            guard let borderCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddAllTVGroup", for: indexPath) as? BorderCollectionViewCell else { return UICollectionViewCell() }
+            borderCell.frame.size = CGSize(width: 343, height: 43)
+            borderCell.titleText = "Select All"
+            return borderCell
         }
         
     }
@@ -171,7 +171,7 @@ func shareContent(_ sender: Any) {
                         var imgData: Data!
                         if let url = item as? URL {
                             do {
-                                imgData = try? Data(contentsOf: url)
+                                imgData = try Data(contentsOf: url)
                             } catch {
                                 NSLog("Error getting imgData - ShareViewController: shareContent")
                             }
@@ -200,7 +200,7 @@ func shareContent(_ sender: Any) {
                         var imgData: Data!
                         if let url = item as? URL {
                             do {
-                                imgData = try? Data(contentsOf: url)
+                                imgData = try Data(contentsOf: url)
                             } catch {
                                 NSLog("Error getting imgData - ShareViewController: shareContent")
                             }

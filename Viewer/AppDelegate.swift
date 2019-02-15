@@ -144,6 +144,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                                             userInfo: [CKNotificationName.notification.rawValue: ckqn])
             NotificationCenter.default.post(notification)
         }
+        
+        
+     
+        
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {

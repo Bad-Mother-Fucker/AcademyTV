@@ -9,9 +9,9 @@
 import UIKit
 
 /**
- ## Props TableView Cell.
- 
- Used for display the list of table view.
+ ## Left Image And Description TableViewCell
+
+  This table view cell are used for display one text and one icon associated.
  
  - Version: 1.0
  
@@ -59,7 +59,9 @@ class LeftImageAndDescriptionTableViewCell: UITableViewCell {
     }
 
     /**
-     ## The Description Label of the cell
+     ## Left Imahe View
+
+     The UIImageView used for display the icon.
 
      - Version: 1.0
 
@@ -68,7 +70,7 @@ class LeftImageAndDescriptionTableViewCell: UITableViewCell {
     private var leftImageView: UIImageView!
 
     /**
-     ## The Description Label of the cell
+     ## Title Label
 
      - Version: 1.0
 
@@ -77,7 +79,7 @@ class LeftImageAndDescriptionTableViewCell: UITableViewCell {
     private var titleLabel: UILabel!
 
     /**
-     ## The Description Label of the cell
+     ## Descriprion Label
 
      - Version: 1.0
 

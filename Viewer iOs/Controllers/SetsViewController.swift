@@ -578,16 +578,16 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
 }
-
-/**
- ## Extension for UITextFieldDelegate implementation.
-
- - Todo: Check this delegate.
- 
- - Version: 1.0
- 
- - Author: @GianlucaOrpello
- */
-extension AddPropsViewController: UITextFieldDelegate {
-    
-}
+//
+///**
+// ## Extension for UITextFieldDelegate implementation.
+//
+// - Todo: Check this delegate.
+//
+// - Version: 1.0
+//
+// - Author: @GianlucaOrpello
+// */
+//extension AddPropsViewController: UITextFieldDelegate {
+//
+//}
