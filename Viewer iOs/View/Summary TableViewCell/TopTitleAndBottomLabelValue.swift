@@ -78,6 +78,7 @@ class TopTitleAndBottomLabelValue: UITableViewCell {
 
         titleLabel.text = title
         valueLabel.text = valueText
+        titleLabel.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         valueLabel.textColor = UIColor(red: 0, green: 119/255, blue: 1, alpha: 1)
         valueLabel.numberOfLines = 0
 

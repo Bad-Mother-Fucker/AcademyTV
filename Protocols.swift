@@ -232,13 +232,15 @@ extension UIView{
         let safeArea = self.safeAreaLayoutGuide
 
         view.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 16).isActive = true
-        view.trailingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: -16).isActive = true
-        view.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 72).isActive = true
-        view.bottomAnchor.constraint(equalTo: secondView.topAnchor, constant: 7).isActive = true
+        view.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16).isActive = true
+        view.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 89).isActive = true
+        view.bottomAnchor.constraint(equalTo: secondView.topAnchor, constant: -7).isActive = true
+        view.heightAnchor.constraint(equalToConstant: 22)
 
         secondView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16).isActive = true
-        secondView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 72).isActive = true
+        secondView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 89).isActive = true
         secondView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -16).isActive = true
+//        secondView.heightAnchor.constraint(equalToConstant: 44).isActive = true
 
         self.layoutIfNeeded()
     }

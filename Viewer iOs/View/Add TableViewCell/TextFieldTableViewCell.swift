@@ -67,7 +67,7 @@ class TextFieldTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
 
-        textField = UITextField(frame: CGRect(x: 16, y: (self.frame.height / 2) - 10, width: UIScreen.main.bounds.width - 32, height: 36))
+        textField = UITextField()
 
         textField.delegate = delegate
         textField.borderStyle = .none
