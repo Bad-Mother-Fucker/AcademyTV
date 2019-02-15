@@ -15,7 +15,7 @@ import MobileCoreServices
  
  - Author: @GianlucaOrpello
  */
-class AddPropsViewController: UIViewController {
+class AddPropsViewController: UIViewController {     
 
     /**
      ## The selected props type.
