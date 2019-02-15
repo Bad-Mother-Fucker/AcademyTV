@@ -101,6 +101,7 @@ class FullLightTextTableViewCell: UITableViewCell {
         label.font = fullTextFont ?? UIFont.systemFont(ofSize: 13)
         label.textColor = fullTextColor ?? .lightGray
         label.text = fullText
+        label.tag = 150
 
         self.contentView.addSubview(label)
         if isFullSize{

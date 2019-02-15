@@ -52,7 +52,7 @@ class LabelAndTextfieldTableViewCell: UITableViewCell {
      */
     var delegate: UITextFieldDelegate?{
         didSet{
-            textField.text = placeholderText
+            textField.delegate = delegate
         }
     }
 

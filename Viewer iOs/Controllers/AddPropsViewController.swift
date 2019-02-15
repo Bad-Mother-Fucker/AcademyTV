@@ -15,7 +15,7 @@ import MobileCoreServices
  
  - Author: @GianlucaOrpello
  */
-class AddPropsViewController: UIViewController {
+class AddPropsViewController: UIViewController {     
 
     /**
      ## The selected props type.
@@ -112,7 +112,7 @@ class AddPropsViewController: UIViewController {
      */
     var numberOfChar = 70 {
         didSet {
-            if self.view != nil {
+            if self.view != nil && self.title == Categories.tickerMessage.rawValue {
                 if let label = self.view.viewWithTag(150) as? UILabel {
                     label.text = "\(numberOfChar) characters left"
                 }
@@ -625,7 +625,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
                     case 0:
 
                         if let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldTableViewCell") as? TextFieldTableViewCell{
-
+                            cell.colorText = .black
                             cell.placeholderText = "Title"
                             cell.delegate = self
 
@@ -635,7 +635,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
                     case 1:
 
                         if let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldTableViewCell") as? TextFieldTableViewCell{
-
+                            cell.colorText = .black
                             cell.placeholderText = "Description"
                             cell.delegate = self
 
@@ -645,17 +645,13 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
                     case 2:
 
                         if let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldTableViewCell") as? TextFieldTableViewCell{
-
+                            cell.colorText = .black
                             cell.placeholderText = "Message"
                             cell.delegate = self
 
                             return cell
                         } else { return UITableViewCell() }
-
-
-                    default:
-                        return UITableViewCell()
-                    }
+                    default: return UITableViewCell() }
                 case 3:
 
                     switch indexPath.row {
@@ -666,7 +662,6 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
                             cell.titleText = "URL"
                             cell.delegate = self
                             cell.placeholderText = "https://example.com"
-
                             return cell
                         } else { return UITableViewCell() }
 
@@ -725,18 +720,16 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
                 switch indexPath.section {
 
                 case 1:
-
                     if let cell = tableView.dequeueReusableCell(withIdentifier: "FullLightTextTableViewCell") as? FullLightTextTableViewCell{
                         cell.fullText = "Displays a short message always visible at the bottom of the screen."
                         cell.fullTextColor = .lightGray
                         cell.fullTextFont = UIFont.systemFont(ofSize: 13)
                         return cell
                     } else { return UITableViewCell() }
-
                 case 2:
                     if indexPath.row == 0 {
                         if let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldTableViewCell") as? TextFieldTableViewCell{
-
+                            cell.colorText = .black
                             cell.delegate = self
                             cell.placeholderText = "Message"
                             return cell
@@ -750,8 +743,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
                             return cell
                         } else { return UITableViewCell() }
                     }
-                default:
-                    return UITableViewCell()
+                default: return UITableViewCell()
                 }
 
             // MARK: Content Viewer
@@ -804,13 +796,15 @@ extension AddPropsViewController: UITextFieldDelegate {
 
         let textFields = [tableView.cellForRow(at: IndexPath(row: 0, section: 2))?.viewWithTag(500) as? UITextField,
                           tableView.cellForRow(at: IndexPath(row: 1, section: 2))?.viewWithTag(500) as? UITextField,
-                          tableView.cellForRow(at: IndexPath(row: 2, section: 2))?.viewWithTag(500) as? UITextField]
+                          tableView.cellForRow(at: IndexPath(row: 2, section: 2))?.viewWithTag(500) as? UITextField,
+                          tableView.cellForRow(at: IndexPath(row: 0, section: 3))?.viewWithTag(500) as? UITextField]
 
         switch self.title {
         case Categories.globalMessage.rawValue:
 
             if let index = textFields.index(of: textField){
                 if index + 1 < textFields.count{
+                    tableView.setContentOffset(CGPoint(x: 0, y: textFields[index + 1]!.superview!.frame.midY), animated: true)
                     textFields[index + 1]?.becomeFirstResponder()
                 } else{ textField.endEditing(true) }
             }
@@ -818,7 +812,6 @@ extension AddPropsViewController: UITextFieldDelegate {
         default:
             textField.endEditing(true)
         }
-
         tableView.setContentOffset(CGPoint.zero, animated: true)
         return true
     }
@@ -857,9 +850,7 @@ extension AddPropsViewController: UITextFieldDelegate {
      - Author: @GianlucaOrpello
      */
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        if self.title == Categories.globalMessage.rawValue {
-            tableView.setContentOffset(CGPoint(x: 0, y: textField.center.y + 100), animated: true)
-        }
+        tableView.setContentOffset(CGPoint(x: 0, y: textField.frame.midY), animated: true)
     }
 }
 
