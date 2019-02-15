@@ -829,12 +829,11 @@ extension AddPropsViewController: UITextFieldDelegate {
      */
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
 
-
         guard let text = textField.text, textField.tag == 500 else {
             self.navigationItem.rightBarButtonItem?.isEnabled = true
             return false
-
         }
+
         let newLength = text.count + string.count - range.length
 
         if newLength == 0 {
@@ -842,8 +841,11 @@ extension AddPropsViewController: UITextFieldDelegate {
         } else {
             self.navigationItem.rightBarButtonItem?.isEnabled = true
         }
-        numberOfChar = 70 - newLength
-        return numberOfChar > 0 ? true : false
+
+        if newLength <= 70 {
+            numberOfChar = 70 - newLength
+            return true
+        } else { return false }
     }
 
     /**
