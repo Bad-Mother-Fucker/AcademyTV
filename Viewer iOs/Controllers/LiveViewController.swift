@@ -204,21 +204,23 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate,
 
         for tick in ticker {
             // FIXME: Group tickers by message
-            uniqueTickerMessages.insert(tick.0)
+            //uniqueTickerMessages.insert(tick.0)
+            thikerMessage?.append((message: tick.0, tvName: tick.1, TVGroup: nil))
         }
 
-        for message in uniqueTickerMessages {
-            thikerMessage?.append((message: message, tvName: "", TVGroup: nil))
-            for tick in ticker {
-                if tick.0 == message {
-                    let size = thikerMessage!.count
-                    thikerMessage![size - 1].tvName.append(tick.1 + ", ")
-                }
-//                //Remove last two digits
-//                let size = thikerMessage!.count
-//                thikerMessage?[size - 1].tvName.removeLast(2)
-            }
-        }
+//        for message in uniqueTickerMessages {
+//            thikerMessage?.append((message: message, tvName: "", TVGroup: nil))
+//            for tick in ticker {
+//                if tick.0 == message {
+//                    let size = thikerMessage!.count
+//                    thikerMessage![size - 1].tvName.append(tick.1 + ", ")
+//                }
+////                //Remove last two digits
+////                let size = thikerMessage!.count
+////                thikerMessage?[size - 1].tvName.removeLast(2)
+//            }
+//        }
+
 
         for key in keynoteFiles {
             keynote?.append((image: key.image, tvName: key.tvName, TVGroup: nil))
@@ -285,10 +287,10 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
                     self?.thikerMessage?.remove(at: indexPath.row)
                 case 1:
                     CKController.removeKeynote(FromTV: (self?.keynote![indexPath.row].tvName)!)
-                    self?.thikerMessage?.remove(at: indexPath.row)
+                    self?.keynote!.remove(at: indexPath.row)
                 case 2:
                     CKController.remove(globalMessage: (self?.globalMessages![indexPath.row])!)
-                    self?.thikerMessage?.remove(at: indexPath.row)
+                    self?.globalMessages!.remove(at: indexPath.row)
                 default:
                     break
                 }
