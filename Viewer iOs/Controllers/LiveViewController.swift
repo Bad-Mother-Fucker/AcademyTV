@@ -49,7 +49,7 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate,
      
      - Author: @GianlucaOrpello
      */
-    var globalMessages: [GlobalMessage]?
+    var globalMessages: [GlobalMessage]? = [GlobalMessage]()
     var filteredGlobalMessages: [GlobalMessage]?
     
     /**
@@ -61,7 +61,7 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate,
      
      - Author: @GianlucaOrpello
      */
-    var thikerMessage: [(message: String, tvName: String, TVGroup: [TVGroup]?)]?
+    var thikerMessage: [(message: String, tvName: String, TVGroup: [TVGroup]?)]? = [(message: String, tvName: String, TVGroup: [TVGroup]?)]()
     var filteredThikerMessage: [(message: String, tvName: String, TVGroup: [TVGroup]?)]?
     /**
      ## All the keynote airing.
@@ -72,9 +72,9 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate,
      
      - Author: @GianlucaOrpello
      */
-    var keynote: [(image: [UIImage]?, tvName: String, TVGroup: [TVGroup]?)]?
+    var keynote: [(image: [UIImage]?, tvName: String, TVGroup: [TVGroup]?)]? = [(image: [UIImage]?, tvName: String, TVGroup: [TVGroup]?)]()
     var filteredKeynote: [(image: [UIImage]?, tvName: String, TVGroup: [TVGroup]?)]?
-    
+
     /**
      ## UIVIewController - View did Load Methods
      
@@ -102,6 +102,7 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate,
         if numberOfObject == 0 {
             let noLiveView = NoLivePrompView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height))
             noLiveView.contactbutton.addTarget(self, action: #selector(sendEmail), for: .touchUpInside)
+            print(numberOfObject)
             self.view.addSubview(noLiveView)
         } else {
             for views in self.view.subviews {
