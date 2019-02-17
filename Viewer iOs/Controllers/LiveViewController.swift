@@ -15,7 +15,12 @@ import MessageUI
  
  - Author: @GianlucaOrpello
  */
-class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate {
+class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate, UISearchResultsUpdating {
+
+    func updateSearchResults(for searchController: UISearchController) {
+        //
+    }
+
 
     /**
      ## The main tableView
@@ -44,7 +49,8 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
      
      - Author: @GianlucaOrpello
      */
-    var globalMessages: [GlobalMessage]?
+    var globalMessages: [GlobalMessage]? = [GlobalMessage]()
+    var filteredGlobalMessages: [GlobalMessage]?
     
     /**
      ## All the ticker message airing.
@@ -55,8 +61,8 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
      
      - Author: @GianlucaOrpello
      */
-    var thikerMessage: [(message: String, tvName: String, TVGroup: [TVGroup]?)]?
-    
+    var thikerMessage: [(message: String, tvName: String, TVGroup: [TVGroup]?)]? = [(message: String, tvName: String, TVGroup: [TVGroup]?)]()
+    var filteredThikerMessage: [(message: String, tvName: String, TVGroup: [TVGroup]?)]?
     /**
      ## All the keynote airing.
      
@@ -66,8 +72,9 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
      
      - Author: @GianlucaOrpello
      */
-    var keynote: [(image: [UIImage]?, tvName: String, TVGroup: [TVGroup]?)]?
-    
+    var keynote: [(image: [UIImage]?, tvName: String, TVGroup: [TVGroup]?)]? = [(image: [UIImage]?, tvName: String, TVGroup: [TVGroup]?)]()
+    var filteredKeynote: [(image: [UIImage]?, tvName: String, TVGroup: [TVGroup]?)]?
+
     /**
      ## UIVIewController - View did Load Methods
      
@@ -95,6 +102,7 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
         if numberOfObject == 0 {
             let noLiveView = NoLivePrompView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height))
             noLiveView.contactbutton.addTarget(self, action: #selector(sendEmail), for: .touchUpInside)
+            print(numberOfObject)
             self.view.addSubview(noLiveView)
         } else {
             for views in self.view.subviews {
@@ -198,6 +206,8 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
         for tick in ticker {
             // FIXME: Group tickers by message
             uniqueTickerMessages.insert(tick.0)
+            print(tick.1)
+//            thikerMessage?.append((message: tick.0, tvName: tick.1, TVGroup: nil))
         }
 
         for message in uniqueTickerMessages {
@@ -213,6 +223,7 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
             }
         }
 
+
         for key in keynoteFiles {
             keynote?.append((image: key.image, tvName: key.tvName, TVGroup: nil))
         }
@@ -222,7 +233,7 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
                 self.numberOfObject = 1
             })
         } catch {
-            print("Error getting the messages.")
+            NSLog("Error getting the messages.")
             numberOfObject = 0
         }
     }
@@ -247,10 +258,10 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
      */
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
-        case 0, 2:
-            return 95
         case 1:
             return 73
+        case 0, 2:
+            return 95
         default:
             return 60
         }
@@ -274,14 +285,18 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
 
                 switch indexPath.section {
                 case 0:
-                    CKController.removeTickerMessage(fromTVNamed: (self?.thikerMessage![indexPath.row].tvName)!)
+                    let tickersToDelete = self?.thikerMessage![indexPath.row].tvName.replacingOccurrences(of: ", ", with: "$").split(separator: "$")
+                    for tickerTVName in tickersToDelete!{
+                        CKController.removeTickerMessage(fromTVNamed: (String(tickerTVName)))
+                    }
+//                    CKController.removeTickerMessage(fromTVNamed: (self?.thikerMessage![indexPath.row].tvName)!)
                     self?.thikerMessage?.remove(at: indexPath.row)
                 case 1:
                     CKController.removeKeynote(FromTV: (self?.keynote![indexPath.row].tvName)!)
-                    self?.thikerMessage?.remove(at: indexPath.row)
+                    self?.keynote!.remove(at: indexPath.row)
                 case 2:
                     CKController.remove(globalMessage: (self?.globalMessages![indexPath.row])!)
-                    self?.thikerMessage?.remove(at: indexPath.row)
+                    self?.globalMessages!.remove(at: indexPath.row)
                 default:
                     break
                 }
@@ -411,16 +426,22 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
         switch indexPath.section {
             
         case 0:
+//
+//            let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "TitleAndSubtitleTableViewCell")
+//            cell.accessoryType = .detailButton
+//            cell.selectionStyle = .none
+//            cell.textLabel?.text = thikerMessage?[indexPath.row].message
+//            cell.detailTextLabel?.text = thikerMessage?[indexPath.row].tvName
+//            return cell
 
             if let cell = tableView.dequeueReusableCell(withIdentifier: "TitleAndSubtitleTableViewCell") as? TitleAndSubtitleTableViewCell{
-                
+
                 cell.title = thikerMessage?[indexPath.row].message
                 cell.subtitle = thikerMessage?[indexPath.row].tvName
 
                 return cell
 
             } else { return UITableViewCell() }
-            
         case 1:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "TitleAndSubtitleTableViewCell") as? TitleAndSubtitleTableViewCell{
 

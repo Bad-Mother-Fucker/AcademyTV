@@ -23,6 +23,8 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
     var tickerMessage: String?
     
     var shareExtensionContext: NSExtensionContext?
+
+    let testView = UIImageView(frame: CGRect(x: 20, y: 20, width: 100, height: 100))
     
     @IBAction private func cancelShare(_ sender: Any) {
         self.shareExtensionContext!.completeRequest(returningItems: [], completionHandler: nil)
@@ -87,6 +89,8 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
         super.viewDidLoad()
         self.shareExtensionContext = ExtensionContextContainer.shared.context
         loadImagesFromAttachments()
+
+        self.view.addSubview(testView)
         
         
         selectedGroups = []
@@ -288,11 +292,6 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
             print("Posted")
         }
         
-        let alert = UIAlertController(title: "Saved", message: "In a moment it will be displayed on selected tv", preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alert.addAction(action)
-        self.present(alert, animated: true, completion: nil)
-        // FIXME: This completeRequest dismisses the view, i don't know whether this will work after or during the display of the alert view. It needs to be handled properly.
         self.shareExtensionContext!.completeRequest(returningItems: [], completionHandler: nil)
         
     }
@@ -314,20 +313,24 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
                         if error != nil {
                             print("there was an error", error!.localizedDescription)
                         }
+
                         
                         var imgData: Data!
 //                        var img: UIImage?
 
                         if let img = item as? UIImage {
                             imgData = img.byFixingOrientation().jpegData(compressionQuality: 1)
+                            print("UTI, UIImage")
                         } else if let data = item as? NSData {
                             imgData = data as Data
+                            print("UTI, NSData")
                         } else if let url = item as? NSURL {
                             do {
-                                imgData = try Data(contentsOf: url as URL)
+                                imgData = try Data(contentsOf: url.filePathURL!)
                             } catch {
                                 NSLog("Error getting imgData - ShareTvListViewController: shareContent")
                             }
+                            print("UTI, NSUrl")
                         }
                         
                         
@@ -350,11 +353,14 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
                         
                         if let img = item as? UIImage {
                             imgData = img.byFixingOrientation().pngData()
+                            print("public.png, UIImage")
                         } else if let data = item as? NSData {
                             imgData = data as Data
+                            print("public.png, Data")
                         } else if let url = item as? NSURL {
+                            print("public.png, URL")
                             do {
-                                imgData = try Data(contentsOf: url as URL)
+                                imgData = try Data(contentsOf: url.filePathURL!)
                             } catch {
                                 NSLog("Error Get imgData - ShareTvListViewController: shareContent")
                             }
@@ -372,6 +378,7 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
                     print(itemProvider.registeredTypeIdentifiers.count)
                 }
             }
+            print(content.attachments?.count, self.keynote.count)
         } else {
             print("No content found")
         }

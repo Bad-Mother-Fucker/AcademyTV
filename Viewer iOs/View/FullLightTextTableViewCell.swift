@@ -31,6 +31,47 @@ class FullLightTextTableViewCell: UITableViewCell {
     }
 
     /**
+     ## The color of the text
+
+     - Version: 1.0
+
+     - Author: @GianlucaOrpello
+     */
+    var fullTextColor: UIColor?{
+        didSet{
+            label.textColor = fullTextColor ?? .lightGray
+        }
+    }
+
+    /**
+     ## The font of the text
+
+     - Version: 1.0
+
+     - Author: @GianlucaOrpello
+     */
+    var fullTextFont: UIFont?{
+        didSet{
+            label.font = fullTextFont ?? UIFont.systemFont(ofSize: 13)
+        }
+    }
+
+    /**
+     ## The SuperView of the cell
+
+     - Version: 1.0
+
+     - Author: @GianlucaOrpello
+     */
+    var isFullSize: Bool = true{
+        didSet{
+            if isFullSize{
+                addConstraintsWithSafeArea(to: label)
+            }
+        }
+    }
+
+    /**
      ## The label
 
      - Version: 1.0
@@ -57,12 +98,15 @@ class FullLightTextTableViewCell: UITableViewCell {
         label = UILabel()
 
         label.numberOfLines = 0
-        label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
-        label.textColor = .lightGray
+        label.font = fullTextFont ?? UIFont.systemFont(ofSize: 13)
+        label.textColor = fullTextColor ?? .lightGray
         label.text = fullText
+        label.tag = 150
 
         self.contentView.addSubview(label)
-        addConstraintsWithSafeArea(to: label)
+        if isFullSize{
+            addConstraintsWithSafeArea(to: label)
+        }
     }
 
     /**
@@ -75,5 +119,4 @@ class FullLightTextTableViewCell: UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
 }

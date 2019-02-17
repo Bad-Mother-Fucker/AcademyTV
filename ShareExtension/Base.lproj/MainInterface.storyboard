@@ -357,7 +357,7 @@
                                 <action selector="cancelShare:" destination="3Qa-Rv-xdx" id="IXa-na-weW"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Post" id="Jqy-Qv-aax">
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="Jqy-Qv-aax">
                             <connections>
                                 <action selector="postBarButtonPressed:" destination="3Qa-Rv-xdx" id="Mp2-tD-jHb"/>
                             </connections>

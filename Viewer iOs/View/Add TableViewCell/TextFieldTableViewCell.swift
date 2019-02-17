@@ -31,6 +31,19 @@ class TextFieldTableViewCell: UITableViewCell {
     }
 
     /**
+     ## Text Color
+
+     - Version: 1.0
+
+     - Author: @GianlucaOrpello
+     */
+    var colorText: UIColor?{
+        didSet{
+            textField.textColor = colorText
+        }
+    }
+
+    /**
      ## Delegate
 
      - Version: 1.0
@@ -67,12 +80,12 @@ class TextFieldTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
 
-        textField = UITextField(frame: CGRect(x: 16, y: (self.frame.height / 2) - 10, width: UIScreen.main.bounds.width - 32, height: 36))
+        textField = UITextField()
 
         textField.delegate = delegate
         textField.borderStyle = .none
         textField.placeholder = placeholderText
-        textField.textColor = .lightGray
+        textField.textColor = colorText ?? .lightGray
         textField.tag = 500
 
         self.contentView.addSubview(textField)

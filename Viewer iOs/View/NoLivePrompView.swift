@@ -43,6 +43,15 @@ class NoLivePrompView: UIView {
      - Author: @GianlucaOrpello
      */
     var contactbutton: UIButton!
+
+    /**
+     ## StackView
+
+     - Version: 1.0
+
+     - Author: @GianlucaOrpello
+     */
+    var stack: UIStackView!
     
     
     /**
@@ -78,15 +87,21 @@ class NoLivePrompView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        bigTitleLabel = UILabel(frame: CGRect(x: 20, y: 419, width: 375, height: 29))
-        subTitleLabel = UILabel(frame: CGRect(x: 50, y: 457, width: 315, height: 20))
-        contactbutton = UIButton(frame: CGRect(x: 0, y: 819, width: 414, height: 60))
+        bigTitleLabel = UILabel()
+        subTitleLabel = UILabel()
+        contactbutton = UIButton()
+
+        stack = UIStackView(arrangedSubviews: [bigTitleLabel, subTitleLabel])
+        stack.alignment = .center
+        stack.axis = .vertical
+        stack.distribution = .fillProportionally
+        stack.spacing = 10
         
         set()
         
-        self.addSubview(bigTitleLabel)
-        self.addSubview(subTitleLabel)
+        self.addSubview(stack)
         self.addSubview(contactbutton)
+        addConstraints()
     }
     
     /**
@@ -98,15 +113,30 @@ class NoLivePrompView: UIView {
      */
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
-        bigTitleLabel = UILabel(frame: CGRect(x: 20, y: 419, width: 375, height: 29))
-        subTitleLabel = UILabel(frame: CGRect(x: 50, y: 457, width: 315, height: 20))
-        contactbutton = UIButton(frame: CGRect(x: 0, y: 819, width: 414, height: 60))
-        
-        set()
-        
-        self.addSubview(bigTitleLabel)
-        self.addSubview(subTitleLabel)
-        self.addSubview(contactbutton)
+    }
+
+    /**
+     ## Add Constraints
+
+     - Version: 1.0
+
+     - Author: @GianlucaOrpello
+     */
+    @objc func addConstraints(){
+        bigTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        subTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        contactbutton.translatesAutoresizingMaskIntoConstraints = false
+
+        let safeArea = self.safeAreaLayoutGuide
+
+        stack.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor, constant: 0)
+        contactbutton.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor, constant: 0)
+
+        stack.centerYAnchor.constraint(equalTo: safeArea.centerYAnchor, constant: 0)
+
+        contactbutton.widthAnchor.constraint(equalTo: safeArea.widthAnchor, constant: 0)
+        contactbutton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -16).isActive = true
+
+        self.layoutIfNeeded()
     }
 }

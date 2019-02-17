@@ -15,7 +15,7 @@ import MobileCoreServices
  
  - Author: @GianlucaOrpello
  */
-class AddPropsViewController: UIViewController {
+class AddPropsViewController: UITableViewController {
 
     /**
      ## The selected props type.
@@ -81,28 +81,28 @@ class AddPropsViewController: UIViewController {
     
     var keynote: [UIImage]? = []
     
-    /**
-     ## Table View
-     
-     - Version: 1.0
-     
-     - Author: @GianlucaOrpello
-     */
-    var tableView: UITableView! {
-        didSet {
-            tableView.delegate = self
-            tableView.dataSource = self
+//    /**
+//     ## Table View
+//
+//     - Version: 1.0
+//
+//     - Author: @GianlucaOrpello
+//     */
+//    var tableView: UITableView! {
+//        didSet {
+//            tableView.delegate = self
+//            tableView.dataSource = self
+//
+//            tableView.register(FullImageTableViewCell.self, forCellReuseIdentifier: "FullImageTableViewCell")
+//            tableView.register(CenteredButtonTableViewCell.self, forCellReuseIdentifier: "CenteredButtonTableViewCell")
+//            tableView.register(FullLightTextTableViewCell.self, forCellReuseIdentifier: "FullLightTextTableViewCell")
+//            tableView.register(TextFieldTableViewCell.self, forCellReuseIdentifier: "TextFieldTableViewCell")
+//            tableView.register(LabelAndTextfieldTableViewCell.self, forCellReuseIdentifier: "LabelAndTextfieldTableViewCell")
+//            tableView.register(MasterAndDetailLabelsTableViewCell.self, forCellReuseIdentifier: "MasterAndDetailLabelsTableViewCell")
+//            tableView.register(MasterDetailLabelsAndSwitchTableViewCell.self, forCellReuseIdentifier: "MasterDetailLabelsAndSwitchTableViewCell")
+//        }
+//    }
 
-            tableView.register(FullImageTableViewCell.self, forCellReuseIdentifier: "FullImageTableViewCell")
-            tableView.register(CenteredButtonTableViewCell.self, forCellReuseIdentifier: "CenteredButtonTableViewCell")
-            tableView.register(FullLightTextTableViewCell.self, forCellReuseIdentifier: "FullLightTextTableViewCell")
-            tableView.register(TextFieldTableViewCell.self, forCellReuseIdentifier: "TextFieldTableViewCell")
-            tableView.register(LabelAndTextfieldTableViewCell.self, forCellReuseIdentifier: "LabelAndTextfieldTableViewCell")
-            tableView.register(MasterAndDetailLabelsTableViewCell.self, forCellReuseIdentifier: "MasterAndDetailLabelsTableViewCell")
-            tableView.register(MasterDetailLabelsAndSwitchTableViewCell.self, forCellReuseIdentifier: "MasterDetailLabelsAndSwitchTableViewCell")
-        }
-    }
-    
     /**
      ## The current number of character left for ticker message.
      
@@ -112,7 +112,7 @@ class AddPropsViewController: UIViewController {
      */
     var numberOfChar = 70 {
         didSet {
-            if self.view != nil {
+            if self.view != nil && self.title == Categories.tickerMessage.rawValue {
                 if let label = self.view.viewWithTag(150) as? UILabel {
                     label.text = "\(numberOfChar) characters left"
                 }
@@ -154,13 +154,23 @@ class AddPropsViewController: UIViewController {
         
         self.title = props.title
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(dissmissController))
+
+        let vc = navigationController?.viewControllers.first
+        let button = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(dissmissController))
+        vc?.navigationItem.backBarButtonItem = button
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(checkSummary))
         
         self.navigationItem.rightBarButtonItem?.isEnabled = false
         
-        tableView = UITableView(frame: self.view.frame)
+//        tableView = UITableView(frame: self.view.frame)
+        tableView.register(FullImageTableViewCell.self, forCellReuseIdentifier: "FullImageTableViewCell")
+        tableView.register(CenteredButtonTableViewCell.self, forCellReuseIdentifier: "CenteredButtonTableViewCell")
+        tableView.register(FullLightTextTableViewCell.self, forCellReuseIdentifier: "FullLightTextTableViewCell")
+        tableView.register(TextFieldTableViewCell.self, forCellReuseIdentifier: "TextFieldTableViewCell")
+        tableView.register(LabelAndTextfieldTableViewCell.self, forCellReuseIdentifier: "LabelAndTextfieldTableViewCell")
+        tableView.register(MasterAndDetailLabelsTableViewCell.self, forCellReuseIdentifier: "MasterAndDetailLabelsTableViewCell")
+        tableView.register(MasterDetailLabelsAndSwitchTableViewCell.self, forCellReuseIdentifier: "MasterDetailLabelsAndSwitchTableViewCell")
         tableView.tableFooterView = UIView()
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "GetAllSelectedPhotos"), object: nil, queue: .main) { (notification) in
@@ -168,9 +178,7 @@ class AddPropsViewController: UIViewController {
                 self.keynote = images
             }
         }
-
-        self.view.addSubview(tableView)
-        
+//        self.view.addSubview(tableView)
     }
     
     /**
@@ -380,10 +388,18 @@ class AddPropsViewController: UIViewController {
      - Author: @GianlucaOrpello
      */
     private func getPhotos() {
-        let story = UIStoryboard(name: "Main", bundle: nil)
-        let vc = story.instantiateViewController(withIdentifier: "ImagePickerViewController")
-        self.present(vc, animated: true)
-        self.navigationItem.rightBarButtonItem?.isEnabled = true
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = .photoLibrary
+            imagePicker.allowsEditing = false
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+
+//        let story = UIStoryboard(name: "Main", bundle: nil)
+//        let vc = story.instantiateViewController(withIdentifier: "ImagePickerViewController")
+//        self.present(vc, animated: true)
+//        self.navigationItem.rightBarButtonItem?.isEnabled = true
     }
     
     /**
@@ -408,7 +424,7 @@ class AddPropsViewController: UIViewController {
 
  - Author: @GianlucaOrpello
  */
-extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
+extension AddPropsViewController/*: UITableViewDelegate, UITableViewDataSource*/ {
 
     // MARK: - UITableView Delegate
 
@@ -419,7 +435,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
 
      - Author: @GianlucaOrpello
      */
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
         switch props.title {
         case Categories.globalMessage.rawValue:
@@ -481,7 +497,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
 
      - Author: @GianlucaOrpello
      */
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         guard section != 1 else { return "Description" }
 
         switch props.title {
@@ -520,7 +536,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
 
      - Author: @GianlucaOrpello
      */
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard props.title == Categories.globalMessage.rawValue,
             indexPath.section == 3,
             indexPath.row == 1 else { return }
@@ -538,7 +554,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
 
      - Author: @GianlucaOrpello
      */
-    func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         switch props.title {
         case Categories.globalMessage.rawValue:
             return 4
@@ -558,7 +574,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
 
      - Author: @GianlucaOrpello
      */
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard section != 0, section != 1 else { return 1 }
 
         switch props.title {
@@ -586,7 +602,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
 
      - Author: @GianlucaOrpello
      */
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
 
             if let cell = tableView.dequeueReusableCell(withIdentifier: "FullImageTableViewCell") as? FullImageTableViewCell {
@@ -603,8 +619,9 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
                 switch indexPath.section {
                 case 1:
                     if let cell = tableView.dequeueReusableCell(withIdentifier: "FullLightTextTableViewCell") as? FullLightTextTableViewCell{
-
                         cell.fullText = "Displays a message with a title and description attached with location, date, time and a link displayed as a QR code."
+                        cell.fullTextColor = .lightGray
+                        cell.fullTextFont = UIFont.systemFont(ofSize: 13)
                         return cell
                     } else { return UITableViewCell() }
 
@@ -613,7 +630,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
                     case 0:
 
                         if let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldTableViewCell") as? TextFieldTableViewCell{
-
+                            cell.colorText = .black
                             cell.placeholderText = "Title"
                             cell.delegate = self
 
@@ -623,7 +640,7 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
                     case 1:
 
                         if let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldTableViewCell") as? TextFieldTableViewCell{
-
+                            cell.colorText = .black
                             cell.placeholderText = "Description"
                             cell.delegate = self
 
@@ -633,17 +650,13 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
                     case 2:
 
                         if let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldTableViewCell") as? TextFieldTableViewCell{
-
+                            cell.colorText = .black
                             cell.placeholderText = "Message"
                             cell.delegate = self
 
                             return cell
                         } else { return UITableViewCell() }
-
-
-                    default:
-                        return UITableViewCell()
-                    }
+                    default: return UITableViewCell() }
                 case 3:
 
                     switch indexPath.row {
@@ -654,7 +667,6 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
                             cell.titleText = "URL"
                             cell.delegate = self
                             cell.placeholderText = "https://example.com"
-
                             return cell
                         } else { return UITableViewCell() }
 
@@ -713,16 +725,16 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
                 switch indexPath.section {
 
                 case 1:
-
                     if let cell = tableView.dequeueReusableCell(withIdentifier: "FullLightTextTableViewCell") as? FullLightTextTableViewCell{
                         cell.fullText = "Displays a short message always visible at the bottom of the screen."
+                        cell.fullTextColor = .lightGray
+                        cell.fullTextFont = UIFont.systemFont(ofSize: 13)
                         return cell
                     } else { return UITableViewCell() }
-
                 case 2:
                     if indexPath.row == 0 {
                         if let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldTableViewCell") as? TextFieldTableViewCell{
-
+                            cell.colorText = .black
                             cell.delegate = self
                             cell.placeholderText = "Message"
                             return cell
@@ -730,14 +742,13 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
                     } else {
                         if let cell = tableView.dequeueReusableCell(withIdentifier: "FullLightTextTableViewCell") as?
                             FullLightTextTableViewCell {
-                            //                            label.tag = 150
                             cell.fullText = "\(numberOfChar) characters left"
-
+                            cell.fullTextColor = .lightGray
+                            cell.fullTextFont = UIFont.systemFont(ofSize: 13)
                             return cell
                         } else { return UITableViewCell() }
                     }
-                default:
-                    return UITableViewCell()
+                default: return UITableViewCell()
                 }
 
             // MARK: Content Viewer
@@ -745,8 +756,9 @@ extension AddPropsViewController: UITableViewDelegate, UITableViewDataSource {
                 switch indexPath.section {
                 case 1:
                     if let cell = tableView.dequeueReusableCell(withIdentifier: "FullLightTextTableViewCell") as? FullLightTextTableViewCell{
-
                         cell.fullText = "Displays an image or a file that covers most of the screen. Use a content with a transparent background to get the Viewer overlay. Prefer 16:9 PNG files. You can also use the share extension inside other apps like Keynote, Photos or Files."
+                        cell.fullTextColor = .lightGray
+                        cell.fullTextFont = UIFont.systemFont(ofSize: 13)
                         return cell
                     } else { return UITableViewCell() }
 
@@ -789,22 +801,22 @@ extension AddPropsViewController: UITextFieldDelegate {
 
         let textFields = [tableView.cellForRow(at: IndexPath(row: 0, section: 2))?.viewWithTag(500) as? UITextField,
                           tableView.cellForRow(at: IndexPath(row: 1, section: 2))?.viewWithTag(500) as? UITextField,
-                          tableView.cellForRow(at: IndexPath(row: 2, section: 2))?.viewWithTag(500) as? UITextField]
+                          tableView.cellForRow(at: IndexPath(row: 2, section: 2))?.viewWithTag(500) as? UITextField,
+                          tableView.cellForRow(at: IndexPath(row: 0, section: 3))?.viewWithTag(500) as? UITextField]
 
         switch self.title {
         case Categories.globalMessage.rawValue:
 
             if let index = textFields.index(of: textField){
-                if let nextTextField = textFields[index + 1] {
-                    nextTextField.becomeFirstResponder()
-                }
+                if index + 1 < textFields.count{
+//                    tableView.setContentOffset(CGPoint(x: 0, y: textFields[index + 1]!.superview!.frame.midY), animated: true)
+                    textFields[index + 1]?.becomeFirstResponder()
+                } else{ textField.endEditing(true) }
             }
 
         default:
             textField.endEditing(true)
         }
-
-        tableView.setContentOffset(CGPoint.zero, animated: true)
         return true
     }
 
@@ -817,12 +829,11 @@ extension AddPropsViewController: UITextFieldDelegate {
      */
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
 
-
         guard let text = textField.text, textField.tag == 500 else {
             self.navigationItem.rightBarButtonItem?.isEnabled = true
             return false
-
         }
+
         let newLength = text.count + string.count - range.length
 
         if newLength == 0 {
@@ -830,8 +841,11 @@ extension AddPropsViewController: UITextFieldDelegate {
         } else {
             self.navigationItem.rightBarButtonItem?.isEnabled = true
         }
-        numberOfChar = 70 - newLength
-        return numberOfChar > 0 ? true : false
+
+        if newLength <= 70 {
+            numberOfChar = 70 - newLength
+            return true
+        } else { return false }
     }
 
     /**
@@ -842,9 +856,7 @@ extension AddPropsViewController: UITextFieldDelegate {
      - Author: @GianlucaOrpello
      */
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        if self.title == Categories.globalMessage.rawValue {
-            tableView.setContentOffset(CGPoint(x: 0, y: textField.center.y + 100), animated: true)
-        }
+//        tableView.setContentOffset(CGPoint(x: 0, y: textField.frame.midY), animated: true)
     }
 }
 

@@ -28,9 +28,9 @@ class PropsViewController: UITableViewController, UISearchResultsUpdating {
      */
     let props: [(title: String, description: String, image: UIImage?)] = [
         /*(title: "Booqable Availability", description: "Displays a list of names that are overdue, on hold and ready for pickup", image: UIImage(named: "Booquable")),*/
-        (title: Categories.globalMessage.rawValue, description: "Displays a message with title, description, date & time, location and URL", image: UIImage(named: "GlobalMessage")),
-        (title: Categories.tickerMessage.rawValue, description: "Displays a short messager always visibile at the bottom of the screen", image: UIImage(named: "Ticker")),
-        (title: "Content Viewer", description: "Dislays a keynote on selected area, airplay is not needed", image: UIImage(named: "Keynote"))
+        (title: Categories.globalMessage.rawValue, description: "Detailed message attached to a date, time, location and URL", image: UIImage(named: "GlobalMessage")),
+        (title: Categories.tickerMessage.rawValue, description: "Short message always visible at the bottom of the screen", image: UIImage(named: "Ticker")),
+        (title: "Content Viewer", description: "Displays a file or an image on the screen", image: UIImage(named: "Keynote"))
     ]
     
     var fileteredProp = [(title: String, description: String, image: UIImage?)]()
