@@ -60,7 +60,6 @@ enum CKNotificationName: String {
     case tvSet = "currentTvSet"
     case serviceMessageSet = "serviceMessageSet"
 
-
     enum MessageNotification: String {
         case create = "msgCreated"
         case delete = "msgDeleted"
@@ -148,6 +147,10 @@ enum Categories: String{
  */
 protocol PropsListDelegate {
     func getAiringProp()
+}
+
+extension Notification.Name {
+    public static let addNewPropsFromSummary = Notification.Name(rawValue: "NewPropsAdded")
 }
 
 extension UIView{
