@@ -56,7 +56,7 @@ class TVModel {
                 return
             }
             guard records!.count > 0 else {
-                completionHandler(nil, CKQueryException.recordNotFound("No TV Found in pulic databse with the given name"))
+                completionHandler(nil, nil)
                 return
             }
             
@@ -77,7 +77,7 @@ class TVModel {
             }
             
             guard records!.count > 0 else {
-                completionHandler(nil, CKQueryException.recordNotFound("No TV Found in pulic databse with the given name"))
+                completionHandler(nil, nil)
                 return
             }
             
@@ -106,7 +106,7 @@ class TV: CloudStored {
     }
 
     // swiftlint:disable weak_delegate
-    var viewDelegate: ATVViewDelegate?
+    var viewDelegate: KeynoteViewerDelegate?
 
     var hasKeynote: Bool = false
     
