@@ -87,7 +87,7 @@ enum CKKeys {
 
 protocol ATVViewDelegate {
     func show(keynote: [UIImage])
-    func hideKeynote()
+    func hideKeynote()  
     func show(ticker: String)
     func hideTicker()
 }
