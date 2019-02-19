@@ -63,7 +63,7 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
      
      - Author: @GianlucaOrpello
      */
-    var tikerMessage: [(message: String, tvName: String, TVGroup: [TVGroup]?)]? = [(message: String, tvName: String, TVGroup: [TVGroup]?)]()
+    var tickerMessage: [(message: String, tvName: String, TVGroup: [TVGroup]?)]? = [(message: String, tvName: String, TVGroup: [TVGroup]?)]()
     var filteredThikerMessage: [(message: String, tvName: String, TVGroup: [TVGroup]?)]?
     /**
      ## All the keynote airing.
@@ -203,7 +203,9 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
         let keynoteFiles = CKController.getAiringKeynote(in: .all)
 
         keynote = []
-        tikerMessage = []
+        tickerMessage = []
+
+        var uniqueTickerMessages = Set<String>()
 
         for tick in ticker {
             // FIXME: Group tickers by message
@@ -213,15 +215,15 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
         }
 
         for message in uniqueTickerMessages {
-            thikerMessage?.append((message: message, tvName: "", TVGroup: nil))
+            tickerMessage?.append((message: message, tvName: "", TVGroup: nil))
             for tick in ticker {
                 if tick.0 == message {
-                    let size = thikerMessage!.count
-                    thikerMessage![size - 1].tvName.append(tick.1 + ", ")
+                    let size = tickerMessage!.count
+                    tickerMessage![size - 1].tvName.append(tick.1 + ", ")
                 }
                 //Remove last two digits
-                let size = thikerMessage!.count
-                thikerMessage?[size - 1].tvName.removeLast(2)
+                let size = tickerMessage!.count
+                tickerMessage?[size - 1].tvName.removeLast(2)
             }
         }
 
@@ -276,6 +278,18 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
             return 60
         }
     }
+    /**
+     ## UITableViewDelegate - canEditRowAt Methods
+
+     - Todo: Remove the selected data from CK
+
+     - Version: 1.0
+
+     - Author: @GianlucaOrpello
+     */
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return indexPath.section == 3 ? false : true
+    }
     
     /**
      ## UITableViewDelegate - editActionsForRowAt Methods
@@ -287,6 +301,8 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
      - Author: @GianlucaOrpello
      */
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        guard indexPath.section != 3 else { return nil }
+
         let remove = UITableViewRowAction(style: .destructive, title: "Delete") { [weak self] (_, indexPath) in
 
             let alert = UIAlertController(title: "Delete Prop", message: "The prop will be removed from all the screens. This cannot be undone.", preferredStyle: .alert)
@@ -295,12 +311,12 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
 
                 switch indexPath.section {
                 case 0:
-                    let tickersToDelete = self?.thikerMessage![indexPath.row].tvName.replacingOccurrences(of: ", ", with: "$").split(separator: "$")
+                    let tickersToDelete = self?.tickerMessage![indexPath.row].tvName.replacingOccurrences(of: ", ", with: "$").split(separator: "$")
                     for tickerTVName in tickersToDelete!{
                         CKController.removeTickerMessage(fromTVNamed: (String(tickerTVName)))
                     }
 //                    CKController.removeTickerMessage(fromTVNamed: (self?.thikerMessage![indexPath.row].tvName)!)
-                    self?.thikerMessage?.remove(at: indexPath.row)
+                    self?.tickerMessage?.remove(at: indexPath.row)
                 case 1:
                     CKController.removeKeynote(FromTV: (self?.keynote![indexPath.row].tvName)!)
                     self?.keynote!.remove(at: indexPath.row)
@@ -320,8 +336,7 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
         }
         
         remove.backgroundColor = .red
-        print("\(indexPath.section), \(indexPath.count)")
-        return indexPath.section == indexPath.count ? nil : [remove]
+        return [remove]
     }
     
     /**
@@ -334,7 +349,7 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
-            return tikerMessage?.count != 0 ? Categories.tickerMessage.rawValue : nil
+            return tickerMessage?.count != 0 ? Categories.tickerMessage.rawValue : nil
         case 1:
             return keynote?.count != 0 ? Categories.keynoteViewer.rawValue : nil
         case 2:
@@ -376,7 +391,7 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
     private func getProp(from indexPath: IndexPath) -> Any? {
         switch indexPath.section {
         case 0:
-            return tikerMessage?[indexPath.row]
+            return tickerMessage?[indexPath.row]
         case 1:
             return keynote?[indexPath.row]
         case 2:
@@ -411,7 +426,7 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return tikerMessage?.count ?? 0
+            return tickerMessage?.count ?? 0
         case 1:
             return keynote?.count ?? 0
         case 2:
@@ -447,8 +462,8 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
 
             if let cell = tableView.dequeueReusableCell(withIdentifier: "TitleAndSubtitleTableViewCell") as? TitleAndSubtitleTableViewCell{
 
-                cell.title = tikerMessage?[indexPath.row].message
-                cell.subtitle = tikerMessage?[indexPath.row].tvName
+                cell.title = tickerMessage?[indexPath.row].message
+                cell.subtitle = tickerMessage?[indexPath.row].tvName
 
                 return cell
 

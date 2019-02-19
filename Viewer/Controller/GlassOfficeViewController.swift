@@ -336,7 +336,7 @@ extension GlassOfficeViewController: UITableViewDataSource {
 
 // TODO: - Document this part
 // MARK: - ATVViewDelegate Implementation
-extension GlassOfficeViewController: ATVViewDelegate {
+extension GlassOfficeViewController: KeynoteViewerDelegate {
     func show(ticker: String) {
         
     }

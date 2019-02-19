@@ -131,7 +131,7 @@ class CKController {
     static func postTickerMessage(_ text: String, onTvGroup group: TVGroup) {
         TVModel.getTvs(ofGroup: group) { (tvs, error) in
             guard tvs != nil, error == nil else {
-                print(error!.localizedDescription)
+                print(error?.localizedDescription as Any)
                 return
             }
             tvs!.forEach({ (tv) in

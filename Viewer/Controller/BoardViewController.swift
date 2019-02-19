@@ -402,7 +402,7 @@ class BoardViewController: TVViewController {
     
 }
 
-extension BoardViewController: ATVViewDelegate {
+extension BoardViewController: KeynoteViewerDelegate {
     
     func show(ticker text: String) {
         serviceMessageBlurView.fadeIn()

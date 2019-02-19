@@ -14,7 +14,7 @@
 	</array>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.Rogue.Viewer</string>
+		<string>group.TeamRogue.Viewer</string>
 	</array>
 </dict>
 </plist>
