@@ -311,7 +311,6 @@ class BoardViewController: TVViewController {
                 self.hideKeynote()
             }
             
-            
             do {
                 self.globalMessageView.globalMessages = try CKController.getAllGlobalMessages(completionHandler: {})
             } catch {

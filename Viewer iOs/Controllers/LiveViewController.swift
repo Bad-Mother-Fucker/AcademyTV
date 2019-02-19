@@ -15,12 +15,14 @@ import MessageUI
  
  - Author: @GianlucaOrpello
  */
-class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate, UISearchResultsUpdating {
+class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate {
 
-    func updateSearchResults(for searchController: UISearchController) {
-        //
-    }
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(handleRefresh(_:)), for: .valueChanged)
 
+        return refreshControl
+    }()
 
     /**
      ## The main tableView
@@ -61,7 +63,7 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate,
      
      - Author: @GianlucaOrpello
      */
-    var thikerMessage: [(message: String, tvName: String, TVGroup: [TVGroup]?)]? = [(message: String, tvName: String, TVGroup: [TVGroup]?)]()
+    var tikerMessage: [(message: String, tvName: String, TVGroup: [TVGroup]?)]? = [(message: String, tvName: String, TVGroup: [TVGroup]?)]()
     var filteredThikerMessage: [(message: String, tvName: String, TVGroup: [TVGroup]?)]?
     /**
      ## All the keynote airing.
@@ -84,7 +86,9 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate,
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        getAiringProp()
+        getAiringProp(completionHandler: {
+            self.tableView?.reloadData()
+        })
         NotificationCenter.default.addObserver(self, selector: #selector(getAiringProp), name: NSNotification.Name(rawValue: "UpdateAiringPropsList"), object: nil)
     }
     
@@ -118,8 +122,8 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate,
             tableView!.register(TitleSubtitleAndDescriptionTableViewCell.self, forCellReuseIdentifier: "TitleSubtitleAndDescriptionTableViewCell")
             tableView!.register(TitleAndSubtitleTableViewCell.self, forCellReuseIdentifier: "TitleAndSubtitleTableViewCell")
             tableView!.register(CenteredButtonTableViewCell.self, forCellReuseIdentifier: "CenteredButtonTableViewCell")
+            tableView?.refreshControl = refreshControl
 
-            tableView!.reloadData()
             self.view.addSubview(tableView!)
         }
     }
@@ -193,35 +197,19 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate,
 
      - Author: @GianlucaOrpello
      */
-    @objc func getAiringProp() {
+    @objc func getAiringProp(completionHandler: @escaping () -> Void) {
 
         let ticker = CKController.getAiringTickers(in: .all)
         let keynoteFiles = CKController.getAiringKeynote(in: .all)
 
         keynote = []
-        thikerMessage = []
-
-        var uniqueTickerMessages = Set<String>()
+        tikerMessage = []
 
         for tick in ticker {
             // FIXME: Group tickers by message
             //uniqueTickerMessages.insert(tick.0)
-            thikerMessage?.append((message: tick.0, tvName: tick.1, TVGroup: nil))
+            tikerMessage?.append((message: tick.0, tvName: tick.1, TVGroup: nil))
         }
-
-//        for message in uniqueTickerMessages {
-//            thikerMessage?.append((message: message, tvName: "", TVGroup: nil))
-//            for tick in ticker {
-//                if tick.0 == message {
-//                    let size = thikerMessage!.count
-//                    thikerMessage![size - 1].tvName.append(tick.1 + ", ")
-//                }
-////                //Remove last two digits
-////                let size = thikerMessage!.count
-////                thikerMessage?[size - 1].tvName.removeLast(2)
-//            }
-//        }
-
 
         for key in keynoteFiles {
             keynote?.append((image: key.image, tvName: key.tvName, TVGroup: nil))
@@ -235,6 +223,14 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate,
             NSLog("Error getting the messages.")
             numberOfObject = 0
         }
+        completionHandler()
+    }
+
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        getAiringProp(completionHandler: {
+            self.tableView?.reloadData()
+            refreshControl.endRefreshing()
+        })
     }
 }
 /**
@@ -284,8 +280,8 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
 
                 switch indexPath.section {
                 case 0:
-                    CKController.removeTickerMessage(fromTVNamed: (self?.thikerMessage![indexPath.row].tvName)!)
-                    self?.thikerMessage?.remove(at: indexPath.row)
+                    CKController.removeTickerMessage(fromTVNamed: (self?.tikerMessage![indexPath.row].tvName)!)
+                    self?.tikerMessage?.remove(at: indexPath.row)
                 case 1:
                     CKController.removeKeynote(FromTV: (self?.keynote![indexPath.row].tvName)!)
                     self?.keynote!.remove(at: indexPath.row)
@@ -305,7 +301,8 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
         }
         
         remove.backgroundColor = .red
-        return indexPath.section == 3 ? nil : [remove]
+        print("\(indexPath.section), \(indexPath.count)")
+        return indexPath.section == indexPath.count ? nil : [remove]
     }
     
     /**
@@ -318,7 +315,7 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
-            return thikerMessage?.count != 0 ? Categories.tickerMessage.rawValue : nil
+            return tikerMessage?.count != 0 ? Categories.tickerMessage.rawValue : nil
         case 1:
             return keynote?.count != 0 ? Categories.keynoteViewer.rawValue : nil
         case 2:
@@ -360,7 +357,7 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
     private func getProp(from indexPath: IndexPath) -> Any? {
         switch indexPath.section {
         case 0:
-            return thikerMessage?[indexPath.row]
+            return tikerMessage?[indexPath.row]
         case 1:
             return keynote?[indexPath.row]
         case 2:
@@ -395,7 +392,7 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return thikerMessage?.count ?? 0
+            return tikerMessage?.count ?? 0
         case 1:
             return keynote?.count ?? 0
         case 2:
@@ -431,8 +428,8 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
 
             if let cell = tableView.dequeueReusableCell(withIdentifier: "TitleAndSubtitleTableViewCell") as? TitleAndSubtitleTableViewCell{
 
-                cell.title = thikerMessage?[indexPath.row].message
-                cell.subtitle = thikerMessage?[indexPath.row].tvName
+                cell.title = tikerMessage?[indexPath.row].message
+                cell.subtitle = tikerMessage?[indexPath.row].tvName
 
                 return cell
 
