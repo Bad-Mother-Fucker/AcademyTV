@@ -89,13 +89,14 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
         getAiringProp(completionHandler: {
             self.tableView?.reloadData()
         })
-        NotificationCenter.default.addObserver(self, selector: #selector(getAiringProp), name: NSNotification.Name(rawValue: "UpdateAiringPropsList"), object: nil)
+        //NotificationCenter.default.addObserver(self, selector: #selector(getAiringProp), name: NSNotification.Name(rawValue: "UpdateAiringPropsList"), object: nil)
     }
-    
+
+
     /**
      ## UIVIewController - ViewDidAppear Methods
      
-     Used for add the object inside the view.
+     Used to add the object inside the view.
      
      - Version: 1.0
      
@@ -125,6 +126,10 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
             tableView?.refreshControl = refreshControl
 
             self.view.addSubview(tableView!)
+
+            getAiringProp(completionHandler: {
+                self.tableView?.reloadData()
+            })
         }
     }
     

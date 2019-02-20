@@ -23,7 +23,7 @@
 		19FA366B21A8226500E3B1C0 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99AC097A2174F4B000CFCAD0 /* CloudKit.framework */; };
 		656887F421C919F400EBD49B /* TvListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F6B24721A2FF5D00B3FA65 /* TvListViewController.swift */; };
 		656887F521C91A2400EBD49B /* GroupsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F596C221A30F9000E999D7 /* GroupsCollectionViewCell.swift */; };
-		656887F621C91A3400EBD49B /* BorderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991AB6B621A30D8300D0565E /* BorderCollectionViewCell.swift */; };
+		656887F621C91A3400EBD49B /* SelectAllCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991AB6B621A30D8300D0565E /* SelectAllCollectionViewCell.swift */; };
 		656887F821C91A4400EBD49B /* ImagePickerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DE995E21ADF7DD00D01FF5 /* ImagePickerCollectionViewCell.swift */; };
 		656887FA21C9450F00EBD49B /* SharePosterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656887F921C9450F00EBD49B /* SharePosterViewController.swift */; };
 		656E2A0C21F62C3E00B9FD77 /* SummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9986D1BF21EFA3A20051AD85 /* SummaryViewController.swift */; };
@@ -40,7 +40,7 @@
 		9904CA5F217BDCED00210884 /* BoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9904CA5E217BDCED00210884 /* BoardViewController.swift */; };
 		9904CA67217DC5F100210884 /* GlobalMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9904CA66217DC5F100210884 /* GlobalMessageTableViewCell.swift */; };
 		9904CA6B217DDBAD00210884 /* GlobalMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9904CA6A217DDBAD00210884 /* GlobalMessage.swift */; };
-		991AB6B721A30D8300D0565E /* BorderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991AB6B621A30D8300D0565E /* BorderCollectionViewCell.swift */; };
+		991AB6B721A30D8300D0565E /* SelectAllCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991AB6B621A30D8300D0565E /* SelectAllCollectionViewCell.swift */; };
 		992C547021AD5C3300E05494 /* BooquableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FA31B121A45A1B00A31F02 /* BooquableManager.swift */; };
 		992C547221AD5C3300E05494 /* BooquableOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FA31B321A4637900A31F02 /* BooquableOrder.swift */; };
 		99308B7721A6FAE500EA0F9C /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99308B7621A6FAE500EA0F9C /* ShareViewController.swift */; };
@@ -162,7 +162,7 @@
 		9904CA5E217BDCED00210884 /* BoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = BoardViewController.swift; sourceTree = "<group>"; usesTabs = 0; };
 		9904CA66217DC5F100210884 /* GlobalMessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalMessageTableViewCell.swift; sourceTree = "<group>"; };
 		9904CA6A217DDBAD00210884 /* GlobalMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalMessage.swift; sourceTree = "<group>"; };
-		991AB6B621A30D8300D0565E /* BorderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderCollectionViewCell.swift; sourceTree = "<group>"; };
+		991AB6B621A30D8300D0565E /* SelectAllCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAllCollectionViewCell.swift; sourceTree = "<group>"; };
 		99308B7421A6FAE500EA0F9C /* ShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		99308B7621A6FAE500EA0F9C /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		99308B7921A6FAE500EA0F9C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
@@ -310,7 +310,7 @@
 				99B423312201C0200074FB0A /* Add TableViewCell */,
 				99EBB18C220057140030199D /* Live TableViewCell */,
 				99FF4BA12211ADFC00FD30E1 /* Summary TableViewCell */,
-				991AB6B621A30D8300D0565E /* BorderCollectionViewCell.swift */,
+				991AB6B621A30D8300D0565E /* SelectAllCollectionViewCell.swift */,
 				99F596C221A30F9000E999D7 /* GroupsCollectionViewCell.swift */,
 				99DE995E21ADF7DD00D01FF5 /* ImagePickerCollectionViewCell.swift */,
 				99E378FD21EA2ED0006380F7 /* NoLivePrompView.swift */,
@@ -699,7 +699,7 @@
 				99EBB19522005C090030199D /* TitleSubtitleAndDescriptionTableViewCell.swift in Sources */,
 				65F389AF21F5D7250084D5F5 /* TvGroups.swift in Sources */,
 				99B423392201C5B90074FB0A /* FullLightTextTableViewCell.swift in Sources */,
-				656887F621C91A3400EBD49B /* BorderCollectionViewCell.swift in Sources */,
+				656887F621C91A3400EBD49B /* SelectAllCollectionViewCell.swift in Sources */,
 				99EBB18721FF11750030199D /* PosterViewController.swift in Sources */,
 				656E2A0E21F62C7900B9FD77 /* PropsViewController.swift in Sources */,
 				99B4233E22045B740074FB0A /* TextFieldTableViewCell.swift in Sources */,
@@ -772,7 +772,7 @@
 				9936D1C121F77A1500478244 /* ShareViewController.swift in Sources */,
 				99AC09692174E9C100CFCAD0 /* AppDelegate.swift in Sources */,
 				99B423342201C1F10074FB0A /* FullImageTableViewCell.swift in Sources */,
-				991AB6B721A30D8300D0565E /* BorderCollectionViewCell.swift in Sources */,
+				991AB6B721A30D8300D0565E /* SelectAllCollectionViewCell.swift in Sources */,
 				99F6B25021A306EA00B3FA65 /* GlobalMessage.swift in Sources */,
 				99DE995821AD809D00D01FF5 /* BooquableTableViewController.swift in Sources */,
 				99EBB18621FF11750030199D /* PosterViewController.swift in Sources */,
@@ -842,7 +842,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5QJLL8HM6C;
+				DEVELOPMENT_TEAM = EHA3KYEH4L;
 				INFOPLIST_FILE = ShareExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -850,7 +850,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.TeamRogue.Viewer.iOS.ShareExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andre.TRogue.Viewer.iOS.ShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -867,7 +867,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5QJLL8HM6C;
+				DEVELOPMENT_TEAM = EHA3KYEH4L;
 				INFOPLIST_FILE = ShareExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -875,7 +875,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.TeamRogue.Viewer.iOS.ShareExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andre.TRogue.Viewer.iOS.ShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1010,13 +1010,13 @@
 				CODE_SIGN_ENTITLEMENTS = Viewer/Viewer.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5QJLL8HM6C;
+				DEVELOPMENT_TEAM = EHA3KYEH4L;
 				INFOPLIST_FILE = Viewer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.TeamRogue.Viewer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andre.TRogue.Viewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
@@ -1034,13 +1034,13 @@
 				CODE_SIGN_ENTITLEMENTS = Viewer/Viewer.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5QJLL8HM6C;
+				DEVELOPMENT_TEAM = EHA3KYEH4L;
 				INFOPLIST_FILE = Viewer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.TeamRogue.Viewer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andre.TRogue.Viewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
@@ -1057,14 +1057,14 @@
 				CODE_SIGN_ENTITLEMENTS = "Viewer iOs/Viewer iOs.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5QJLL8HM6C;
+				DEVELOPMENT_TEAM = EHA3KYEH4L;
 				INFOPLIST_FILE = "Viewer iOs/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.TeamRogue.Viewer.iOS;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andre.TRogue.Viewer.iOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_ENABLE_BATCH_MODE = NO;
@@ -1081,14 +1081,14 @@
 				CODE_SIGN_ENTITLEMENTS = "Viewer iOs/Viewer iOs.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5QJLL8HM6C;
+				DEVELOPMENT_TEAM = EHA3KYEH4L;
 				INFOPLIST_FILE = "Viewer iOs/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.TeamRogue.Viewer.iOS;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andre.TRogue.Viewer.iOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_ENABLE_BATCH_MODE = NO;

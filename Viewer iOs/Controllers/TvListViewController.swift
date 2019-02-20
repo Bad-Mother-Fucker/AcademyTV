@@ -72,7 +72,6 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.backBarButtonItem?.title = "Back"
         selectedGroups = []
         nextBarButtonItem.isEnabled = false
         nextBarButtonItem.title = "Next"
@@ -155,7 +154,7 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
             return cell ?? GroupsCollectionViewCell()
             
         } else {
-            let borderCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddAllTVGroup", for: indexPath) as? BorderCollectionViewCell
+            let borderCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddAllTVGroup", for: indexPath) as? SelectAllCollectionViewCell
             if UIScreen.main.bounds.width < 414{
                 borderCell?.frame.size = CGSize(width: 335, height: 45)
             } else {
@@ -163,7 +162,7 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
             }
             
             borderCell?.titleText = "Select All"
-            return borderCell ?? BorderCollectionViewCell()
+            return borderCell ?? SelectAllCollectionViewCell()
         }
 
     }

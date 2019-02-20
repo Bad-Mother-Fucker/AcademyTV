@@ -123,13 +123,13 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
         self.title = "Summary"
         
         if isCheckoutMode {
-            self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(pop))
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(pop))
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(postProp))
         } else if categories?.rawValue == Categories.globalMessage.rawValue {
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .done, target: self, action: #selector(editProp))
-            self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(dissmissController))
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(dissmissController))
         } else {
-             self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(dissmissController))
+             self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(dissmissController))
         }
 
         getCurrentCategories()
@@ -252,8 +252,8 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
     @objc fileprivate func remove(){
         
         let alert = UIAlertController(title: "Delete Prop", message: "The prop will be removed from all the screens. This cannot be undone.", preferredStyle: .alert)
-        let cancel = UIAlertAction(title: "Cancel", style: .default, handler: nil)
-        let delete = UIAlertAction(title: "Delete", style: .cancel, handler: { [weak self] _ in
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let delete = UIAlertAction(title: "Delete", style: .destructive, handler: { [weak self] _ in
             
             if let ticker = self?.prop as? (message: String, tvName: String){
                 CKController.removeTickerMessage(fromTVNamed: ticker.tvName)
@@ -262,8 +262,8 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
             } else if let globalMessage = self?.prop as? GlobalMessage{
                 CKController.remove(globalMessage: globalMessage)
             }
-            NotificationCenter.default.post(name: NSNotification.Name("UpdateAiringPropsList"), object: nil)
-            self?.dismiss(animated: true, completion: nil)
+
+            self?.dismiss(animated: true, completion: {NotificationCenter.default.post(name: NSNotification.Name("UpdateAiringPropsList"), object: nil)})
         })
         alert.addAction(cancel)
         alert.addAction(delete)

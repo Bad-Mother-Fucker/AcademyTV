@@ -186,7 +186,7 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
             return cell ?? GroupsCollectionViewCell()
             
         } else {
-            let borderCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddAllTVGroup", for: indexPath) as? BorderCollectionViewCell
+            let borderCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddAllTVGroup", for: indexPath) as? SelectAllCollectionViewCell
             if UIScreen.main.bounds.width < 414 {
                 borderCell?.frame.size = CGSize(width: 335, height: 45)
             } else {
@@ -194,7 +194,7 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
             }
             
             borderCell?.titleText = "Select All"
-            return borderCell ?? BorderCollectionViewCell()
+            return borderCell ?? SelectAllCollectionViewCell()
         }
         
     }

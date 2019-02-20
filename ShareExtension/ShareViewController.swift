@@ -83,7 +83,7 @@ class ShareViewController: UIViewController, UICollectionViewDataSource, UIColle
             
 
         } else {
-            guard let borderCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddAllTVGroup", for: indexPath) as? BorderCollectionViewCell else { return UICollectionViewCell() }
+            guard let borderCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddAllTVGroup", for: indexPath) as? SelectAllCollectionViewCell else { return UICollectionViewCell() }
             borderCell.frame.size = CGSize(width: 343, height: 43)
             borderCell.titleText = "Select All"
             return borderCell

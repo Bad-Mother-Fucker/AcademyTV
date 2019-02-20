@@ -154,12 +154,9 @@ class AddPropsViewController: UITableViewController {
         
         self.title = props.title
         
-
-        let vc = navigationController?.viewControllers.first
-        let button = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(dissmissController))
-        vc?.navigationItem.backBarButtonItem = button
-        
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(checkSummary))
+
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(dissmissController))
         
         self.navigationItem.rightBarButtonItem?.isEnabled = false
         
