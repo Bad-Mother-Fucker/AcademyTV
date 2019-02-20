@@ -378,7 +378,7 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
                     print(itemProvider.registeredTypeIdentifiers.count)
                 }
             }
-            print(content.attachments?.count, self.keynote.count)
+            print(content.attachments?.count as Any, self.keynote.count)
         } else {
             print("No content found")
         }

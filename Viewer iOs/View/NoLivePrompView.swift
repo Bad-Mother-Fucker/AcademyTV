@@ -74,6 +74,7 @@ class NoLivePrompView: UIView {
         subTitleLabel.textAlignment = .center
         
         contactbutton.setTitle("Something's wrong?", for: .normal)
+        contactbutton.contentHorizontalAlignment = .center
         contactbutton.setTitleColor(UIColor(red: 0, green: 119 / 255, blue: 1, alpha: 1), for: .normal)
     }
     
@@ -91,13 +92,13 @@ class NoLivePrompView: UIView {
         subTitleLabel = UILabel()
         contactbutton = UIButton()
 
+        set()
+
         stack = UIStackView(arrangedSubviews: [bigTitleLabel, subTitleLabel])
         stack.alignment = .center
         stack.axis = .vertical
         stack.distribution = .fillProportionally
         stack.spacing = 10
-        
-        set()
         
         self.addSubview(stack)
         self.addSubview(contactbutton)
@@ -123,18 +124,15 @@ class NoLivePrompView: UIView {
      - Author: @GianlucaOrpello
      */
     @objc func addConstraints(){
-        bigTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        subTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        stack.translatesAutoresizingMaskIntoConstraints = false
         contactbutton.translatesAutoresizingMaskIntoConstraints = false
 
         let safeArea = self.safeAreaLayoutGuide
 
-        stack.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor, constant: 0)
-        contactbutton.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor, constant: 0)
+        stack.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor).isActive = true
+        stack.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
 
-        stack.centerYAnchor.constraint(equalTo: safeArea.centerYAnchor, constant: 0)
-
-        contactbutton.widthAnchor.constraint(equalTo: safeArea.widthAnchor, constant: 0)
+        contactbutton.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor).isActive = true
         contactbutton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -16).isActive = true
 
         self.layoutIfNeeded()

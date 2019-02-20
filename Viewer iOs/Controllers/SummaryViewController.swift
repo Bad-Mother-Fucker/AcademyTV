@@ -168,18 +168,24 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
         if let cat = categories{
             switch cat {
             case Categories.tickerMessage:
-                let ticker = prop as? (message: String, tvName: String, TVGroup: [TVGroup])
-                ticker?.TVGroup.forEach { (group) in
-                    CKController.postTickerMessage((ticker?.message)!, onTvGroup: group)
+                if let ticker = prop as? (message: String, tvName: String, TVGroup: [TVGroup]){
+                    ticker.TVGroup.forEach { (group) in
+                        CKController.postTickerMessage(ticker.message, onTvGroup: group)
+                    }
+                    NotificationCenter.default.post(name: .addNewPropsFromSummary, object: nil, userInfo: ["prop": ticker])
                 }
             case Categories.keynoteViewer:
-                let keynote = prop as? (image: [UIImage]?, tvName: String, TVGroup: [TVGroup])
-                keynote?.TVGroup.forEach { (group) in
-                    CKController.postKeynote(keynote?.image! ?? [UIImage()], ofType: .PNG, onTVsOfGroup: group)
+                if let keynote = prop as? (image: [UIImage]?, tvName: String, TVGroup: [TVGroup]){
+                    keynote.TVGroup.forEach { (group) in
+                        CKController.postKeynote(keynote.image!, ofType: .PNG, onTVsOfGroup: group)
+                    }
+                    NotificationCenter.default.post(name: .addNewPropsFromSummary, object: nil, userInfo: ["prop": keynote])
                 }
             case Categories.globalMessage:
-                let gm = prop as? GlobalMessage
-                CKController.postMessage(title: gm?.title ?? "", subtitle: (gm?.subtitle)!, location: gm?.location, date: (gm?.date)!, description: gm?.description, URL: gm?.url, timeToLive: 0)
+                if let gm = prop as? GlobalMessage{
+                    CKController.postMessage(title: gm.title, subtitle: gm.subtitle, location: gm.location, date: gm.date, description: gm.description, URL: gm.url, timeToLive: 0)
+                    NotificationCenter.default.post(name: .addNewPropsFromSummary, object: nil, userInfo: ["prop": gm])
+                }
             default:
                 break
             }

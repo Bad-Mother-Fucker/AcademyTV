@@ -17,6 +17,13 @@ import MessageUI
  */
 class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate {
 
+    /**
+     ## UIRefreshControl of the tableView
+
+     - Version: 1.0
+
+     - Author: @GianlucaOrpello
+     */
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(handleRefresh(_:)), for: .valueChanged)
@@ -40,7 +47,17 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
      
      - Author: @GianlucaOrpello
      */
-    var numberOfObject: Int = 0
+    var numberOfObject: Int = 0 {
+        didSet{
+            if numberOfObject == 0{
+                for view in self.view.subviews{
+                    view.removeFromSuperview()
+                }
+                loadCurrentView()
+            }
+            debugPrint(numberOfObject)
+        }
+    }
     
     /**
      ## All the global message airing.
@@ -74,7 +91,7 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
      
      - Author: @GianlucaOrpello
      */
-    var keynote: [(image: [UIImage]?, tvName: String, TVGroup: [TVGroup]?)]? = [(image: [UIImage]?, tvName: String, TVGroup: [TVGroup]?)]()
+    var contentViewers: [(image: [UIImage]?, tvName: String, TVGroup: [TVGroup]?)]? = [(image: [UIImage]?, tvName: String, TVGroup: [TVGroup]?)]()
     var filteredKeynote: [(image: [UIImage]?, tvName: String, TVGroup: [TVGroup]?)]?
 
     /**
@@ -86,8 +103,9 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        getAiringProp(completionHandler: {
-            self.tableView?.reloadData()
+        getAiringProp(completionHandler: { [weak self] in
+            self?.tableView?.reloadData()
+            self?.countNumberOfPromp()
         })
         //NotificationCenter.default.addObserver(self, selector: #selector(getAiringProp), name: NSNotification.Name(rawValue: "UpdateAiringPropsList"), object: nil)
     }
@@ -104,8 +122,39 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
      */
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        loadCurrentView()
+    }
+
+    /**
+     ## UIVIewController - viewDidDisappear Methods
+
+     Used for add the object inside the view.
+
+     - Version: 1.0
+
+     - Author: @GianlucaOrpello
+     */
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+//        NotificationCenter.default.removeObserver(self, name: .addNewPropsFromSummary, object: nil)
+    }
+
+    /**
+     ## Load the current View Methods
+
+     Used for add the object inside the view.
+
+     - Version: 1.0
+
+     - Author: @GianlucaOrpello
+     */
+    private func loadCurrentView(){
+        for view in self.view.subviews{
+            view.removeFromSuperview()
+        }
+        
         if numberOfObject == 0 {
-            let noLiveView = NoLivePrompView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height))
+            let noLiveView = NoLivePrompView(frame: self.view.frame)
             noLiveView.contactbutton.addTarget(self, action: #selector(sendEmail), for: .touchUpInside)
             print(numberOfObject)
             self.view.addSubview(noLiveView)
@@ -113,7 +162,7 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
             for views in self.view.subviews {
                 views.removeFromSuperview()
             }
-            
+
             tableView = UITableView(frame: self.view.frame)
             tableView!.delegate = self
             tableView!.dataSource = self
@@ -207,7 +256,7 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
         let ticker = CKController.getAiringTickers(in: .all)
         let keynoteFiles = CKController.getAiringKeynote(in: .all)
 
-        keynote = []
+        contentViewers = []
         tickerMessage = []
 
         var uniqueTickerMessages = Set<String>()
@@ -234,7 +283,7 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
 
 
         for key in keynoteFiles {
-            keynote?.append((image: key.image, tvName: key.tvName, TVGroup: nil))
+            contentViewers?.append((image: key.image, tvName: key.tvName, TVGroup: nil))
         }
 
         do{
@@ -248,6 +297,34 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
         completionHandler()
     }
 
+    private func countNumberOfPromp(){
+        self.numberOfObject = 0
+        numberOfObject += tickerMessage?.count ?? 0
+        numberOfObject += globalMessages?.count ?? 0
+        numberOfObject += contentViewers?.count ?? 0
+    }
+
+    @objc private func addNewPropFromSummay(_ notification: Notification){
+        let prop = notification.userInfo?["prop"]
+        debugPrint("Props: \(prop)")
+        if let ticker = prop as? (message: String, tvName: String, TVGroup: [TVGroup]?){
+            tickerMessage?.append(ticker)
+        }else if let contentViewer = prop as? (image: [UIImage]?, tvName: String, TVGroup: [TVGroup]?){
+            contentViewers!.append(contentViewer)
+        }else if let message = prop as? GlobalMessage{
+            globalMessages?.append(message)
+        }
+        numberOfObject += 1
+        self.tableView?.reloadData()
+    }
+
+    /**
+     ## Handle the pull to refresh
+
+     - Version: 1.0
+
+     - Author: @GianlucaOrpello
+     */
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
         getAiringProp(completionHandler: {
             self.tableView?.reloadData()
@@ -320,17 +397,17 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
                     for tickerTVName in tickersToDelete!{
                         CKController.removeTickerMessage(fromTVNamed: (String(tickerTVName)))
                     }
-//                    CKController.removeTickerMessage(fromTVNamed: (self?.thikerMessage![indexPath.row].tvName)!)
                     self?.tickerMessage?.remove(at: indexPath.row)
                 case 1:
-                    CKController.removeKeynote(FromTV: (self?.keynote![indexPath.row].tvName)!)
-                    self?.keynote!.remove(at: indexPath.row)
+                    CKController.removeKeynote(FromTV: (self?.contentViewers![indexPath.row].tvName)!)
+                    self?.contentViewers!.remove(at: indexPath.row)
                 case 2:
                     CKController.remove(globalMessage: (self?.globalMessages![indexPath.row])!)
                     self?.globalMessages!.remove(at: indexPath.row)
                 default:
                     break
                 }
+                self?.numberOfObject -= 1
                 tableView.reloadData()
             })
             
@@ -356,7 +433,7 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
         case 0:
             return tickerMessage?.count != 0 ? Categories.tickerMessage.rawValue : nil
         case 1:
-            return keynote?.count != 0 ? Categories.keynoteViewer.rawValue : nil
+            return contentViewers?.count != 0 ? Categories.keynoteViewer.rawValue : nil
         case 2:
             return globalMessages?.count != 0 ? Categories.globalMessage.rawValue : nil
         default:
@@ -398,7 +475,7 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
         case 0:
             return tickerMessage?[indexPath.row]
         case 1:
-            return keynote?[indexPath.row]
+            return contentViewers?[indexPath.row]
         case 2:
             return globalMessages?[indexPath.row]
         default:
@@ -433,7 +510,7 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
         case 0:
             return tickerMessage?.count ?? 0
         case 1:
-            return keynote?.count ?? 0
+            return contentViewers?.count ?? 0
         case 2:
             return globalMessages?.count ?? 0
         case 3:
@@ -477,7 +554,7 @@ extension LiveViewController: UITableViewDelegate, UITableViewDataSource{
             if let cell = tableView.dequeueReusableCell(withIdentifier: "TitleAndSubtitleTableViewCell") as? TitleAndSubtitleTableViewCell{
 
                 cell.title = "Unnamed"
-                cell.subtitle = keynote?[indexPath.row].tvName
+                cell.subtitle = contentViewers?[indexPath.row].tvName
 
                 return cell
             } else { return UITableViewCell() }
