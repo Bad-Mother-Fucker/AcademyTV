@@ -25,9 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         UNUserNotificationCenter.current().delegate = self
         
         let authOptions: UNAuthorizationOptions = [.badge]
-        
-        
-        
+
         UNUserNotificationCenter.current().requestAuthorization(options: authOptions) { (autorized, error) in
             guard error == nil else {
                 print(error!.localizedDescription)
@@ -39,7 +37,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     UNUserNotificationCenter.current().delegate = self
                     CKController.saveSubscription(for: GlobalMessage.recordType, ID: CKKeys.messageSubscriptionKey)
                     CKController.saveSubscription(for: TV.recordType, ID: CKKeys.tvSubscriptionKey)
-                
                 }
             }
         }
@@ -114,16 +111,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
 //        Save device token as TV property
-        
-        print("registered for remote notifications")
+        NSLog("registered for remote notifications")
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        print(error.localizedDescription)
+        NSLog(error.localizedDescription)
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
-        print("notification recieved")
+        NSLog("notification recieved")
         let notificationName: CKNotificationName
         if let info = userInfo as? [String: Any] {
 

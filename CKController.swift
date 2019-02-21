@@ -52,11 +52,11 @@ class CKController {
                 print(error!.localizedDescription)
                 let err = error as? CKError
                 if err?.code ==  CKError.Code.serverRejectedRequest {
-                    print("subscription already extists")
+                    debugPrint("subscription already extists")
                 }
                 return
             }
-            debugPrint ("subscription \(subscription!.subscriptionID) saved")
+            debugPrint("subscription \(subscription!.subscriptionID) saved")
         }
     }
 

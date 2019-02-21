@@ -7,6 +7,7 @@
 //
 import UIKit
 import MessageUI
+import CloudKit
 
 /**
  ## The Home screen view controller.
@@ -107,7 +108,7 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
             self?.tableView?.reloadData()
             self?.countNumberOfPromp()
         })
-        NotificationCenter.default.addObserver(self, selector: #selector(addNewPropFromSummay(_:)), name: .addNewPropsFromSummary, object: nil)
+        addLiveViewObserver()
     }
     
     /**
@@ -135,7 +136,21 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
      */
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-//        NotificationCenter.default.removeObserver(self, name: .addNewPropsFromSummary, object: nil)
+        NotificationCenter.default.removeObserver(self,
+                                                  name: NSNotification.Name(rawValue: CKNotificationName.tvSet.rawValue),
+                                                  object: nil)
+
+        NotificationCenter.default.removeObserver(self,
+                                                  name: NSNotification.Name(rawValue: CKNotificationName.MessageNotification.create.rawValue),
+                                                  object: nil)
+
+        NotificationCenter.default.removeObserver(self,
+                                                  name: NSNotification.Name(rawValue: CKNotificationName.MessageNotification.delete.rawValue),
+                                                  object: nil)
+
+        NotificationCenter.default.removeObserver(self,
+                                                  name: NSNotification.Name(rawValue: CKNotificationName.MessageNotification.update.rawValue),
+                                                  object: nil)
     }
 
     /**
@@ -301,7 +316,6 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
 
     @objc private func addNewPropFromSummay(_ notification: Notification){
         let prop = notification.userInfo?["prop"]
-        debugPrint("Props: \(prop)")
         if let ticker = prop as? (message: String, tvName: String, TVGroup: [TVGroup]?){
             tickerMessage?.append(ticker)
         }else if let contentViewer = prop as? (image: [UIImage]?, tvName: String, TVGroup: [TVGroup]?){
@@ -325,6 +339,44 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
             self.tableView?.reloadData()
             refreshControl.endRefreshing()
         })
+    }
+
+    private func addLiveViewObserver(){
+
+        NotificationCenter.default.addObserver(self, selector: #selector(addNewPropFromSummay(_:)), name: .addNewPropsFromSummary, object: nil)
+
+        NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: CKNotificationName.tvSet.rawValue), object: nil, queue: .main) { _ in
+            debugPrint("Tv update")
+            self.tableView?.reloadData()
+        }
+
+
+        NotificationCenter.default.addObserver(forName: Notification.Name(CKNotificationName.MessageNotification.create.rawValue), object: nil, queue: .main) { (notification) in
+            guard let userinfo = notification.userInfo as? [String: GlobalMessage] else { return }
+            let msg = userinfo["newMsg"]!
+            debugPrint("Global message created")
+            self.globalMessages?.append(msg)
+            self.tableView?.reloadData()
+        }
+
+        NotificationCenter.default.addObserver(forName: Notification.Name(CKNotificationName.MessageNotification.delete.rawValue), object: nil, queue: .main) { (notification) in
+            guard let userinfo = notification.userInfo as? [String: CKRecord.ID] else { return }
+            let recordID = userinfo["recordID"]!
+            self.globalMessages = self.globalMessages?.filter({ (msg) -> Bool in
+                debugPrint("Global message deleated")
+                return msg.record.recordID != recordID
+            })
+            self.tableView?.reloadData()
+        }
+
+
+        NotificationCenter.default.addObserver(forName: Notification.Name(CKNotificationName.MessageNotification.update.rawValue), object: nil, queue: .main) { (notification) in
+            guard let userinfo = notification.userInfo as? [String: GlobalMessage] else { return }
+            if let newMsg = userinfo["modifiedMsg"] {
+                debugPrint("Global message modified with newMessage: \(newMsg)")
+            }
+            self.tableView?.reloadData()
+        }
     }
 }
 /**

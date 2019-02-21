@@ -8,17 +8,35 @@
 
 import UIKit
 import CloudKit
+import UserNotifications
 
 @UIApplicationMain
- class AppDelegate: UIResponder, UIApplicationDelegate {
+ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
     
     let query = CKQuery(recordType: "GlobalMessages", predicate: NSPredicate(value: true))
-    
-    
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+
+        UNUserNotificationCenter.current().delegate = self
+
+        let authOptions: UNAuthorizationOptions = [.badge]
+        UNUserNotificationCenter.current().requestAuthorization(options: authOptions) { (autorized, error) in
+            guard error == nil else {
+                print(error!.localizedDescription)
+                return
+            }
+            if autorized {
+                DispatchQueue.main.async {
+                    application.registerForRemoteNotifications()
+                    UNUserNotificationCenter.current().delegate = self
+                    CKController.saveSubscription(for: GlobalMessage.recordType, ID: CKKeys.messageSubscriptionKey)
+                    CKController.saveSubscription(for: TV.recordType, ID: CKKeys.tvSubscriptionKey)
+                }
+            }
+        }
+
         // Override point for customization after application launch.
         let recordQuery = CKQuery(recordType: UsageStatistics.recordType, predicate: NSPredicate(format: "recordCode == %@", "com.Rogue.Viewer.UsageStats"))
         CKKeys.database.perform(recordQuery, inZoneWith: nil) { (records, error) in
@@ -36,11 +54,43 @@ import CloudKit
                 
                 return
             }
-            
             UsageStatistics.shared.record = records!.first!
             
         }
         return true
+    }
+
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
+        NSLog("notification recieved")
+        let notificationName: CKNotificationName
+        if let info = userInfo as? [String: Any] {
+
+            let ckqn = CKQueryNotification(fromRemoteNotificationDictionary: info)
+
+            switch ckqn.subscriptionID {
+            case CKKeys.tvSubscriptionKey:
+                notificationName = .tv
+            case CKKeys.messageSubscriptionKey:
+                notificationName = .globalMessages
+            case CKKeys.serviceSubscriptionKey:
+                notificationName = .serviceMessage
+            default:
+                notificationName = .null
+            }
+            let notification = Notification(name: Notification.Name(rawValue: notificationName.rawValue),
+                                            object: self,
+                                            userInfo: [CKNotificationName.notification.rawValue: ckqn])
+            NotificationCenter.default.post(notification)
+        }
+    }
+
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        //        Save device token as TV property
+        NSLog("registered for remote notifications")
+    }
+
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        NSLog(error.localizedDescription)
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -62,6 +112,6 @@ import CloudKit
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        CKController.removeSubscriptions()
     }
 }
