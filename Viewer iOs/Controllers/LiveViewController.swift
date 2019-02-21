@@ -110,11 +110,12 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
         })
         addLiveViewObserver()
     }
-    
+
+
     /**
      ## UIVIewController - ViewDidAppear Methods
      
-     Used for add the object inside the view.
+     Used to add the object inside the view.
      
      - Version: 1.0
      
@@ -189,6 +190,10 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
             tableView?.refreshControl = refreshControl
 
             self.view.addSubview(tableView!)
+
+            getAiringProp(completionHandler: {
+                self.tableView?.reloadData()
+            })
         }
     }
     

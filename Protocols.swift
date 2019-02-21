@@ -77,7 +77,7 @@ enum CKNotificationName: String {
  - Author: @Micheledes
  */
 enum CKKeys {
-    static let database = CKContainer(identifier: "iCloud.com.TeamRogue.Viewer").publicCloudDatabase
+    static let database = CKContainer(identifier: "iCloud.com.andre.TRogue.Viewer").publicCloudDatabase
     static let messageSubscriptionKey = "CKMessageSubscription"
     static let tvSubscriptionKey = "CKTVSubscription"
     static let serviceSubscriptionKey = "CKServiceMessageSubscription"

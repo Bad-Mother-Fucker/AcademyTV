@@ -9,7 +9,7 @@
 import UIKit
 
 /// This class are used for rappresent the Border Cell
-class BorderCollectionViewCell: UICollectionViewCell {
+class SelectAllCollectionViewCell: UICollectionViewCell {
 
     var titleText: String?{
         didSet{
@@ -44,7 +44,7 @@ class BorderCollectionViewCell: UICollectionViewCell {
         
         super.awakeFromNib()
         self.layer.borderWidth = 2
-        self.layer.borderColor = UIColor.blue.cgColor
+        self.layer.borderColor = UIColor(red: 0/255, green: 119/255, blue: 255/255, alpha: 1).cgColor
         self.layer.cornerRadius = 10
         
     }

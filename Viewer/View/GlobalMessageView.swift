@@ -120,7 +120,23 @@ class GlobalMessageView: UIView {
     var globalMessages: [GlobalMessage] = [] {
         didSet {
             if globalMessages.count == 0 {
-                set(message: .voidMessage)
+                let disappear = {
+                    self.superview!.superview!.fadeOut()
+                }
+                DispatchQueue.main.async {
+                    UIView.animate(withDuration: 1,
+                                   animations: disappear,
+                                   completion: { _ in self.set(message: .voidMessage) })
+                }
+            } else {
+                let appear = {
+                    self.superview!.superview!.fadeIn()
+                }
+                self.set(message: self.globalMessages[0])
+                DispatchQueue.main.async {
+                    UIView.animate(withDuration: 1, animations: appear)
+                }
+
             }
         }
     }
