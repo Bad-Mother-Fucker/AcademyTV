@@ -80,14 +80,14 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
     // MARK: DelegateFlowLayout methods
     // setting correct spacing
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        
+
         if UIScreen.main.bounds.width < 414 {
             return UIEdgeInsets(top: 15, left: 20, bottom: 15, right: 20)
         } else {
             return UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
         }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 12.5
     }
@@ -149,7 +149,7 @@ class TvListViewController: UIViewController, UICollectionViewDataSource, UIColl
                                                    blue: CGFloat(group.endingColor.blue/255),
                                                    alpha: 1))
             
-            cell?.groupName = group.name.rawValue
+            cell?.groupName = trueTvNames[group.name]
 
             return cell ?? GroupsCollectionViewCell()
             
