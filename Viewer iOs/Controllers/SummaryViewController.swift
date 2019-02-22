@@ -166,32 +166,44 @@ class SummaryViewController: UIViewController, MFMailComposeViewControllerDelega
     @objc func postProp() {
         debugPrint("PostProp")
         if let cat = categories{
-            switch cat {
-            case Categories.tickerMessage:
-                if let ticker = prop as? (message: String, tvName: String, TVGroup: [TVGroup]){
-                    ticker.TVGroup.forEach { (group) in
-                        CKController.postTickerMessage(ticker.message, onTvGroup: group)
-                    }
-                    NotificationCenter.default.post(name: .addNewPropsFromSummary, object: nil, userInfo: ["prop": ticker])
-                }
-            case Categories.keynoteViewer:
-                if let keynote = prop as? (image: [UIImage]?, tvName: String, TVGroup: [TVGroup]){
-                    keynote.TVGroup.forEach { (group) in
-                        CKController.postKeynote(keynote.image!, ofType: .PNG, onTVsOfGroup: group)
-                    }
-                    NotificationCenter.default.post(name: .addNewPropsFromSummary, object: nil, userInfo: ["prop": keynote])
-                }
-            case Categories.globalMessage:
-                if let gm = prop as? GlobalMessage{
-                    CKController.postMessage(title: gm.title, subtitle: gm.subtitle, location: gm.location, date: gm.date, description: gm.description, URL: gm.url, timeToLive: 0)
-                    NotificationCenter.default.post(name: .addNewPropsFromSummary, object: nil, userInfo: ["prop": gm])
-                }
-            default:
-                break
+            sendPropToLiveView(with: cat) {
+                self.navigationController?.dismiss(animated: true, completion: nil)
             }
-            self.navigationController?.dismiss(animated: true, completion: nil)
         }
+    }
 
+    private func sendPropToLiveView(with category: Categories, completionHandler: @escaping () -> Void){
+        let sem = DispatchSemaphore(value: 0)
+        switch category {
+        case .tickerMessage:
+            if let ticker = prop as? (message: String, tvName: String, TVGroup: [TVGroup]){
+                ticker.TVGroup.forEach { (group) in
+                    CKController.postTickerMessage(ticker.message, onTvGroup: group)
+                }
+                NotificationCenter.default.post(name: .addNewPropsFromSummary, object: nil, userInfo: ["prop": ticker])
+                sem.signal()
+            }
+        case .keynoteViewer:
+            if let keynote = prop as? (image: [UIImage]?, tvName: String, TVGroup: [TVGroup]){
+                keynote.TVGroup.forEach { (group) in
+                    CKController.postKeynote(keynote.image!, ofType: .PNG, onTVsOfGroup: group)
+                }
+                NotificationCenter.default.post(name: .addNewPropsFromSummary, object: nil, userInfo: ["prop": keynote])
+                sem.signal()
+            }
+        case .globalMessage:
+            if let gm = prop as? GlobalMessage{
+                CKController.postMessage(title: gm.title, subtitle: gm.subtitle, location: gm.location, date: gm.date, description: gm.description, URL: gm.url, timeToLive: 0)
+                NotificationCenter.default.post(name: .addNewPropsFromSummary, object: nil, userInfo: ["prop": gm])
+                sem.signal()
+            }
+        default:
+            break
+        }
+        if sem.wait(timeout: .distantFuture) == .timedOut {
+//            throw CKQueryException.connectionTimedOut("Request Timed Out, check your internet connection")
+        }
+        completionHandler()
     }
 
     @objc func editProp() {

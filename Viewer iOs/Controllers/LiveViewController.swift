@@ -58,7 +58,6 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
      */
     var numberOfObject: Int = 0 {
         didSet{
-            debugPrint(numberOfObject)
             guard numberOfObject == 0 else { return }
             for view in self.view.subviews{
                 view.removeFromSuperview()
@@ -325,19 +324,6 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
         numberOfObject += contentViewers?.count ?? 0
     }
 
-    @objc private func addNewPropFromSummay(_ notification: Notification){
-        let prop = notification.userInfo?["prop"]
-        if let ticker = prop as? (message: String, tvName: String, TVGroup: [TVGroup]?){
-            tickerMessage?.append(ticker)
-        }else if let contentViewer = prop as? (image: [UIImage]?, tvName: String, TVGroup: [TVGroup]?){
-            contentViewers!.append(contentViewer)
-        }else if let message = prop as? GlobalMessage{
-            globalMessages?.append(message)
-        }
-        numberOfObject += 1
-        self.tableView?.reloadData()
-    }
-
     /**
      ## Handle the pull to refresh
 
@@ -354,7 +340,20 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
 
     private func addLiveViewObserver(){
 
-        NotificationCenter.default.addObserver(self, selector: #selector(addNewPropFromSummay(_:)), name: .addNewPropsFromSummary, object: nil)
+        NotificationCenter.default.addObserver(forName: .addNewPropsFromSummary, object: nil, queue: .main) { (notification) in
+            let prop = notification.userInfo?["prop"]
+            if let ticker = prop as? (message: String, tvName: String, TVGroup: [TVGroup]?){
+                self.tickerMessage?.append(ticker)
+            }else if let contentViewer = prop as? (image: [UIImage]?, tvName: String, TVGroup: [TVGroup]?){
+                self.contentViewers!.append(contentViewer)
+            }else if let message = prop as? GlobalMessage{
+                self.globalMessages?.append(message)
+            }
+            self.numberOfObject += 1
+            self.tableView?.reloadData()
+        }
+//
+//        NotificationCenter.default.addObserver(self, selector: #selector(addNewPropFromSummay(_:)), name: .addNewPropsFromSummary, object: nil)
 
         NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: CKNotificationName.tv.rawValue), object: nil, queue: .main) { _ in
             debugPrint("Tv update")
