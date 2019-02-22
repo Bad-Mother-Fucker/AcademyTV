@@ -192,7 +192,7 @@ class CKController {
     static func removeTickerMessage(fromTVNamed name: String) {
         TVModel.getTV(withName: name) { (tv, error) in
             guard tv != nil, error == nil else {
-                print(error!.localizedDescription)
+                print(error?.localizedDescription)
                 return
             }
             tv!.record.setValue(nil, forKey: TV.keys.ticker)
