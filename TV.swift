@@ -14,6 +14,7 @@ import CloudKit
 class TVModel {
     static func addTV(withName name: String, completionHandler: @escaping (CKRecord?, Error?) -> Void) {
         let tv = TV(name: name)
+
         CKKeys.database.save(tv.record) { (record, error) in
             if error != nil {
                 // Insert error handling
@@ -68,7 +69,7 @@ class TVModel {
     static func getTvs(ofGroup group: TVGroup, completionHandler: @escaping ([TV]?, Error?) -> Void){
         let predicate = group == .all ? NSPredicate(value: true) : NSPredicate(format: "\(TV.keys.tvGroup) == %@", group.rawValue)
         let query = CKQuery(recordType: TV.recordType, predicate: predicate)
-        
+
         CKKeys.database.perform(query, inZoneWith: nil) { (records, error) in
             guard records != nil, error == nil else {
                 //  error handling

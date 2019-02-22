@@ -75,9 +75,12 @@ enum CKNotificationName: String {
  - Version: 1.0
 
  - Author: @Micheledes
+
  */
+
+
 enum CKKeys {
-    static let database = CKContainer(identifier: "iCloud.com.TeamRogue.Viewer").publicCloudDatabase
+    static let database = CKContainer(identifier: "iCloud.com.andre.TRogue.Viewer").publicCloudDatabase
     static let messageSubscriptionKey = "CKMessageSubscription"
     static let tvSubscriptionKey = "CKTVSubscription"
     static let serviceSubscriptionKey = "CKServiceMessageSubscription"
@@ -90,7 +93,7 @@ protocol KeynoteViewerDelegate {
     func hideTicker()
 }
 
-enum TVGroup: String{
+enum TVGroup: String {
     case lab1 = "Lab-01"
     case lab2 = "Lab-02"
     case lab3 = "Lab-03"

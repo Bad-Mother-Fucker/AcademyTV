@@ -181,7 +181,7 @@ class ShareTvListViewController: UIViewController, UICollectionViewDataSource, U
                                                    blue: CGFloat(group.endingColor.blue / 255),
                                                    alpha: 1))
             
-            cell?.groupName = group.name.rawValue
+            cell?.groupName = trueTvNames[group.name]
             
             return cell ?? GroupsCollectionViewCell()
             
