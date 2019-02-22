@@ -16,7 +16,7 @@ class CKController {
     
     // MARK: - static methods implementation
 //    Creates and saves subscriptions to push notifications
-   static func saveSubscription(for type: String, ID: String) {
+    static func saveSubscription(for type: String, ID: String, device: VWDeviceType) {
         
         var predicate = NSPredicate(value: true)
         var options: CKQuerySubscription.Options = []
@@ -29,10 +29,12 @@ class CKController {
 //        This subscribes just to updates on the current TV record
         case CKKeys.tvSubscriptionKey:
             options = [.firesOnRecordUpdate]
-            predicate = NSPredicate(format: "name == %@ ", UIDevice.current.name)
-        case CKKeys.serviceSubscriptionKey:
-            options = [.firesOnRecordUpdate]
-            
+            switch device {
+            case .TVOSDevice:
+                predicate = NSPredicate(format: "name == %@ ", UIDevice.current.name)
+            case .iOSDevice:
+                predicate = NSPredicate(value: true)
+            }
         default:
             break
         }

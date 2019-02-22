@@ -112,7 +112,6 @@ class TVViewController: UIViewController {
                 }
             }
         }
-        
     }
     
     private func handleTVNotification(_ ckqn: CKQueryNotification) {

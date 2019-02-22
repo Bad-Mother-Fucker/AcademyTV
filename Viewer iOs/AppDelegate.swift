@@ -31,8 +31,8 @@ import UserNotifications
                 DispatchQueue.main.async {
                     application.registerForRemoteNotifications()
                     UNUserNotificationCenter.current().delegate = self
-                    CKController.saveSubscription(for: GlobalMessage.recordType, ID: CKKeys.messageSubscriptionKey)
-                    CKController.saveSubscription(for: TV.recordType, ID: CKKeys.tvSubscriptionKey)
+                    CKController.saveSubscription(for: GlobalMessage.recordType, ID: CKKeys.messageSubscriptionKey, device: .iOSDevice)
+                    CKController.saveSubscription(for: TV.recordType, ID: CKKeys.tvSubscriptionKey, device: .iOSDevice)
                 }
             }
         }
@@ -72,8 +72,6 @@ import UserNotifications
                 notificationName = .tv
             case CKKeys.messageSubscriptionKey:
                 notificationName = .globalMessages
-            case CKKeys.serviceSubscriptionKey:
-                notificationName = .serviceMessage
             default:
                 notificationName = .null
             }

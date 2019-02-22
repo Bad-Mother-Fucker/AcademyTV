@@ -35,8 +35,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 DispatchQueue.main.async {
                      application.registerForRemoteNotifications()
                     UNUserNotificationCenter.current().delegate = self
-                    CKController.saveSubscription(for: GlobalMessage.recordType, ID: CKKeys.messageSubscriptionKey)
-                    CKController.saveSubscription(for: TV.recordType, ID: CKKeys.tvSubscriptionKey)
+                    CKController.saveSubscription(for: GlobalMessage.recordType, ID: CKKeys.messageSubscriptionKey, device: .TVOSDevice)
+                    CKController.saveSubscription(for: TV.recordType, ID: CKKeys.tvSubscriptionKey, device: .TVOSDevice)
                 }
             }
         }

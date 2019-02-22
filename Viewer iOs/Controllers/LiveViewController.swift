@@ -28,7 +28,6 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(handleRefresh(_:)), for: .valueChanged)
-
         return refreshControl
     }()
 
@@ -42,6 +41,15 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
     var tableView: UITableView?
 
     /**
+     ## The main tableView
+
+     - Version: 1.0
+
+     - Author: @GianlucaOrpello
+     */
+    var spinner: UIActivityIndicatorView?
+
+    /**
      ## Number of item of the table view
 
      - Version: 1.0
@@ -50,13 +58,12 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
      */
     var numberOfObject: Int = 0 {
         didSet{
-            if numberOfObject == 0{
-                for view in self.view.subviews{
-                    view.removeFromSuperview()
-                }
-                loadCurrentView()
-            }
             debugPrint(numberOfObject)
+            guard numberOfObject == 0 else { return }
+            for view in self.view.subviews{
+                view.removeFromSuperview()
+            }
+            loadCurrentView()
         }
     }
     
@@ -104,11 +111,15 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        getAiringProp(completionHandler: { [weak self] in
-            self?.tableView?.reloadData()
-            self?.countNumberOfPromp()
-        })
         addLiveViewObserver()
+        spinner = UIActivityIndicatorView(style: .whiteLarge)
+        spinner?.color = self.view.tintColor
+        spinner?.translatesAutoresizingMaskIntoConstraints = false
+        spinner?.startAnimating()
+        view.addSubview(spinner!)
+
+        spinner?.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        spinner?.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
 
 
@@ -123,7 +134,10 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
      */
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        loadCurrentView()
+        getAiringProp(completionHandler: { [weak self] in
+            self?.countNumberOfPromp()
+            self?.loadCurrentView()
+        })
     }
 
     /**
@@ -142,15 +156,7 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
                                                   object: nil)
 
         NotificationCenter.default.removeObserver(self,
-                                                  name: NSNotification.Name(rawValue: CKNotificationName.MessageNotification.create.rawValue),
-                                                  object: nil)
-
-        NotificationCenter.default.removeObserver(self,
-                                                  name: NSNotification.Name(rawValue: CKNotificationName.MessageNotification.delete.rawValue),
-                                                  object: nil)
-
-        NotificationCenter.default.removeObserver(self,
-                                                  name: NSNotification.Name(rawValue: CKNotificationName.MessageNotification.update.rawValue),
+                                                  name: NSNotification.Name(rawValue: CKNotificationName.globalMessages.rawValue),
                                                   object: nil)
     }
 
@@ -164,10 +170,10 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
      - Author: @GianlucaOrpello
      */
     private func loadCurrentView(){
+        spinner?.stopAnimating()
         for view in self.view.subviews{
             view.removeFromSuperview()
         }
-        
         if numberOfObject == 0 {
             let noLiveView = NoLivePrompView(frame: self.view.frame)
             noLiveView.contactbutton.addTarget(self, action: #selector(sendEmail), for: .touchUpInside)
@@ -190,10 +196,6 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
             tableView?.refreshControl = refreshControl
 
             self.view.addSubview(tableView!)
-
-            getAiringProp(completionHandler: {
-                self.tableView?.reloadData()
-            })
         }
     }
     
@@ -280,7 +282,7 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
             // FIXME: Group tickers by message
             uniqueTickerMessages.insert(tick.0)
             print(tick.1)
-//            thikerMessage?.append((message: tick.0, tvName: tick.1, TVGroup: nil))
+//            tickerMessage?.append((message: tick.0, tvName: tick.1, TVGroup: nil))
         }
 
         for message in uniqueTickerMessages {
@@ -292,7 +294,11 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
                 }
                 //Remove last two digits
                 let size = tickerMessage!.count
-                tickerMessage?[size - 1].tvName.removeLast(2)
+                if let ticker = tickerMessage?[size - 1]{
+                    if ticker.tvName.count > 2 {
+                        tickerMessage![size - 1].tvName.removeLast(2)
+                    }
+                }
             }
         }
 
@@ -303,7 +309,7 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
 
         do{
             globalMessages = try CKController.getAllGlobalMessages(completionHandler: {
-                self.numberOfObject = 1
+                NSLog("Get GLobal Message")
             })
         } catch {
             NSLog("Error getting the messages.")
@@ -350,37 +356,63 @@ class LiveViewController: UIViewController, MFMailComposeViewControllerDelegate 
 
         NotificationCenter.default.addObserver(self, selector: #selector(addNewPropFromSummay(_:)), name: .addNewPropsFromSummary, object: nil)
 
-        NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: CKNotificationName.tvSet.rawValue), object: nil, queue: .main) { _ in
+        NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: CKNotificationName.tv.rawValue), object: nil, queue: .main) { _ in
             debugPrint("Tv update")
-            self.tableView?.reloadData()
+            let indexSet: IndexSet = [0, 1]
+            self.tableView?.reloadSections(indexSet, with: .automatic)
         }
 
+        NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: CKNotificationName.globalMessages.rawValue), object: nil, queue: .main) { notification in
 
-        NotificationCenter.default.addObserver(forName: Notification.Name(CKNotificationName.MessageNotification.create.rawValue), object: nil, queue: .main) { (notification) in
-            guard let userinfo = notification.userInfo as? [String: GlobalMessage] else { return }
-            let msg = userinfo["newMsg"]!
-            debugPrint("Global message created")
-            self.globalMessages?.append(msg)
-            self.tableView?.reloadData()
-        }
+            if let userInfo = notification.userInfo{
+                let ckqn = userInfo[CKNotificationName.notification.rawValue] as! CKQueryNotification
+                guard let recordID = ckqn.recordID else { return }
 
-        NotificationCenter.default.addObserver(forName: Notification.Name(CKNotificationName.MessageNotification.delete.rawValue), object: nil, queue: .main) { (notification) in
-            guard let userinfo = notification.userInfo as? [String: CKRecord.ID] else { return }
-            let recordID = userinfo["recordID"]!
-            self.globalMessages = self.globalMessages?.filter({ (msg) -> Bool in
-                debugPrint("Global message deleated")
-                return msg.record.recordID != recordID
-            })
-            self.tableView?.reloadData()
-        }
+                switch ckqn.queryNotificationReason {
+                case .recordCreated:
 
+                    CKKeys.database.fetch(withRecordID: recordID) { (record, error) in
+                        guard record != nil, error == nil else {
+                            if let ckError = error as? CKError {
+                                let errorCode = ckError.errorCode
+                                print(CKError.Code(rawValue: errorCode).debugDescription)
+                            }
+                            return
 
-        NotificationCenter.default.addObserver(forName: Notification.Name(CKNotificationName.MessageNotification.update.rawValue), object: nil, queue: .main) { (notification) in
-            guard let userinfo = notification.userInfo as? [String: GlobalMessage] else { return }
-            if let newMsg = userinfo["modifiedMsg"] {
-                debugPrint("Global message modified with newMessage: \(newMsg)")
+                        }
+                        let msg = GlobalMessage(record: record!)
+                        self.globalMessages?.insert(msg, at: 0)
+                        DispatchQueue.main.async { [weak self] in
+                            let indexSet: IndexSet = [2]
+                            self?.tableView?.reloadSections(indexSet, with: .automatic)
+                        }
+                    }
+
+                case .recordUpdated:
+                    CKKeys.database.fetch(withRecordID: recordID) { (record, error) in
+                        guard record != nil, error == nil else { return }
+                        let msg = GlobalMessage(record: record!)
+                        self.globalMessages = self.globalMessages?.map({ (currentMessage) -> GlobalMessage in
+                            if currentMessage.record.recordID == msg.record.recordID{
+                                return msg
+                            } else{
+                                return currentMessage
+                            }
+                        })
+                        DispatchQueue.main.async {
+                            let indexSet: IndexSet = [2]
+                            self.tableView?.reloadSections(indexSet, with: .automatic)
+                        }
+                    }
+                case .recordDeleted:
+                    self.globalMessages = self.globalMessages?.filter({ (msg) -> Bool in
+                        debugPrint("Global message deleated with id: \(recordID)")
+                        return msg.record.recordID != recordID
+                    })
+                    let indexSet: IndexSet = [2]
+                    self.tableView?.reloadSections(indexSet, with: .automatic)
+                }
             }
-            self.tableView?.reloadData()
         }
     }
 }
