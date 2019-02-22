@@ -77,7 +77,7 @@ enum CKNotificationName: String {
  - Author: @Micheledes
  */
 enum CKKeys {
-    static let database = CKContainer(identifier: "iCloud.com.andre.TRogue.Viewer").publicCloudDatabase
+    static let database = CKContainer(identifier: "iCloud.com.TeamRogue.Viewer").publicCloudDatabase
     static let messageSubscriptionKey = "CKMessageSubscription"
     static let tvSubscriptionKey = "CKTVSubscription"
     static let serviceSubscriptionKey = "CKServiceMessageSubscription"
@@ -123,6 +123,20 @@ enum Locations: String, CaseIterable {
     case lab4 = "Lab 4"
     case collab4 = "Collab-04"
 }
+
+/**
+ ## VWDeviceType
+
+ - Version: 1.0
+
+ - Author: @GianlucaOrpello
+ */
+
+enum VWDeviceType: String {
+    case iOSDevice = "iOS"
+    case TVOSDevice = "TVOS"
+}
+
 
 /**
  ## List of categories section of the table view.
