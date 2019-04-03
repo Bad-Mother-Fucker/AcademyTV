@@ -49,7 +49,7 @@ class GlobalMessage: CloudStored {
     
     var record: CKRecord
 
-    static var keys = (title: "title", subtitle: "subtitle", location: "location", description: "description", date: "date", url: "url", timeToLive: "TTL")
+ 
     
     static var recordType: String = "GlobalMessages"
     
@@ -58,6 +58,7 @@ class GlobalMessage: CloudStored {
     }
     let formatter = DateFormatter()
     let timeFormatter = DateFormatter()
+    static var keys = (title: "title", subtitle: "subtitle", location: "location", description: "description", date: "date", url: "url", timeToLive: "TTL", tvs: "TV")
    
     //static let voidMessage = GlobalMessage(title: "🖥 AirPlay", subtitle: "", location: nil, date: nil, description: "Wirelessly send what's on your iOS device or computer on this display using AirPlay. To learn more go to apple.com/airplay.", URL: URL(string: "apple.com/airplay"), timeToLive: nil)
 
